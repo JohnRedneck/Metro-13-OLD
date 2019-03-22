@@ -1,6 +1,5 @@
 //defines that give qdel hints. these can be given as a return in destory() or by calling
 
-
 #define QDEL_HINT_QUEUE 		0 //qdel should queue the object for deletion.
 #define QDEL_HINT_LETMELIVE		1 //qdel should let the object live after calling destory.
 #define QDEL_HINT_IWILLGC		2 //functionally the same as the above. qdel should assume the object will gc on its own, and not check it.
@@ -23,4 +22,3 @@
 #define QDELING(X) (X.gc_destroyed)
 #define QDELETED(X) (!X || QDELING(X))
 #define QDESTROYING(X) (!X || X.gc_destroyed == GC_CURRENTLY_BEING_QDELETED)
-

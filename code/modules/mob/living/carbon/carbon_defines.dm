@@ -1,62 +1,42 @@
-/mob/living/carbon
+/mob/living/carbon/
 	gender = MALE
-	pressure_resistance = 15
-	possible_a_intents = list(INTENT_HELP, INTENT_HARM)
-	hud_possible = list(HEALTH_HUD,STATUS_HUD,ANTAG_HUD,GLAND_HUD)
-	has_limbs = 1
-	held_items = list(null, null)
-	var/list/stomach_contents		= list()
-	var/list/internal_organs		= list()	//List of /obj/item/organ in the mob. They don't go in the contents for some reason I don't want to know.
-	var/list/internal_organs_slot= list() //Same as above, but stores "slot ID" - "organ" pairs for easy access.
-	var/silent = FALSE 		//Can't talk. Value goes down every life proc. //NOTE TO FUTURE CODERS: DO NOT INITIALIZE NUMERICAL VARS AS NULL OR I WILL MURDER YOU.
-	var/dreaming = 0 //How many dream images we have left to send
+	var/datum/species/species //Contains icon generation and language information, set during New().
+	var/list/datum/disease2/disease/virus2 = list()
+	var/list/antibodies = list()
 
+	var/life_tick = 0      // The amount of life ticks that have processed on this mob.
 	var/obj/item/handcuffed = null //Whether or not the mob is handcuffed
-	var/obj/item/legcuffed = null  //Same as handcuffs but for legs. Bear traps use this.
+	//Surgery info
+	var/list/surgeries_in_progress
+	//Active emote/pose
+	var/pose = null
+	var/list/chem_effects = list()
+	var/list/chem_doses = list()
+	var/datum/reagents/metabolism/bloodstr = null
+	var/datum/reagents/metabolism/touching = null
+	var/losebreath = 0 //if we failed to breathe last tick
 
-	var/disgust = 0
+	var/coughedtime = null
 
-//inventory slots
-	var/obj/item/back = null
-	var/obj/item/clothing/mask/wear_mask = null
-	var/obj/item/clothing/neck/wear_neck = null
-	var/obj/item/tank/internal = null
-	var/obj/item/head = null
+	var/cpr_time = 1.0
+	var/lastpuke = 0
+	var/nutrition = 400
 
-	var/obj/item/gloves = null //only used by humans
-	var/obj/item/shoes = null //only used by humans.
-	var/obj/item/clothing/glasses/glasses = null //only used by humans.
-	var/obj/item/ears = null //only used by humans.
+	var/obj/item/weapon/tank/internal = null//Human/Monkey
 
-	var/datum/dna/dna = null//Carbon
-	var/datum/mind/last_mind = null //last mind to control this mob, for blood-based cloning
 
-	var/failed_last_breath = 0 //This is used to determine if the mob failed a breath. If they did fail a brath, they will attempt to breathe each tick, otherwise just once per 4 ticks.
+	//these two help govern taste. The first is the last time a taste message was shown to the plaer.
+	//the second is the message in question.
+	var/last_taste_time = 0
+	var/last_taste_text = ""
 
-	var/co2overloadtime = null
-	var/temperature_resistance = T0C+75
-	var/obj/item/reagent_containers/food/snacks/meat/slab/type_of_meat = /obj/item/reagent_containers/food/snacks/meat/slab
+	// organ-related variables, see organ.dm and human_organs.dm
+	var/list/internal_organs = list()
+	var/list/organs = list()
+	var/list/organs_by_name = list() // map organ names to organs
+	var/list/internal_organs_by_name = list() // so internal organs have less ickiness too
 
-	var/gib_type = /obj/effect/decal/cleanable/blood/gibs
+	var/list/stasis_sources = list()
+	var/stasis_value
 
-	var/rotate_on_lying = 1
-
-	var/tinttotal = 0	// Total level of visualy impairing items
-
-	var/list/bodyparts = list(/obj/item/bodypart/chest, /obj/item/bodypart/head, /obj/item/bodypart/l_arm,
-					 /obj/item/bodypart/r_arm, /obj/item/bodypart/r_leg, /obj/item/bodypart/l_leg)
-	//Gets filled up in create_bodyparts()
-
-	var/list/hand_bodyparts = list() //a collection of arms (or actually whatever the fug /bodyparts you monsters use to wreck my systems)
-
-	var/icon_render_key = ""
-	var/static/list/limb_icon_cache = list()
-
-	//halucination vars
-	var/image/halimage
-	var/image/halbody
-	var/obj/halitem
-	var/hal_screwyhud = SCREWYHUD_NONE
-	var/next_hallucination = 0
-	var/cpr_time = 1 //CPR cooldown.
-	var/damageoverlaytemp = 0
+	var/player_triggered_sleeping = 0

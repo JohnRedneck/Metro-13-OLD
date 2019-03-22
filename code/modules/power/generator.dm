@@ -2,230 +2,231 @@
 	name = "thermoelectric generator"
 	desc = "It's a high efficiency thermoelectric generator."
 	icon_state = "teg"
-	density = TRUE
-	use_power = NO_POWER_USE
+	density = 1
+	anchored = 0
 
-	var/obj/machinery/atmospherics/components/binary/circulator/cold_circ
-	var/obj/machinery/atmospherics/components/binary/circulator/hot_circ
+	use_power = POWER_USE_IDLE
+	idle_power_usage = 100 //Watts, I hope.  Just enough to do the computer and display things.
 
-	var/lastgen = 0
-	var/lastgenlev = -1
-	var/lastcirc = "00"
+	var/max_power = 500000
+	var/thermal_efficiency = 0.65
 
+	var/obj/machinery/atmospherics/binary/circulator/circ1
+	var/obj/machinery/atmospherics/binary/circulator/circ2
 
-/obj/machinery/power/generator/Initialize(mapload)
-	. = ..()
-	find_circs()
-	connect_to_network()
-	SSair.atmos_machinery += src
-	update_icon()
-	component_parts = list(new /obj/item/circuitboard/machine/generator)
+	var/last_circ1_gen = 0
+	var/last_circ2_gen = 0
+	var/last_thermal_gen = 0
+	var/stored_energy = 0
+	var/lastgen1 = 0
+	var/lastgen2 = 0
+	var/effective_gen = 0
+	var/lastgenlev = 0
 
-/obj/machinery/power/generator/ComponentInitialize()
-	. = ..()
-	AddComponent(/datum/component/simple_rotation,ROTATION_ALTCLICK | ROTATION_CLOCKWISE | ROTATION_COUNTERCLOCKWISE | ROTATION_VERBS )
+/obj/machinery/power/generator/New()
+	..()
+	desc = initial(desc) + " Rated for [round(max_power/1000)] kW."
+	spawn(1)
+		reconnect()
 
-/obj/machinery/power/generator/Destroy()
-	kill_circs()
-	SSair.atmos_machinery -= src
-	return ..()
+//generators connect in dir and reverse_dir(dir) directions
+//mnemonic to determine circulator/generator directions: the cirulators orbit clockwise around the generator
+//so a circulator to the NORTH of the generator connects first to the EAST, then to the WEST
+//and a circulator to the WEST of the generator connects first to the NORTH, then to the SOUTH
+//note that the circulator's outlet dir is it's always facing dir, and it's inlet is always the reverse
+/obj/machinery/power/generator/proc/reconnect()
+	circ1 = null
+	circ2 = null
+	if(src.loc && anchored)
+		if(src.dir & (EAST|WEST))
+			circ1 = locate(/obj/machinery/atmospherics/binary/circulator) in get_step(src,WEST)
+			circ2 = locate(/obj/machinery/atmospherics/binary/circulator) in get_step(src,EAST)
 
-/obj/machinery/power/generator/update_icon()
+			if(circ1 && circ2)
+				if(circ1.dir != NORTH || circ2.dir != SOUTH)
+					circ1 = null
+					circ2 = null
 
+		else if(src.dir & (NORTH|SOUTH))
+			circ1 = locate(/obj/machinery/atmospherics/binary/circulator) in get_step(src,NORTH)
+			circ2 = locate(/obj/machinery/atmospherics/binary/circulator) in get_step(src,SOUTH)
+
+			if(circ1 && circ2 && (circ1.dir != EAST || circ2.dir != WEST))
+				circ1 = null
+				circ2 = null
+
+/obj/machinery/power/generator/on_update_icon()
 	if(stat & (NOPOWER|BROKEN))
-		cut_overlays()
+		overlays.Cut()
 	else
-		cut_overlays()
+		overlays.Cut()
 
-		var/L = min(round(lastgenlev/100000),11)
-		if(L != 0)
-			add_overlay(image('icons/obj/power.dmi', "teg-op[L]"))
+		if(lastgenlev != 0)
+			overlays += image('icons/obj/power.dmi', "teg-op[lastgenlev]")
 
-		if(hot_circ && cold_circ)
-			add_overlay("teg-oc[lastcirc]")
-
-
-#define GENRATE 800		// generator output coefficient from Q
-
-/obj/machinery/power/generator/process_atmos()
-
-	if(!cold_circ || !hot_circ)
+/obj/machinery/power/generator/Process()
+	if(!circ1 || !circ2 || !anchored || stat & (BROKEN|NOPOWER))
+		stored_energy = 0
 		return
 
-	if(powernet)
-		var/datum/gas_mixture/cold_air = cold_circ.return_transfer_air()
-		var/datum/gas_mixture/hot_air = hot_circ.return_transfer_air()
+	updateDialog()
 
-		if(cold_air && hot_air)
+	var/datum/gas_mixture/air1 = circ1.return_transfer_air()
+	var/datum/gas_mixture/air2 = circ2.return_transfer_air()
 
-			var/cold_air_heat_capacity = cold_air.heat_capacity()
-			var/hot_air_heat_capacity = hot_air.heat_capacity()
+	lastgen2 = lastgen1
+	lastgen1 = 0
+	last_thermal_gen = 0
+	last_circ1_gen = 0
+	last_circ2_gen = 0
 
-			var/delta_temperature = hot_air.temperature - cold_air.temperature
+	if(air1 && air2)
+		var/air1_heat_capacity = air1.heat_capacity()
+		var/air2_heat_capacity = air2.heat_capacity()
+		var/delta_temperature = abs(air2.temperature - air1.temperature)
 
+		if(delta_temperature > 0 && air1_heat_capacity > 0 && air2_heat_capacity > 0)
+			var/energy_transfer = delta_temperature*air2_heat_capacity*air1_heat_capacity/(air2_heat_capacity+air1_heat_capacity)
+			var/heat = energy_transfer*(1-thermal_efficiency)
+			last_thermal_gen = energy_transfer*thermal_efficiency
 
-			if(delta_temperature > 0 && cold_air_heat_capacity > 0 && hot_air_heat_capacity > 0)
-				var/efficiency = 0.65
+			if(air2.temperature > air1.temperature)
+				air2.temperature = air2.temperature - energy_transfer/air2_heat_capacity
+				air1.temperature = air1.temperature + heat/air1_heat_capacity
+			else
+				air2.temperature = air2.temperature + heat/air2_heat_capacity
+				air1.temperature = air1.temperature - energy_transfer/air1_heat_capacity
+		playsound(src.loc, 'sound/effects/beam.ogg', 25, 0, 10,  is_ambiance = 1)
 
-				var/energy_transfer = delta_temperature*hot_air_heat_capacity*cold_air_heat_capacity/(hot_air_heat_capacity+cold_air_heat_capacity)
+	//Transfer the air
+	if (air1)
+		circ1.air2.merge(air1)
+	if (air2)
+		circ2.air2.merge(air2)
 
-				var/heat = energy_transfer*(1-efficiency)
-				lastgen += energy_transfer*efficiency
+	//Update the gas networks
+	if(circ1.network2)
+		circ1.network2.update = 1
+	if(circ2.network2)
+		circ2.network2.update = 1
 
-				hot_air.temperature = hot_air.temperature - energy_transfer/hot_air_heat_capacity
-				cold_air.temperature = cold_air.temperature + heat/cold_air_heat_capacity
+	//Exceeding maximum power leads to some power loss
+	if(effective_gen > max_power && prob(5))
+		var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
+		s.set_up(3, 1, src)
+		s.start()
+		stored_energy *= 0.5
 
-				//add_avail(lastgen) This is done in process now
-		// update icon overlays only if displayed level has changed
+	//Power
+	last_circ1_gen = circ1.return_stored_energy()
+	last_circ2_gen = circ2.return_stored_energy()
+	stored_energy += last_thermal_gen + last_circ1_gen + last_circ2_gen
+	lastgen1 = stored_energy*0.4 //smoothened power generation to prevent slingshotting as pressure is equalized, then restored by pumps
+	stored_energy -= lastgen1
+	effective_gen = (lastgen1 + lastgen2) / 2
 
-		if(hot_air)
-			var/datum/gas_mixture/hot_circ_air1 = hot_circ.airs[1]
-			hot_circ_air1.merge(hot_air)
-
-		if(cold_air)
-			var/datum/gas_mixture/cold_circ_air1 = cold_circ.airs[1]
-			cold_circ_air1.merge(cold_air)
-
+	// update icon overlays and power usage only if displayed level has changed
+	var/genlev = max(0, min( round(11*effective_gen / max_power), 11))
+	if(effective_gen > 100 && genlev == 0)
+		genlev = 1
+	if(genlev != lastgenlev)
+		lastgenlev = genlev
 		update_icon()
+	add_avail(effective_gen)
 
-	var/circ = "[cold_circ && cold_circ.last_pressure_delta > 0 ? "1" : "0"][hot_circ && hot_circ.last_pressure_delta > 0 ? "1" : "0"]"
-	if(circ != lastcirc)
-		lastcirc = circ
-		update_icon()
+/obj/machinery/power/generator/attack_ai(mob/user)
+	attack_hand(user)
 
-	src.updateDialog()
-
-/obj/machinery/power/generator/process()
-	//Setting this number higher just makes the change in power output slower, it doesnt actualy reduce power output cause **math**
-	var/power_output = round(lastgen / 10)
-	add_avail(power_output)
-	lastgenlev = power_output
-	lastgen -= power_output
-	..()
-
-/obj/machinery/power/generator/proc/get_menu(include_link = TRUE)
-	var/t = ""
-	if(!powernet)
-		t += "<span class='bad'>Unable to connect to the power network!</span>"
-	else if(cold_circ && hot_circ)
-		var/datum/gas_mixture/cold_circ_air1 = cold_circ.airs[1]
-		var/datum/gas_mixture/cold_circ_air2 = cold_circ.airs[2]
-		var/datum/gas_mixture/hot_circ_air1 = hot_circ.airs[1]
-		var/datum/gas_mixture/hot_circ_air2 = hot_circ.airs[2]
-
-		t += "<div class='statusDisplay'>"
-
-		t += "Output: [DisplayPower(lastgenlev)]"
-
-		t += "<BR>"
-
-		t += "<B><font color='blue'>Cold loop</font></B><BR>"
-		t += "Temperature Inlet: [round(cold_circ_air2.temperature, 0.1)] K / Outlet: [round(cold_circ_air1.temperature, 0.1)] K<BR>"
-		t += "Pressure Inlet: [round(cold_circ_air2.return_pressure(), 0.1)] kPa /  Outlet: [round(cold_circ_air1.return_pressure(), 0.1)] kPa<BR>"
-
-		t += "<B><font color='red'>Hot loop</font></B><BR>"
-		t += "Temperature Inlet: [round(hot_circ_air2.temperature, 0.1)] K / Outlet: [round(hot_circ_air1.temperature, 0.1)] K<BR>"
-		t += "Pressure Inlet: [round(hot_circ_air2.return_pressure(), 0.1)] kPa / Outlet: [round(hot_circ_air1.return_pressure(), 0.1)] kPa<BR>"
-
-		t += "</div>"
-	else if(!hot_circ && cold_circ)
-		t += "<span class='bad'>Unable to locate hot circulator!</span>"
-	else if(hot_circ && !cold_circ)
-		t += "<span class='bad'>Unable to locate cold circulator!</span>"
+/obj/machinery/power/generator/attackby(obj/item/weapon/W as obj, mob/user as mob)
+	if(isWrench(W))
+		playsound(src.loc, 'sound/items/Ratchet.ogg', 75, 1)
+		anchored = !anchored
+		user.visible_message("[user.name] [anchored ? "secures" : "unsecures"] the bolts holding [src.name] to the floor.", \
+					"You [anchored ? "secure" : "unsecure"] the bolts holding [src] to the floor.", \
+					"You hear a ratchet")
+		update_use_power(anchored)
+		if(anchored) // Powernet connection stuff.
+			connect_to_network()
+		else
+			disconnect_from_network()
+		reconnect()
 	else
-		t += "<span class='bad'>Unable to locate any parts!</span>"
-	if(include_link)
-		t += "<BR><A href='?src=[REF(src)];close=1'>Close</A>"
+		..()
 
-	return t
+/obj/machinery/power/generator/attack_hand(mob/user)
+	add_fingerprint(user)
+	if(stat & (BROKEN|NOPOWER) || !anchored) return
+	if(!circ1 || !circ2) //Just incase the middle part of the TEG was not wrenched last.
+		reconnect()
+	ui_interact(user)
 
-/obj/machinery/power/generator/ui_interact(mob/user)
-	. = ..()
-	var/datum/browser/popup = new(user, "teg", "Thermo-Electric Generator", 460, 300)
-	popup.set_content(get_menu())
-	popup.set_title_image(user.browse_rsc_icon(src.icon, src.icon_state))
-	popup.open()
+/obj/machinery/power/generator/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
+	// this is the data which will be sent to the ui
+	var/vertical = 0
+	if (dir == NORTH || dir == SOUTH)
+		vertical = 1
 
-/obj/machinery/power/generator/Topic(href, href_list)
-	if(..())
-		return
-	if( href_list["close"] )
-		usr << browse(null, "window=teg")
-		usr.unset_machine()
-		return FALSE
-	return TRUE
+	var/data[0]
+	data["totalOutput"] = effective_gen/1000
+	data["maxTotalOutput"] = max_power/1000
+	data["thermalOutput"] = last_thermal_gen/1000
+	data["circConnected"] = 0
 
+	if(circ1)
+		//The one on the left (or top)
+		data["primaryDir"] = vertical ? "top" : "left"
+		data["primaryOutput"] = last_circ1_gen/1000
+		data["primaryFlowCapacity"] = circ1.volume_capacity_used*100
+		data["primaryInletPressure"] = circ1.air1.return_pressure()
+		data["primaryInletTemperature"] = circ1.air1.temperature
+		data["primaryOutletPressure"] = circ1.air2.return_pressure()
+		data["primaryOutletTemperature"] = circ1.air2.temperature
 
-/obj/machinery/power/generator/power_change()
-	..()
-	update_icon()
+	if(circ2)
+		//Now for the one on the right (or bottom)
+		data["secondaryDir"] = vertical ? "bottom" : "right"
+		data["secondaryOutput"] = last_circ2_gen/1000
+		data["secondaryFlowCapacity"] = circ2.volume_capacity_used*100
+		data["secondaryInletPressure"] = circ2.air1.return_pressure()
+		data["secondaryInletTemperature"] = circ2.air1.temperature
+		data["secondaryOutletPressure"] = circ2.air2.return_pressure()
+		data["secondaryOutletTemperature"] = circ2.air2.temperature
 
-/obj/machinery/power/generator/proc/find_circs()
-	kill_circs()
-	var/list/circs = list()
-	var/obj/machinery/atmospherics/components/binary/circulator/C
-	var/circpath = /obj/machinery/atmospherics/components/binary/circulator
-	if(dir == NORTH || dir == SOUTH)
-		C = locate(circpath) in get_step(src, EAST)
-		if(C && C.dir == WEST)
-			circs += C
-
-		C = locate(circpath) in get_step(src, WEST)
-		if(C && C.dir == EAST)
-			circs += C
-
+	if(circ1 && circ2)
+		data["circConnected"] = 1
 	else
-		C = locate(circpath) in get_step(src, NORTH)
-		if(C && C.dir == SOUTH)
-			circs += C
+		data["circConnected"] = 0
 
-		C = locate(circpath) in get_step(src, SOUTH)
-		if(C && C.dir == NORTH)
-			circs += C
 
-	if(circs.len)
-		for(C in circs)
-			if(C.mode == CIRCULATOR_COLD && !cold_circ)
-				cold_circ = C
-				C.generator = src
-			else if(C.mode == CIRCULATOR_HOT && !hot_circ)
-				hot_circ = C
-				C.generator = src
+	// update the ui if it exists, returns null if no ui is passed/found
+	ui = SSnano.try_update_ui(user, src, ui_key, ui, data, force_open)
+	if(!ui)
+		// the ui does not exist, so we'll create a new() one
+		// for a list of parameters and their descriptions see the code docs in \code\modules\nano\nanoui.dm
+		ui = new(user, src, ui_key, "generator.tmpl", "Thermoelectric Generator", 450, 500)
+		// when the ui is first opened this is the data it will use
+		ui.set_initial_data(data)
+		// open the new ui window
+		ui.open()
+		// auto update every Master Controller tick
+		ui.set_auto_update(1)
 
-/obj/machinery/power/generator/wrench_act(mob/living/user, obj/item/I)
-	if(!panel_open)
+/obj/machinery/power/generator/verb/rotate_clock()
+	set category = "Object"
+	set name = "Rotate Generator (Clockwise)"
+	set src in view(1)
+
+	if (usr.stat || usr.restrained()  || anchored)
 		return
-	anchored = !anchored
-	I.play_tool_sound(src)
-	if(!anchored)
-		kill_circs()
-	to_chat(user, "<span class='notice'>You [anchored?"secure":"unsecure"] [src].</span>")
-	return TRUE
 
-/obj/machinery/power/generator/multitool_act(mob/living/user, obj/item/I)
-	if(!anchored)
+	src.set_dir(turn(src.dir, 90))
+
+/obj/machinery/power/generator/verb/rotate_anticlock()
+	set category = "Object"
+	set name = "Rotate Generator (Counterclockwise)"
+	set src in view(1)
+
+	if (usr.stat || usr.restrained()  || anchored)
 		return
-	find_circs()
-	to_chat(user, "<span class='notice'>You update [src]'s circulator links.</span>")
-	return TRUE
 
-/obj/machinery/power/generator/screwdriver_act(mob/user, obj/item/I)
-	panel_open = !panel_open
-	I.play_tool_sound(src)
-	to_chat(user, "<span class='notice'>You [panel_open?"open":"close"] the panel on [src].</span>")
-	return TRUE
-
-/obj/machinery/power/generator/crowbar_act(mob/user, obj/item/I)
-	default_deconstruction_crowbar(I)
-	return TRUE
-
-/obj/machinery/power/generator/on_deconstruction()
-	kill_circs()
-
-/obj/machinery/power/generator/proc/kill_circs()
-	if(hot_circ)
-		hot_circ.generator = null
-		hot_circ = null
-	if(cold_circ)
-		cold_circ.generator = null
-		cold_circ = null
+	src.set_dir(turn(src.dir, -90))

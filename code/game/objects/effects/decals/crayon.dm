@@ -1,30 +1,27 @@
 /obj/effect/decal/cleanable/crayon
 	name = "rune"
-	desc = "Graffiti. Damn kids."
-	icon = 'icons/effects/crayondecal.dmi'
-	icon_state = "rune1"
-	gender = NEUTER
-	mergeable_decal = FALSE
-	var/do_icon_rotate = TRUE
-	var/rotation = 0
-	var/paint_colour = "#FFFFFF"
+	desc = "A rune drawn in crayon."
+	icon = 'icons/obj/rune.dmi'
 
-/obj/effect/decal/cleanable/crayon/Initialize(mapload, main, type, e_name, graf_rot, alt_icon = null)
-	. = ..()
+	New(location,main = "#ffffff",shade = "#000000",var/type = "rune")
+		..()
 
-	if(e_name)
-		name = e_name
-	desc = "A [name] vandalizing the station."
-	if(alt_icon)
-		icon = alt_icon
-	if(type)
-		icon_state = type
-	if(graf_rot)
-		rotation = graf_rot
-	if(rotation && do_icon_rotate)
-		var/matrix/M = matrix()
-		M.Turn(rotation)
-		src.transform = M
-	if(main)
-		paint_colour = main
-	add_atom_colour(paint_colour, FIXED_COLOUR_PRIORITY)
+		name = type
+		desc = "A [type] drawn in crayon."
+
+		switch(type)
+			if("rune")
+				type = "rune[rand(1,6)]"
+			if("graffiti")
+				type = pick("amyjon","face","matt","revolution","engie","guy","end","dwarf","uboa")
+
+		var/icon/mainOverlay = new/icon('icons/effects/crayondecal.dmi',"[type]",2.1)
+		var/icon/shadeOverlay = new/icon('icons/effects/crayondecal.dmi',"[type]s",2.1)
+
+		mainOverlay.Blend(main,ICON_ADD)
+		shadeOverlay.Blend(shade,ICON_ADD)
+
+		overlays += mainOverlay
+		overlays += shadeOverlay
+
+		add_hiddenprint(usr)

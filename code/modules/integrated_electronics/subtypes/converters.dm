@@ -80,7 +80,7 @@
 	pull_data()
 	var/atom/A = get_pin_data(IC_INPUT, 1)
 	if(A && istype(A))
-		result = strtohex(XorEncrypt(REF(A), SScircuit.cipherkey))
+		result = add_data_signature("\ref[A]")
 
 	set_pin_data(IC_OUTPUT, 1, result)
 	push_data()
@@ -97,8 +97,14 @@
 
 /obj/item/integrated_circuit/converter/refdecode/do_work()
 	pull_data()
-	dec = XorEncrypt(hextostr(get_pin_data(IC_INPUT, 1), TRUE), SScircuit.cipherkey)
-	set_pin_data(IC_OUTPUT, 1, WEAKREF(locate(dec)))
+	var/list/signature_and_data = splittext(get_pin_data(IC_INPUT, 1), ":")
+	var/signature = signature_and_data[1]
+	var/dec = signature_and_data[2]
+
+	if(!check_data_signature(signature, dec))
+		return FALSE
+
+	set_pin_data(IC_OUTPUT, 1, weakref(locate(dec)))
 	push_data()
 	activate_pin(2)
 
@@ -310,7 +316,7 @@
 	var/strin = get_pin_data(IC_INPUT, 1)
 	var/delimiter = get_pin_data(IC_INPUT, 2)
 	if(delimiter == null)
-		set_pin_data(IC_OUTPUT, 1, string2charlist(strin))
+		set_pin_data(IC_OUTPUT, 1, splittext(strin,null))
 	else
 		set_pin_data(IC_OUTPUT, 1, splittext(strin, delimiter))
 	push_data()
@@ -329,7 +335,7 @@
 	pull_data()
 	var/incoming = get_pin_data(IC_INPUT, 1)
 	if(!isnull(incoming))
-		result = TODEGREES(incoming)
+		result = ToDegrees(incoming)
 
 	set_pin_data(IC_OUTPUT, 1, result)
 	push_data()
@@ -347,7 +353,7 @@
 	pull_data()
 	var/incoming = get_pin_data(IC_INPUT, 1)
 	if(!isnull(incoming))
-		result = TORADIANS(incoming)
+		result = ToRadians(incoming)
 
 	set_pin_data(IC_OUTPUT, 1, result)
 	push_data()

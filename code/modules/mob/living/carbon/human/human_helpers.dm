@@ -1,149 +1,298 @@
+#define HUMAN_EATING_NO_ISSUE		0
+#define HUMAN_EATING_NBP_MOUTH		1
+#define HUMAN_EATING_BLOCKED_MOUTH	2
 
-/mob/living/carbon/human/restrained(ignore_grab)
-	. = ((wear_suit && wear_suit.breakouttime) || ..())
+#define add_clothing_protection(A)	\
+	var/obj/item/clothing/C = A; \
+	flash_protection += C.flash_protection; \
+	equipment_tint_total += C.tint;
 
+/mob/living/carbon/human/can_eat(var/food, var/feedback = 1)
+	var/list/status = can_eat_status()
+	if(status[1] == HUMAN_EATING_NO_ISSUE)
+		return 1
+	if(feedback)
+		if(status[1] == HUMAN_EATING_NBP_MOUTH)
+			to_chat(src, "Where do you intend to put \the [food]? You don't have a mouth!")
+		else if(status[1] == HUMAN_EATING_BLOCKED_MOUTH)
+			to_chat(src, "<span class='warning'>\The [status[2]] is in the way!</span>")
+	return 0
 
-/mob/living/carbon/human/canBeHandcuffed()
-	if(get_num_arms() >= 2)
-		return TRUE
-	else
-		return FALSE
+/mob/living/carbon/human/can_force_feed(var/feeder, var/food, var/feedback = 1)
+	var/list/status = can_eat_status()
+	if(status[1] == HUMAN_EATING_NO_ISSUE)
+		return 1
+	if(feedback)
+		if(status[1] == HUMAN_EATING_NBP_MOUTH)
+			to_chat(feeder, "Where do you intend to put \the [food]? \The [src] doesn't have a mouth!")
+		else if(status[1] == HUMAN_EATING_BLOCKED_MOUTH)
+			to_chat(feeder, "<span class='warning'>\The [status[2]] is in the way!</span>")
+	return 0
 
-//gets assignment from ID or ID inside PDA or PDA itself
-//Useful when player do something with computers
-/mob/living/carbon/human/proc/get_assignment(if_no_id = "No id", if_no_job = "No job")
-	var/obj/item/card/id/id = get_idcard()
-	if(id)
-		. = id.assignment
-	else
-		var/obj/item/pda/pda = wear_id
-		if(istype(pda))
-			. = pda.ownjob
-		else
-			return if_no_id
-	if(!.)
-		return if_no_job
+/mob/living/carbon/human/proc/can_eat_status()
+	if(!check_has_mouth())
+		return list(HUMAN_EATING_NBP_MOUTH)
+	var/obj/item/blocked = check_mouth_coverage()
+	if(blocked)
+		return list(HUMAN_EATING_BLOCKED_MOUTH, blocked)
+	return list(HUMAN_EATING_NO_ISSUE)
 
-//gets name from ID or ID inside PDA or PDA itself
-//Useful when player do something with computers
-/mob/living/carbon/human/proc/get_authentification_name(if_no_id = "Unknown")
-	var/obj/item/card/id/id = get_idcard()
-	if(id)
-		return id.registered_name
-	var/obj/item/pda/pda = wear_id
-	if(istype(pda))
-		return pda.owner
-	return if_no_id
+#undef HUMAN_EATING_NO_ISSUE
+#undef HUMAN_EATING_NBP_MOUTH
+#undef HUMAN_EATING_BLOCKED_MOUTH
 
-//repurposed proc. Now it combines get_id_name() and get_face_name() to determine a mob's name variable. Made into a separate proc as it'll be useful elsewhere
-/mob/living/carbon/human/get_visible_name()
-	var/face_name = get_face_name("")
-	var/id_name = get_id_name("")
-	if(name_override)
-		return name_override
-	if(face_name)
-		if(id_name && (id_name != face_name))
-			return "[face_name] (as [id_name])"
-		return face_name
-	if(id_name)
-		return id_name
-	return "Unknown"
+/mob/living/carbon/human/proc/update_equipment_vision()
+	flash_protection = 0
+	equipment_tint_total = 0
+	equipment_see_invis	= 0
+	equipment_vision_flags = 0
+	equipment_prescription = 0
+	equipment_light_protection = 0
+	equipment_darkness_modifier = 0
+	equipment_overlays.Cut()
 
-//Returns "Unknown" if facially disfigured and real_name if not. Useful for setting name when Fluacided or when updating a human's name variable
-/mob/living/carbon/human/proc/get_face_name(if_no_face="Unknown")
-	if( wear_mask && (wear_mask.flags_inv&HIDEFACE) )	//Wearing a mask which hides our face, use id-name if possible
-		return if_no_face
-	if( head && (head.flags_inv&HIDEFACE) )
-		return if_no_face		//Likewise for hats
-	var/obj/item/bodypart/O = get_bodypart(BODY_ZONE_HEAD)
-	if( !O || (has_trait(TRAIT_DISFIGURED)) || (O.brutestate+O.burnstate)>2 || cloneloss>50 || !real_name )	//disfigured. use id-name if possible
-		return if_no_face
-	return real_name
+	if(istype(src.head, /obj/item/clothing/head))
+		add_clothing_protection(head)
+	if(istype(src.glasses, /obj/item/clothing/glasses))
+		process_glasses(glasses)
+	if(istype(src.wear_mask, /obj/item/clothing/mask))
+		add_clothing_protection(wear_mask)
+	if(istype(back,/obj/item/weapon/rig))
+		process_rig(back)
 
-//gets name from ID or PDA itself, ID inside PDA doesn't matter
-//Useful when player is being seen by other mobs
-/mob/living/carbon/human/proc/get_id_name(if_no_id = "Unknown")
-	var/obj/item/storage/wallet/wallet = wear_id
-	var/obj/item/pda/pda = wear_id
-	var/obj/item/card/id/id = wear_id
-	var/obj/item/modular_computer/tablet/tablet = wear_id
-	if(istype(wallet))
-		id = wallet.front_id
-	if(istype(id))
-		. = id.registered_name
-	else if(istype(pda))
-		. = pda.owner
-	else if(istype(tablet))
-		var/obj/item/computer_hardware/card_slot/card_slot = tablet.all_components[MC_CARD]
-		if(card_slot && (card_slot.stored_card2 || card_slot.stored_card))
-			if(card_slot.stored_card2) //The second card is the one used for authorization in the ID changing program, so we prioritize it here for consistency
-				. = card_slot.stored_card2.registered_name
-			else
-				if(card_slot.stored_card)
-					. = card_slot.stored_card.registered_name
-	if(!.)
-		. = if_no_id	//to prevent null-names making the mob unclickable
-	return
+/mob/living/carbon/human/proc/process_glasses(var/obj/item/clothing/glasses/G)
+	if(G)
+		// prescription applies regardless of if the glasses are active
+		equipment_prescription += G.prescription
+		if(G.active)
+			equipment_darkness_modifier += G.darkness_view
+			equipment_vision_flags |= G.vision_flags
+			equipment_light_protection += G.light_protection
+			if(G.overlay)
+				equipment_overlays |= G.overlay
+			if(G.see_invisible >= 0)
+				if(equipment_see_invis)
+					equipment_see_invis = min(equipment_see_invis, G.see_invisible)
+				else
+					equipment_see_invis = G.see_invisible
 
-//gets ID card object from special clothes slot or null.
-/mob/living/carbon/human/get_idcard()
-	if(wear_id)
-		return wear_id.GetID()
+			add_clothing_protection(G)
+			G.process_hud(src)
 
+/mob/living/carbon/human/proc/process_rig(var/obj/item/weapon/rig/O)
+	if(O.visor && O.visor.active && O.visor.vision && O.visor.vision.glasses && (!O.helmet || (head && O.helmet == head)))
+		process_glasses(O.visor.vision.glasses)
 
-/mob/living/carbon/human/IsAdvancedToolUser()
-	if(has_trait(TRAIT_MONKEYLIKE))
-		return FALSE
-	return TRUE//Humans can use guns and such
+/mob/living/carbon/human/get_gender()
+	return gender
 
-/mob/living/carbon/human/reagent_check(datum/reagent/R)
-	return dna.species.handle_chemicals(R,src)
-	// if it returns 0, it will run the usual on_mob_life for that reagent. otherwise, it will stop after running handle_chemicals for the species.
-
-
-/mob/living/carbon/human/can_track(mob/living/user)
-	if(wear_id && istype(wear_id.GetID(), /obj/item/card/id/syndicate))
-		return 0
-	if(istype(head, /obj/item/clothing/head))
-		var/obj/item/clothing/head/hat = head
-		if(hat.blockTracking)
-			return 0
-
-	return ..()
-
-/mob/living/carbon/human/get_permeability_protection()
-	var/list/prot = list("hands"=0, "chest"=0, "groin"=0, "legs"=0, "feet"=0, "arms"=0, "head"=0)
-	for(var/obj/item/I in get_equipped_items())
-		if(I.body_parts_covered & HANDS)
-			prot["hands"] = max(1 - I.permeability_coefficient, prot["hands"])
-		if(I.body_parts_covered & CHEST)
-			prot["chest"] = max(1 - I.permeability_coefficient, prot["chest"])
-		if(I.body_parts_covered & GROIN)
-			prot["groin"] = max(1 - I.permeability_coefficient, prot["groin"])
-		if(I.body_parts_covered & LEGS)
-			prot["legs"] = max(1 - I.permeability_coefficient, prot["legs"])
-		if(I.body_parts_covered & FEET)
-			prot["feet"] = max(1 - I.permeability_coefficient, prot["feet"])
-		if(I.body_parts_covered & ARMS)
-			prot["arms"] = max(1 - I.permeability_coefficient, prot["arms"])
-		if(I.body_parts_covered & HEAD)
-			prot["head"] = max(1 - I.permeability_coefficient, prot["head"])
-	var/protection = (prot["head"] + prot["arms"] + prot["feet"] + prot["legs"] + prot["groin"] + prot["chest"] + prot["hands"])/7
-	return protection
-
-/mob/living/carbon/human/can_use_guns(obj/item/G)
+/mob/living/carbon/human/fully_replace_character_name(var/new_name, var/in_depth = TRUE)
+	var/old_name = real_name
 	. = ..()
+	if(!. || !in_depth)
+		return
 
-	if(G.trigger_guard == TRIGGER_GUARD_NORMAL)
-		if(src.dna.check_mutation(HULK))
-			to_chat(src, "<span class='warning'>Your meaty finger is much too large for the trigger guard!</span>")
-			return FALSE
-		if(has_trait(TRAIT_NOGUNS))
-			to_chat(src, "<span class='warning'>Your fingers don't fit in the trigger guard!</span>")
-			return FALSE
-	if(mind)
-		if(mind.martial_art && mind.martial_art.no_guns) //great dishonor to famiry
-			to_chat(src, "<span class='warning'>Use of ranged weaponry would bring dishonor to the clan.</span>")
-			return FALSE
+	var/datum/computer_file/report/crew_record/R = get_crewmember_record(old_name)
+	if(R)
+		R.set_name(new_name)
 
-	return .
+	//update our pda and id if we have them on our person
+	var/list/searching = GetAllContents(searchDepth = 3)
+	var/search_id = 1
+	var/search_pda = 1
+
+	for(var/A in searching)
+		if(search_id && istype(A,/obj/item/weapon/card/id))
+			var/obj/item/weapon/card/id/ID = A
+			if(ID.registered_name == old_name)
+				ID.registered_name = new_name
+				search_id = 0
+		else if(search_pda && istype(A,/obj/item/modular_computer/pda))
+			var/obj/item/modular_computer/pda/PDA = A
+			if(findtext(PDA.name, old_name))
+				PDA.SetName(replacetext(PDA.name, old_name, new_name))
+				search_pda = 0
+
+
+//Get species or synthetic temp if the mob is a FBP. Used when a synthetic type human mob is exposed to a temp check.
+//Essentially, used when a synthetic human mob should act diffferently than a normal type mob.
+/mob/living/carbon/human/proc/getSpeciesOrSynthTemp(var/temptype)
+	switch(temptype)
+		if(COLD_LEVEL_1)
+			return isSynthetic()? SYNTH_COLD_LEVEL_1 : species.cold_level_1
+		if(COLD_LEVEL_2)
+			return isSynthetic()? SYNTH_COLD_LEVEL_2 : species.cold_level_2
+		if(COLD_LEVEL_3)
+			return isSynthetic()? SYNTH_COLD_LEVEL_3 : species.cold_level_3
+		if(HEAT_LEVEL_1)
+			return isSynthetic()? SYNTH_HEAT_LEVEL_1 : species.heat_level_1
+		if(HEAT_LEVEL_2)
+			return isSynthetic()? SYNTH_HEAT_LEVEL_2 : species.heat_level_2
+		if(HEAT_LEVEL_3)
+			return isSynthetic()? SYNTH_HEAT_LEVEL_3 : species.heat_level_3
+
+/mob/living/carbon/human/proc/getCryogenicFactor(var/bodytemperature)
+	if(isSynthetic())
+		return 0
+	if(!species)
+		return 0
+
+	if(bodytemperature > species.cold_level_1)
+		return 0
+	else if(bodytemperature > species.cold_level_2)
+		. = 5 * (1 - (bodytemperature - species.cold_level_2) / (species.cold_level_1 - species.cold_level_2))
+		. = max(2, .)
+	else if(bodytemperature > species.cold_level_3)
+		. = 20 * (1 - (bodytemperature - species.cold_level_3) / (species.cold_level_2 - species.cold_level_3))
+		. = max(5, .)
+	else
+		. = 80 * (1 - bodytemperature / species.cold_level_3)
+		. = max(20, .)
+	return round(.)
+
+/mob/living/carbon/human
+	var/next_sonar_ping = 0
+
+/mob/living/carbon/human/proc/sonar_ping()
+	set name = "Listen In"
+	set desc = "Allows you to listen in to movement and noises around you."
+	set category = "IC"
+
+	if(incapacitated())
+		to_chat(src, "<span class='warning'>You need to recover before you can use this ability.</span>")
+		return
+	if(world.time < next_sonar_ping)
+		to_chat(src, "<span class='warning'>You need another moment to focus.</span>")
+		return
+	if(is_deaf() || is_below_sound_pressure(get_turf(src)))
+		to_chat(src, "<span class='warning'>You are for all intents and purposes currently deaf!</span>")
+		return
+	next_sonar_ping += 10 SECONDS
+	var/heard_something = FALSE
+	to_chat(src, "<span class='notice'>You take a moment to listen in to your environment...</span>")
+	for(var/mob/living/L in range(client.view, src))
+		var/turf/T = get_turf(L)
+		if(!T || L == src || L.stat == DEAD || is_below_sound_pressure(T))
+			continue
+		heard_something = TRUE
+		var/image/ping_image = image(icon = 'icons/effects/effects.dmi', icon_state = "sonar_ping", loc = src)
+		ping_image.plane = EFFECTS_ABOVE_LIGHTING_PLANE
+		ping_image.layer = BEAM_PROJECTILE_LAYER
+		ping_image.pixel_x = (T.x - src.x) * WORLD_ICON_SIZE
+		ping_image.pixel_y = (T.y - src.y) * WORLD_ICON_SIZE
+		show_image(src, ping_image)
+		spawn(8)
+			qdel(ping_image)
+		var/feedback = list("<span class='notice'>There are noises of movement ")
+		var/direction = get_dir(src, L)
+		if(direction)
+			feedback += "towards the [dir2text(direction)], "
+			switch(get_dist(src, L) / client.view)
+				if(0 to 0.2)
+					feedback += "very close by."
+				if(0.2 to 0.4)
+					feedback += "close by."
+				if(0.4 to 0.6)
+					feedback += "some distance away."
+				if(0.6 to 0.8)
+					feedback += "further away."
+				else
+					feedback += "far away."
+		else // No need to check distance if they're standing right on-top of us
+			feedback += "right on top of you."
+		feedback += "</span>"
+		to_chat(src, jointext(feedback,null))
+	if(!heard_something)
+		to_chat(src, "<span class='notice'>You hear no movement but your own.</span>")
+
+/mob/living/carbon/human/reset_layer()
+	if(hiding)
+		plane = HIDING_MOB_PLANE
+		layer = HIDING_MOB_LAYER
+	else if(lying)
+		plane = LYING_HUMAN_PLANE
+		layer = LYING_HUMAN_LAYER
+	else
+		..()
+
+/mob/living/carbon/human/proc/has_headset_in_ears()
+	return istype(get_equipped_item(slot_l_ear), /obj/item/device/radio/headset) || istype(get_equipped_item(slot_r_ear), /obj/item/device/radio/headset)
+
+/mob/living/carbon/human/proc/make_grab(var/mob/living/carbon/human/attacker, var/mob/living/carbon/human/victim, var/grab_tag)
+	var/obj/item/grab/G
+	if(!grab_tag)
+		G = new attacker.current_grab_type(attacker, victim)
+	else
+		var/obj/item/grab/given_grab_type = all_grabobjects[grab_tag]
+		G = new given_grab_type(attacker, victim)
+	if(QDELETED(G))
+		return 0
+	return 1
+
+/mob/living/carbon/human
+	var/list/cloaking_sources
+
+// Returns true if, and only if, the human has gone from uncloaked to cloaked
+/mob/living/carbon/human/proc/add_cloaking_source(var/datum/cloaking_source)
+	var/has_uncloaked = clean_cloaking_sources()
+	LAZYDISTINCTADD(cloaking_sources, weakref(cloaking_source))
+
+	// We don't present the cloaking message if the human was already cloaked just before cleanup.
+	if(!has_uncloaked && LAZYLEN(cloaking_sources) == 1)
+		update_icons()
+		src.visible_message("<span class='warning'>\The [src] seems to disappear before your eyes!</span>", "<span class='notice'>You feel completely invisible.</span>")
+		return TRUE
+	return FALSE
+
+#define CLOAK_APPEAR_OTHER "<span class='warning'>\The [src] appears from thin air!</span>"
+#define CLOAK_APPEAR_SELF "<span class='notice'>You have re-appeared.</span>"
+
+// Returns true if, and only if, the human has gone from cloaked to uncloaked
+/mob/living/carbon/human/proc/remove_cloaking_source(var/datum/cloaking_source)
+	var/was_cloaked = LAZYLEN(cloaking_sources)
+	clean_cloaking_sources()
+	LAZYREMOVE(cloaking_sources, weakref(cloaking_source))
+
+	if(was_cloaked && !LAZYLEN(cloaking_sources))
+		update_icons()
+		visible_message(CLOAK_APPEAR_OTHER, CLOAK_APPEAR_SELF)
+		return TRUE
+	return FALSE
+
+// Returns true if the human is cloaked, otherwise false (technically returns the number of cloaking sources)
+/mob/living/carbon/human/proc/is_cloaked()
+	if(clean_cloaking_sources())
+		update_icons()
+		visible_message(CLOAK_APPEAR_OTHER, CLOAK_APPEAR_SELF)
+	return LAZYLEN(cloaking_sources)
+
+#undef CLOAK_APPEAR_OTHER
+#undef CLOAK_APPEAR_SELF
+
+// Returns true if the human is cloaked by the given source
+/mob/living/carbon/human/proc/is_cloaked_by(var/cloaking_source)
+	return LAZYISIN(cloaking_sources, weakref(cloaking_source))
+
+// Returns true if this operation caused the mob to go from cloaked to uncloaked
+/mob/living/carbon/human/proc/clean_cloaking_sources()
+	if(!cloaking_sources)
+		return FALSE
+
+	var/list/rogue_entries = list()
+	for(var/entry in cloaking_sources)
+		var/weakref/W = entry
+		if(!W.resolve())
+			cloaking_sources -= W
+			rogue_entries += W
+
+	if(rogue_entries.len) // These entries did not cleanup after themselves before being destroyed
+		var/rogue_entries_as_string = jointext(map(rogue_entries, /proc/log_info_line), ", ")
+		crash_with("[log_info_line(src)] - Following cloaking entries were removed during cleanup: [rogue_entries_as_string]")
+
+	UNSETEMPTY(cloaking_sources)
+	return !cloaking_sources // If cloaking_sources wasn't initially null but is now, we've uncloaked
+
+/mob/living/carbon/human/set_sdisability(sdisability)
+	if(isSynthetic())
+		return // Can't cure disabilites, so don't give them.
+	..()

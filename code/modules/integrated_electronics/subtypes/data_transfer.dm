@@ -25,7 +25,9 @@
 	desc += " It has [number_of_pins] input pins."
 	extended_desc += " This multiplexer has a range from 1 to [inputs.len - 1]."
 
-/obj/item/integrated_circuit/transfer/multiplexer/do_work()
+/obj/item/integrated_circuit/transfer/multiplexer/do_work(var/ord)
+	if(ord != 1)
+		return
 	var/input_index = get_pin_data(IC_INPUT, 1)
 
 	if(!isnull(input_index) && (input_index >= 1 && input_index < inputs.len))
@@ -40,14 +42,14 @@
 
 /obj/item/integrated_circuit/transfer/multiplexer/large
 	name = "eight multiplexer"
-	w_class = WEIGHT_CLASS_SMALL
+	w_class = ITEM_SIZE_SMALL
 	icon_state = "mux8"
 	number_of_pins = 8
 
 /obj/item/integrated_circuit/transfer/multiplexer/huge
 	name = "sixteen multiplexer"
 	icon_state = "mux16"
-	w_class = WEIGHT_CLASS_SMALL
+	w_class = ITEM_SIZE_SMALL
 	number_of_pins = 16
 
 /obj/item/integrated_circuit/transfer/demultiplexer
@@ -73,11 +75,15 @@
 	desc += " It has [number_of_pins] output pins."
 	extended_desc += " This demultiplexer has a range from 1 to [outputs.len]."
 
-/obj/item/integrated_circuit/transfer/demultiplexer/do_work()
+/obj/item/integrated_circuit/transfer/demultiplexer/do_work(var/ord)
+	if(ord != 1)
+		return
 	var/output_index = get_pin_data(IC_INPUT, 1)
 	if(!isnull(output_index) && (output_index >= 1 && output_index <= outputs.len))
+		for(var/i in 1 to LAZYLEN(outputs)) //Clear everything out
+			set_pin_data(IC_OUTPUT,i,null)
 		var/datum/integrated_io/O = outputs[output_index]
-		O.data = get_pin_data(IC_INPUT, 2)
+		set_pin_data(IC_OUTPUT, output_index,get_pin_data(IC_INPUT, 2))
 		O.push_data()
 
 	activate_pin(2)
@@ -90,13 +96,13 @@
 /obj/item/integrated_circuit/transfer/demultiplexer/large
 	name = "eight demultiplexer"
 	icon_state = "dmux8"
-	w_class = WEIGHT_CLASS_SMALL
+	w_class = ITEM_SIZE_SMALL
 	number_of_pins = 8
 
 /obj/item/integrated_circuit/transfer/demultiplexer/huge
 	name = "sixteen demultiplexer"
 	icon_state = "dmux16"
-	w_class = WEIGHT_CLASS_SMALL
+	w_class = ITEM_SIZE_SMALL
 	number_of_pins = 16
 
 /obj/item/integrated_circuit/transfer/pulsedemultiplexer
@@ -125,7 +131,7 @@
 /obj/item/integrated_circuit/transfer/pulsedemultiplexer/do_work()
 	var/output_index = get_pin_data(IC_INPUT, 1)
 
-	if(output_index == CLAMP(output_index, 1, number_of_pins))
+	if(output_index == Clamp(output_index, 1, number_of_pins))
 		activate_pin(round(output_index + 1 ,1))
 
 /obj/item/integrated_circuit/transfer/pulsedemultiplexer/medium
@@ -136,13 +142,13 @@
 /obj/item/integrated_circuit/transfer/pulsedemultiplexer/large
 	name = "eight pulse demultiplexer"
 	icon_state = "dmux8"
-	w_class = WEIGHT_CLASS_SMALL
+	w_class = ITEM_SIZE_SMALL
 	number_of_pins = 8
 
 /obj/item/integrated_circuit/transfer/pulsedemultiplexer/huge
 	name = "sixteen pulse demultiplexer"
 	icon_state = "dmux16"
-	w_class = WEIGHT_CLASS_SMALL
+	w_class = ITEM_SIZE_SMALL
 	number_of_pins = 16
 
 /obj/item/integrated_circuit/transfer/wire_node

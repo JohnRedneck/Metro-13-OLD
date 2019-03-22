@@ -1,111 +1,67 @@
-/obj/item/computer_hardware/card_slot
-	name = "identification card authentication module"	// \improper breaks the find_hardware_by_name proc
-	desc = "A module allowing this computer to read or write data on ID cards. Necessary for some programs to run properly."
+/obj/item/weapon/computer_hardware/card_slot
+	name = "RFID card slot"
+	desc = "Slot that allows this computer to write data on RFID cards. Necessary for some programs to run properly."
 	power_usage = 10 //W
-	icon_state = "card_mini"
-	w_class = WEIGHT_CLASS_TINY
-	device_type = MC_CARD
+	critical = 0
+	icon_state = "cardreader"
+	hardware_size = 1
+	origin_tech = list(TECH_DATA = 2)
+	usage_flags = PROGRAM_ALL & ~PROGRAM_PDA
+	var/can_write = TRUE
+	var/can_broadcast = FALSE
 
-	var/obj/item/card/id/stored_card = null
-	var/obj/item/card/id/stored_card2 = null
+	var/obj/item/weapon/card/id/stored_card = null
 
-/obj/item/computer_hardware/card_slot/Destroy()
-	try_eject()
-	return ..()
-
-/obj/item/computer_hardware/card_slot/GetAccess()
-	if(stored_card && stored_card2) // Best of both worlds
-		return (stored_card.GetAccess() | stored_card2.GetAccess())
-	else if(stored_card)
-		return stored_card.GetAccess()
-	else if(stored_card2)
-		return stored_card2.GetAccess()
-	return ..()
-
-/obj/item/computer_hardware/card_slot/GetID()
-	if(stored_card)
-		return stored_card
-	else if(stored_card2)
-		return stored_card2
-	return ..()
-
-/obj/item/computer_hardware/card_slot/on_install(obj/item/modular_computer/M, mob/living/user = null)
-	M.add_verb(device_type)
-
-/obj/item/computer_hardware/card_slot/on_remove(obj/item/modular_computer/M, mob/living/user = null)
-	M.remove_verb(device_type)
-
-/obj/item/computer_hardware/card_slot/try_insert(obj/item/I, mob/living/user = null)
-	if(!holder)
-		return FALSE
-
-	if(!istype(I, /obj/item/card/id))
-		return FALSE
-
-	if(stored_card && stored_card2)
-		to_chat(user, "<span class='warning'>You try to insert \the [I] into \the [src], but its slots are occupied.</span>")
-		return FALSE
-	if(user)
-		if(!user.transferItemToLoc(I, src))
-			return FALSE
-	else
-		I.forceMove(src)
-
-	if(!stored_card)
-		stored_card = I
-	else
-		stored_card2 = I
-	to_chat(user, "<span class='notice'>You insert \the [I] into \the [src].</span>")
-	playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, 0)
-
-	return TRUE
-
-
-/obj/item/computer_hardware/card_slot/try_eject(slot=0, mob/living/user = null, forced = 0)
-	if(!stored_card && !stored_card2)
-		to_chat(user, "<span class='warning'>There are no cards in \the [src].</span>")
-		return FALSE
-
-	var/ejected = 0
-	if(stored_card && (!slot || slot == 1))
-		if(user)
-			user.put_in_hands(stored_card)
-		else
-			stored_card.forceMove(get_turf(src))
-		stored_card = null
-		ejected++
-
-	if(stored_card2 && (!slot || slot == 2))
-		if(user)
-			user.put_in_hands(stored_card2)
-		else
-			stored_card2.forceMove(get_turf(src))
-		stored_card2 = null
-		ejected++
-
-	if(ejected)
-		if(holder)
-			if(holder.active_program)
-				holder.active_program.event_idremoved(0, slot)
-
-			for(var/I in holder.idle_threads)
-				var/datum/computer_file/program/P = I
-				P.event_idremoved(1, slot)
-
-		to_chat(user, "<span class='notice'>You remove the card[ejected>1 ? "s" : ""] from \the [src].</span>")
-		playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, 0)
-		return TRUE
-	return FALSE
-
-/obj/item/computer_hardware/card_slot/attackby(obj/item/I, mob/living/user)
-	if(..())
-		return
-	if(istype(I, /obj/item/screwdriver))
-		to_chat(user, "<span class='notice'>You press down on the manual eject button with \the [I].</span>")
-		try_eject(0,user)
-		return
-
-/obj/item/computer_hardware/card_slot/examine(mob/user)
+/obj/item/weapon/computer_hardware/card_slot/diagnostics(var/mob/user)
 	..()
-	if(stored_card || stored_card2)
-		to_chat(user, "There appears to be something loaded in the card slots.")
+	var/to_send = list()
+	to_send += "[name] status: [stored_card ? "Card Inserted" : "Card Not Present"]\n"
+	if(stored_card)
+		to_send += "Testing card read...\n"
+		if( damage >= damage_failure )
+			to_send += "...FAILURE!\n"
+		else
+			var/read_string_stability
+			if(check_functionality())
+				read_string_stability = 100
+			else
+				read_string_stability = 100 - malfunction_probability
+			to_send += "Registered Name: [stars(stored_card.registered_name, read_string_stability)]\n"
+			to_send += "Registered Assignment: [stars(stored_card.assignment, read_string_stability)]\n"
+			to_send += "Registered Rank: [stars(stored_card.rank, read_string_stability)]\n"
+			to_send += "Access Addresses Enabled: \n"
+			var/list/access_list = stored_card.GetAccess()
+			if(!access_list) // "NONE" for empty list
+				to_send += "NONE"
+			else
+				var/list_of_accesses = list()
+				for(var/access_id in access_list)
+					if(check_functionality()) // Read the access, or show "RD_ERR"
+						var/datum/access/access_information = get_access_by_id(access_id)
+						var/access_type = access_information.access_type
+						if(access_type == ACCESS_TYPE_NONE || access_type == ACCESS_TYPE_SYNDICATE || access_type == ACCESS_TYPE_CENTCOM) // Don't elaborate on these access types.
+							list_of_accesses += "UNKNOWN" // "UNKNOWN"
+						else
+							list_of_accesses += uppertext(access_information.desc)
+					else
+						list_of_accesses += "RD_ERR"
+				to_send += jointext(list_of_accesses, ", ") + "\n" // Should append a proper, comma separated list.
+	
+	to_chat(user, JOINTEXT(to_send))
+		
+
+/obj/item/weapon/computer_hardware/card_slot/broadcaster // read only
+	name = "RFID card broadcaster"
+	desc = "Reads and broadcasts the RFID signal of an inserted card."
+	can_write = FALSE
+	can_broadcast = TRUE
+
+	usage_flags = PROGRAM_PDA
+
+/obj/item/weapon/computer_hardware/card_slot/Destroy()
+	if(holder2 && (holder2.card_slot == src))
+		holder2.card_slot = null
+	if(stored_card)
+		stored_card.dropInto(holder2 ? holder2.loc : loc)
+	holder2 = null
+	return ..()

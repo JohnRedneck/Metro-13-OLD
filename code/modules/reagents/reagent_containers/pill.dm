@@ -1,180 +1,389 @@
-/obj/item/reagent_containers/pill
+////////////////////////////////////////////////////////////////////////////////
+/// Pills.
+////////////////////////////////////////////////////////////////////////////////
+/obj/item/weapon/reagent_containers/pill
 	name = "pill"
-	desc = "A tablet or capsule."
+	desc = "A pill."
 	icon = 'icons/obj/chemical.dmi'
-	icon_state = "pill"
+	icon_state = null
 	item_state = "pill"
-	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
-	possible_transfer_amounts = list()
-	volume = 50
-	grind_results = list()
-	var/apply_type = INGEST
-	var/apply_method = "swallow"
-	var/roundstart = 0
-	var/self_delay = 0 //pills are instant, this is because patches inheret their aplication from pills
+	randpixel = 7
+	possible_transfer_amounts = null
+	w_class = ITEM_SIZE_TINY
+	slot_flags = SLOT_EARS
+	volume = 60
 
-/obj/item/reagent_containers/pill/Initialize()
-	. = ..()
+/obj/item/weapon/reagent_containers/pill/New()
+	..()
 	if(!icon_state)
-		icon_state = "pill[rand(1,20)]"
-	if(reagents.total_volume && roundstart)
-		name += " ([reagents.total_volume]u)"
+		icon_state = "pill[rand(1, 5)]" //preset pills only use colour changing or unique icons
 
-
-/obj/item/reagent_containers/pill/attack_self(mob/user)
-	return
-
-
-/obj/item/reagent_containers/pill/attack(mob/M, mob/user, def_zone)
-	if(!canconsume(M, user))
-		return 0
+/obj/item/weapon/reagent_containers/pill/attack(mob/M as mob, mob/user as mob, def_zone)
+		//TODO: replace with standard_feed_mob() call.
 
 	if(M == user)
-		M.visible_message("<span class='notice'>[user] attempts to [apply_method] [src].</span>")
-		if(self_delay)
-			if(!do_mob(user, M, self_delay))
-				return 0
-		to_chat(M, "<span class='notice'>You [apply_method] [src].</span>")
-
-	else
-		M.visible_message("<span class='danger'>[user] attempts to force [M] to [apply_method] [src].</span>", \
-							"<span class='userdanger'>[user] attempts to force [M] to [apply_method] [src].</span>")
-		if(!do_mob(user, M))
-			return 0
-		M.visible_message("<span class='danger'>[user] forces [M] to [apply_method] [src].</span>", \
-							"<span class='userdanger'>[user] forces [M] to [apply_method] [src].</span>")
-
-
-	add_logs(user, M, "fed", reagents.log_list())
-	if(reagents.total_volume)
-		reagents.reaction(M, apply_type)
-		reagents.trans_to(M, reagents.total_volume)
-	qdel(src)
-	return 1
-
-
-/obj/item/reagent_containers/pill/afterattack(obj/target, mob/user , proximity)
-	if(!proximity)
-		return
-	if(target.is_refillable())
-		if(target.is_drainable() && !target.reagents.total_volume)
-			to_chat(user, "<span class='warning'>[target] is empty! There's nothing to dissolve [src] in.</span>")
+		if(!M.can_eat(src))
 			return
 
-		if(target.reagents.holder_full())
-			to_chat(user, "<span class='warning'>[target] is full.</span>")
-			return
-
-		to_chat(user, "<span class='notice'>You dissolve [src] in [target].</span>")
-		for(var/mob/O in viewers(2, user))	//viewers is necessary here because of the small radius
-			to_chat(O, "<span class='warning'>[user] slips something into [target]!</span>")
-		reagents.trans_to(target, reagents.total_volume)
+		to_chat(M, "<span class='notice'>You swallow \the [src].</span>")
+		if(reagents.total_volume)
+			reagents.trans_to_mob(M, reagents.total_volume, CHEM_INGEST)
 		qdel(src)
+		return 1
 
-/obj/item/reagent_containers/pill/tox
+	else if(istype(M, /mob/living/carbon/human))
+		if(!M.can_force_feed(user, src))
+			return
+
+		user.visible_message("<span class='warning'>[user] attempts to force [M] to swallow \the [src].</span>")
+		user.setClickCooldown(DEFAULT_ATTACK_COOLDOWN)
+		if(!do_mob(user, M))
+			return
+		user.visible_message("<span class='warning'>[user] forces [M] to swallow \the [src].</span>")
+		var/contained = reagentlist()
+		admin_attack_log(user, M, "Fed the victim with [name] (Reagents: [contained])", "Was fed [src] (Reagents: [contained])", "used [src] (Reagents: [contained]) to feed")
+		if(reagents.total_volume)
+			reagents.trans_to_mob(M, reagents.total_volume, CHEM_INGEST)
+		qdel(src)
+		return 1
+
+	return 0
+
+/obj/item/weapon/reagent_containers/pill/afterattack(obj/target, mob/user, proximity)
+	if(!proximity) return
+
+	if(target.is_open_container() && target.reagents)
+		if(!target.reagents.total_volume)
+			to_chat(user, "<span class='notice'>[target] is empty. Can't dissolve \the [src].</span>")
+			return
+		to_chat(user, "<span class='notice'>You dissolve \the [src] in [target].</span>")
+
+		admin_attacker_log(user, "spiked \a [target] with a pill. Reagents: [reagentlist()]")
+		reagents.trans_to(target, reagents.total_volume)
+		for(var/mob/O in viewers(2, user))
+			O.show_message("<span class='warning'>[user] puts something in \the [target].</span>", 1)
+		qdel(src)
+	return
+
+////////////////////////////////////////////////////////////////////////////////
+/// Pills. END
+////////////////////////////////////////////////////////////////////////////////
+
+//We lied - it's pills all the way down
+/obj/item/weapon/reagent_containers/pill/antitox
+	name = "Dylovene (25u)"
+	desc = "Neutralizes many common toxins."
+	icon_state = "pill1"
+/obj/item/weapon/reagent_containers/pill/antitox/New()
+	..()
+	reagents.add_reagent(/datum/reagent/dylovene, 25)
+	color = reagents.get_color()
+
+
+/obj/item/weapon/reagent_containers/pill/tox
 	name = "toxins pill"
 	desc = "Highly toxic."
-	icon_state = "pill5"
-	list_reagents = list("toxin" = 50)
-	roundstart = 1
-/obj/item/reagent_containers/pill/cyanide
-	name = "cyanide pill"
-	desc = "Don't swallow this."
-	icon_state = "pill5"
-	list_reagents = list("cyanide" = 50)
-	roundstart = 1
-/obj/item/reagent_containers/pill/adminordrazine
-	name = "adminordrazine pill"
+	icon_state = "pill4"
+/obj/item/weapon/reagent_containers/pill/tox/New()
+	..()
+	reagents.add_reagent(/datum/reagent/toxin, 50)
+	color = reagents.get_color()
+
+
+/obj/item/weapon/reagent_containers/pill/cyanide
+	name = "strange pill"
+	desc = "It's marked 'KCN'. Smells vaguely of almonds."
+	icon_state = "pillC"
+/obj/item/weapon/reagent_containers/pill/cyanide/New()
+	..()
+	reagents.add_reagent(/datum/reagent/toxin/cyanide, 50)
+
+
+/obj/item/weapon/reagent_containers/pill/adminordrazine
+	name = "Adminordrazine pill"
 	desc = "It's magic. We don't have to explain it."
-	icon_state = "pill16"
-	list_reagents = list("adminordrazine" = 50)
-	roundstart = 1
-/obj/item/reagent_containers/pill/morphine
-	name = "morphine pill"
+	icon_state = "pillA"
+
+/obj/item/weapon/reagent_containers/pill/adminordrazine/Initialize()
+	. = ..()
+	reagents.add_reagent(/datum/reagent/adminordrazine, 1)
+
+/obj/item/weapon/reagent_containers/pill/stox
+	name = "Soporific (15u)"
 	desc = "Commonly used to treat insomnia."
-	icon_state = "pill8"
-	list_reagents = list("morphine" = 30)
-	roundstart = 1
-/obj/item/reagent_containers/pill/stimulant
-	name = "stimulant pill"
-	desc = "Often taken by overworked employees, athletes, and the inebriated. You'll snap to attention immediately!"
-	icon_state = "pill19"
-	list_reagents = list("ephedrine" = 10, "antihol" = 10, "coffee" = 30)
-	roundstart = 1
-/obj/item/reagent_containers/pill/salbutamol
-	name = "salbutamol pill"
-	desc = "Used to treat oxygen deprivation."
-	icon_state = "pill16"
-	list_reagents = list("salbutamol" = 30)
-	roundstart = 1
-/obj/item/reagent_containers/pill/charcoal
-	name = "charcoal pill"
-	desc = "Neutralizes many common toxins."
-	icon_state = "pill17"
-	list_reagents = list("charcoal" = 10)
-	roundstart = 1
-/obj/item/reagent_containers/pill/epinephrine
-	name = "epinephrine pill"
-	desc = "Used to stabilize patients."
-	icon_state = "pill5"
-	list_reagents = list("epinephrine" = 15)
-	roundstart = 1
-/obj/item/reagent_containers/pill/mannitol
-	name = "mannitol pill"
-	desc = "Used to treat brain damage."
-	icon_state = "pill17"
-	list_reagents = list("mannitol" = 50)
-	roundstart = 1
-/obj/item/reagent_containers/pill/mutadone
-	name = "mutadone pill"
-	desc = "Used to treat genetic damage."
-	icon_state = "pill20"
-	list_reagents = list("mutadone" = 50)
-	roundstart = 1
-/obj/item/reagent_containers/pill/salicyclic
-	name = "salicylic acid pill"
-	desc = "Used to dull pain."
-	icon_state = "pill9"
-	list_reagents = list("sal_acid" = 24)
-	roundstart = 1
-/obj/item/reagent_containers/pill/oxandrolone
-	name = "oxandrolone pill"
-	desc = "Used to stimulate burn healing."
-	icon_state = "pill11"
-	list_reagents = list("oxandrolone" = 24)
-	roundstart = 1
-
-/obj/item/reagent_containers/pill/insulin
-	name = "insulin pill"
-	desc = "Handles hyperglycaemic coma."
-	icon_state = "pill18"
-	list_reagents = list("insulin" = 50)
-	roundstart = 1
-
-/obj/item/reagent_containers/pill/shadowtoxin
-	name = "black pill"
-	desc = "I wouldn't eat this if I were you."
-	icon_state = "pill9"
-	color = "#454545"
-	list_reagents = list("shadowmutationtoxin" = 1)
-
-/obj/item/reagent_containers/pill/mentat
-	name = "mentat pill"
-	desc = "A chalky pill that induces increased memory and cognitive functions, as well as heightened perception and creative faculties. \
-	Also known for fixing eye damage and blindness, for some reason."
-	icon_state = "pill20"
-	list_reagents = list("mentat" = 10)
-
-/obj/item/reagent_containers/pill/fixer
-	name = "fixer pill"
-	desc = "A bitter pill that is known to rapidly treat the addictions, withdrawal effects, and other drawbacks of other chemicals. \
-	Side effects include heavy nausea."
 	icon_state = "pill3"
-	list_reagents = list("fixer" = 10)
+/obj/item/weapon/reagent_containers/pill/stox/New()
+	..()
+	reagents.add_reagent(/datum/reagent/soporific, 15)
+	color = reagents.get_color()
 
-/obj/item/reagent_containers/pill/radx
-	name = "rad-x pill"
-	desc = "A pill that stabilizes radiation levels and treats small amounts of toxin damage."
-	icon_state = "pill18"
-	list_reagents = list("radx" = 20)
+
+/obj/item/weapon/reagent_containers/pill/kelotane
+	name = "Kelotane (15u)"
+	desc = "Used to treat burns."
+	icon_state = "pill2"
+/obj/item/weapon/reagent_containers/pill/kelotane/New()
+	..()
+	reagents.add_reagent(/datum/reagent/kelotane, 15)
+	color = reagents.get_color()
+
+
+/obj/item/weapon/reagent_containers/pill/paracetamol
+	name = "Paracetamol (15u)"
+	desc = "A painkiller for the ages. Chewables!"
+	icon_state = "pill3"
+/obj/item/weapon/reagent_containers/pill/paracetamol/New()
+	..()
+	reagents.add_reagent(/datum/reagent/paracetamol, 15)
+	color = reagents.get_color()
+
+
+/obj/item/weapon/reagent_containers/pill/tramadol
+	name = "Tramadol (15u)"
+	desc = "A simple painkiller."
+	icon_state = "pill3"
+/obj/item/weapon/reagent_containers/pill/tramadol/New()
+	..()
+	reagents.add_reagent(/datum/reagent/tramadol, 15)
+	color = reagents.get_color()
+
+
+/obj/item/weapon/reagent_containers/pill/inaprovaline
+	name = "Inaprovaline (30u)"
+	desc = "Used to stabilize patients."
+	icon_state = "pill1"
+/obj/item/weapon/reagent_containers/pill/inaprovaline/New()
+	..()
+	reagents.add_reagent(/datum/reagent/inaprovaline, 30)
+	color = reagents.get_color()
+
+
+/obj/item/weapon/reagent_containers/pill/dexalin
+	name = "Dexalin (15u)"
+	desc = "Used to treat oxygen deprivation."
+	icon_state = "pill1"
+/obj/item/weapon/reagent_containers/pill/dexalin/New()
+	..()
+	reagents.add_reagent(/datum/reagent/dexalin, 15)
+	color = reagents.get_color()
+
+
+/obj/item/weapon/reagent_containers/pill/dexalin_plus
+	name = "Dexalin Plus (15u)"
+	desc = "Used to treat extreme oxygen deprivation."
+	icon_state = "pill2"
+/obj/item/weapon/reagent_containers/pill/dexalin_plus/New()
+	..()
+	reagents.add_reagent(/datum/reagent/dexalinp, 15)
+	color = reagents.get_color()
+
+
+/obj/item/weapon/reagent_containers/pill/dermaline
+	name = "Dermaline (15u)"
+	desc = "Used to treat burn wounds."
+	icon_state = "pill2"
+/obj/item/weapon/reagent_containers/pill/dermaline/New()
+	..()
+	reagents.add_reagent(/datum/reagent/dermaline, 15)
+	color = reagents.get_color()
+
+
+/obj/item/weapon/reagent_containers/pill/dylovene
+	name = "Dylovene (15u)"
+	desc = "A broad-spectrum anti-toxin."
+	icon_state = "pill1"
+/obj/item/weapon/reagent_containers/pill/dylovene/New()
+	..()
+	reagents.add_reagent(/datum/reagent/dylovene, 15)
+	color = reagents.get_color()
+
+
+/obj/item/weapon/reagent_containers/pill/bicaridine
+	name = "Bicaridine (20u)"
+	desc = "Used to treat physical injuries."
+	icon_state = "pill2"
+/obj/item/weapon/reagent_containers/pill/bicaridine/New()
+	..()
+	reagents.add_reagent(/datum/reagent/bicaridine, 20)
+	color = reagents.get_color()
+
+
+/obj/item/weapon/reagent_containers/pill/happy
+	name = "happy pill"
+	desc = "Happy happy joy joy!"
+	icon_state = "pill4"
+/obj/item/weapon/reagent_containers/pill/happy/New()
+	..()
+	reagents.add_reagent(/datum/reagent/space_drugs, 15)
+	reagents.add_reagent(/datum/reagent/sugar, 15)
+	color = reagents.get_color()
+
+
+/obj/item/weapon/reagent_containers/pill/zoom
+	name = "zoom pill"
+	desc = "Zoooom!"
+	icon_state = "pill4"
+/obj/item/weapon/reagent_containers/pill/zoom/New()
+	..()
+	reagents.add_reagent(/datum/reagent/impedrezene, 10)
+	reagents.add_reagent(/datum/reagent/synaptizine, 5)
+	reagents.add_reagent(/datum/reagent/hyperzine, 5)
+	color = reagents.get_color()
+
+/obj/item/weapon/reagent_containers/pill/three_eye
+	name = "strange pill"
+	desc = "The surface of this unlabelled pill crawls against your skin."
+	icon_state = "pill2"
+
+/obj/item/weapon/reagent_containers/pill/three_eye/Initialize()
+	. = ..()
+	reagents.add_reagent(/datum/reagent/three_eye, 10)
+	color = reagents.get_color()
+
+/obj/item/weapon/reagent_containers/pill/spaceacillin
+	name = "Spaceacillin (10u)"
+	desc = "Contains antiviral agents."
+	icon_state = "pill3"
+/obj/item/weapon/reagent_containers/pill/spaceacillin/New()
+	..()
+	reagents.add_reagent(/datum/reagent/spaceacillin, 10)
+	color = reagents.get_color()
+
+
+/obj/item/weapon/reagent_containers/pill/diet
+	name = "diet pill"
+	desc = "Guaranteed to get you slim!"
+	icon_state = "pill4"
+/obj/item/weapon/reagent_containers/pill/diet/New()
+	..()
+	reagents.add_reagent(/datum/reagent/lipozine, 2)
+	color = reagents.get_color()
+
+
+/obj/item/weapon/reagent_containers/pill/noexcutite
+	name = "Noexcutite (15u)"
+	desc = "Feeling jittery? This should calm you down."
+	icon_state = "pill4"
+obj/item/weapon/reagent_containers/pill/noexcutite/New()
+	..()
+	reagents.add_reagent(/datum/reagent/noexcutite, 15)
+	color = reagents.get_color()
+
+
+/obj/item/weapon/reagent_containers/pill/antidexafen
+	name = "Antidexafen (15u)"
+	desc = "Common cold mediciation. Safe for babies!"
+	icon_state = "pill4"
+/obj/item/weapon/reagent_containers/pill/antidexafen/New()
+	..()
+	reagents.add_reagent(/datum/reagent/antidexafen, 10)
+	reagents.add_reagent(/datum/reagent/drink/juice/lemon, 5)
+	reagents.add_reagent(/datum/reagent/menthol, REM*0.2)
+	color = reagents.get_color()
+
+//Psychiatry pills.
+/obj/item/weapon/reagent_containers/pill/methylphenidate
+	name = "Methylphenidate (15u)"
+	desc = "Improves the ability to concentrate."
+	icon_state = "pill2"
+/obj/item/weapon/reagent_containers/pill/methylphenidate/New()
+	..()
+	reagents.add_reagent(/datum/reagent/methylphenidate, 15)
+	color = reagents.get_color()
+
+
+/obj/item/weapon/reagent_containers/pill/citalopram
+	name = "Citalopram (15u)"
+	desc = "Mild anti-depressant."
+	icon_state = "pill4"
+/obj/item/weapon/reagent_containers/pill/citalopram/New()
+	..()
+	reagents.add_reagent(/datum/reagent/citalopram, 15)
+	color = reagents.get_color()
+
+
+/obj/item/weapon/reagent_containers/pill/paroxetine
+	name = "Paroxetine (10u)"
+	desc = "Before you swallow a bullet: try swallowing this!"
+	icon_state = "pill4"
+/obj/item/weapon/reagent_containers/pill/paroxetine/New()
+	..()
+	reagents.add_reagent(/datum/reagent/paroxetine, 10)
+	color = reagents.get_color()
+
+
+/obj/item/weapon/reagent_containers/pill/hyronalin
+	name = "Hyronalin (7u)"
+	desc = "Used to treat radiation poisoning."
+	icon_state = "pill1"
+/obj/item/weapon/reagent_containers/pill/hyronalin/New()
+	..()
+	reagents.add_reagent(/datum/reagent/hyronalin, 7)
+	color = reagents.get_color()
+
+/obj/item/weapon/reagent_containers/pill/antirad
+	name = "AntiRad"
+	desc = "Used to treat radiation poisoning."
+	icon_state = "yellow"
+/obj/item/weapon/reagent_containers/pill/antirad/New()
+	..()
+	reagents.add_reagent(/datum/reagent/hyronalin, 5)
+	reagents.add_reagent(/datum/reagent/dylovene, 10)
+
+
+/obj/item/weapon/reagent_containers/pill/sugariron
+	name = "Sugar-Iron (10u)"
+	desc = "Used to help the body naturally replenish blood."
+	icon_state = "pill1"
+/obj/item/weapon/reagent_containers/pill/sugariron/New()
+	..()
+	reagents.add_reagent(/datum/reagent/iron, 5)
+	reagents.add_reagent(/datum/reagent/sugar, 5)
+	color = reagents.get_color()
+
+/obj/item/weapon/reagent_containers/pill/detergent
+	name = "detergent pod"
+	desc = "Put in water to get space cleaner. Do not eat. Really."
+	icon_state = "pod21"
+	var/smell_clean_time = 10 MINUTES
+
+/obj/item/weapon/reagent_containers/pill/detergent/New()
+	..()
+	reagents.add_reagent(/datum/reagent/ammonia, 30)
+
+/obj/item/weapon/reagent_containers/pill/pod
+	name = "master flavorpod item"
+	desc = "A cellulose pod containing some kind of flavoring."
+	icon_state = "pill4"
+
+/obj/item/weapon/reagent_containers/pill/pod/cream
+	name = "creamer pod"
+	
+/obj/item/weapon/reagent_containers/pill/pod/cream/New()
+	..()
+	reagents.add_reagent(/datum/reagent/drink/milk, 5)
+	color = reagents.get_color()
+
+/obj/item/weapon/reagent_containers/pill/pod/cream_soy
+	name = "non-dairy creamer pod"
+	
+/obj/item/weapon/reagent_containers/pill/pod/cream_soy/New()
+	..()
+	reagents.add_reagent(/datum/reagent/drink/milk/soymilk, 5)
+	color = reagents.get_color()
+
+/obj/item/weapon/reagent_containers/pill/pod/orange
+	name = "orange flavorpod"
+	
+/obj/item/weapon/reagent_containers/pill/pod/orange/New()
+	..()
+	reagents.add_reagent(/datum/reagent/drink/juice/orange, 5)
+	color = reagents.get_color()
+
+/obj/item/weapon/reagent_containers/pill/pod/mint
+	name = "mint flavorpod"
+	
+/obj/item/weapon/reagent_containers/pill/pod/mint/New()
+	..()
+	reagents.add_reagent(/datum/reagent/nutriment/mint, 1) //mint is used as a catalyst in all reactions as of writing
+	color = reagents.get_color()

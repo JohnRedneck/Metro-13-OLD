@@ -15,24 +15,17 @@
   * return UI_state The state of the UI.
  **/
 /datum/proc/ui_status(mob/user, datum/ui_state/state)
-	var/src_object = ui_host(user)
-	. = UI_CLOSE
-	if(!state)
-		return
+	var/datum/src_object = ui_host()
+	if(src_object != src)
+		return src_object.ui_status(user, state)
 
-	if(isobserver(user))
-		// If they turn on ghost AI control, admins can always interact.
-		if(IsAdminGhost(user))
-			. = max(., UI_INTERACTIVE)
-
-		// Regular ghosts can always at least view if in range.
-		var/clientviewlist = getviewsize(user.client.view)
-		if(get_dist(src_object, user) < max(clientviewlist[1],clientviewlist[2]))
-			. = max(., UI_UPDATE)
-
-	// Check if the state allows interaction
-	var/result = state.can_use_topic(src_object, user)
-	. = max(., result)
+	if(isghost(user)) // Special-case ghosts.
+		if(user.can_admin_interact())
+			return UI_INTERACTIVE // If they turn it on, admins can interact.
+		if(get_dist(src_object, src) < user.client.view)
+			return UI_UPDATE // Regular ghosts can only view.
+		return UI_CLOSE // To keep too many UIs from being opened.
+	return state.can_use_topic(src_object, user) // Check if the state allows interaction.
 
  /**
   * private
@@ -65,12 +58,12 @@
 	return UI_INTERACTIVE
 
 /mob/living/silicon/ai/shared_ui_interaction(src_object)
-	if(lacks_power()) // Disable UIs if the AI is unpowered.
+	if(!has_power()) // Disable UIs if the AI is unpowered.
 		return UI_DISABLED
 	return ..()
 
 /mob/living/silicon/robot/shared_ui_interaction(src_object)
-	if(!cell || cell.charge <= 0 || lockcharge) // Disable UIs if the Borg is unpowered or locked.
+	if(cell.charge <= 0 || lockcharge) // Disable UIs if the Borg is unpowered or locked.
 		return UI_DISABLED
 	return ..()
 
@@ -112,6 +105,6 @@
 	return UI_CLOSE // Otherwise, we got nothing.
 
 /mob/living/carbon/human/shared_living_ui_distance(atom/movable/src_object)
-	if(dna.check_mutation(TK) && tkMaxRangeCheck(src, src_object))
+	if((MUTATION_TK in mutations))
 		return UI_INTERACTIVE
 	return ..()

@@ -1,139 +1,59 @@
-// teleatom: atom to teleport
-// destination: destination to teleport to
-// precision: teleport precision (0 is most precise, the default)
-// effectin: effect to show right before teleportation
-// effectout: effect to show right after teleportation
-// asoundin: soundfile to play before teleportation
-// asoundout: soundfile to play after teleportation
-// force_teleport: if false, teleport will use Move() proc (dense objects will prevent teleportation)
-// no_effects: disable the default effectin/effectout of sparks
-/proc/do_teleport(atom/movable/teleatom, atom/destination, precision=null, force_teleport=TRUE, datum/effect_system/effectin=null, datum/effect_system/effectout=null, asoundin=null, asoundout=null, no_effects=FALSE)
-	// teleporting most effects just deletes them
-	if(iseffect(teleatom) && !istype(teleatom, /obj/effect/dummy/chameleon))
-		qdel(teleatom)
-		return FALSE
+/decl/teleport
+	var/static/list/teleport_blacklist = list(/obj/item/weapon/disk/nuclear, /obj/item/weapon/storage/backpack/holding, /obj/effect/sparks) //Items that cannot be teleported, or be in the contents of someone who is teleporting.
 
-	// argument handling
-	// if the precision is not specified, default to 0, but apply BoH penalties
-	if (isnull(precision))
-		precision = 0
-		if(istype(teleatom, /obj/item/storage/backpack/holding))
-			precision = rand(1,100)
+/decl/teleport/proc/teleport(var/atom/target, var/atom/destination, var/precision = 0)
+	if(!can_teleport(target,destination))
+		target.visible_message("<span class='warning'>\The [target] bounces off the teleporter!</span>")
+		return
 
-		var/static/list/bag_cache = typecacheof(/obj/item/storage/backpack/holding)
-		var/list/bagholding = typecache_filter_list(teleatom.GetAllContents(), bag_cache)
-		if(bagholding.len)
-			precision = max(rand(1,100)*bagholding.len,100)
-			if(isliving(teleatom))
-				var/mob/living/MM = teleatom
-				to_chat(MM, "<span class='warning'>The bluespace interface on your bag of holding interferes with the teleport!</span>")
+	teleport_target(target, destination, precision)
 
-	// if effects are not specified and not explicitly disabled, sparks
-	if ((!effectin || !effectout) && !no_effects)
-		var/datum/effect_system/spark_spread/sparks = new
-		sparks.set_up(5, 1, teleatom)
-		if (!effectin)
-			effectin = sparks
-		if (!effectout)
-			effectout = sparks
+/decl/teleport/proc/teleport_target(var/atom/movable/target, var/atom/destination, var/precision)
+	var/list/possible_turfs = circlerangeturfs(destination, precision)
+	destination = safepick(possible_turfs)
 
-	// perform the teleport
-	var/turf/curturf = get_turf(teleatom)
-	var/turf/destturf = get_teleport_turf(get_turf(destination), precision)
+	target.forceMove(destination)
+	if(isliving(target))
+		var/mob/living/L = target
+		if(L.buckled)
+			var/atom/movable/buckled = L.buckled
+			buckled.forceMove(destination)
 
-	if(!destturf || !curturf || destturf.is_transition_turf())
-		return FALSE
 
-	var/area/A = get_area(curturf)
-	if(A.noteleport)
-		return FALSE
+/decl/teleport/proc/can_teleport(var/atom/movable/target, var/atom/destination)
+	if(!destination || !target || !target.loc || destination.z > max_default_z_level())
+		return 0
 
-	tele_play_specials(teleatom, curturf, effectin, asoundin)
-	var/success = force_teleport ? teleatom.forceMove(destturf) : teleatom.Move(destturf)
-	if (success)
-		tele_play_specials(teleatom, destturf, effectout, asoundout)
-		if(ismegafauna(teleatom))
-			message_admins("[teleatom] [ADMIN_FLW(teleatom)] has teleported from [ADMIN_VERBOSEJMP(curturf)] to [ADMIN_VERBOSEJMP(destturf)].")
+	if(istype(target, /obj/mecha))
+		if(destination.z in GLOB.using_map.admin_levels)
+			var/obj/mecha/mech = target
+			to_chat(mech.occupant, "<span class='danger'>\The [target] would not survive the jump to a location so far away!</span>")
+			return 0
 
-	if(ismob(teleatom))
-		var/mob/M = teleatom
-		M.cancel_camera()
+	if(is_type_in_list(target, teleport_blacklist))
+		return 0
 
-/proc/tele_play_specials(atom/movable/teleatom, atom/location, datum/effect_system/effect, sound)
-	if (location && !isobserver(teleatom))
-		if (sound)
-			playsound(location, sound, 60, 1)
-		if (effect)
-			effect.attach(location)
-			effect.start()
+	for(var/type in teleport_blacklist)
+		if(!isemptylist(target.search_contents_for(type)))
+			return 0
+	return 1
 
-// Safe location finder
-/proc/find_safe_turf(zlevel, list/zlevels, extended_safety_checks = FALSE)
-	if(!zlevels)
-		if (zlevel)
-			zlevels = list(zlevel)
-		else
-			zlevels = SSmapping.levels_by_trait(ZTRAIT_STATION)
-	var/cycles = 1000
-	for(var/cycle in 1 to cycles)
-		// DRUNK DIALLING WOOOOOOOOO
-		var/x = rand(1, world.maxx)
-		var/y = rand(1, world.maxy)
-		var/z = pick(zlevels)
-		var/random_location = locate(x,y,z)
+/decl/teleport/sparks
+	var/datum/effect/effect/system/spark_spread/spark = new
 
-		if(!isfloorturf(random_location))
-			continue
-		var/turf/open/floor/F = random_location
-		if(!F.air)
-			continue
+/decl/teleport/sparks/proc/do_spark(var/atom/target)
+	if(!target.simulated)
+		return
+	var/turf/T = get_turf(target)
+	spark.set_up(5,1,target)
+	spark.attach(T)
+	spark.start()
 
-		var/datum/gas_mixture/A = F.air
-		var/list/A_gases = A.gases
-		var/trace_gases
-		for(var/id in A_gases)
-			if(id in GLOB.hardcoded_gases)
-				continue
-			trace_gases = TRUE
-			break
+/decl/teleport/sparks/teleport_target(var/atom/target, var/atom/destination, var/precision)
+	do_spark(target)
+	..()
+	do_spark(target)
 
-		// Can most things breathe?
-		if(trace_gases)
-			continue
-		if(!(A_gases[/datum/gas/oxygen] && A_gases[/datum/gas/oxygen][MOLES] >= 16))
-			continue
-		if(A_gases[/datum/gas/plasma])
-			continue
-		if(A_gases[/datum/gas/carbon_dioxide] && A_gases[/datum/gas/carbon_dioxide][MOLES] >= 10)
-			continue
-
-		// Aim for goldilocks temperatures and pressure
-		if((A.temperature <= 270) || (A.temperature >= 360))
-			continue
-		var/pressure = A.return_pressure()
-		if((pressure <= 20) || (pressure >= 550))
-			continue
-
-		if(extended_safety_checks)
-			if(islava(F)) //chasms aren't /floor, and so are pre-filtered
-				var/turf/open/lava/L = F
-				if(!L.is_safe())
-					continue
-
-		// DING! You have passed the gauntlet, and are "probably" safe.
-		return F
-
-/proc/get_teleport_turfs(turf/center, precision = 0)
-	if(!precision)
-		return list(center)
-	var/list/posturfs = list()
-	for(var/turf/T in range(precision,center))
-		if(T.is_transition_turf())
-			continue // Avoid picking these.
-		var/area/A = T.loc
-		if(!A.noteleport)
-			posturfs.Add(T)
-	return posturfs
-
-/proc/get_teleport_turf(turf/center, precision = 0)
-	return safepick(get_teleport_turfs(center, precision))
+/proc/do_teleport(var/atom/movable/target, var/atom/destination, var/precision = 0, var/type = /decl/teleport/sparks)
+	var/decl/teleport/tele = decls_repository.get_decl(type)
+	tele.teleport(target, destination, precision)

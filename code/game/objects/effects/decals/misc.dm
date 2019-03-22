@@ -1,35 +1,16 @@
-/obj/effect/temp_visual/point
-	name = "pointer"
-	icon = 'icons/mob/screen_gen.dmi'
+/obj/effect/decal/point
+	name = "arrow"
+	desc = "It's an arrow hanging in mid-air. There may be a wizard about."
+	icon = 'icons/mob/screen1.dmi'
 	icon_state = "arrow"
-	layer = POINT_LAYER
-	duration = 25
+	plane = EFFECTS_BELOW_LIGHTING_PLANE
+	layer = POINTER_LAYER
+	anchored = 1
+	mouse_opacity = 0
 
-/obj/effect/temp_visual/point/Initialize(mapload, set_invis = 0)
-	. = ..()
-	var/atom/old_loc = loc
-	loc = get_turf(src) // We don't want to actualy trigger anything when it moves
-	pixel_x = old_loc.pixel_x
-	pixel_y = old_loc.pixel_y
-	invisibility = set_invis
-
-//Used by spraybottles.
-/obj/effect/decal/chempuff
-	name = "chemicals"
-	icon = 'icons/obj/chempuff.dmi'
-	pass_flags = PASSTABLE | PASSGRILLE
-	layer = FLY_LAYER
-
-/obj/effect/decal/chempuff/blob_act(obj/structure/blob/B)
-	return
-
-/obj/effect/decal/fakelattice
-	name = "lattice"
-	desc = "A lightweight support lattice."
-	icon = 'icons/obj/smooth_structures/lattice.dmi'
-	icon_state = "lattice"
-	density = TRUE
-
-/obj/effect/decal/roadline
-	name = "road line"
-	icon_state = "doublehorizontal"
+// Used for spray that you spray at walls, tables, hydrovats etc
+/obj/effect/decal/spraystill
+	density = 0
+	anchored = 1
+	plane = EFFECTS_BELOW_LIGHTING_PLANE
+	layer = PROJECTILE_LAYER

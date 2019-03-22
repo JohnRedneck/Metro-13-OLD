@@ -1,59 +1,92 @@
+//Note that despite the use of the NOSLIP flag, magboots are still hardcoded to prevent spaceslipping in Check_Shoegrip().
 /obj/item/clothing/shoes/magboots
-	desc = "Magnetic boots, often used during extravehicular activity to ensure the user remains safely attached to the vehicle."
+	desc = "Magnetic boots, often used during extravehicular activity to ensure the user remains safely attached to the vehicle. They're large enough to be worn over other footwear."
 	name = "magboots"
 	icon_state = "magboots0"
-	var/magboot_state = "magboots"
+	can_hold_knife = 1
+	species_restricted = null
+	force = 3
+	overshoes = 1
 	var/magpulse = 0
-	var/slowdown_active = 2
-	permeability_coefficient = 0.05
-	actions_types = list(/datum/action/item_action/toggle)
-	strip_delay = 70
-	equip_delay_other = 70
-	resistance_flags = FIRE_PROOF
+	var/icon_base = "magboots"
+	action_button_name = "Toggle Magboots"
+	var/obj/item/clothing/shoes/shoes = null	//Undershoes
+	var/mob/living/carbon/human/wearer = null	//For shoe procs
+	center_of_mass = null
+	randpixel = 0
 
-/obj/item/clothing/shoes/magboots/verb/toggle()
-	set name = "Toggle Magboots"
-	set category = "Object"
-	set src in usr
-	if(!can_use(usr))
-		return
-	attack_self(usr)
-
+/obj/item/clothing/shoes/magboots/proc/set_slowdown()
+	slowdown_per_slot[slot_shoes] = shoes? max(0, shoes.slowdown_per_slot[slot_shoes]): 0	//So you can't put on magboots to make you walk faster.
+	if (magpulse)
+		slowdown_per_slot[slot_shoes] += 3
 
 /obj/item/clothing/shoes/magboots/attack_self(mob/user)
 	if(magpulse)
-		clothing_flags &= ~NOSLIP
-		slowdown = SHOES_SLOWDOWN
+		item_flags &= ~ITEM_FLAG_NOSLIP
+		magpulse = 0
+		set_slowdown()
+		force = 3
+		if(icon_base) icon_state = "[icon_base]0"
+		to_chat(user, "You disable the mag-pulse traction system.")
 	else
-		clothing_flags |= NOSLIP
-		slowdown = slowdown_active
-	magpulse = !magpulse
-	icon_state = "[magboot_state][magpulse]"
-	to_chat(user, "<span class='notice'>You [magpulse ? "enable" : "disable"] the mag-pulse traction system.</span>")
+		item_flags |= ITEM_FLAG_NOSLIP
+		magpulse = 1
+		set_slowdown()
+		force = 5
+		if(icon_base) icon_state = "[icon_base]1"
+		playsound(get_turf(src), 'sound/effects/magnetclamp.ogg', 20)
+		to_chat(user, "You enable the mag-pulse traction system.")
 	user.update_inv_shoes()	//so our mob-overlays update
-	user.update_gravity(user.has_gravity())
-	for(var/X in actions)
-		var/datum/action/A = X
-		A.UpdateButtonIcon()
+	user.update_action_buttons()
+	user.update_floating()
 
-/obj/item/clothing/shoes/magboots/negates_gravity()
-	return clothing_flags & NOSLIP
+/obj/item/clothing/shoes/magboots/mob_can_equip(mob/user)
+	var/mob/living/carbon/human/H = user
+
+	if(H.shoes)
+		shoes = H.shoes
+		if(shoes.overshoes)
+			to_chat(user, "You are unable to wear \the [src] as \the [H.shoes] are in the way.")
+			shoes = null
+			return 0
+		if(!H.unEquip(shoes, src))//Remove the old shoes so you can put on the magboots.
+			shoes = null
+			return 0
+
+	if(!..())
+		if(shoes) 	//Put the old shoes back on if the check fails.
+			if(H.equip_to_slot_if_possible(shoes, slot_shoes))
+				src.shoes = null
+		return 0
+
+	if (shoes)
+		to_chat(user, "You slip \the [src] on over \the [shoes].")
+	set_slowdown()
+	wearer = H //TODO clean this up
+	return 1
+
+/obj/item/clothing/shoes/magboots/equipped()
+	..()
+	var/mob/M = src.loc
+	if(istype(M))
+		M.update_floating()
+
+/obj/item/clothing/shoes/magboots/dropped()
+	..()
+	if(!wearer)
+		return
+
+	var/mob/living/carbon/human/H = wearer
+	if(shoes && istype(H))
+		if(!H.equip_to_slot_if_possible(shoes, slot_shoes))
+			shoes.dropInto(loc)
+		src.shoes = null
+	wearer.update_floating()
+	wearer = null
 
 /obj/item/clothing/shoes/magboots/examine(mob/user)
-	..()
-	to_chat(user, "Its mag-pulse traction system appears to be [magpulse ? "enabled" : "disabled"].")
-
-
-/obj/item/clothing/shoes/magboots/advance
-	desc = "Advanced magnetic boots that have a lighter magnetic pull, placing less burden on the wearer."
-	name = "advanced magboots"
-	icon_state = "advmag0"
-	magboot_state = "advmag"
-	slowdown_active = SHOES_SLOWDOWN
-	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
-
-/obj/item/clothing/shoes/magboots/syndie
-	desc = "Reverse-engineered magnetic boots that have a heavy magnetic pull. Property of Gorlex Marauders."
-	name = "blood-red magboots"
-	icon_state = "syndiemag0"
-	magboot_state = "syndiemag"
+	. = ..(user)
+	var/state = "disabled"
+	if(item_flags & ITEM_FLAG_NOSLIP)
+		state = "enabled"
+	to_chat(user, "Its mag-pulse traction system appears to be [state].")

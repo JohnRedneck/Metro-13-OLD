@@ -1,268 +1,336 @@
-/*ALL MOB-RELATED DEFINES THAT DON'T BELONG IN ANOTHER FILE GO HERE*/
+// /mob/var/stat things.
+#define CONSCIOUS   0
+#define UNCONSCIOUS 1
+#define DEAD        2
 
-//Misc mob defines
+// Bitflags defining which status effects could be or are inflicted on a mob.
+#define CANSTUN     0x1
+#define CANWEAKEN   0x2
+#define CANPARALYSE 0x4
+#define CANPUSH     0x8
+#define LEAPING     0x10
+#define PASSEMOTES  0x32    // Mob has a cortical borer or holders inside of it that need to see emotes.
+#define GODMODE     0x1000
+#define FAKEDEATH   0x2000  // Replaces stuff like changeling.changeling_fakedeath.
+#define NO_ANTAG    0x4000  // Players are restricted from gaining antag roles when occupying this mob
+#define XENO_HOST   0x8000  // Tracks whether we're gonna be a baby alien's mummy.
 
-//Ready states at roundstart for mob/dead/new_player
-#define PLAYER_NOT_READY 0
-#define PLAYER_READY_TO_PLAY 1
-#define PLAYER_READY_TO_OBSERVE 2
+// Grab Types
+#define GRAB_NORMAL			"normal"
+#define GRAB_NAB			"nab"
+#define GRAB_NAB_SPECIAL	"special nab"
 
-//movement intent defines for the m_intent var
-#define MOVE_INTENT_WALK "walk"
-#define MOVE_INTENT_RUN  "run"
+// Grab levels.
+#define NORM_PASSIVE    "normal passive"
+#define NORM_STRUGGLE   "normal struggle"
+#define NORM_AGGRESSIVE "normal aggressive"
+#define NORM_NECK       "normal neck"
+#define NORM_KILL       "normal kill"
 
-//Blood levels
-#define BLOOD_VOLUME_MAXIMUM		2000
-#define BLOOD_VOLUME_SLIME_SPLIT	1120
-#define BLOOD_VOLUME_NORMAL			560
-#define BLOOD_VOLUME_SAFE			475
-#define BLOOD_VOLUME_OKAY			336
-#define BLOOD_VOLUME_BAD			224
-#define BLOOD_VOLUME_SURVIVE		122
+#define NAB_PASSIVE		"nab passive"
+#define NAB_AGGRESSIVE	"nab aggressive"
+#define NAB_KILL		"nab kill"
 
-//Sizes of mobs, used by mob/living/var/mob_size
-#define MOB_SIZE_TINY 0
-#define MOB_SIZE_SMALL 1
-#define MOB_SIZE_HUMAN 2
-#define MOB_SIZE_LARGE 3
+#define BORGMESON 0x1
+#define BORGTHERM 0x2
+#define BORGXRAY  0x4
+#define BORGMATERIAL  8
 
-//Ventcrawling defines
-#define VENTCRAWLER_NONE   0
-#define VENTCRAWLER_NUDE   1
-#define VENTCRAWLER_ALWAYS 2
+#define HOSTILE_STANCE_IDLE      1
+#define HOSTILE_STANCE_ALERT     2
+#define HOSTILE_STANCE_ATTACK    3
+#define HOSTILE_STANCE_ATTACKING 4
+#define HOSTILE_STANCE_TIRED     5
+#define HOSTILE_STANCE_INSIDE    6
 
-//Bloodcrawling defines
-#define BLOODCRAWL 1
-#define BLOODCRAWL_EAT 2
+#define LEFT  0x1
+#define RIGHT 0x2
+#define UNDER 0x4
 
-//Mob bio-types
-#define MOB_ORGANIC 	"organic"
-#define MOB_INORGANIC 	"inorganic"
-#define MOB_ROBOTIC 	"robotic"
-#define MOB_UNDEAD		"undead"
-#define MOB_HUMANOID 	"humanoid"
-#define MOB_BUG 		"bug"
-#define MOB_BEAST		"beast"
-#define MOB_EPIC		"epic" //megafauna
-#define MOB_REPTILE		"reptile"
-#define MOB_SPIRIT		"spirit"
+// Pulse levels, very simplified.
+#define PULSE_NONE    0   // So !M.pulse checks would be possible.
+#define PULSE_SLOW    1   // <60     bpm
+#define PULSE_NORM    2   //  60-90  bpm
+#define PULSE_FAST    3   //  90-120 bpm
+#define PULSE_2FAST   4   // >120    bpm
+#define PULSE_THREADY 5   // Occurs during hypovolemic shock
+#define GETPULSE_HAND 0   // Less accurate. (hand)
+#define GETPULSE_TOOL 1   // More accurate. (med scanner, sleeper, etc.)
+#define PULSE_MAX_BPM 250 // Highest, readable BPM by machines and humans.
 
-//Organ defines for carbon mobs
-#define ORGAN_ORGANIC   1
-#define ORGAN_ROBOTIC   2
+//intent flags
+#define I_HELP		"help"
+#define I_DISARM	"disarm"
+#define I_GRAB		"grab"
+#define I_HURT		"harm"
 
-#define BODYPART_ORGANIC   1
-#define BODYPART_ROBOTIC   2
+//These are used Bump() code for living mobs, in the mob_bump_flag, mob_swap_flags, and mob_push_flags vars to determine whom can bump/swap with whom.
+#define HUMAN 1
+#define MONKEY 2
+#define ALIEN 4
+#define ROBOT 8
+#define SLIME 16
+#define SIMPLE_ANIMAL 32
+#define HEAVY 64
+#define ALLMOBS (HUMAN|MONKEY|ALIEN|ROBOT|SLIME|SIMPLE_ANIMAL|HEAVY)
 
-#define DEFAULT_BODYPART_ICON_ORGANIC 'icons/mob/human_parts_greyscale.dmi'
-#define DEFAULT_BODYPART_ICON_ROBOTIC 'icons/mob/augmentation/augments.dmi'
+// Robot AI notifications
+#define ROBOT_NOTIFICATION_NEW_UNIT 1
+#define ROBOT_NOTIFICATION_NEW_NAME 2
+#define ROBOT_NOTIFICATION_NEW_MODULE 3
+#define ROBOT_NOTIFICATION_MODULE_RESET 4
 
-#define MONKEY_BODYPART "monkey"
-#define ALIEN_BODYPART "alien"
-#define LARVA_BODYPART "larva"
-#define DEVIL_BODYPART "devil"
-/*see __DEFINES/inventory.dm for bodypart bitflag defines*/
+// Appearance change flags
+#define APPEARANCE_UPDATE_DNA  0x1
+#define APPEARANCE_RACE       (0x2|APPEARANCE_UPDATE_DNA)
+#define APPEARANCE_GENDER     (0x4|APPEARANCE_UPDATE_DNA)
+#define APPEARANCE_SKIN        0x8
+#define APPEARANCE_HAIR        0x10
+#define APPEARANCE_HAIR_COLOR  0x20
+#define APPEARANCE_FACIAL_HAIR 0x40
+#define APPEARANCE_FACIAL_HAIR_COLOR 0x80
+#define APPEARANCE_EYE_COLOR 0x100
+#define APPEARANCE_ALL_HAIR (APPEARANCE_HAIR|APPEARANCE_HAIR_COLOR|APPEARANCE_FACIAL_HAIR|APPEARANCE_FACIAL_HAIR_COLOR)
+#define APPEARANCE_ALL       0xFFFF
 
-// Health/damage defines for carbon mobs
-#define HUMAN_MAX_OXYLOSS 3
-#define HUMAN_CRIT_MAX_OXYLOSS (SSmobs.wait/30)
+// Click cooldown
+#define DEFAULT_ATTACK_COOLDOWN 8 //Default timeout for aggressive actions
+#define DEFAULT_QUICK_COOLDOWN  4
 
-#define HEAT_DAMAGE_LEVEL_1 2 //Amount of damage applied when your body temperature just passes the 360.15k safety point
-#define HEAT_DAMAGE_LEVEL_2 3 //Amount of damage applied when your body temperature passes the 400K point
-#define HEAT_DAMAGE_LEVEL_3 8 //Amount of damage applied when your body temperature passes the 460K point and you are on fire
+#define FAST_WEAPON_COOLDOWN 3
+#define DEFAULT_WEAPON_COOLDOWN 5
+#define SLOW_WEAPON_COOLDOWN 7
 
-#define COLD_DAMAGE_LEVEL_1 0.5 //Amount of damage applied when your body temperature just passes the 260.15k safety point
-#define COLD_DAMAGE_LEVEL_2 1.5 //Amount of damage applied when your body temperature passes the 200K point
-#define COLD_DAMAGE_LEVEL_3 3 //Amount of damage applied when your body temperature passes the 120K point
+#define MIN_SUPPLIED_LAW_NUMBER 15
+#define MAX_SUPPLIED_LAW_NUMBER 50
 
-//Note that gas heat damage is only applied once every FOUR ticks.
-#define HEAT_GAS_DAMAGE_LEVEL_1 2 //Amount of damage applied when the current breath's temperature just passes the 360.15k safety point
-#define HEAT_GAS_DAMAGE_LEVEL_2 4 //Amount of damage applied when the current breath's temperature passes the 400K point
-#define HEAT_GAS_DAMAGE_LEVEL_3 8 //Amount of damage applied when the current breath's temperature passes the 1000K point
+// NT's alignment towards the character
+#define COMPANY_LOYAL 			"Loyal"
+#define COMPANY_SUPPORTATIVE	"Supportive"
+#define COMPANY_NEUTRAL 		"Neutral"
+#define COMPANY_SKEPTICAL		"Skeptical"
+#define COMPANY_OPPOSED			"Opposed"
 
-#define COLD_GAS_DAMAGE_LEVEL_1 0.5 //Amount of damage applied when the current breath's temperature just passes the 260.15k safety point
-#define COLD_GAS_DAMAGE_LEVEL_2 1.5 //Amount of damage applied when the current breath's temperature passes the 200K point
-#define COLD_GAS_DAMAGE_LEVEL_3 3 //Amount of damage applied when the current breath's temperature passes the 120K point
+#define COMPANY_ALIGNMENTS		list(COMPANY_LOYAL,COMPANY_SUPPORTATIVE,COMPANY_NEUTRAL,COMPANY_SKEPTICAL,COMPANY_OPPOSED)
 
-//Brain Damage defines
-#define BRAIN_DAMAGE_MILD 20
-#define BRAIN_DAMAGE_SEVERE 100
-#define BRAIN_DAMAGE_DEATH 200
+// Defines mob sizes, used by lockers and to determine what is considered a small sized mob, etc.
+#define MOB_LARGE  		40
+#define MOB_MEDIUM 		20
+#define MOB_SMALL 		10
+#define MOB_TINY 		5
+#define MOB_MINISCULE	1
 
-#define BRAIN_TRAUMA_MILD /datum/brain_trauma/mild
-#define BRAIN_TRAUMA_SEVERE /datum/brain_trauma/severe
-#define BRAIN_TRAUMA_SPECIAL /datum/brain_trauma/special
+// Defines how strong the species is compared to humans. Think like strength in D&D
+#define STR_VHIGH       2
+#define STR_HIGH        1
+#define STR_MEDIUM      0
+#define STR_LOW        -1
+#define STR_VLOW       -2
 
-#define TRAUMA_RESILIENCE_BASIC 1      //Curable with chems
-#define TRAUMA_RESILIENCE_SURGERY 2    //Curable with brain surgery
-#define TRAUMA_RESILIENCE_LOBOTOMY 3   //Curable with lobotomy
-#define TRAUMA_RESILIENCE_MAGIC 4      //Curable only with magic
-#define TRAUMA_RESILIENCE_ABSOLUTE 5   //This is here to stay
+// Gluttony levels.
+#define GLUT_TINY 1       // Eat anything tiny and smaller
+#define GLUT_SMALLER 2    // Eat anything smaller than we are
+#define GLUT_ANYTHING 4   // Eat anything, ever
 
-//Limit of traumas for each resilience tier
-#define TRAUMA_LIMIT_BASIC 3
-#define TRAUMA_LIMIT_SURGERY 2
-#define TRAUMA_LIMIT_LOBOTOMY 3
-#define TRAUMA_LIMIT_MAGIC 3
-#define TRAUMA_LIMIT_ABSOLUTE INFINITY
+#define GLUT_ITEM_TINY 8         // Eat items with a w_class of small or smaller
+#define GLUT_ITEM_NORMAL 16      // Eat items with a w_class of normal or smaller
+#define GLUT_ITEM_ANYTHING 32    // Eat any item
+#define GLUT_PROJECTILE_VOMIT 64 // When vomitting, does it fly out?
 
-#define BRAIN_DAMAGE_INTEGRITY_MULTIPLIER 0.5
+// Devour speeds, returned by can_devour()
+#define DEVOUR_SLOW 1
+#define DEVOUR_FAST 2
 
-//Surgery Defines
-#define BIOWARE_GENERIC "generic"
-#define BIOWARE_NERVES "nerves"
-#define BIOWARE_CIRCULATION "circulation"
+#define TINT_NONE 0
+#define TINT_MODERATE 1
+#define TINT_HEAVY 2
+#define TINT_BLIND 3
 
-//Health hud screws for carbon mobs
-#define SCREWYHUD_NONE 0
-#define SCREWYHUD_CRIT 1
-#define SCREWYHUD_DEAD 2
-#define SCREWYHUD_HEALTHY 3
+#define FLASH_PROTECTION_VULNERABLE -2
+#define FLASH_PROTECTION_REDUCED -1
+#define FLASH_PROTECTION_NONE 0
+#define FLASH_PROTECTION_MODERATE 1
+#define FLASH_PROTECTION_MAJOR 2
 
-//Moods levels for humans
-#define MOOD_LEVEL_HAPPY4 15
-#define MOOD_LEVEL_HAPPY3 10
-#define MOOD_LEVEL_HAPPY2 6
-#define MOOD_LEVEL_HAPPY1 2
-#define MOOD_LEVEL_NEUTRAL 0
-#define MOOD_LEVEL_SAD1 -3
-#define MOOD_LEVEL_SAD2 -12
-#define MOOD_LEVEL_SAD3 -18
-#define MOOD_LEVEL_SAD4 -25
+#define ANIMAL_SPAWN_DELAY round(config.respawn_delay / 6)
+#define DRONE_SPAWN_DELAY  round(config.respawn_delay / 3)
 
-//Sanity levels for humans
-#define SANITY_GREAT 125
-#define SANITY_NEUTRAL 100
-#define SANITY_DISTURBED 75
-#define SANITY_UNSTABLE 50
-#define SANITY_CRAZY 25
-#define SANITY_INSANE 0
+// Incapacitation flags, used by the mob/proc/incapacitated() proc
+#define INCAPACITATION_NONE 0
+#define INCAPACITATION_RESTRAINED 1
+#define INCAPACITATION_BUCKLED_PARTIALLY 2
+#define INCAPACITATION_BUCKLED_FULLY 4
+#define INCAPACITATION_STUNNED 8
+#define INCAPACITATION_FORCELYING 16 //needs a better name - represents being knocked down BUT still conscious.
+#define INCAPACITATION_KNOCKOUT 32
 
-//Beauty levels of areas for carbons
-#define BEAUTY_LEVEL_HORRID -100
-#define BEAUTY_LEVEL_BAD -66
-#define BEAUTY_LEVEL_MEH -33
-#define BEAUTY_LEVEL_DECENT 33
-#define BEAUTY_LEVEL_GOOD 66
-#define BEAUTY_LEVEL_GREAT 100
+#define INCAPACITATION_KNOCKDOWN (INCAPACITATION_KNOCKOUT|INCAPACITATION_FORCELYING)
+#define INCAPACITATION_DISABLED (INCAPACITATION_KNOCKDOWN|INCAPACITATION_STUNNED)
+#define INCAPACITATION_DEFAULT (INCAPACITATION_RESTRAINED|INCAPACITATION_BUCKLED_FULLY|INCAPACITATION_DISABLED)
+#define INCAPACITATION_ALL (~INCAPACITATION_NONE)
 
-//Nutrition levels for humans
-#define NUTRITION_LEVEL_FAT 600
-#define NUTRITION_LEVEL_FULL 550
-#define NUTRITION_LEVEL_WELL_FED 450
-#define NUTRITION_LEVEL_FED 350
-#define NUTRITION_LEVEL_HUNGRY 250
-#define NUTRITION_LEVEL_STARVING 150
+// Organs.
+#define BP_MOUTH    "mouth"
+#define BP_EYES     "eyes"
+#define BP_HEART    "heart"
+#define BP_LUNGS    "lungs"
+#define BP_TRACH	"tracheae"
+#define BP_BRAIN    "brain"
+#define BP_LIVER    "liver"
+#define BP_KIDNEYS  "kidneys"
+#define BP_STOMACH  "stomach"
+#define BP_PLASMA   "plasma vessel"
+#define BP_APPENDIX "appendix"
+#define BP_CELL     "cell"
+#define BP_HIVE     "hive node"
+#define BP_NUTRIENT "nutrient vessel"
+#define BP_ACID     "acid gland"
+#define BP_EGG      "egg sac"
+#define BP_RESIN    "resin spinner"
+#define BP_STRATA   "neural strata"
+#define BP_RESPONSE "response node"
+#define BP_GBLADDER "gas bladder"
+#define BP_POLYP    "polyp segment"
+#define BP_ANCHOR   "anchoring ligament"
+#define BP_PHORON   "phoron filter"
+#define BP_ACETONE  "acetone reactor"
 
-#define NUTRITION_LEVEL_START_MIN 250
-#define NUTRITION_LEVEL_START_MAX 400
+// Vox bits.
+#define BP_HINDTONGUE "hindtongue"
 
-//Disgust levels for humans
-#define DISGUST_LEVEL_MAXEDOUT 150
-#define DISGUST_LEVEL_DISGUSTED 75
-#define DISGUST_LEVEL_VERYGROSS 50
-#define DISGUST_LEVEL_GROSS 25
+// Robo Organs.
+#define BP_POSIBRAIN	"posibrain"
+#define BP_VOICE		"vocal synthesiser"
+#define BP_STACK		"stack"
+#define BP_FLOAT		"floatation disc"
+#define BP_JETS			"maneuvering jets"
+#define BP_COOLING_FINS "cooling fins"
 
-//Slime evolution threshold. Controls how fast slimes can split/grow
+//Augmetations
+#define BP_AUGMENT_R_ARM         "right arm augment"
+#define BP_AUGMENT_L_ARM         "left arm augment"
+#define BP_AUGMENT_R_HAND        "right hand augment"
+#define BP_AUGMENT_L_HAND        "left hand augment"
+#define BP_AUGMENT_R_LEG         "right leg augment"
+#define BP_AUGMENT_L_LEG         "left leg augment"
+#define BP_AUGMENT_CHEST_ARMOUR   "chest armor augment"
+#define BP_AUGMENT_CHEST_ACTIVE  "active chest augment"
+#define BP_AUGMENT_HEAD           "head augment"
+
+//Augment flags
+#define AUGMENTATION_MECHANIC 1
+#define AUGMENTATION_ORGANIC  2
+
+// Limbs.
+#define BP_L_FOOT "l_foot"
+#define BP_R_FOOT "r_foot"
+#define BP_L_LEG  "l_leg"
+#define BP_R_LEG  "r_leg"
+#define BP_L_HAND "l_hand"
+#define BP_R_HAND "r_hand"
+#define BP_L_ARM  "l_arm"
+#define BP_R_ARM  "r_arm"
+#define BP_HEAD   "head"
+#define BP_CHEST  "chest"
+#define BP_GROIN  "groin"
+#define BP_ALL_LIMBS list(BP_CHEST, BP_GROIN, BP_HEAD, BP_L_ARM, BP_R_ARM, BP_L_HAND, BP_R_HAND, BP_L_LEG, BP_R_LEG, BP_L_FOOT, BP_R_FOOT)
+#define BP_BY_DEPTH list(BP_HEAD, BP_L_HAND, BP_R_HAND, BP_L_ARM, BP_R_ARM, BP_L_FOOT, BP_R_FOOT, BP_L_LEG, BP_R_LEG, BP_GROIN, BP_CHEST)
+
+// Prosthetic helpers.
+#define BP_IS_ROBOTIC(org)  (org.status & ORGAN_ROBOTIC)
+#define BP_IS_ASSISTED(org) (org.status & ORGAN_ASSISTED)
+#define BP_IS_BRITTLE(org)  (org.status & ORGAN_BRITTLE)
+#define BP_IS_CRYSTAL(org)  (org.status & ORGAN_CRYSTAL)
+
+#define SYNTH_BLOOD_COLOUR "#030303"
+#define SYNTH_FLESH_COLOUR "#575757"
+
+#define MOB_PULL_NONE 0
+#define MOB_PULL_SMALLER 1
+#define MOB_PULL_SAME 2
+#define MOB_PULL_LARGER 3
+
+//carbon taste sensitivity defines, used in mob/living/carbon/proc/ingest
+#define TASTE_HYPERSENSITIVE 3 //anything below 5%
+#define TASTE_SENSITIVE 2 //anything below 7%
+#define TASTE_NORMAL 1 //anything below 15%
+#define TASTE_DULL 0.5 //anything below 30%
+#define TASTE_NUMB 0.1 //anything below 150%
+
+//Used by show_message() and emotes
+#define VISIBLE_MESSAGE 1
+#define AUDIBLE_MESSAGE 2
+
+//used for getting species temp values
+#define COLD_LEVEL_1 -1
+#define COLD_LEVEL_2 -2
+#define COLD_LEVEL_3 -3
+#define HEAT_LEVEL_1 1
+#define HEAT_LEVEL_2 2
+#define HEAT_LEVEL_3 3
+
+//Synthetic human temperature vals
+#define SYNTH_COLD_LEVEL_1 50
+#define SYNTH_COLD_LEVEL_2 -1
+#define SYNTH_COLD_LEVEL_3 -1
+#define SYNTH_HEAT_LEVEL_1 500
+#define SYNTH_HEAT_LEVEL_2 1000
+#define SYNTH_HEAT_LEVEL_3 2000
+
+#define CORPSE_CAN_REENTER 1
+#define CORPSE_CAN_REENTER_AND_RESPAWN 2
+
+#define SPECIES_HUMAN       "Human"
+#define SPECIES_DIONA       "Diona"
+#define SPECIES_VOX         "Vox"
+#define SPECIES_VOX_ARMALIS "Vox Armalis"
+#define SPECIES_IPC         "Machine"
+#define SPECIES_UNATHI      "Unathi"
+#define SPECIES_SKRELL      "Skrell"
+#define SPECIES_NABBER      "giant armoured serpentid"
+#define SPECIES_PROMETHEAN  "Promethean"
+#define SPECIES_XENO        "Xenophage"
+#define SPECIES_ALIEN       "Humanoid"
+#define SPECIES_ADHERENT    "Adherent"
+#define SPECIES_GOLEM       "Golem"
+#define SPECIES_YEOSA       "Yeosa'Unathi"
+#define SPECIES_VATGROWN    "Vat-Grown Human"
+#define SPECIES_SPACER      "Space-Adapted Human"
+#define SPECIES_TRITONIAN   "Tritonian"
+#define SPECIES_GRAVWORLDER "Grav-Adapted Human"
+
+#define STATION_SPECIES list(SPECIES_HUMAN, SPECIES_DIONA, SPECIES_IPC, SPECIES_UNATHI, SPECIES_SKRELL, SPECIES_TRITONIAN, SPECIES_SPACER, SPECIES_VATGROWN, SPECIES_GRAVWORLDER)
+#define RESTRICTED_SPECIES list(SPECIES_VOX, SPECIES_XENO, SPECIES_ALIEN, SPECIES_GOLEM)
+
+#define SURGERY_CLOSED 0
+#define SURGERY_OPEN 1
+#define SURGERY_RETRACTED 2
+#define SURGERY_ENCASED 3
+
+#define STASIS_MISC     "misc"
+#define STASIS_CRYOBAG  "cryobag"
+#define STASIS_COLD     "cold"
+
+#define AURA_CANCEL 1
+#define AURA_FALSE  2
+#define AURA_TYPE_BULLET "Bullet"
+#define AURA_TYPE_WEAPON "Weapon"
+#define AURA_TYPE_THROWN "Thrown"
+#define AURA_TYPE_LIFE   "Life"
+
+#define SPECIES_BLOOD_DEFAULT 560
+
 #define SLIME_EVOLUTION_THRESHOLD 10
 
-//Slime extract crossing. Controls how many extracts is required to feed to a slime to core-cross.
-#define SLIME_EXTRACT_CROSSING_REQUIRED 10
+//Used in mob/proc/get_input
+#define MOB_INPUT_TEXT "text"
+#define MOB_INPUT_MESSAGE "message"
+#define MOB_INPUT_NUM "num"
 
-//Slime commands defines
-#define SLIME_FRIENDSHIP_FOLLOW 			3 //Min friendship to order it to follow
-#define SLIME_FRIENDSHIP_STOPEAT 			5 //Min friendship to order it to stop eating someone
-#define SLIME_FRIENDSHIP_STOPEAT_NOANGRY	7 //Min friendship to order it to stop eating someone without it losing friendship
-#define SLIME_FRIENDSHIP_STOPCHASE			4 //Min friendship to order it to stop chasing someone (their target)
-#define SLIME_FRIENDSHIP_STOPCHASE_NOANGRY	6 //Min friendship to order it to stop chasing someone (their target) without it losing friendship
-#define SLIME_FRIENDSHIP_STAY				3 //Min friendship to order it to stay
-#define SLIME_FRIENDSHIP_ATTACK				8 //Min friendship to order it to attack
+#define MOB_CLIMB_TIME_SMALL 30
+#define MOB_CLIMB_TIME_MEDIUM 50
 
-//Sentience types, to prevent things like sentience potions from giving bosses sentience
-#define SENTIENCE_ORGANIC 1
-#define SENTIENCE_ARTIFICIAL 2
-// #define SENTIENCE_OTHER 3 unused
-#define SENTIENCE_MINEBOT 4
-#define SENTIENCE_BOSS 5
+#define MOB_FACTION_NEUTRAL "neutral"
 
-//Mob AI Status
-
-//Hostile simple animals
-//If you add a new status, be sure to add a list for it to the simple_animals global in _globalvars/lists/mobs.dm
-#define AI_ON		1
-#define AI_IDLE		2
-#define AI_OFF		3
-#define AI_Z_OFF	4
-
-//determines if a mob can smash through it
-#define ENVIRONMENT_SMASH_NONE			0
-#define ENVIRONMENT_SMASH_STRUCTURES	(1<<0) 	//crates, lockers, ect
-#define ENVIRONMENT_SMASH_WALLS			(1<<1)  //walls
-#define ENVIRONMENT_SMASH_RWALLS		(1<<2)	//rwalls
-
-#define NO_SLIP_WHEN_WALKING	(1<<0)
-#define SLIDE					(1<<1)
-#define GALOSHES_DONT_HELP		(1<<2)
-#define SLIDE_ICE				(1<<3)
-
-#define MAX_CHICKENS 50
-
-#define UNHEALING_EAR_DAMAGE 100
-
-
-#define INCORPOREAL_MOVE_BASIC 1
-#define INCORPOREAL_MOVE_SHADOW 2 // leaves a trail of shadows
-#define INCORPOREAL_MOVE_JAUNT 3 // is blocked by holy water/salt
-
-//Secbot and ED209 judgement criteria bitflag values
-#define JUDGE_EMAGGED		(1<<0)
-#define JUDGE_IDCHECK		(1<<1)
-#define JUDGE_WEAPONCHECK	(1<<2)
-#define JUDGE_RECORDCHECK	(1<<3)
-//ED209's ignore monkeys
-#define JUDGE_IGNOREMONKEYS	(1<<4)
-
-#define MEGAFAUNA_DEFAULT_RECOVERY_TIME 5
-
-#define SHADOW_SPECIES_LIGHT_THRESHOLD 0.2
-
-// Offsets defines
-
-#define OFFSET_UNIFORM "uniform"
-#define OFFSET_ID "id"
-#define OFFSET_GLOVES "gloves"
-#define OFFSET_GLASSES "glasses"
-#define OFFSET_EARS "ears"
-#define OFFSET_SHOES "shoes"
-#define OFFSET_S_STORE "s_store"
-#define OFFSET_FACEMASK "mask"
-#define OFFSET_HEAD "head"
-#define OFFSET_FACE "face"
-#define OFFSET_BELT "belt"
-#define OFFSET_BACK "back"
-#define OFFSET_SUIT "suit"
-#define OFFSET_NECK "neck"
-
-//MINOR TWEAKS/MISC
-#define AGE_MIN				17	//youngest a character can be
-#define AGE_MAX				85	//oldest a character can be
-#define WIZARD_AGE_MIN		30	//youngest a wizard can be
-#define APPRENTICE_AGE_MIN	29	//youngest an apprentice can be
-#define SHOES_SLOWDOWN		0	//How much shoes slow you down by default. Negative values speed you up
-#define POCKET_STRIP_DELAY			40	//time taken (in deciseconds) to search somebody's pockets
-#define DOOR_CRUSH_DAMAGE	15	//the amount of damage that airlocks deal when they crush you
-
-#define	HUNGER_FACTOR		0.1	//factor at which mob nutrition decreases
-#define	REAGENTS_METABOLISM 0.4	//How many units of reagent are consumed per tick, by default.
-#define REAGENTS_EFFECT_MULTIPLIER (REAGENTS_METABOLISM / 0.4)	// By defining the effect multiplier this way, it'll exactly adjust all effects according to how they originally were with the 0.4 metabolism
-
-// Roundstart trait system
-
-#define MAX_QUIRKS 6 //The maximum amount of quirks one character can have at roundstart
-
-// AI Toggles
-#define AI_CAMERA_LUMINOSITY	5
-#define AI_VOX // Comment out if you don't want VOX to be enabled and have players download the voice sounds.
-
-//Respawn timer
-#define RESPAWN_TIMER 1800 // in deciseconds, the time to wait before allowing respawn. 3 minutes = 3 * 60 (seconds in minute) * 10 (seconds to deciseconds)
+#define ROBOT_MODULE_TYPE_GROUNDED "grounded"
+#define ROBOT_MODULE_TYPE_FLYING   "flying"

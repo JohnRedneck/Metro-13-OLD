@@ -1,5 +1,10 @@
 /mob/living/silicon/ai/Logout()
 	..()
-	for(var/obj/machinery/ai_status_display/O in GLOB.ai_status_displays) //change status
+	for(var/obj/machinery/ai_status_display/O in world) //change status
 		O.mode = 0
-	view_core()
+	if(!isturf(loc))
+		if (client)
+			client.eye = loc
+			client.perspective = EYE_PERSPECTIVE
+	src.view_core()
+	return

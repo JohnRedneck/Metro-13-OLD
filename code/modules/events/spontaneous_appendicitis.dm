@@ -1,29 +1,9 @@
-/datum/round_event_control/spontaneous_appendicitis
-	name = "Spontaneous Appendicitis"
-	typepath = /datum/round_event/spontaneous_appendicitis
-	weight = 20
-	max_occurrences = 4
-	earliest_start = 10 MINUTES
-	min_players = 5 // To make your chance of getting help a bit higher.
-
-/datum/round_event/spontaneous_appendicitis
-	fakeable = FALSE
-
-/datum/round_event/spontaneous_appendicitis/start()
-	for(var/mob/living/carbon/human/H in shuffle(GLOB.alive_mob_list))
-		if(!H.client)
-			continue
-		if(H.stat == DEAD)
-			continue
-		if(!H.getorgan(/obj/item/organ/appendix)) //Don't give the disease to some who lacks it, only for it to be auto-cured
-			continue
-		var/foundAlready = FALSE	//don't infect someone that already has appendicitis
-		for(var/datum/disease/appendicitis/A in H.diseases)
-			foundAlready = TRUE
+/datum/event/spontaneous_appendicitis/start()
+	for(var/mob/living/carbon/human/H in shuffle(GLOB.living_mob_list_))
+		if(H.client && H.stat != DEAD)
+			var/obj/item/organ/internal/appendix/A = H.internal_organs_by_name[BP_APPENDIX]
+			if(!istype(A) || (A && A.inflamed))
+				continue
+			A.inflamed = 1
+			A.update_icon()
 			break
-		if(foundAlready)
-			continue
-
-		var/datum/disease/D = new /datum/disease/appendicitis()
-		H.ForceContractDisease(D, FALSE, TRUE)
-		break

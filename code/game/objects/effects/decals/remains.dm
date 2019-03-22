@@ -1,33 +1,41 @@
-/obj/effect/decal/remains
+/obj/item/remains
 	name = "remains"
 	gender = PLURAL
 	icon = 'icons/effects/blood.dmi'
+	icon_state = "remains"
+	anchored = 0
 
-/obj/effect/decal/remains/acid_act()
-	visible_message("<span class='warning'>[src] dissolve[gender==PLURAL?"":"s"] into a puddle of sizzling goop!</span>")
-	playsound(src, 'sound/items/welder.ogg', 150, 1)
-	new /obj/effect/decal/cleanable/greenglow(drop_location())
-	qdel(src)
-
-/obj/effect/decal/remains/human
+/obj/item/remains/human
 	desc = "They look like human remains. They have a strange aura about them."
+
+/obj/effect/decal/remains	// Apparently used by cult somewhere?
+	desc = "They look like human remains. They have a strange aura about them."
+	icon = 'icons/effects/blood.dmi'
 	icon_state = "remains"
 
-/obj/effect/decal/remains/plasma
-	icon_state = "remainsplasma"
-
-/obj/effect/decal/remains/xeno
+/obj/item/remains/xeno
 	desc = "They look like the remains of something... alien. They have a strange aura about them."
 	icon_state = "remainsxeno"
 
-/obj/effect/decal/remains/xeno/larva
-	icon_state = "remainslarva"
-
-/obj/effect/decal/remains/robot
+/obj/item/remains/robot
 	desc = "They look like the remains of something mechanical. They have a strange aura about them."
-	icon = 'icons/mob/robots.dmi'
+	icon = 'icons/mob/robots_gibs.dmi'
 	icon_state = "remainsrobot"
 
-/obj/effect/decal/cleanable/robot_debris/old
-	name = "dusty robot debris"
-	desc = "Looks like nobody has touched this in a while."
+/obj/item/remains/mouse
+	desc = "They look like the remains of a small rodent."
+	icon_state = "mouse"
+
+/obj/item/remains/lizard
+	desc = "They look like the remains of a small rodent."
+	icon_state = "lizard"
+
+/obj/item/remains/attack_hand(mob/user as mob)
+	to_chat(user, "<span class='notice'>[src] sinks together into a pile of ash.</span>")
+	var/turf/simulated/floor/F = get_turf(src)
+	if (istype(F))
+		new /obj/effect/decal/cleanable/ash(F)
+	qdel(src)
+
+/obj/item/remains/robot/attack_hand(mob/user as mob)
+	return

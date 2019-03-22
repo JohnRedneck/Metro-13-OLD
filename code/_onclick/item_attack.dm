@@ -1,144 +1,94 @@
+/*
+=== Item Click Call Sequences ===
+These are the default click code call sequences used when clicking on stuff with an item.
 
-/obj/item/proc/melee_attack_chain(mob/user, atom/target, params)
-	if(!tool_attack_chain(user, target) && pre_attack(target, user, params))
-		// Return 1 in attackby() to prevent afterattack() effects (when safely moving items for example)
-		var/resolved = target.attackby(src, user, params)
-		if(!resolved && target && !QDELETED(src))
-			afterattack(target, user, 1, params) // 1: clicking something Adjacent
+Atoms:
 
+mob/ClickOn() calls the item's resolve_attackby() proc.
+item/resolve_attackby() calls the target atom's attackby() proc.
 
-//Checks if the item can work as a tool, calling the appropriate tool behavior on the target
-/obj/item/proc/tool_attack_chain(mob/user, atom/target)
-	if(!tool_behaviour)
-		return FALSE
+Mobs:
 
-	return target.tool_act(user, src, tool_behaviour)
+mob/living/attackby() after checking for surgery, calls the item's attack() proc.
+item/attack() generates attack logs, sets click cooldown and calls the mob's attacked_with_item() proc. If you override this, consider whether you need to set a click cooldown, play attack animations, and generate logs yourself.
+mob/attacked_with_item() should then do mob-type specific stuff (like determining hit/miss, handling shields, etc) and then possibly call the item's apply_hit_effect() proc to actually apply the effects of being hit.
 
+Item Hit Effects:
+
+item/apply_hit_effect() can be overriden to do whatever you want. However "standard" physical damage based weapons should make use of the target mob's hit_with_weapon() proc to
+avoid code duplication. This includes items that may sometimes act as a standard weapon in addition to having other effects (e.g. stunbatons on harm intent).
+*/
 
 // Called when the item is in the active hand, and clicked; alternately, there is an 'activate held object' verb or you can hit pagedown.
 /obj/item/proc/attack_self(mob/user)
-	if(SEND_SIGNAL(src, COMSIG_ITEM_ATTACK_SELF, user) & COMPONENT_NO_INTERACT)
-		return
-	interact(user)
-
-/obj/item/proc/pre_attack(atom/A, mob/living/user, params) //do stuff before attackby!
-	if(SEND_SIGNAL(src, COMSIG_ITEM_PRE_ATTACK, A, user, params) & COMPONENT_NO_ATTACK)
-		return FALSE
-	return TRUE //return FALSE to avoid calling attackby after this proc does stuff
-
-// No comment
-/atom/proc/attackby(obj/item/W, mob/user, params)
-	if(SEND_SIGNAL(src, COMSIG_PARENT_ATTACKBY, W, user, params) & COMPONENT_NO_AFTERATTACK)
-		return TRUE
-	return FALSE
-
-/obj/attackby(obj/item/I, mob/living/user, params)
-	return ..() || ((obj_flags & CAN_BE_HIT) && I.attack_obj(src, user))
-
-/mob/living/attackby(obj/item/I, mob/living/user, params)
-	user.changeNext_move(CLICK_CD_MELEE)
-	if(user.a_intent == INTENT_HARM && stat == DEAD && (butcher_results || guaranteed_butcher_results)) //can we butcher it?
-		GET_COMPONENT_FROM(butchering, /datum/component/butchering, I)
-		if(butchering && butchering.butchering_enabled)
-			to_chat(user, "<span class='notice'>You begin to butcher [src]...</span>")
-			playsound(loc, butchering.butcher_sound, 50, TRUE, -1)
-			if(do_mob(user, src, butchering.speed) && Adjacent(I))
-				butchering.Butcher(user, src)
-			return 1
-		else if(I.is_sharp() && !butchering) //give sharp objects butchering functionality, for consistency
-			I.AddComponent(/datum/component/butchering, 80 * I.toolspeed)
-			attackby(I, user, params) //call the attackby again to refresh and do the butchering check again
-			return
-	return I.attack(src, user)
-
-
-/obj/item/proc/attack(mob/living/M, mob/living/user)
-	SEND_SIGNAL(src, COMSIG_ITEM_ATTACK, M, user)
-	if(item_flags & NOBLUDGEON)
-		return
-
-	if(force && user.has_trait(TRAIT_PACIFISM))
-		to_chat(user, "<span class='warning'>You don't want to harm other living beings!</span>")
-		return
-
-	if(!force)
-		playsound(loc, 'sound/weapons/tap.ogg', get_clamped_volume(), 1, -1)
-	else if(hitsound)
-		playsound(loc, hitsound, get_clamped_volume(), 1, -1)
-
-	M.lastattacker = user.real_name
-	M.lastattackerckey = user.ckey
-
-	user.do_attack_animation(M)
-	M.attacked_by(src, user)
-
-	add_logs(user, M, "attacked", src.name, "(INTENT: [uppertext(user.a_intent)]) (DAMTYPE: [uppertext(damtype)])")
-	add_fingerprint(user)
-
-
-//the equivalent of the standard version of attack() but for object targets.
-/obj/item/proc/attack_obj(obj/O, mob/living/user)
-	if(SEND_SIGNAL(src, COMSIG_ITEM_ATTACK_OBJ, O, user) & COMPONENT_NO_ATTACK_OBJ)
-		return
-	if(item_flags & NOBLUDGEON)
-		return
-	user.changeNext_move(CLICK_CD_MELEE)
-	user.do_attack_animation(O)
-	O.attacked_by(src, user)
-
-/atom/movable/proc/attacked_by()
 	return
 
-/obj/attacked_by(obj/item/I, mob/living/user)
-	if(I.force)
-		visible_message("<span class='danger'>[user] has hit [src] with [I]!</span>", null, null, COMBAT_MESSAGE_RANGE)
-		//only witnesses close by and the victim see a hit message.
-	take_damage(I.force, I.damtype, "melee", 1)
+//I would prefer to rename this to attack(), but that would involve touching hundreds of files.
+/obj/item/proc/resolve_attackby(atom/A, mob/user, var/click_params)
+	if(!(item_flags & ITEM_FLAG_NO_PRINT))
+		add_fingerprint(user)
+	return A.attackby(src, user, click_params)
 
-/mob/living/attacked_by(obj/item/I, mob/living/user)
-	send_item_attack_message(I, user)
-	if(I.force)
-		apply_damage(I.force, I.damtype)
-		if(I.damtype == BRUTE)
-			if(prob(33))
-				I.add_mob_blood(src)
-				var/turf/location = get_turf(src)
-				add_splatter_floor(location)
-				if(get_dist(user, src) <= 1)	//people with TK won't get smeared with blood
-					user.add_mob_blood(src)
-		return TRUE //successful attack
+// No comment
+/atom/proc/attackby(obj/item/W, mob/user, var/click_params)
+	return
 
-/mob/living/simple_animal/attacked_by(obj/item/I, mob/living/user)
-	if(I.force < force_threshold || I.damtype == STAMINA)
-		playsound(loc, 'sound/weapons/tap.ogg', I.get_clamped_volume(), 1, -1)
-	else
-		return ..()
+/atom/movable/attackby(obj/item/W, mob/user)
+	if(!(W.item_flags & ITEM_FLAG_NO_BLUDGEON))
+		visible_message("<span class='danger'>[src] has been hit by [user] with [W].</span>")
+
+/mob/living/attackby(obj/item/I, mob/user)
+	if(!ismob(user))
+		return 0
+	if(can_operate(src,user) && I.do_surgery(src,user)) //Surgery
+		return 1
+	return I.attack(src, user, user.zone_sel.selecting)
+
+/mob/living/carbon/human/attackby(obj/item/I, mob/user)
+	if(user == src && zone_sel.selecting == BP_MOUTH && can_devour(I, silent = TRUE))
+		var/obj/item/blocked = src.check_mouth_coverage()
+		if(blocked)
+			to_chat(user, SPAN_WARNING("\The [blocked] is in the way!"))
+			return TRUE
+		if(devour(I))
+			return TRUE
+	return ..()
 
 // Proximity_flag is 1 if this afterattack was called on something adjacent, in your square, or on your person.
 // Click parameters is the params string from byond Click() code, see that documentation.
 /obj/item/proc/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	return
 
+//I would prefer to rename this attack_as_weapon(), but that would involve touching hundreds of files.
+/obj/item/proc/attack(mob/living/M, mob/living/user, var/target_zone)
+	if(!force || (item_flags & ITEM_FLAG_NO_BLUDGEON))
+		return 0
+	if(M == user && user.a_intent != I_HURT)
+		return 0
 
-/obj/item/proc/get_clamped_volume()
-	if(w_class)
-		if(force)
-			return CLAMP((force + w_class) * 4, 30, 100)// Add the item's force to its weight class and multiply by 4, then clamp the value between 30 and 100
-		else
-			return CLAMP(w_class * 6, 10, 100) // Multiply the item's weight class by 6, then clamp the value between 10 and 100
+	/////////////////////////
 
-/mob/living/proc/send_item_attack_message(obj/item/I, mob/living/user, hit_area)
-	var/message_verb = "attacked"
-	if(I.attack_verb && I.attack_verb.len)
-		message_verb = "[pick(I.attack_verb)]"
-	else if(!I.force)
-		return
-	var/message_hit_area = ""
-	if(hit_area)
-		message_hit_area = " in the [hit_area]"
-	var/attack_message = "[src] has been [message_verb][message_hit_area] with [I]."
-	if(user in viewers(src, null))
-		attack_message = "[user] has [message_verb] [src][message_hit_area] with [I]!"
-	visible_message("<span class='danger'>[attack_message]</span>",\
-		"<span class='userdanger'>[attack_message]</span>", null, COMBAT_MESSAGE_RANGE)
+	if(!no_attack_log)
+		admin_attack_log(user, M, "Attacked using \a [src] (DAMTYE: [uppertext(damtype)])", "Was attacked with \a [src] (DAMTYE: [uppertext(damtype)])", "used \a [src] (DAMTYE: [uppertext(damtype)]) to attack")
+	/////////////////////////
+	user.setClickCooldown(attack_cooldown + w_class)
+	user.do_attack_animation(M)
+	if(!user.aura_check(AURA_TYPE_WEAPON, src, user))
+		return 0
+
+	var/hit_zone = M.resolve_item_attack(src, user, target_zone)
+	if(hit_zone)
+		apply_hit_effect(M, user, hit_zone)
+
 	return 1
+
+//Called when a weapon is used to make a successful melee attack on a mob. Returns whether damage was dealt.
+/obj/item/proc/apply_hit_effect(mob/living/target, mob/living/user, var/hit_zone)
+	if(hitsound)
+		playsound(loc, hitsound, 50, 1, -1)
+
+	var/power = force
+	if(MUTATION_HULK in user.mutations)
+		power *= 2
+	return target.hit_with_weapon(src, user, power, hit_zone)
+

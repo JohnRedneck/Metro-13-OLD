@@ -1,21 +1,28 @@
-/mob/living/silicon/robot/Process_Spacemove(movement_dir = 0)
-	if(ionpulse())
+/mob/living/silicon/robot/slip_chance(var/prob_slip)
+	if(module && module.no_slip)
+		return 0
+	..(prob_slip)
+
+/mob/living/silicon/robot/Check_Shoegrip()
+	if(module && module.no_slip)
 		return 1
-	return ..()
+	return 0
 
-/mob/living/silicon/robot/movement_delay()
+/mob/living/silicon/robot/Allow_Spacemove()
+	if(module)
+		for(var/obj/item/weapon/tank/jetpack/J in module.equipment)
+			if(J && J.allow_thrust(0.01))
+				return 1
 	. = ..()
-	var/static/config_robot_delay
-	if(isnull(config_robot_delay))
-		config_robot_delay = CONFIG_GET(number/robot_delay)
-	. += speed + config_robot_delay
 
-/mob/living/silicon/robot/mob_negates_gravity()
-	return magpulse
 
-/mob/living/silicon/robot/mob_has_gravity()
-	return ..() || mob_negates_gravity()
+ //No longer needed, but I'll leave it here incase we plan to re-use it.
+/mob/living/silicon/robot/movement_delay()
+	var/tally = ..() //Incase I need to add stuff other than "speed" later
 
-/mob/living/silicon/robot/experience_pressure_difference(pressure_difference, direction)
-	if(!magpulse)
-		return ..()
+	tally += speed
+
+	if(module_active && istype(module_active,/obj/item/borg/combat/mobility))
+		tally-=3
+
+	return tally+config.robot_delay

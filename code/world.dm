@@ -1,14 +1,17 @@
+#define WORLD_ICON_SIZE 32
+
 //This file is just for the necessary /world definition
 //Try looking in game/world.dm
 
 /world
-	mob = /mob/dead/new_player
-	turf = /turf/open/space/basic
+	mob = /mob/new_player
+	turf = /turf/space
 	area = /area/space
 	view = "15x15"
+	cache_lifespan = 7
 	hub = "Exadv1.spacestation13"
-	name = "/tg/ Station 13"
+	icon_size = WORLD_ICON_SIZE
 	fps = 20
-#ifdef FIND_REF_NO_CHECK_TICK
+#ifdef GC_FAILURE_HARD_LOOKUP
 	loop_checks = FALSE
 #endif

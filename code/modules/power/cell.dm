@@ -1,395 +1,245 @@
-/obj/item/stock_parts/cell
+// Power Cells
+/obj/item/weapon/cell
 	name = "power cell"
-	desc = "A rechargeable electrochemical power cell."
+	desc = "A rechargable electrochemical power cell."
 	icon = 'icons/obj/power.dmi'
 	icon_state = "cell"
 	item_state = "cell"
-	lefthand_file = 'icons/mob/inhands/misc/devices_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
-	force = 5
-	throwforce = 5
-	throw_speed = 2
+	origin_tech = list(TECH_POWER = 1)
+	force = 5.0
+	throwforce = 5.0
+	throw_speed = 3
 	throw_range = 5
-	w_class = WEIGHT_CLASS_SMALL
-	var/charge = 0	// note %age conveted to actual charge in New
-	var/maxcharge = 1000
-	materials = list(MAT_METAL=700, MAT_GLASS=50)
-	grind_results = list("lithium" = 15, "iron" = 5, "silicon" = 5)
-	var/rigged = FALSE	// true if rigged to explode
-	var/chargerate = 100 //how much power is given every tick in a recharger
-	var/self_recharge = 0 //does it self recharge, over time, or not?
-	var/ratingdesc = TRUE
-	var/grown_battery = FALSE // If it's a grown that acts as a battery, add a wire overlay to it.
-	container_type = INJECTABLE|DRAINABLE
+	w_class = ITEM_SIZE_NORMAL
+	var/charge			                // Current charge
+	var/maxcharge = 1000 // Capacity in Wh
+	var/overlay_state
+	matter = list(MATERIAL_STEEL = 700, MATERIAL_GLASS = 50, MATERIAL_PLASTIC = 20)
 
-/obj/item/stock_parts/cell/get_cell()
-	return src
-
-/obj/item/stock_parts/cell/Initialize(mapload, override_maxcharge)
+/obj/item/weapon/cell/Initialize()
 	. = ..()
-	START_PROCESSING(SSobj, src)
-	create_reagents(5)
-	if (override_maxcharge)
-		maxcharge = override_maxcharge
-	charge = maxcharge
-	if(ratingdesc)
-		desc += " This one has a rating of [DisplayEnergy(maxcharge)], and you should not swallow it."
+	if(isnull(charge))
+		charge = maxcharge
 	update_icon()
 
-/obj/item/stock_parts/cell/Destroy()
-	STOP_PROCESSING(SSobj, src)
-	return ..()
+/obj/item/weapon/cell/drain_power(var/drain_check, var/surge, var/power = 0)
 
-/obj/item/stock_parts/cell/vv_edit_var(var_name, var_value)
-	switch(var_name)
-		if("self_recharge")
-			if(var_value)
-				START_PROCESSING(SSobj, src)
-			else
-				STOP_PROCESSING(SSobj, src)
-	. = ..()
+	if(drain_check)
+		return 1
 
-/obj/item/stock_parts/cell/process()
-	if(self_recharge)
-		give(chargerate * 0.25)
-	else
-		return PROCESS_KILL
-
-/obj/item/stock_parts/cell/update_icon()
-	cut_overlays()
-	if(grown_battery)
-		add_overlay(image('icons/obj/power.dmi',"grown_wires"))
-	if(charge < 0.01)
-		return
-	else if(charge/maxcharge >=0.995)
-		add_overlay("cell-o2")
-	else
-		add_overlay("cell-o1")
-
-/obj/item/stock_parts/cell/proc/percent()		// return % charge of cell
-	return 100*charge/maxcharge
-
-// use power from a cell
-/obj/item/stock_parts/cell/use(amount)
-	if(rigged && amount > 0)
-		explode()
+	if(charge <= 0)
 		return 0
-	if(charge < amount)
+
+	var/cell_amt = power * CELLRATE
+
+	return use(cell_amt) / CELLRATE
+
+/obj/item/weapon/cell/on_update_icon()
+
+	var/new_overlay_state = null
+	if(percent() >= 95)
+		new_overlay_state = "cell-o2"
+	else if(charge >= 0.05)
+		new_overlay_state = "cell-o1"
+
+	if(new_overlay_state != overlay_state)
+		overlay_state = new_overlay_state
+		overlays.Cut()
+		if(overlay_state)
+			overlays += image('icons/obj/power.dmi', overlay_state)
+
+/obj/item/weapon/cell/proc/percent()		// return % charge of cell
+	return maxcharge && (100.0*charge/maxcharge)
+
+/obj/item/weapon/cell/proc/fully_charged()
+	return (charge == maxcharge)
+
+// checks if the power cell is able to provide the specified amount of charge
+/obj/item/weapon/cell/proc/check_charge(var/amount)
+	return (charge >= amount)
+
+// use power from a cell, returns the amount actually used
+/obj/item/weapon/cell/proc/use(var/amount)
+	var/used = min(charge, amount)
+	charge -= used
+	update_icon()
+	return used
+
+// Checks if the specified amount can be provided. If it can, it removes the amount
+// from the cell and returns 1. Otherwise does nothing and returns 0.
+/obj/item/weapon/cell/proc/checked_use(var/amount)
+	if(!check_charge(amount))
 		return 0
-	charge = (charge - amount)
-	if(!istype(loc, /obj/machinery/power/apc))
-		SSblackbox.record_feedback("tally", "cell_used", 1, type)
+	use(amount)
 	return 1
 
-// recharge the cell
-/obj/item/stock_parts/cell/proc/give(amount)
-	if(rigged && amount > 0)
-		explode()
-		return 0
-	if(maxcharge < amount)
-		amount = maxcharge
-	var/power_used = min(maxcharge-charge,amount)
-	charge += power_used
-	return power_used
+/obj/item/weapon/cell/proc/give(var/amount)
+	var/amount_used = min(maxcharge-charge,amount)
+	charge += amount_used
+	update_icon()
+	return amount_used
 
-/obj/item/stock_parts/cell/examine(mob/user)
-	..()
-	if(rigged)
-		to_chat(user, "<span class='danger'>This power cell seems to be faulty!</span>")
-	else
-		to_chat(user, "The charge meter reads [round(src.percent() )]%.")
-
-/obj/item/stock_parts/cell/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] is licking the electrodes of [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
-	return (FIRELOSS)
-
-/obj/item/stock_parts/cell/on_reagent_change(changetype)
-	rigged = !isnull(reagents.has_reagent("plasma", 5)) //has_reagent returns the reagent datum
-	..()
-
-
-/obj/item/stock_parts/cell/proc/explode()
-	var/turf/T = get_turf(src.loc)
-	if (charge==0)
-		return
-	var/devastation_range = -1 //round(charge/11000)
-	var/heavy_impact_range = round(sqrt(charge)/60)
-	var/light_impact_range = round(sqrt(charge)/30)
-	var/flash_range = light_impact_range
-	if (light_impact_range==0)
-		rigged = FALSE
-		corrupt()
-		return
-	//explosion(T, 0, 1, 2, 2)
-	explosion(T, devastation_range, heavy_impact_range, light_impact_range, flash_range)
-	qdel(src)
-
-/obj/item/stock_parts/cell/proc/corrupt()
-	charge /= 2
-	maxcharge = max(maxcharge/2, chargerate)
-	if (prob(10))
-		rigged = TRUE //broken batterys are dangerous
-
-/obj/item/stock_parts/cell/emp_act(severity)
+/obj/item/weapon/cell/examine(mob/user)
 	. = ..()
-	if(. & EMP_PROTECT_SELF)
-		return
-	charge -= 1000 / severity
+	to_chat(user, "The label states it's capacity is [maxcharge] Wh")
+	to_chat(user, "The charge meter reads [round(src.percent(), 0.1)]%")
+
+/obj/item/weapon/cell/emp_act(severity)
+	//remove this once emp changes on dev are merged in
+	if(isrobot(loc))
+		var/mob/living/silicon/robot/R = loc
+		severity *= R.cell_emp_mult
+
+	// Lose 1/2, 1/4, 1/6 of the current charge per hit or 1/4, 1/8, 1/12 of the max charge per hit, whichever is highest
+	charge -= max(charge / (2 * severity), maxcharge/(4 * severity))
 	if (charge < 0)
 		charge = 0
-
-/obj/item/stock_parts/cell/ex_act(severity, target)
 	..()
-	if(!QDELETED(src))
-		switch(severity)
-			if(2)
-				if(prob(50))
-					corrupt()
-			if(3)
-				if(prob(25))
-					corrupt()
 
 
-/obj/item/stock_parts/cell/blob_act(obj/structure/blob/B)
-	ex_act(EXPLODE_DEVASTATE)
+/obj/item/weapon/cell/proc/get_electrocute_damage()
+	switch (charge)
+		if (1000000 to INFINITY)
+			return min(rand(50,160),rand(50,160))
+		if (200000 to 1000000-1)
+			return min(rand(25,80),rand(25,80))
+		if (100000 to 200000-1)//Ave powernet
+			return min(rand(20,60),rand(20,60))
+		if (50000 to 100000-1)
+			return min(rand(15,40),rand(15,40))
+		if (1000 to 50000-1)
+			return min(rand(10,20),rand(10,20))
+		else
+			return 0
 
-/obj/item/stock_parts/cell/proc/get_electrocute_damage()
-	if(charge >= 1000)
-		return CLAMP(round(charge/10000), 10, 90) + rand(-5,5)
-	else
-		return 0
+/obj/item/weapon/cell/get_cell()
+	return src //no shit Sherlock
 
-/obj/item/stock_parts/cell/get_part_rating()
-	return rating * maxcharge
+// SUBTYPES BELOW
 
-/* Cell variants*/
-/obj/item/stock_parts/cell/empty/Initialize()
-	. = ..()
+// Smaller variant, used by energy guns and similar small devices.
+/obj/item/weapon/cell/device
+	name = "device power cell"
+	desc = "A small power cell designed to power handheld devices."
+	icon_state = "device"
+	w_class = ITEM_SIZE_SMALL
+	force = 0
+	throw_speed = 5
+	throw_range = 7
+	maxcharge = 100
+	matter = list(MATERIAL_STEEL = 70, MATERIAL_GLASS = 5)
+
+/obj/item/weapon/cell/device/variable/Initialize(mapload, charge_amount)
+	maxcharge = charge_amount
+	return ..(mapload)
+
+/obj/item/weapon/cell/device/standard
+	name = "standard device power cell"
+	maxcharge = 25
+
+/obj/item/weapon/cell/device/high
+	name = "advanced device power cell"
+	desc = "A small power cell designed to power more energy-demanding devices."
+	icon_state = "hdevice"
+	maxcharge = 100
+	matter = list(MATERIAL_STEEL = 70, MATERIAL_GLASS = 6)
+
+/obj/item/weapon/cell/crap
+	name = "old power cell"
+	desc = "A cheap old power cell. It's probably been in use for quite some time now."
+	origin_tech = list(TECH_POWER = 0)
+	maxcharge = 100
+	matter = list(MATERIAL_STEEL = 700, MATERIAL_GLASS = 40, MATERIAL_PLASTIC = 20)
+
+/obj/item/weapon/cell/crap/empty
 	charge = 0
 
-/obj/item/stock_parts/cell/crap
-	name = "\improper Nanotrasen brand rechargeable AA battery"
-	desc = "You can't top the plasma top." //TOTALLY TRADEMARK INFRINGEMENT
+/obj/item/weapon/cell/standard
+	name = "standard power cell"
+	desc = "A standard and relatively cheap power cell, commonly used."
+	origin_tech = list(TECH_POWER = 0)
+	maxcharge = 250
+	matter = list(MATERIAL_STEEL = 700, MATERIAL_GLASS = 40, MATERIAL_PLASTIC = 20)
+
+/obj/item/weapon/cell/apc
+	name = "APC power cell"
+	desc = "A special power cell designed for heavy-duty use in area power controllers."
+	origin_tech = list(TECH_POWER = 1)
 	maxcharge = 500
-	materials = list(MAT_GLASS=40)
+	matter = list(MATERIAL_STEEL = 700, MATERIAL_GLASS = 50, MATERIAL_PLASTIC = 20)
 
-/obj/item/stock_parts/cell/crap/empty/Initialize()
-	. = ..()
-	charge = 0
-	update_icon()
 
-/obj/item/stock_parts/cell/upgraded
-	name = "upgraded power cell"
-	desc = "A power cell with a slightly higher capacity than normal!"
-	maxcharge = 2500
-	materials = list(MAT_GLASS=50)
-	chargerate = 1000
-
-/obj/item/stock_parts/cell/upgraded/plus
-	name = "upgraded power cell+"
-	desc = "A power cell with an even higher capacity than the base model!"
-	maxcharge = 5000
-
-/obj/item/stock_parts/cell/secborg
-	name = "security borg rechargeable D battery"
-	maxcharge = 600	//600 max charge / 100 charge per shot = six shots
-	materials = list(MAT_GLASS=40)
-
-/obj/item/stock_parts/cell/secborg/empty/Initialize()
-	. = ..()
-	charge = 0
-	update_icon()
-
-/obj/item/stock_parts/cell/pulse //200 pulse shots
-	name = "pulse rifle power cell"
-	maxcharge = 40000
-	chargerate = 1500
-
-/obj/item/stock_parts/cell/pulse/carbine //25 pulse shots
-	name = "pulse carbine power cell"
-	maxcharge = 5000
-
-/obj/item/stock_parts/cell/pulse/pistol //10 pulse shots
-	name = "pulse pistol power cell"
-	maxcharge = 2000
-
-/obj/item/stock_parts/cell/high
-	name = "high-capacity power cell"
+/obj/item/weapon/cell/high
+	name = "advanced power cell"
+	desc = "An advanced high-grade power cell, for use in important systems."
+	origin_tech = list(TECH_POWER = 2)
 	icon_state = "hcell"
-	maxcharge = 10000
-	materials = list(MAT_GLASS=60)
-	chargerate = 1500
+	maxcharge = 1000
+	matter = list(MATERIAL_STEEL = 700, MATERIAL_GLASS = 60, MATERIAL_PLASTIC = 20)
 
-/obj/item/stock_parts/cell/high/plus
-	name = "high-capacity power cell+"
-	desc = "Where did these come from?"
-	icon_state = "h+cell"
-	maxcharge = 15000
-	chargerate = 2250
-
-/obj/item/stock_parts/cell/high/empty/Initialize()
-	. = ..()
+/obj/item/weapon/cell/high/empty
 	charge = 0
-	update_icon()
 
-/obj/item/stock_parts/cell/super
-	name = "super-capacity power cell"
+/obj/item/weapon/cell/mecha
+	name = "exosuit power cell"
+	desc = "A special power cell designed for heavy-duty use in industrial exosuits."
+	origin_tech = list(TECH_POWER = 3)
+	icon_state = "hcell"
+	maxcharge = 1500
+	matter = list(MATERIAL_STEEL = 700, MATERIAL_GLASS = 70, MATERIAL_ALUMINIUM = 20)
+
+
+/obj/item/weapon/cell/super
+	name = "enhanced power cell"
+	desc = "A very advanced power cell with increased energy density, for use in critical applications."
+	origin_tech = list(TECH_POWER = 5)
 	icon_state = "scell"
-	maxcharge = 20000
-	materials = list(MAT_GLASS=300)
-	chargerate = 2000
+	maxcharge = 2000
+	matter = list(MATERIAL_STEEL = 700, MATERIAL_GLASS = 70, MATERIAL_ALUMINIUM = 20)
 
-/obj/item/stock_parts/cell/super/empty/Initialize()
-	. = ..()
+/obj/item/weapon/cell/super/empty
 	charge = 0
-	update_icon()
 
-/obj/item/stock_parts/cell/hyper
-	name = "hyper-capacity power cell"
+/obj/item/weapon/cell/hyper
+	name = "superior power cell"
+	desc = "Pinnacle of power storage technology, this very expensive power cell provides the best energy density reachable with conventional electrochemical cells."
+	origin_tech = list(TECH_POWER = 6)
 	icon_state = "hpcell"
-	maxcharge = 30000
-	materials = list(MAT_GLASS=400)
-	chargerate = 3000
+	maxcharge = 3000
+	matter = list(MATERIAL_STEEL = 700, MATERIAL_GLASS = 80, MATERIAL_ALUMINIUM = 20)
 
-/obj/item/stock_parts/cell/hyper/empty/Initialize()
-	. = ..()
+/obj/item/weapon/cell/hyper/empty
 	charge = 0
-	update_icon()
 
-/obj/item/stock_parts/cell/bluespace
-	name = "bluespace power cell"
-	desc = "A rechargeable transdimensional power cell."
-	icon_state = "bscell"
-	maxcharge = 40000
-	materials = list(MAT_GLASS=600)
-	chargerate = 4000
-
-/obj/item/stock_parts/cell/bluespace/empty/Initialize()
-	. = ..()
-	charge = 0
-	update_icon()
-
-/obj/item/stock_parts/cell/infinite
-	name = "infinite-capacity power cell!"
+/obj/item/weapon/cell/infinite
+	name = "experimental power cell"
+	desc = "This special experimental power cell has both very large capacity, and ability to recharge itself by draining power from contained bluespace pocket."
 	icon_state = "icell"
-	maxcharge = 30000
-	materials = list(MAT_GLASS=1000)
-	rating = 100
-	chargerate = 30000
+	origin_tech =  null
+	maxcharge = 3000
+	matter = list(MATERIAL_STEEL = 700, MATERIAL_GLASS = 80, MATERIAL_ALUMINIUM = 20)
 
-/obj/item/stock_parts/cell/infinite/use()
+/obj/item/weapon/cell/infinite/check_charge()
 	return 1
 
-/obj/item/stock_parts/cell/infinite/abductor
-	name = "void core"
-	desc = "An alien power cell that produces energy seemingly out of nowhere."
-	icon = 'icons/obj/abductor.dmi'
-	icon_state = "cell"
-	maxcharge = 50000
-	ratingdesc = FALSE
-
-/obj/item/stock_parts/cell/infinite/abductor/update_icon()
-	return
+/obj/item/weapon/cell/infinite/use()
+	return 1
 
 
-/obj/item/stock_parts/cell/potato
+/obj/item/weapon/cell/potato
 	name = "potato battery"
-	desc = "A rechargeable starch based power cell."
-	icon = 'icons/obj/hydroponics/harvest.dmi'
-	icon_state = "potato"
-	charge = 100
-	maxcharge = 300
-	materials = list()
-	grown_battery = TRUE //it has the overlays for wires
+	desc = "A rechargable starch based power cell."
+	origin_tech = list(TECH_POWER = 1)
+	icon = 'icons/obj/power.dmi' //'icons/obj/harvest.dmi'
+	icon_state = "potato_cell" //"potato_battery"
+	maxcharge = 20
 
-/obj/item/stock_parts/cell/high/slime
+
+/obj/item/weapon/cell/slime
 	name = "charged slime core"
-	desc = "A yellow slime core infused with plasma, it crackles with power."
-	icon = 'icons/mob/slimes.dmi'
-	icon_state = "yellow slime extract"
-	materials = list()
-	rating = 5 //self-recharge makes these desirable
-	self_recharge = 1 // Infused slime cores self-recharge, over time
-
-/obj/item/stock_parts/cell/emproof
-	name = "\improper EMP-proof cell"
-	desc = "An EMP-proof cell."
-	maxcharge = 500
-	rating = 3
-
-/obj/item/stock_parts/cell/emproof/empty/Initialize()
-	. = ..()
-	charge = 0
-	update_icon()
-
-/obj/item/stock_parts/cell/emproof/empty/ComponentInitialize()
-	. = ..()
-	AddComponent(/datum/component/empprotection, EMP_PROTECT_SELF)
-
-/obj/item/stock_parts/cell/emproof/corrupt()
-	return
-
-/obj/item/stock_parts/cell/beam_rifle
-	name = "beam rifle capacitor"
-	desc = "A high powered capacitor that can provide huge amounts of energy in an instant."
-	maxcharge = 50000
-	chargerate = 5000	//Extremely energy intensive
-
-/obj/item/stock_parts/cell/beam_rifle/corrupt()
-	return
-
-/obj/item/stock_parts/cell/beam_rifle/emp_act(severity)
-	. = ..()
-	if(. & EMP_PROTECT_SELF)
-		return
-	charge = CLAMP((charge-(10000/severity)),0,maxcharge)
-
-/obj/item/stock_parts/cell/emergency_light
-	name = "miniature power cell"
-	desc = "A tiny power cell with a very low power capacity. Used in light fixtures to power them in the event of an outage."
-	maxcharge = 120 //Emergency lights use 0.2 W per tick, meaning ~10 minutes of emergency power from a cell
-	materials = list(MAT_GLASS = 20)
-	w_class = WEIGHT_CLASS_TINY
-
-/obj/item/stock_parts/cell/emergency_light/Initialize()
-	. = ..()
-	var/area/A = get_area(src)
-	if(!A.lightswitch || !A.light_power)
-		charge = 0 //For naturally depowered areas, we start with no power
-
-
-
-// energy weapon ammotypes
-
-/obj/item/stock_parts/cell/ammo
-	name = "ammo cell"
-	desc = "You shouldn't be holding this."
-	w_class = WEIGHT_CLASS_TINY
-
-/obj/item/stock_parts/cell/ammo/New()
-	..()
-	return
-
-/obj/item/stock_parts/cell/ammo/update_icon()
-	return
-
-/obj/item/stock_parts/cell/ammo/mfc
-	name = "microfusion cell"
-	desc = "A microfusion cell, typically used as ammunition for large energy weapons. YOU CAN RECHARGE THIS STUPID SON OF A BITCH FOR THE LOW RATE OF 0.99 NO SHIPPING AND HANDLING MOTHERFUCKER"
-	icon_state = "mfc"
-	maxcharge = 1200
-	chargerate = 300
-
-/obj/item/stock_parts/cell/ammo/ecp
-	name = "electron charge pack"
-	desc = "An electron charge pack, typically used as ammunition for rapidly-firing energy weapons."
-	icon_state = "icell"
-	maxcharge = 2400
-	chargerate = 400
-
-/obj/item/stock_parts/cell/ammo/ec
-	name = "energy cell"
-	desc = "An energy cell, typically used as ammunition for small-arms energy weapons."
-	icon_state = "ec"
-	maxcharge = 300
-	chargerate = 300
+	desc = "A yellow slime core infused with phoron, it crackles with power."
+	origin_tech = list(TECH_POWER = 2, TECH_BIO = 4)
+	icon = 'icons/mob/slimes.dmi' //'icons/obj/harvest.dmi'
+	icon_state = "yellow slime extract" //"potato_battery"
+	maxcharge = 200
+	matter = null

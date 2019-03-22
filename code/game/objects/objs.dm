@@ -1,83 +1,27 @@
-
 /obj
-	var/crit_fail = FALSE
+	layer = OBJ_LAYER
+
+	var/obj_flags
+
+	//Used to store information about the contents of the object.
+	var/list/matter
+	var/w_class // Size of the object.
+	var/unacidable = 0 //universal "unacidabliness" var, here so you can use it in any obj.
 	animate_movement = 2
-	var/throwforce = 0
-	var/obj_flags = CAN_BE_HIT
-	var/set_obj_flags // ONLY FOR MAPPING: Sets flags from a string list, handled in Initialize. Usage: set_obj_flags = "EMAGGED;!CAN_BE_HIT" to set EMAGGED and clear CAN_BE_HIT.
+	var/throwforce = 1
+	var/sharp = 0		// whether this object cuts
+	var/edge = 0		// whether this object is more likely to dismember
+	var/in_use = 0 // If we have a user using us, this will be set on. We will check if the user has stopped using us, and thus stop updating and LAGGING EVERYTHING!
+	var/damtype = "brute"
+	var/armor_penetration = 0
+	var/anchor_fall = FALSE
+	var/holographic = 0 //if the obj is a holographic object spawned by the holodeck
 
-	var/damtype = BRUTE
-	var/force = 0
+/obj/Destroy()
+	STOP_PROCESSING(SSobj, src)
+	return ..()
 
-	var/datum/armor/armor
-	var/obj_integrity	//defaults to max_integrity
-	var/max_integrity = 500
-	var/integrity_failure = 0 //0 if we have no special broken behavior
-
-	var/resistance_flags = NONE // INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ON_FIRE | UNACIDABLE | ACID_PROOF
-
-	var/acid_level = 0 //how much acid is on that obj
-
-	var/persistence_replacement //have something WAY too amazing to live to the next round? Set a new path here. Overuse of this var will make me upset.
-	var/current_skin //Has the item been reskinned?
-	var/list/unique_reskin //List of options to reskin.
-
-	// Access levels, used in modules\jobs\access.dm
-	var/list/req_access
-	var/req_access_txt = "0"
-	var/list/req_one_access
-	var/req_one_access_txt = "0"
-
-	var/renamedByPlayer = FALSE //set when a player uses a pen on a renamable object
-
-/obj/vv_edit_var(vname, vval)
-	switch(vname)
-		if("obj_flags")
-			if ((obj_flags & DANGEROUS_POSSESSION) && !(vval & DANGEROUS_POSSESSION))
-				return FALSE
-		if("control_object")
-			var/obj/O = vval
-			if(istype(O) && (O.obj_flags & DANGEROUS_POSSESSION))
-				return FALSE
-	..()
-
-/obj/Initialize()
-	. = ..()
-	if (islist(armor))
-		armor = getArmor(arglist(armor))
-	else if (!armor)
-		armor = getArmor()
-	else if (!istype(armor, /datum/armor))
-		stack_trace("Invalid type [armor.type] found in .armor during /obj Initialize()")
-
-	if(obj_integrity == null)
-		obj_integrity = max_integrity
-	if (set_obj_flags)
-		var/flagslist = splittext(set_obj_flags,";")
-		var/list/string_to_objflag = GLOB.bitfields["obj_flags"]
-		for (var/flag in flagslist)
-			if (findtext(flag,"!",1,2))
-				flag = copytext(flag,1-(length(flag))) // Get all but the initial !
-				obj_flags &= ~string_to_objflag[flag]
-			else
-				obj_flags |= string_to_objflag[flag]
-	if((obj_flags & ON_BLUEPRINTS) && isturf(loc))
-		var/turf/T = loc
-		T.add_blueprints_preround(src)
-
-
-/obj/Destroy(force=FALSE)
-	if(!ismachinery(src))
-		STOP_PROCESSING(SSobj, src) // TODO: Have a processing bitflag to reduce on unnecessary loops through the processing lists
-	SStgui.close_uis(src)
-	. = ..()
-
-/obj/throw_at(atom/target, range, speed, mob/thrower, spin=1, diagonals_first = 0, datum/callback/callback)
-	..()
-	if(obj_flags & FROZEN)
-		visible_message("<span class='danger'>[src] shatters into a million pieces!</span>")
-		qdel(src)
-
+/obj/item/proc/is_used_on(obj/O, mob/user)
 
 /obj/assume_air(datum/gas_mixture/giver)
 	if(loc)
@@ -97,50 +41,33 @@
 	else
 		return null
 
-/obj/proc/handle_internal_lifeform(mob/lifeform_inside_me, breath_request)
-	//Return: (NONSTANDARD)
-	//		null if object handles breathing logic for lifeform
-	//		datum/air_group to tell lifeform to process using that breath return
-	//DEFAULT: Take air from turf to give to have mob process
-
-	if(breath_request>0)
-		var/datum/gas_mixture/environment = return_air()
-		var/breath_percentage = BREATH_VOLUME / environment.return_volume()
-		return remove_air(environment.total_moles() * breath_percentage)
-	else
-		return null
-
 /obj/proc/updateUsrDialog()
-	if((obj_flags & IN_USE) && !(obj_flags & USES_TGUI))
+	if(in_use)
 		var/is_in_use = 0
 		var/list/nearby = viewers(1, src)
 		for(var/mob/M in nearby)
 			if ((M.client && M.machine == src))
 				is_in_use = 1
-				ui_interact(usr)
-		if(isAI(usr) || iscyborg(usr) || IsAdminGhost(usr))
+				src.attack_hand(M)
+		if (istype(usr, /mob/living/silicon/ai) || istype(usr, /mob/living/silicon/robot))
 			if (!(usr in nearby))
 				if (usr.client && usr.machine==src) // && M.machine == src is omitted because if we triggered this by using the dialog, it doesn't matter if our machine changed in between triggering it and this - the dialog is probably still supposed to refresh.
 					is_in_use = 1
-					ui_interact(usr)
+					src.attack_ai(usr)
 
 		// check for TK users
 
-		if(ishuman(usr))
-			var/mob/living/carbon/human/H = usr
-			if(!(usr in nearby))
-				if(usr.client && usr.machine==src)
-					if(H.dna.check_mutation(TK))
+		if (istype(usr, /mob/living/carbon/human))
+			if(istype(usr.l_hand, /obj/item/tk_grab) || istype(usr.r_hand, /obj/item/tk_grab/))
+				if(!(usr in nearby))
+					if(usr.client && usr.machine==src)
 						is_in_use = 1
-						ui_interact(usr)
-		if (is_in_use)
-			obj_flags |= IN_USE
-		else
-			obj_flags &= ~IN_USE
+						src.attack_hand(usr)
+		in_use = is_in_use
 
 /obj/proc/updateDialog()
 	// Check that people are actually using the machine. If not, don't update anymore.
-	if(obj_flags & IN_USE)
+	if(in_use)
 		var/list/nearby = viewers(1, src)
 		var/is_in_use = 0
 		for(var/mob/M in nearby)
@@ -150,95 +77,90 @@
 		var/ai_in_use = AutoUpdateAI(src)
 
 		if(!ai_in_use && !is_in_use)
-			obj_flags &= ~IN_USE
-
+			in_use = 0
 
 /obj/attack_ghost(mob/user)
-	. = ..()
-	if(.)
-		return
 	ui_interact(user)
+	tg_ui_interact(user)
+	..()
 
-/obj/proc/container_resist(mob/living/user)
-	return
-
-/obj/proc/update_icon()
+/obj/proc/interact(mob/user)
 	return
 
 /mob/proc/unset_machine()
-	if(machine)
-		machine.on_unset_machine(src)
-		machine = null
+	src.machine = null
 
-//called when the user unsets the machine.
-/atom/movable/proc/on_unset_machine(mob/user)
-	return
-
-/mob/proc/set_machine(obj/O)
+/mob/proc/set_machine(var/obj/O)
 	if(src.machine)
 		unset_machine()
 	src.machine = O
 	if(istype(O))
-		O.obj_flags |= IN_USE
+		O.in_use = 1
 
 /obj/item/proc/updateSelfDialog()
 	var/mob/M = src.loc
 	if(istype(M) && M.client && M.machine == src)
 		src.attack_self(M)
 
-/obj/proc/hide(h)
+/obj/proc/hide(var/hide)
+	set_invisibility(hide ? INVISIBILITY_MAXIMUM : initial(invisibility))
+
+/obj/proc/hides_under_flooring()
+	return level == 1
+
+/obj/proc/hear_talk(mob/M as mob, text, verb, datum/language/speaking)
+	if(talking_atom)
+		talking_atom.catchMessage(text, M)
+/*
+	var/mob/mo = locate(/mob) in src
+	if(mo)
+		var/rendered = "<span class='game say'><span class='name'>[M.name]: </span> <span class='message'>[text]</span></span>"
+		mo.show_message(rendered, 2)
+		*/
 	return
 
-/obj/singularity_pull(S, current_size)
-	..()
-	if(!anchored || current_size >= STAGE_FIVE)
-		step_towards(src,S)
+/obj/proc/see_emote(mob/M as mob, text, var/emote_type)
+	return
 
-/obj/get_spans()
-	return ..() | SPAN_ROBOT
+/obj/proc/show_message(msg, type, alt, alt_type)//Message, type of message (1 or 2), alternative message, alt message type (1 or 2)
+	return
 
-/obj/get_dumping_location(datum/component/storage/source,mob/user)
-	return get_turf(src)
+/obj/proc/damage_flags()
+	. = 0
+	if(has_edge(src))
+		. |= DAM_EDGE
+	if(is_sharp(src))
+		. |= DAM_SHARP
+		if(damtype == BURN)
+			. |= DAM_LASER
 
-/obj/proc/CanAStarPass()
-	. = !density
+/obj/attackby(obj/item/O as obj, mob/user as mob)
+	if(obj_flags & OBJ_FLAG_ANCHORABLE)
+		if(isWrench(O))
+			wrench_floor_bolts(user)
+			update_icon()
+			return
+	return ..()
 
-/obj/proc/check_uplink_validity()
+/obj/proc/wrench_floor_bolts(mob/user, delay=20)
+	playsound(loc, 'sound/items/Ratchet.ogg', 100, 1)
+	if(anchored)
+		user.visible_message("\The [user] begins unsecuring \the [src] from the floor.", "You start unsecuring \the [src] from the floor.")
+	else
+		user.visible_message("\The [user] begins securing \the [src] to the floor.", "You start securing \the [src] to the floor.")
+	if(do_after(user, delay, src))
+		if(!src) return
+		to_chat(user, "<span class='notice'>You [anchored? "un" : ""]secured \the [src]!</span>")
+		anchored = !anchored
 	return 1
 
-/obj/proc/intercept_user_move(dir, mob, newLoc, oldLoc)
-	return
-
-/obj/vv_get_dropdown()
-	. = ..()
-	.["Delete all of type"] = "?_src_=vars;[HrefToken()];delall=[REF(src)]"
-	.["Osay"] = "?_src_=vars;[HrefToken()];osay[REF(src)]"
-	.["Modify armor values"] = "?_src_=vars;[HrefToken()];modarmor=[REF(src)]"
-
-/obj/examine(mob/user)
+/obj/attack_hand(mob/living/user)
+	if(Adjacent(user))
+		add_fingerprint(user)
 	..()
-	if(obj_flags & UNIQUE_RENAME)
-		to_chat(user, "<span class='notice'>Use a pen on it to rename it or change its description.</span>")
-	if(unique_reskin && !current_skin)
-		to_chat(user, "<span class='notice'>Alt-click it to reskin it.</span>")
 
-/obj/AltClick(mob/user)
-	. = ..()
-	if(unique_reskin && !current_skin && user.canUseTopic(src, BE_CLOSE, NO_DEXTERY))
-		reskin_obj(user)
+/obj/is_fluid_pushable(var/amt)
+	return ..() && w_class <= round(amt/20)
 
-/obj/proc/reskin_obj(mob/M)
-	if(!LAZYLEN(unique_reskin))
-		return
-	to_chat(M, "<b>Reskin options for [name]:</b>")
-	for(var/V in unique_reskin)
-		var/output = icon2html(src, M, unique_reskin[V])
-		to_chat(M, "[V]: <span class='reallybig'>[output]</span>")
-
-	var/choice = input(M,"Warning, you can only reskin [src] once!","Reskin Object") as null|anything in unique_reskin
-	if(!QDELETED(src) && choice && !current_skin && !M.incapacitated() && in_range(M,src))
-		if(!unique_reskin[choice])
-			return
-		current_skin = choice
-		icon_state = unique_reskin[choice]
-		to_chat(M, "[src] is now skinned as '[choice].'")
+/obj/proc/can_embed()
+	return is_sharp(src)

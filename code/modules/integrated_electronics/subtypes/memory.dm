@@ -19,7 +19,8 @@
 	. = ..()
 
 /obj/item/integrated_circuit/memory/examine(mob/user)
-	..()
+	if(!(. = ..()))
+		return
 	var/i
 	for(i = 1, i <= outputs.len, i++)
 		var/datum/integrated_io/O = outputs[i]
@@ -65,7 +66,7 @@
 	name = "large memory stick"
 	desc = "This stick of memory can store up up to sixteen pieces of data."
 	icon_state = "memory16"
-	w_class = WEIGHT_CLASS_SMALL
+	w_class = ITEM_SIZE_SMALL
 	spawn_flags = IC_SPAWN_RESEARCH
 	power_draw_per_use = 8
 	number_of_pins = 16
@@ -129,9 +130,10 @@
 			to_chat(user, "<span class='notice'>You set \the [src]'s memory to absolutely nothing.</span>")
 
 /obj/item/integrated_circuit/memory/constant/afterattack(atom/target, mob/living/user, proximity)
+	. = ..()
 	if(accepting_refs && proximity)
 		var/datum/integrated_io/O = outputs[1]
-		O.data = WEAKREF(target)
+		O.data = weakref(target)
 		visible_message("<span class='notice'>[user] slides \a [src]'s over \the [target].</span>")
 		to_chat(user, "<span class='notice'>You set \the [src]'s memory to a reference to [O.display_data(O.data)].  The ref scanner is \
 		now off.</span>")

@@ -1,4 +1,6 @@
 /obj/item/integrated_circuit/proc/setup_io(list/io_list, io_type, list/io_default_list, pin_type)
+	if(!io_list)
+		return
 	var/list/io_list_copy = io_list.Copy()
 	io_list.Cut()
 	for(var/i in 1 to io_list_copy.len)
@@ -24,9 +26,9 @@
 	if(islist(new_data))
 		for(var/i in 1 to length(new_data))
 			if (istype(new_data) && !isweakref(new_data))
-				new_data[i] = WEAKREF(new_data[i])
+				new_data[i] = weakref(new_data[i])
 	if (istype(new_data) && !isweakref(new_data))
-		new_data = WEAKREF(new_data)
+		new_data = weakref(new_data)
 	var/datum/integrated_io/pin = get_pin_ref(pin_type, pin_number)
 	return pin.write_data_to_pin(new_data)
 
@@ -45,15 +47,15 @@
 /obj/item/integrated_circuit/proc/get_pin_ref(pin_type, pin_number)
 	switch(pin_type)
 		if(IC_INPUT)
-			if(pin_number > inputs.len)
+			if(!inputs || pin_number > inputs.len)
 				return
 			return inputs[pin_number]
 		if(IC_OUTPUT)
-			if(pin_number > outputs.len)
+			if(!outputs || pin_number > outputs.len)
 				return
 			return outputs[pin_number]
 		if(IC_ACTIVATOR)
-			if(pin_number > activators.len)
+			if(!activators || pin_number > activators.len)
 				return
 			return activators[pin_number]
 	return
@@ -62,7 +64,8 @@
 	if(islist(data))
 		for(var/i in 1 to length(data))
 			if(isweakref(data[i]))
-				data[i] = data[i].resolve()
+				var/weakref/dw = data[i]
+				data[i] = dw.resolve()
 	if(isweakref(data))
 		return data.resolve()
 	return data
@@ -99,7 +102,7 @@
 
 // Locates a pin in the assembly when given component number, pin type and pin number
 // Components list can be supplied from the outside, for use in savefiles
-/obj/item/electronic_assembly/proc/get_pin_ref(component_number, pin_type, pin_number, list/components)
+/obj/item/device/electronic_assembly/proc/get_pin_ref(component_number, pin_type, pin_number, list/components)
 	if(!components)
 		components = assembly_components
 
@@ -112,7 +115,7 @@
 
 // Same as get_pin_ref, but takes in a list of 3 parameters (same format as get_pin_parameters)
 // and performs extra sanity checks on parameters list and index numbers
-/obj/item/electronic_assembly/proc/get_pin_ref_list(list/parameters, list/components)
+/obj/item/device/electronic_assembly/proc/get_pin_ref_list(list/parameters, list/components)
 	if(!components)
 		components = assembly_components
 
@@ -128,16 +131,14 @@
 
 	return get_pin_ref(parameters[1], parameters[2], parameters[3], components)
 
+// this is for data validation of stuff like ref encodes and more importantly ID access lists
 
+/proc/compute_signature(data)
+	return md5(SScircuit.cipherkey + data)
 
+/proc/add_data_signature(data)
+	var/signature = compute_signature(data)
+	return "[signature]:[data]"
 
-// Used to obfuscate object refs imported/exported as strings.
-// Not very secure, but if someone still finds a way to abuse refs, they deserve it.
-/proc/XorEncrypt(string, key)
-	if(!string || !key ||!istext(string)||!istext(key))
-		return
-	var/r
-	for(var/i = 1 to length(string))
-		r += ascii2text(text2ascii(string,i) ^ text2ascii(key,(i-1)%length(string)+1))
-	return r
-
+/proc/check_data_signature(signature, data)
+	return (compute_signature(data) == signature)

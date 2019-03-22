@@ -23,8 +23,6 @@
 			var/datum/integrated_io/input = inputs[index]
 
 			// Don't waste space saving the default values
-			if(input.data == inputs_default["[index]"])
-				continue
 			if(input.data == initial(input.data))
 				continue
 
@@ -53,9 +51,8 @@
 /obj/item/integrated_circuit/proc/verify_save(list/component_params)
 	var/init_name = initial(name)
 	// Validate name
-	if(component_params["name"] && !reject_bad_name(component_params["name"], TRUE))
-		return "Bad component name at [init_name]."
-
+	if(component_params["name"])
+		sanitizeName(component_params["name"],allow_numbers=TRUE)
 	// Validate input values
 	if(component_params["inputs"])
 		var/list/loaded_inputs = component_params["inputs"]
@@ -115,7 +112,7 @@
 
 // Saves type and modified name (if any) to a list
 // The list is converted to JSON down the line.
-/obj/item/electronic_assembly/proc/save()
+/obj/item/device/electronic_assembly/proc/save()
 	var/list/assembly_params = list()
 
 	// Save initial name used for differentiating assemblies
@@ -124,7 +121,7 @@
 	// Save modified name
 	if(initial(name) != name)
 		assembly_params["name"] = name
-	
+
 	// Save modified description
 	if(initial(desc) != desc)
 		assembly_params["desc"] = desc
@@ -138,22 +135,24 @@
 
 // Verifies a list of assembly parameters
 // Returns null on success, error name on failure
-/obj/item/electronic_assembly/proc/verify_save(list/assembly_params)
+/obj/item/device/electronic_assembly/proc/verify_save(list/assembly_params)
 	// Validate name and color
-	if(assembly_params["name"] && !reject_bad_name(assembly_params["name"], TRUE))
-		return "Bad assembly name."
-	if(assembly_params["desc"] && !reject_bad_text(assembly_params["desc"]))
-		return "Bad assembly description."
+	if(assembly_params["name"])
+		if(sanitizeName(assembly_params["name"], allow_numbers = TRUE) != assembly_params["name"])
+			return "Bad assembly name."
+	if(assembly_params["desc"])
+		if(sanitize(assembly_params["desc"]) != assembly_params["desc"])
+			return "Bad assembly description."
 	if(assembly_params["detail_color"] && !(assembly_params["detail_color"] in color_whitelist))
 		return "Bad assembly color."
 
 // Loads assembly parameters from a list
 // Doesn't verify any of the parameters it loads, this is the job of verify_save()
-/obj/item/electronic_assembly/proc/load(list/assembly_params)
+/obj/item/device/electronic_assembly/proc/load(list/assembly_params)
 	// Load modified name, if any.
 	if(assembly_params["name"])
 		name = assembly_params["name"]
-		
+
 	// Load modified description, if any.
 	if(assembly_params["desc"])
 		desc = assembly_params["desc"]
@@ -167,7 +166,7 @@
 
 // Attempts to save an assembly into a save file format.
 // Returns null if assembly is not complete enough to be saved.
-/datum/controller/subsystem/processing/circuit/proc/save_electronic_assembly(obj/item/electronic_assembly/assembly)
+/datum/controller/subsystem/processing/circuit/proc/save_electronic_assembly(obj/item/device/electronic_assembly/assembly)
 	// No components? Don't even try to save it.
 	if(!length(assembly.assembly_components))
 		return
@@ -194,7 +193,10 @@
 
 	for(var/c in assembly.assembly_components)
 		var/obj/item/integrated_circuit/component = c
-		var/list/all_pins = component.inputs + component.outputs + component.activators
+		var/list/all_pins = list()
+		for(var/l in list(component.inputs, component.outputs, component.activators))
+			if(l) //If it isn't null
+				all_pins += l
 
 		for(var/p in all_pins)
 			var/datum/integrated_io/pin = p
@@ -226,7 +228,7 @@
 // Returns assembly (type: list) if the save is valid.
 // Returns error code (type: text) if loading has failed.
 // The following parameters area calculated during validation and added to the returned save list:
-// "requires_upgrades", "unsupported_circuit", "metal_cost", "complexity", "max_complexity", "used_space", "max_space"
+// "requires_upgrades", "unsupported_circuit", "cost", "complexity", "max_complexity", "used_space", "max_space"
 /datum/controller/subsystem/processing/circuit/proc/validate_electronic_assembly(program)
 	var/list/blocks = json_decode(program)
 	if(!blocks)
@@ -243,7 +245,7 @@
 
 	// Validate type, get a temporary component
 	var/assembly_path = all_assemblies[assembly_params["type"]]
-	var/obj/item/electronic_assembly/assembly = cached_assemblies[assembly_path]
+	var/obj/item/device/electronic_assembly/assembly = cached_assemblies[assembly_path]
 	if(!assembly)
 		return "Invalid assembly type."
 
@@ -260,7 +262,7 @@
 	blocks["max_space"] = assembly.max_components
 
 	// Start keeping track of total metal cost
-	blocks["metal_cost"] = assembly.materials[MAT_METAL]
+	blocks["cost"] = assembly.matter.Copy()
 
 
 	// Block 2. Components.
@@ -291,7 +293,8 @@
 		// Update estimated assembly complexity, taken space and material cost
 		blocks["complexity"] += component.complexity
 		blocks["used_space"] += component.size
-		blocks["metal_cost"] += component.materials[MAT_METAL]
+		for(var/material in component.matter)
+			blocks["cost"][material] += component.matter[material]
 
 		// Check if the assembly requires printer upgrades
 		if(!(component.spawn_flags & IC_SPAWN_DEFAULT))
@@ -337,8 +340,8 @@
 
 	// Block 1. Assembly.
 	var/list/assembly_params = blocks["assembly"]
-	var/obj/item/electronic_assembly/assembly_path = all_assemblies[assembly_params["type"]]
-	var/obj/item/electronic_assembly/assembly = new assembly_path(null)
+	var/obj/item/device/electronic_assembly/assembly_path = all_assemblies[assembly_params["type"]]
+	var/obj/item/device/electronic_assembly/assembly = new assembly_path(null)
 	assembly.load(assembly_params)
 
 
@@ -360,5 +363,6 @@
 			IO.connect_pin(IO2)
 
 	assembly.forceMove(loc)
+	assembly.post_load()
 	return assembly
 

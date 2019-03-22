@@ -1,39 +1,43 @@
 /obj/item/assembly/shock_kit
 	name = "electrohelmet assembly"
 	desc = "This appears to be made from both an electropack and a helmet."
-	icon = 'icons/obj/assemblies.dmi'
 	icon_state = "shock_kit"
 	var/obj/item/clothing/head/helmet/part1 = null
-	var/obj/item/electropack/part2 = null
-	w_class = WEIGHT_CLASS_HUGE
-	flags_1 = CONDUCT_1
+	var/obj/item/device/radio/electropack/part2 = null
+	var/status = 0
+	w_class = ITEM_SIZE_HUGE
+	obj_flags = OBJ_FLAG_CONDUCTIBLE
 
 /obj/item/assembly/shock_kit/Destroy()
 	qdel(part1)
 	qdel(part2)
-	return ..()
+	..()
+	return
 
-/obj/item/assembly/shock_kit/wrench_act(mob/living/user, obj/item/I)
-	to_chat(user, "<span class='notice'>You disassemble [src].</span>")
-	if(part1)
-		part1.forceMove(drop_location())
+/obj/item/assembly/shock_kit/attackby(obj/item/weapon/W as obj, mob/user as mob)
+	if(isWrench(W) && !status)
+		part1.dropInto(loc)
+		part2.dropInto(loc)
 		part1.master = null
-		part1 = null
-	if(part2)
-		part2.forceMove(drop_location())
 		part2.master = null
+		part1 = null
 		part2 = null
-	qdel(src)
-	return TRUE
+		qdel(src)
+		return
+	if(isScrewdriver(W))
+		status = !status
+		to_chat(user, "<span class='notice'>[src] is now [status ? "secured" : "unsecured"]!</span>")
+	add_fingerprint(user)
+	return
 
-/obj/item/assembly/shock_kit/attack_self(mob/user)
-	part1.attack_self(user)
-	part2.attack_self(user)
+/obj/item/assembly/shock_kit/attack_self(mob/user as mob)
+	part1.attack_self(user, status)
+	part2.attack_self(user, status)
 	add_fingerprint(user)
 	return
 
 /obj/item/assembly/shock_kit/receive_signal()
-	if(istype(loc, /obj/structure/chair/e_chair))
-		var/obj/structure/chair/e_chair/C = loc
+	if(istype(loc, /obj/structure/bed/chair/e_chair))
+		var/obj/structure/bed/chair/e_chair/C = loc
 		C.shock()
 	return

@@ -1,165 +1,168 @@
 
-//Chef
+//Bartender
 /obj/item/clothing/head/chefhat
 	name = "chef's hat"
-	item_state = "chef"
-	icon_state = "chef"
-	desc = "The commander in chef's head wear."
-	strip_delay = 10
-	equip_delay_other = 10
-	dynamic_hair_suffix = ""
-	dog_fashion = /datum/dog_fashion/head/chef
-
-/obj/item/clothing/head/chefhat/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] is donning [src]! It looks like [user.p_theyre()] trying to become a chef.</span>")
-	user.say("Bork Bork Bork!")
-	sleep(20)
-	user.visible_message("<span class='suicide'>[user] climbs into an imaginary oven!</span>")
-	user.say("BOOORK!")
-	playsound(user, 'sound/machines/ding.ogg', 50, 1)
-	return(FIRELOSS)
+	desc = "It's a hat used by chefs to keep hair out of your food. Judging by the food in the mess, they don't work."
+	icon_state = "chefhat"
+	item_state = "chefhat"
 
 //Captain
 /obj/item/clothing/head/caphat
 	name = "captain's hat"
-	desc = "It's good being the king."
 	icon_state = "captain"
-	item_state = "that"
-	flags_inv = 0
-	armor = list("melee" = 10, "bullet" = 16, "laser" = 0, "energy" = 0, "bomb" = 16, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
-	strip_delay = 60
-	dog_fashion = /datum/dog_fashion/head/captain
+	desc = "It's good being the king."
+	item_state_slots = list(
+		slot_l_hand_str = "caphat",
+		slot_r_hand_str = "caphat",
+		)
+	body_parts_covered = 0
 
-//Captain: This is no longer space-worthy
-/obj/item/clothing/head/caphat/parade
-	name = "captain's parade cap"
-	desc = "Worn only by Captains with an abundance of class."
+/obj/item/clothing/head/caphat/cap
+	name = "captain's cap"
+	desc = "You fear to wear it for the negligence it brings."
 	icon_state = "capcap"
 
-	dog_fashion = null
+/obj/item/clothing/head/caphat/formal
+	name = "parade hat"
+	desc = "No one in a commanding position should be without a perfect, white hat of ultimate authority."
+	icon_state = "officercap"
 
-
-//Head of Personnel
-/obj/item/clothing/head/hopcap
-	name = "head of personnel's cap"
+//HOP
+/obj/item/clothing/head/caphat/hop
+	name = "crew resource's hat"
+	desc = "A stylish hat that both protects you from enraged former-crewmembers and gives you a false sense of authority."
 	icon_state = "hopcap"
-	desc = "The symbol of true bureaucratic micromanagement."
-	armor = list("melee" = 10, "bullet" = 16, "laser" = 0, "energy" = 0, "bomb" = 16, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
-	dog_fashion = /datum/dog_fashion/head/hop
+
+//Chaplain
+/obj/item/clothing/head/chaplain_hood
+	name = "chaplain's hood"
+	desc = "It's hood that covers the head. It keeps you warm during the space winters."
+	icon_state = "chaplain_hood"
+	flags_inv = BLOCKHAIR
+	body_parts_covered = HEAD
 
 //Chaplain
 /obj/item/clothing/head/nun_hood
 	name = "nun hood"
 	desc = "Maximum piety in this star system."
 	icon_state = "nun_hood"
-	flags_inv = HIDEHAIR
-	flags_cover = HEADCOVERSEYES
+	flags_inv = BLOCKHAIR
+	body_parts_covered = HEAD
 
-//Detective
-/obj/item/clothing/head/fedora/det_hat
-	name = "detective's fedora"
-	desc = "There's only one man who can sniff out the dirty stench of crime, and he's likely wearing this hat."
-	icon_state = "detective"
-	var/candy_cooldown = 0
-	pocket_storage_component_path = /datum/component/storage/concrete/pockets/small/detective
-	dog_fashion = /datum/dog_fashion/head/detective
+//Medical
+/obj/item/clothing/head/surgery
+	name = "surgical cap"
+	desc = "A cap surgeons wear during operations. Keeps their hair from tickling your internal organs."
+	icon_state = "surgcap"
+	flags_inv = BLOCKHEADHAIR
 
-/obj/item/clothing/head/fedora/Initialize()
-	. = ..()
-	new /obj/item/reagent_containers/food/drinks/flask/det(src)
+/obj/item/clothing/head/surgery/purple
+	name = "purple surgical cap"
+	color = "#7a1b3f"
 
-/obj/item/clothing/head/fedora/det_hat/examine(mob/user)
-	..()
-	to_chat(user, "<span class='notice'>Alt-click to take a candy corn.</span>")
+/obj/item/clothing/head/surgery/blue
+	name = "blue surgical cap"
+	color = "#4891e1"
 
-/obj/item/clothing/head/fedora/det_hat/AltClick(mob/user)
-	if(user.canUseTopic(src, BE_CLOSE, ismonkey(user)))
-		..()
-		if(loc == user)
-			if(candy_cooldown < world.time)
-				var/obj/item/reagent_containers/food/snacks/candy_corn/CC = new /obj/item/reagent_containers/food/snacks/candy_corn(src)
-				user.put_in_hands(CC)
-				to_chat(user, "You slip a candy corn from your hat.")
-				candy_cooldown = world.time+1200
-			else
-				to_chat(user, "You just took a candy corn! You should wait a couple minutes, lest you burn through your stash.")
+/obj/item/clothing/head/surgery/green
+	name = "green surgical cap"
+	color = "#255a3e"
 
+/obj/item/clothing/head/surgery/black
+	name = "black surgical cap"
+	color = "#242424"
 
-//Mime
+/obj/item/clothing/head/surgery/navyblue
+	name = "navy blue surgical cap"
+	color = "#1f3a69"
+
+/obj/item/clothing/head/surgery/lilac
+	name = "lilac surgical cap"
+	color = "#c8a2c8"
+
+/obj/item/clothing/head/surgery/teal
+	name = "teal surgical cap"
+	color = "#008080"
+
+/obj/item/clothing/head/surgery/heliodor
+	name = "heliodor surgical cap"
+	color = "#aad539"
+
+//Berets
 /obj/item/clothing/head/beret
 	name = "beret"
-	desc = "A beret, a mime's favorite headwear."
+	desc = "A beret, an artists favorite headwear."
 	icon_state = "beret"
-	dog_fashion = /datum/dog_fashion/head/beret
-	dynamic_hair_suffix = ""
-
-/obj/item/clothing/head/beret/black
-	name = "black beret"
-	desc = "A black beret, perfect for war veterans and dark, brooding, anti-hero mimes."
-	icon_state = "beretblack"
-
-/obj/item/clothing/head/beret/highlander
-	desc = "That was white fabric. <i>Was.</i>"
-	item_flags = NODROP
-	dog_fashion = null //THIS IS FOR SLAUGHTER, NOT PUPPIES
-
-//Security
-
-/obj/item/clothing/head/HoS
-	name = "head of security cap"
-	desc = "The robust standard-issue cap of the Head of Security. For showing the officers who's in charge."
-	icon_state = "hoscap"
-	armor = list("melee" = 10, "bullet" = 16, "laser" = 0, "energy" = 0, "bomb" = 16, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
-	strip_delay = 80
-	dynamic_hair_suffix = ""
-
-/obj/item/clothing/head/HoS/syndicate
-	name = "syndicate cap"
-	desc = "A black cap fit for a high ranking syndicate officer."
-
-/obj/item/clothing/head/HoS/beret
-	name = "head of security beret"
-	desc = "A robust beret for the Head of Security, for looking stylish while not sacrificing protection."
-	icon_state = "hosberetblack"
-
-/obj/item/clothing/head/HoS/beret/syndicate
-	name = "syndicate beret"
-	desc = "A black beret with thick armor padding inside. Stylish and robust."
-
-/obj/item/clothing/head/warden
-	name = "warden's police hat"
-	desc = "It's a special armored hat issued to the Warden of a security force. Protects the head from impacts."
-	icon_state = "policehelm"
-	armor = list("melee" = 10, "bullet" = 16, "laser" = 0, "energy" = 0, "bomb" = 16, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
-	strip_delay = 60
-	dog_fashion = /datum/dog_fashion/head/warden
+	body_parts_covered = 0
 
 /obj/item/clothing/head/beret/sec
-	name = "security beret"
-	desc = "A robust beret with the security insignia emblazoned on it. Uses reinforced fabric to offer sufficent protection."
-	icon_state = "beret_badge"
-	armor = list("melee" = 10, "bullet" = 16, "laser" = 0, "energy" = 0, "bomb" = 16, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
-	strip_delay = 60
-	dog_fashion = null
+	name = "corporate security beret"
+	desc = "A beret with the security insignia emblazoned on it. For officers that are more inclined towards style than safety."
+	icon_state = "beret_corporate_red"
 
-/obj/item/clothing/head/beret/sec/navyhos
-	name = "head of security's beret"
-	desc = "A special beret with the Head of Security's insignia emblazoned on it. A symbol of excellence, a badge of courage, a mark of distinction."
-	icon_state = "hosberet"
+/obj/item/clothing/head/beret/sec/navy/officer
+	name = "corporate security officer beret"
+	desc = "A navy blue beret with an officer's rank emblem. For officers that are more inclined towards style than safety."
+	icon_state = "beret_corporate_navy_officer"
 
-/obj/item/clothing/head/beret/sec/navywarden
-	name = "warden's beret"
-	desc = "A special beret with the Warden's insignia emblazoned on it. For wardens with class."
-	icon_state = "wardenberet"
-	armor = list("melee" = 10, "bullet" = 16, "laser" = 0, "energy" = 0, "bomb" = 16, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
-	strip_delay = 60
+/obj/item/clothing/head/beret/sec/navy/hos
+	name = "corporate security commander beret"
+	desc = "A navy blue beret with a commander's rank emblem. For officers that are more inclined towards style than safety."
+	icon_state = "beret_corporate_navy_hos"
 
-/obj/item/clothing/head/beret/sec/navyofficer
-	desc = "A special beret with the security insignia emblazoned on it. For officers with class."
-	icon_state = "officerberet"
+/obj/item/clothing/head/beret/sec/navy/warden
+	name = "corporate security warden beret"
+	desc = "A navy blue beret with a warden's rank emblem. For officers that are more inclined towards style than safety."
+	icon_state = "beret_corporate_navy_warden"
 
-//Curator
-/obj/item/clothing/head/fedora/curator
-	name = "treasure hunter's fedora"
-	desc = "You got red text today kid, but it doesn't mean you have to like it."
-	icon_state = "curator"
+/obj/item/clothing/head/beret/sec/corporate/officer
+	name = "corporate security officer beret"
+	desc = "A corporate black beret with an officer's rank emblem. For officers that are more inclined towards style than safety."
+	icon_state = "beret_corporate_officer"
+
+/obj/item/clothing/head/beret/sec/corporate/hos
+	name = "corporate security commander beret"
+	desc = "A corporate black beret with a commander's rank emblem. For officers that are more inclined towards style than safety."
+	icon_state = "beret_corporate_hos"
+
+/obj/item/clothing/head/beret/sec/corporate/warden
+	name = "corporate security warden beret"
+	desc = "A corporate black beret with a warden's rank emblem. For officers that are more inclined towards style than safety."
+	icon_state = "beret_corporate_warden"
+
+/obj/item/clothing/head/beret/engineering
+	name = "corporate engineering beret"
+	desc = "A beret with the engineering insignia emblazoned on it. For engineers that are more inclined towards style than safety."
+	icon_state = "beret_orange"
+
+/obj/item/clothing/head/beret/purple
+	name = "purple beret"
+	desc = "A stylish, if purple, beret. For personnel that are more inclined towards style than safety."
+	icon_state = "beret_purple"
+
+/obj/item/clothing/head/beret/centcom/officer
+	name = "asset protection beret"
+	desc = "A navy blue beret adorned with the crest of corporate asset protection. For asset protection agents that are more inclined towards style than safety."
+	icon_state = "beret_corporate_navy"
+
+/obj/item/clothing/head/beret/centcom/captain
+	name = "asset protection command beret"
+	desc = "A white beret adorned with the crest of corporate asset protection. For asset protection leaders that are more inclined towards style than safety."
+	icon_state = "beret_corporate_white"
+
+/obj/item/clothing/head/beret/deathsquad
+	name = "heavy asset protection beret"
+	desc = "An armored red beret adorned with the crest of corporate asset protection. Doesn't sacrifice style or safety."
+	icon_state = "beret_red"
+	armor = list(melee = 65, bullet = 55, laser = 35,energy = 20, bomb = 30, bio = 30, rad = 30)
+	siemens_coefficient = 0.9
+
+/obj/item/clothing/head/beret/guard
+	name = "corporate security beret"
+	desc = "A white beret adorned with a corporate logo. For security guards that are more inclined towards style than safety."
+	icon_state = "corpsec_beret"
+
+/obj/item/clothing/head/beret/plaincolor
+	name = "beret"
+	desc = "A simple, solid color beret. This one has no emblems or insignia on it."
+	icon_state = "beret_white"

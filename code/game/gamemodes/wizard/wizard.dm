@@ -1,73 +1,9 @@
-/datum/game_mode
-	var/list/datum/mind/wizards = list()
-	var/list/datum/mind/apprentices = list()
-
 /datum/game_mode/wizard
-	name = "wizard"
+	name = "Wizard"
+	round_description = "There is a SPACE WIZARD onboard. You can't let the magician achieve their objectives!"
+	extended_round_description = "A powerful entity capable of manipulating the elements around him, most commonly referred to as a 'wizard', has made their way onboard. They have a wide variety of powers and spells available to them that makes your own simple moral self tremble with fear and excitement. Ultimately, their purpose is unknown. However, it is up to you and your crew to decide if their powers can be used for good or if their arrival foreshadows devastation."
 	config_tag = "wizard"
-	antag_flag = ROLE_WIZARD
-	false_report_weight = 10
-	required_players = 20
+	required_players = 1
 	required_enemies = 1
-	recommended_enemies = 1
-	enemy_minimum_age = 14
-	round_ends_with_antag_death = 1
-	announce_span = "danger"
-	announce_text = "There is a space wizard attacking the station!\n\
-	<span class='danger'>Wizard</span>: Accomplish your objectives and cause mayhem on the station.\n\
-	<span class='notice'>Crew</span>: Eliminate the wizard before they can succeed!"
-	var/finished = 0
-
-/datum/game_mode/wizard/pre_setup()
-	var/datum/mind/wizard = antag_pick(antag_candidates)
-	wizards += wizard
-	wizard.assigned_role = ROLE_WIZARD
-	wizard.special_role = ROLE_WIZARD
-	log_game("[key_name(wizard)] has been selected as a Wizard") //TODO: Move these to base antag datum
-	if(GLOB.wizardstart.len == 0)
-		to_chat(wizard.current, "<span class='boldannounce'>A starting location for you could not be found, please report this bug!</span>")
-		return 0
-	for(var/datum/mind/wiz in wizards)
-		wiz.current.forceMove(pick(GLOB.wizardstart))
-	return 1
-
-
-/datum/game_mode/wizard/post_setup()
-	for(var/datum/mind/wizard in wizards)
-		wizard.add_antag_datum(/datum/antagonist/wizard)
-	return ..()
-
-/datum/game_mode/wizard/generate_report()
-	return "A dangerous Wizards' Federation individual by the name of [pick(GLOB.wizard_first)] [pick(GLOB.wizard_second)] has recently escaped confinement from an unlisted prison facility. This \
-		man is a dangerous mutant with the ability to alter himself and the world around him by what he and his leaders believe to be magic. If this man attempts an attack on your station, \
-		his execution is highly encouraged, as is the preservation of his body for later study."
-
-
-/datum/game_mode/wizard/are_special_antags_dead()
-	for(var/datum/mind/wizard in wizards)
-		if(isliving(wizard.current) && wizard.current.stat!=DEAD)
-			return FALSE
-
-	for(var/obj/item/phylactery/P in GLOB.poi_list) //TODO : IsProperlyDead()
-		if(P.mind && P.mind.has_antag_datum(/datum/antagonist/wizard))
-			return FALSE
-
-	if(SSevents.wizardmode) //If summon events was active, turn it off
-		SSevents.toggleWizardmode()
-		SSevents.resetFrequency()
-
-	return TRUE
-
-/datum/game_mode/wizard/set_round_result()
-	..()
-	if(finished)
-		SSticker.mode_result = "loss - wizard killed"
-		SSticker.news_report = WIZARD_KILLED
-
-/datum/game_mode/wizard/special_report()
-	if(finished)
-		return "<span class='redtext big'>The wizard[(wizards.len>1)?"s":""] has been killed by the crew! The Space Wizards Federation has been taught a lesson they will not soon forget!</span>"
-
-//returns whether the mob is a wizard (or apprentice)
-/proc/iswizard(mob/living/M)
-	return M.mind && M.mind.has_antag_datum(/datum/antagonist/wizard,TRUE)
+	end_on_antag_death = FALSE
+	antag_tags = list(MODE_WIZARD)

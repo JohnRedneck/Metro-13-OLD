@@ -1,105 +1,105 @@
-#define MINIMUM_USEFUL_LIGHT_RANGE 1.4
-
 /atom
-	var/light_power = 1 // Intensity of the light.
-	var/light_range = 0 // Range in tiles of the light.
-	var/light_color     // Hexadecimal RGB string representing the colour of the light.
+	var/light_max_bright = 1  // intensity of the light within the full brightness range. Value between 0 and 1
+	var/light_inner_range = 1 // range, in tiles, the light is at full brightness
+	var/light_outer_range = 0 // range, in tiles, where the light becomes darkness
+	var/light_falloff_curve = 2 // adjusts curve for falloff gradient. Must be greater than 0.
+	var/light_color		// Hexadecimal RGB string representing the colour of the light
 
-	var/tmp/datum/light_source/light // Our light source. Don't fuck with this directly unless you have a good reason!
-	var/tmp/list/light_sources       // Any light sources that are "inside" of us, for example, if src here was a mob that's carrying a flashlight, that flashlight's light source would be part of this list.
+	var/datum/light_source/light
+	var/list/light_sources
 
-// The proc you should always use to set the light of this atom.
-// Nonesensical value for l_color default, so we can detect if it gets set to null.
+// Nonsensical value for l_color default, so we can detect if it gets set to null.
 #define NONSENSICAL_VALUE -99999
-/atom/proc/set_light(var/l_range, var/l_power, var/l_color = NONSENSICAL_VALUE)
-	if(l_range > 0 && l_range < MINIMUM_USEFUL_LIGHT_RANGE)
-		l_range = MINIMUM_USEFUL_LIGHT_RANGE	//Brings the range up to 1.4, which is just barely brighter than the soft lighting that surrounds players.
-	if (l_power != null)
-		light_power = l_power
+#define DEFAULT_FALLOFF_CURVE (2)
+/atom/proc/set_light(l_max_bright, l_inner_range, l_outer_range, l_falloff_curve = NONSENSICAL_VALUE, l_color = NONSENSICAL_VALUE)
+	. = 0 //make it less costly if nothing's changed
 
-	if (l_range != null)
-		light_range = l_range
-
-	if (l_color != NONSENSICAL_VALUE)
+	if(l_max_bright != null && l_max_bright != light_max_bright)
+		light_max_bright = l_max_bright
+		. = 1
+	if(l_outer_range != null && l_outer_range != light_outer_range)
+		light_outer_range = l_outer_range
+		. = 1
+	if(l_inner_range != null && l_inner_range != light_inner_range)
+		if(light_inner_range >= light_outer_range)
+			light_inner_range = light_outer_range / 4
+		else
+			light_inner_range = l_inner_range
+		. = 1
+	if(l_falloff_curve != NONSENSICAL_VALUE)
+		if(!l_falloff_curve || l_falloff_curve <= 0)
+			light_falloff_curve = DEFAULT_FALLOFF_CURVE
+		if(l_falloff_curve != light_falloff_curve)
+			light_falloff_curve = l_falloff_curve
+			. = 1
+	if(l_color != NONSENSICAL_VALUE && l_color != light_color)
 		light_color = l_color
+		. = 1
 
-	SEND_SIGNAL(src, COMSIG_ATOM_SET_LIGHT, l_range, l_power, l_color)
-
-	update_light()
+	if(.) update_light()
 
 #undef NONSENSICAL_VALUE
+#undef DEFAULT_FALLOFF_CURVE
 
-// Will update the light (duh).
-// Creates or destroys it if needed, makes it update values, makes sure it's got the correct source turf...
 /atom/proc/update_light()
 	set waitfor = FALSE
-	if (QDELETED(src))
-		return
 
-	if (!light_power || !light_range) // We won't emit light anyways, destroy the light source.
-		QDEL_NULL(light)
+	if(!light_max_bright || !light_outer_range || light_max_bright > 1)
+		if(light)
+			light.destroy()
+			light = null
+		if(light_max_bright > 1)
+			light_max_bright = 1
+			CRASH("Attempted to call update_light() on atom [src] \ref[src] with a light_max_bright value greater than one")
 	else
-		if (!ismovableatom(loc)) // We choose what atom should be the top atom of the light here.
+		if(!istype(loc, /atom/movable))
 			. = src
 		else
 			. = loc
 
-		if (light) // Update the light or create it if it does not exist.
+		if(light)
 			light.update(.)
 		else
-			light = new/datum/light_source(src, .)
+			light = new /datum/light_source(src, .)
 
-// If we have opacity, make sure to tell (potentially) affected light sources.
-/atom/movable/Destroy()
-	var/turf/T = loc
-	. = ..()
-	if (opacity && istype(T))
-		var/old_has_opaque_atom = T.has_opaque_atom
-		T.recalc_atom_opacity()
-		if (old_has_opaque_atom != T.has_opaque_atom)
-			T.reconsider_lights()
-
-// Should always be used to change the opacity of an atom.
-// It notifies (potentially) affected light sources so they can update (if needed).
-/atom/proc/set_opacity(var/new_opacity)
-	if (new_opacity == opacity)
-		return
-
-	opacity = new_opacity
-	var/turf/T = loc
-	if (!isturf(T))
-		return
-
-	if (new_opacity == TRUE)
-		T.has_opaque_atom = TRUE
-		T.reconsider_lights()
-	else
-		var/old_has_opaque_atom = T.has_opaque_atom
-		T.recalc_atom_opacity()
-		if (old_has_opaque_atom != T.has_opaque_atom)
-			T.reconsider_lights()
-
-
-/atom/movable/Moved(atom/OldLoc, Dir)
-	. = ..()
-	var/datum/light_source/L
-	var/thing
-	for (thing in light_sources) // Cycle through the light sources on this atom and tell them to update.
-		L = thing
-		L.source_atom.update_light()
-
-/atom/vv_edit_var(var_name, var_value)
-	switch (var_name)
-		if ("light_range")
-			set_light(l_range=var_value)
-			return
-
-		if ("light_power")
-			set_light(l_power=var_value)
-			return
-
-		if ("light_color")
-			set_light(l_color=var_value)
-			return
-
+/atom/Destroy()
+	if(light)
+		light.destroy()
+		light = null
 	return ..()
+	
+/atom/set_opacity()
+	. = ..()
+	if(.)
+		var/turf/T = loc
+		if(istype(T))
+			T.handle_opacity_change(src)
+
+#define LIGHT_MOVE_UPDATE \
+var/turf/old_loc = loc;\
+. = ..();\
+if(loc != old_loc) {\
+	for(var/datum/light_source/L in light_sources) {\
+		L.source_atom.update_light();\
+	}\
+}
+
+/atom/movable/Move()
+	LIGHT_MOVE_UPDATE
+
+/atom/movable/forceMove()
+	LIGHT_MOVE_UPDATE
+
+#undef LIGHT_MOVE_UPDATE
+
+/obj/item/equipped()
+	. = ..()
+	update_light()
+
+/obj/item/pickup()
+	. = ..()
+	update_light()
+
+/obj/item/dropped()
+	. = ..()
+	update_light()

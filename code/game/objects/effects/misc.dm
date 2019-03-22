@@ -2,67 +2,102 @@
 /obj/effect/spresent
 	name = "strange present"
 	desc = "It's a ... present?"
-	icon = 'icons/obj/items_and_weapons.dmi'
+	icon = 'icons/obj/items.dmi'
 	icon_state = "strangepresent"
-	density = TRUE
-	anchored = FALSE
+	density = 1
+	anchored = 0
 
-/obj/effect/beam
-	name = "beam"
-	var/def_zone
-	pass_flags = PASSTABLE
+/obj/effect/stop
+	var/victim = null
+	icon_state = "empty"
+	name = "Geas"
+	desc = "You can't resist."
 
-/obj/effect/beam/singularity_act()
-	return
-
-/obj/effect/beam/singularity_pull()
-	return
-
-/obj/effect/spawner
-	name = "object spawner"
-
-/obj/effect/list_container
-	name = "list container"
-
-/obj/effect/list_container/mobl
-	name = "mobl"
-	var/master = null
-
-	var/list/container = list(  )
-
-/obj/effect/overlay/thermite
-	name = "thermite"
-	desc = "Looks hot."
-	icon = 'icons/effects/fire.dmi'
-	icon_state = "2" //what?
-	anchored = TRUE
-	opacity = TRUE
-	density = TRUE
-	layer = FLY_LAYER
-
-//Makes a tile fully lit no matter what
-/obj/effect/fullbright
-	icon = 'icons/effects/alphacolors.dmi'
-	icon_state = "white"
-	plane = LIGHTING_PLANE
-	layer = LIGHTING_LAYER
-	blend_mode = BLEND_ADD
-
-/obj/effect/abstract/marker
-	name = "marker"
+//Paints the wall it spawns on, then dies
+/obj/effect/paint
+	name = "coat of paint"
 	icon = 'icons/effects/effects.dmi'
-	anchored = TRUE
-	icon_state = "wave3"
-	layer = RIPPLE_LAYER
+	icon_state = "wall_paint_effect"
+	plane = TURF_PLANE
+	layer = TURF_DETAIL_LAYER
+	blend_mode = BLEND_MULTIPLY
 
-/obj/effect/abstract/marker/Initialize(mapload)
-	. = ..()
-	GLOB.all_abstract_markers += src
+/obj/effect/paint/Initialize()
+	..()
+	var/turf/simulated/wall/W = get_turf(src)
+	if(istype(W))
+		W.paint_color = color
+		W.update_icon()
+	var/obj/structure/wall_frame/WF = locate() in loc
+	if(WF)
+		WF.paint_color = color
+		WF.update_icon()
+	return INITIALIZE_HINT_QDEL
 
-/obj/effect/abstract/marker/Destroy()
-	GLOB.all_abstract_markers -= src
-	. = ..()
+/obj/effect/paint/pink
+	color = COLOR_PINK
 
-/obj/effect/abstract/marker/at
-	name = "active turf marker"
+/obj/effect/paint/sun
+	color = COLOR_SUN
 
+/obj/effect/paint/red
+	color = COLOR_RED
+
+/obj/effect/paint/silver
+	color = COLOR_SILVER
+
+/obj/effect/paint/black
+	color = COLOR_DARK_GRAY
+
+/obj/effect/paint/green
+	color = COLOR_GREEN_GRAY
+
+/obj/effect/paint/blue
+	color = COLOR_NAVY_BLUE
+
+//Stripes the wall it spawns on, then dies
+/obj/effect/paint_stripe
+	name = "stripe of paint"
+	icon = 'icons/effects/effects.dmi'
+	icon_state = "white"
+	plane = TURF_PLANE
+	layer = TURF_DETAIL_LAYER
+	blend_mode = BLEND_MULTIPLY
+
+/obj/effect/paint_stripe/Initialize()
+	..()
+	var/turf/simulated/wall/W = get_turf(src)
+	if(istype(W))
+		W.stripe_color = color
+		W.update_icon()
+	var/obj/structure/wall_frame/WF = locate() in loc
+	if(WF)
+		WF.stripe_color = color
+	return INITIALIZE_HINT_QDEL
+
+/obj/effect/paint_stripe/green
+	color = COLOR_GREEN_GRAY
+
+/obj/effect/paint_stripe/red
+	color = COLOR_RED_GRAY
+
+/obj/effect/paint_stripe/paleblue
+	color = COLOR_PALE_BLUE_GRAY
+
+/obj/effect/paint_stripe/yellow
+	color = COLOR_BROWN
+
+/obj/effect/paint_stripe/blue
+	color = COLOR_BLUE_GRAY
+
+/obj/effect/paint_stripe/brown
+	color = COLOR_DARK_BROWN
+
+/obj/effect/paint_stripe/mauve
+	color = COLOR_PALE_PURPLE_GRAY
+
+/obj/effect/paint_stripe/white
+	color = COLOR_SILVER
+
+/obj/effect/paint/brown
+	color = COLOR_DARK_BROWN

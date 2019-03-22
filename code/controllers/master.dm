@@ -48,28 +48,20 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 	var/queue_priority_count_bg = 0 //Same, but for background subsystems
 	var/map_loading = FALSE	//Are we loading in a new map?
 
+	var/list/total_run_times
 	var/current_runlevel	//for scheduling different subsystems for different stages of the round
-	var/sleep_offline_after_initializations = TRUE
 
 	var/static/restart_clear = 0
 	var/static/restart_timeout = 0
 	var/static/restart_count = 0
-	
-	var/static/random_seed
 
 	//current tick limit, assigned before running a subsystem.
 	//used by CHECK_TICK as well so that the procs subsystems call can obey that SS's tick limits
 	var/static/current_ticklimit = TICK_LIMIT_RUNNING
 
 /datum/controller/master/New()
-	if(!config)
-		config = new
+	total_run_times = list()
 	// Highlander-style: there can only be one! Kill off the old and replace it with the new.
-
-	if(!random_seed)
-		random_seed = (TEST_RUN_PARAMETER in world.params) ? 29051994 : rand(1, 1e9)
-		rand_seed(random_seed)
-	
 	var/list/_subsystems = list()
 	subsystems = _subsystems
 	if (Master != src)
@@ -96,9 +88,9 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 	sortTim(subsystems, /proc/cmp_subsystem_init)
 	reverseRange(subsystems)
 	for(var/datum/controller/subsystem/ss in subsystems)
-		log_world("Shutting down [ss.name] subsystem...")
+		report_progress("Shutting down [ss.name] subsystem...")
 		ss.Shutdown()
-	log_world("Shutdown complete")
+	report_progress("Shutdown complete")
 
 // Returns 1 if we created a new mc, 0 if we couldn't due to a recent restart,
 //	-1 if we encountered a runtime trying to recreate it
@@ -156,6 +148,7 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 			Master.subsystems += new BadBoy.type	//NEW_SS_GLOBAL will remove the old one
 		subsystems = Master.subsystems
 		current_runlevel = Master.current_runlevel
+		total_run_times = Master.total_run_times
 		StartProcessing(10)
 	else
 		to_chat(world, "<span class='boldannounce'>The Master Controller is having some issues, we will need to re-initialize EVERYTHING</span>")
@@ -173,14 +166,14 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 	if(init_sss)
 		init_subtypes(/datum/controller/subsystem, subsystems)
 
-	to_chat(world, "<span class='boldannounce'>Initializing subsystems...</span>")
+	report_progress("Initializing subsystems...")
 
 	// Sort subsystems by init_order, so they initialize in the correct order.
 	sortTim(subsystems, /proc/cmp_subsystem_init)
 
 	var/start_timeofday = REALTIMEOFDAY
 	// Initialize subsystems.
-	current_ticklimit = CONFIG_GET(number/tick_limit_mc_init)
+	current_ticklimit = config.tick_limit_mc_init
 	for (var/datum/controller/subsystem/SS in subsystems)
 		if (SS.flags & SS_NO_INIT)
 			continue
@@ -189,26 +182,24 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 	current_ticklimit = TICK_LIMIT_RUNNING
 	var/time = (REALTIMEOFDAY - start_timeofday) / 10
 
-	var/msg = "Initializations complete within [time] second[time == 1 ? "" : "s"]!"
-	to_chat(world, "<span class='boldannounce'>[msg]</span>")
+	var/msg = "Initializations complete within [time] second\s!"
+	report_progress(msg)
 	log_world(msg)
 
 	if (!current_runlevel)
-		SetRunLevel(1)
+		SetRunLevel(RUNLEVEL_LOBBY)
 
 	// Sort subsystems by display setting for easy access.
 	sortTim(subsystems, /proc/cmp_subsystem_display)
 	// Set world options.
-	world.fps = CONFIG_GET(number/fps)
+#ifdef UNIT_TEST
+	world.sleep_offline = FALSE
+#else
+	world.sleep_offline = TRUE
+#endif
+	world.fps = config.fps
 	var/initialized_tod = REALTIMEOFDAY
 
-	world.TgsInitializationComplete()
-	if(sleep_offline_after_initializations)
-		world.sleep_offline = TRUE
-	sleep(1)
-
-	if(sleep_offline_after_initializations && CONFIG_GET(flag/resume_after_initializations))
-		world.sleep_offline = FALSE
 	initializations_finished_with_no_players_logged_in = initialized_tod < REALTIMEOFDAY - 10
 	// Loop.
 	Master.StartProcessing(0)
@@ -218,8 +209,8 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 	if(isnull(old_runlevel))
 		old_runlevel = "NULL"
 
-	testing("MC: Runlevel changed from [old_runlevel] to [new_runlevel]")
 	current_runlevel = log(2, new_runlevel) + 1
+	report_progress("MC: Runlevel changed from [old_runlevel] to [current_runlevel]")
 	if(current_runlevel < 1)
 		CRASH("Attempted to set invalid runlevel: [new_runlevel]")
 
@@ -228,7 +219,7 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 	set waitfor = 0
 	if(delay)
 		sleep(delay)
-	testing("Master starting processing")
+	report_progress("Master starting processing")
 	var/rtn = Loop()
 	if (rtn > 0 || processing < 0)
 		return //this was suppose to happen.
@@ -507,6 +498,7 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 			tick_usage += queue_node.paused_tick_usage
 
 			queue_node.tick_usage = MC_AVERAGE_FAST(queue_node.tick_usage, tick_usage)
+			total_run_times[queue_node.name] += ((tick_usage / 100) * world.tick_lag) / 10
 
 			queue_node.cost = MC_AVERAGE_FAST(queue_node.cost, TICK_DELTA_TO_MS(tick_usage))
 			queue_node.paused_ticks = 0
@@ -603,13 +595,3 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 	for(var/S in subsystems)
 		var/datum/controller/subsystem/SS = S
 		SS.StopLoadingMap()
-
-
-/datum/controller/master/proc/UpdateTickRate()
-	if (!processing)
-		return
-	var/client_count = length(GLOB.clients)
-	if (client_count < CONFIG_GET(number/mc_tick_rate/disable_high_pop_mc_mode_amount))
-		processing = CONFIG_GET(number/mc_tick_rate/base_mc_tick_rate)
-	else if (client_count > CONFIG_GET(number/mc_tick_rate/high_pop_mc_mode_amount))
-		processing = CONFIG_GET(number/mc_tick_rate/high_pop_mc_tick_rate)

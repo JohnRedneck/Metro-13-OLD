@@ -126,7 +126,7 @@
 /obj/item/integrated_circuit/lists/filter/do_work()
 	var/list/input_list = get_pin_data(IC_INPUT, 1)
 	var/sample = get_pin_data(IC_INPUT, 2)
-	var/list/sample_list = islist(sample) ? uniqueList(sample) : null
+	var/list/sample_list = islist(sample) ? sample : null
 	var/list/output_list1 = input_list.Copy()
 	var/list/output_list2 = list()
 	var/list/output = list()
@@ -163,7 +163,7 @@
 	set_pin_data(IC_OUTPUT, 2, output_list2)
 	push_data()
 
-	output_list1 ~! input_list ? activate_pin(2) : activate_pin(3)
+	!length(output_list1 ^ input_list) ? activate_pin(2) : activate_pin(3)
 
 /obj/item/integrated_circuit/lists/listset
 	name = "list set circuit"
@@ -180,7 +180,7 @@
 
 /obj/item/integrated_circuit/lists/listset/do_work()
 	var/list/input_list = get_pin_data(IC_INPUT, 1)
-	input_list = uniqueList(input_list)
+	input_list = input_list
 
 	set_pin_data(IC_OUTPUT, 1, input_list)
 	push_data()
@@ -277,7 +277,7 @@
 	var/item = get_pin_data(IC_INPUT, 3)
 
 	// Check if index is valid
-	if(index > input_list.len)
+	if(!is_valid_index(index, input_list))
 		set_pin_data(IC_OUTPUT, 1, input_list)
 		push_data()
 		activate_pin(3)
@@ -289,7 +289,6 @@
 		set_pin_data(IC_OUTPUT, 1, red_list)
 		push_data()
 		activate_pin(2)
-
 
 /obj/item/integrated_circuit/lists/len
 	name = "len circuit"

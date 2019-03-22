@@ -1,61 +1,39 @@
-/mob/living/carbon/proc/handle_dreams()
-	if(prob(10) && !dreaming)
+
+var/list/dreams = list(
+	"an ID card","a bottle","a familiar face","a crewmember","a toolbox","a security officer","the captain",
+	"voices from all around","deep space","a doctor","the engine","a traitor","an ally","darkness",
+	"light","a scientist","a monkey","a catastrophe","a loved one","a gun","warmth","freezing","the sun",
+	"a hat","a ruined station","a planet","phoron","air","the medical bay","the bridge","blinking lights",
+	"a blue light","an abandoned laboratory","NanoTrasen", "pirates", "mercenaries","blood","healing","power","respect",
+	"riches","space","a crash","happiness","pride","a fall","water","flames","ice","melons","flying","the eggs","money",
+	"the chief engineer","the chief science officer","the chief medical officer",
+	"a station engineer","the janitor","the atmospheric technician",
+	"a cargo technician","the botanist","a shaft miner","the psychologist","the chemist",
+	"the virologist","the roboticist","a chef","the bartender","a chaplain","a librarian","a mouse",
+	"a beach","the holodeck","a smokey room","a voice","the cold","a mouse","an operating table","the rain","a skrell",
+	"an unathi","the ai core","a beaker of strange liquid","the supermatter", "a creature built completely of stolen flesh",
+	"a GAS", "a IPC", "a Dionaea", "a being made of light", "the commanding officer", "the executive officer", "the chief of security", "the corporate liason",
+	"the representative", "the senior advisor", "the bridge officer", "the senior engineer", "the physician", "the corpsman", "the counselor",
+	"the medical contractor", "the security contractor", "the stowaway", "an old friend", "the prospector", "the pilot", "the passenger", "the chief of security",
+	"the master at arms", "the forensic technician", "the brig officer", "the tower", "the man with no face", "a field of flowers", "an old home", "the merc",
+	"a surgery table", "a needle", "a blade", "an ocean", "right behind you", "standing above you", "someone near by", "a place forgotten", "the exodus",
+	)
+
+mob/living/carbon/proc/dream()
+	dreaming = 1
+
+	spawn(0)
+		for(var/i = rand(1,4),i > 0, i--)
+			to_chat(src, "<span class='notice'><i>... [pick(dreams)] ...</i></span>")
+			sleep(rand(40,70))
+			if(paralysis <= 0)
+				dreaming = 0
+				return 0
+		dreaming = 0
+		return 1
+
+mob/living/carbon/proc/handle_dreams()
+	if(client && !dreaming && prob(5))
 		dream()
 
-/mob/living/carbon/proc/dream()
-	set waitfor = FALSE
-	var/list/dream_fragments = list()
-	var/fragment = ""
-
-	dream_fragments += "you see"
-
-	//Subject
-	fragment += pick(GLOB.dream_strings)
-	if(prob(50))
-		fragment = replacetext(fragment, "%ADJECTIVE%", pick(GLOB.adjectives))
-	else
-		fragment = replacetext(fragment, "%ADJECTIVE% ", "")
-	if(findtext(fragment, "%A% "))
-		fragment = "\a [replacetext(fragment, "%A% ", "")]"
-	dream_fragments += fragment
-
-	//Verb
-	fragment = ""
-	if(prob(50))
-		if(prob(35))
-			fragment += "[pick(GLOB.adverbs)] "
-		fragment += pick(GLOB.ing_verbs)
-	else
-		fragment += "will "
-		fragment += pick(GLOB.verbs)
-	dream_fragments += fragment
-
-	if(prob(25))
-		dream_sequence(dream_fragments)
-		return
-
-	//Object
-	fragment = ""
-	fragment += pick(GLOB.dream_strings)
-	if(prob(50))
-		fragment = replacetext(fragment, "%ADJECTIVE%", pick(GLOB.adjectives))
-	else
-		fragment = replacetext(fragment, "%ADJECTIVE% ", "")
-	if(findtext(fragment, "%A% "))
-		fragment = "\a [replacetext(fragment, "%A% ", "")]"
-	dream_fragments += fragment
-
-	dreaming = TRUE
-	dream_sequence(dream_fragments)
-
-/mob/living/carbon/proc/dream_sequence(list/dream_fragments)
-	if(stat != UNCONSCIOUS || InCritical())
-		dreaming = FALSE
-		return
-	var/next_message = dream_fragments[1]
-	dream_fragments.Cut(1,2)
-	to_chat(src, "<span class='notice'><i>... [next_message] ...</i></span>")
-	if(LAZYLEN(dream_fragments))
-		addtimer(CALLBACK(src, .proc/dream_sequence, dream_fragments), rand(10,30))
-	else
-		dreaming = FALSE
+mob/living/carbon/var/dreaming = 0

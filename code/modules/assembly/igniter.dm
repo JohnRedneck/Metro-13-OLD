@@ -1,41 +1,37 @@
-/obj/item/assembly/igniter
+/obj/item/device/assembly/igniter
 	name = "igniter"
-	desc = "A small electronic device able to ignite combustible substances."
+	desc = "A small electronic device able to ignite combustable substances."
 	icon_state = "igniter"
-	materials = list(MAT_METAL=500, MAT_GLASS=50)
-	var/datum/effect_system/spark_spread/sparks = new /datum/effect_system/spark_spread
-	heat = 1000
+	origin_tech = list(TECH_MAGNET = 1)
+	matter = list(MATERIAL_STEEL = 500, MATERIAL_GLASS = 50, MATERIAL_WASTE = 10)
 
-/obj/item/assembly/igniter/suicide_act(mob/living/carbon/user)
-	user.visible_message("<span class='suicide'>[user] is trying to ignite [user.p_them()]self with \the [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
-	user.IgniteMob()
-	return FIRELOSS
+	secured = 1
+	wires = WIRE_RECEIVE
 
-/obj/item/assembly/igniter/New()
-	..()
-	sparks.set_up(2, 0, src)
-	sparks.attach(src)
-
-/obj/item/assembly/igniter/Destroy()
-	qdel(sparks)
-	sparks = null
-	. = ..()
-
-/obj/item/assembly/igniter/activate()
-	if(!..())
-		return FALSE//Cooldown check
-	var/turf/location = get_turf(loc)
-	if(location)
-		location.hotspot_expose(700,10)
-	sparks.start()
-	return TRUE
-
-/obj/item/assembly/igniter/attack_self(mob/user)
 	activate()
-	add_fingerprint(user)
+		if(!..())	return 0//Cooldown check
 
-/obj/item/assembly/igniter/ignition_effect(atom/A, mob/user)
-	. = "<span class='notice'>[user] fiddles with [src], and manages to \
-		light [A].</span>"
-	activate()
-	add_fingerprint(user)
+		if(holder && istype(holder.loc,/obj/item/weapon/grenade/chem_grenade))
+			var/obj/item/weapon/grenade/chem_grenade/grenade = holder.loc
+			grenade.detonate()
+		else
+			var/turf/location = get_turf(loc)
+			if(location)
+				location.hotspot_expose(1000,1000)
+			if (istype(src.loc,/obj/item/device/assembly_holder))
+				if (istype(src.loc.loc, /obj/structure/reagent_dispensers/fueltank/))
+					var/obj/structure/reagent_dispensers/fueltank/tank = src.loc.loc
+					if (tank && tank.modded)
+						tank.explode()
+
+			var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
+			s.set_up(3, 1, src)
+			s.start()
+
+		return 1
+
+
+	attack_self(mob/user as mob)
+		activate()
+		add_fingerprint(user)
+		return

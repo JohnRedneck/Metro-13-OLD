@@ -1,82 +1,94 @@
+//Also contains /obj/structure/closet/body_bag because I doubt anyone would think to look for bodybags in /object/structures
 
 /obj/item/bodybag
 	name = "body bag"
 	desc = "A folded bag designed for the storage and transportation of cadavers."
-	icon = 'icons/obj/bodybag.dmi'
+	icon = 'icons/obj/closets/bodybag.dmi'
 	icon_state = "bodybag_folded"
-	var/unfoldedbag_path = /obj/structure/closet/body_bag
-	w_class = WEIGHT_CLASS_SMALL
-
-/obj/item/bodybag/attack_self(mob/user)
-	deploy_bodybag(user, user.loc)
-
-/obj/item/bodybag/afterattack(atom/target, mob/user, proximity)
-	if(proximity)
-		if(isopenturf(target))
-			deploy_bodybag(user, target)
-
-/obj/item/bodybag/proc/deploy_bodybag(mob/user, atom/location)
-	var/obj/structure/closet/body_bag/R = new unfoldedbag_path(location)
-	R.open(user)
-	R.add_fingerprint(user)
-	qdel(src)
-
-/obj/item/bodybag/suicide_act(mob/user)
-	if(isopenturf(user.loc))
-		user.visible_message("<span class='suicide'>[user] is crawling into [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
-		var/obj/structure/closet/body_bag/R = new unfoldedbag_path(user.loc)
+	w_class = ITEM_SIZE_SMALL
+	attack_self(mob/user)
+		var/obj/structure/closet/body_bag/R = new /obj/structure/closet/body_bag(user.loc)
 		R.add_fingerprint(user)
 		qdel(src)
-		user.forceMove(R)
-		playsound(src, 'sound/items/zip.ogg', 15, 1, -3)
-		return (OXYLOSS)
-	..()
-
-// Bluespace bodybag
-
-/obj/item/bodybag/bluespace
-	name = "bluespace body bag"
-	desc = "A folded bluespace body bag designed for the storage and transportation of cadavers."
-	icon = 'icons/obj/bodybag.dmi'
-	icon_state = "bluebodybag_folded"
-	unfoldedbag_path = /obj/structure/closet/body_bag/bluespace
-	w_class = WEIGHT_CLASS_SMALL
-	item_flags = NO_MAT_REDEMPTION
 
 
-/obj/item/bodybag/bluespace/examine(mob/user)
-	..()
-	if(contents.len)
-		var/s = contents.len == 1 ? "" : "s"
-		to_chat(user, "<span class='notice'>You can make out the shape[s] of [contents.len] object[s] through the fabric.</span>")
+/obj/item/weapon/storage/box/bodybags
+	name = "body bags"
+	desc = "This box contains body bags."
+	icon_state = "bodybags"
+	New()
+		..()
+		new /obj/item/bodybag(src)
+		new /obj/item/bodybag(src)
+		new /obj/item/bodybag(src)
+		new /obj/item/bodybag(src)
+		new /obj/item/bodybag(src)
+		new /obj/item/bodybag(src)
+		new /obj/item/bodybag(src)
 
-/obj/item/bodybag/bluespace/Destroy()
-	for(var/atom/movable/A in contents)
-		A.forceMove(get_turf(src))
-		if(isliving(A))
-			to_chat(A, "<span class='notice'>You suddenly feel the space around you torn apart! You're free!</span>")
-	return ..()
 
-/obj/item/bodybag/bluespace/deploy_bodybag(mob/user, atom/location)
-	var/obj/structure/closet/body_bag/R = new unfoldedbag_path(location)
-	for(var/atom/movable/A in contents)
-		A.forceMove(R)
-		if(isliving(A))
-			to_chat(A, "<span class='notice'>You suddenly feel air around you! You're free!</span>")
-	R.open(user)
-	R.add_fingerprint(user)
+/obj/structure/closet/body_bag
+	name = "body bag"
+	desc = "A plastic bag designed for the storage and transportation of cadavers."
+	icon = 'icons/obj/closets/bodybag.dmi'
+	closet_appearance = null
+	open_sound = 'sound/items/zip.ogg'
+	close_sound = 'sound/items/zip.ogg'
+	var/item_path = /obj/item/bodybag
+	density = 0
+	storage_capacity = (MOB_MEDIUM * 2) - 1
+	var/contains_body = 0
+
+/obj/structure/closet/body_bag/attackby(var/obj/item/W, mob/user as mob)
+	if (istype(W, /obj/item/weapon/pen))
+		var/t = input(user, "What would you like the label to be?", text("[]", src.name), null)  as text
+		if (user.get_active_hand() != W)
+			return
+		if (!in_range(src, user) && src.loc != user)
+			return
+		t = sanitizeSafe(t, MAX_NAME_LEN)
+		if (t)
+			src.SetName("body bag - ")
+			src.name += t
+			src.overlays += image(src.icon, "bodybag_label")
+		else
+			src.SetName("body bag")
+	//..() //Doesn't need to run the parent. Since when can fucking bodybags be welded shut? -Agouri
+		return
+	else if(isWirecutter(W))
+		src.SetName("body bag")
+		src.overlays.Cut()
+		to_chat(user, "You cut the tag off \the [src].")
+		return
+
+/obj/structure/closet/body_bag/store_mobs(var/stored_units)
+	contains_body = ..()
+	return contains_body
+
+/obj/structure/closet/body_bag/close()
+	if(..())
+		set_density(0)
+		return 1
+	return 0
+
+/obj/structure/closet/body_bag/proc/fold(var/user)
+	if(!(ishuman(user) || isrobot(user)))	return 0
+	if(opened)	return 0
+	if(contents.len)	return 0
+	visible_message("[user] folds up the [name]")
+	. = new item_path(get_turf(src))
 	qdel(src)
 
-/obj/item/bodybag/bluespace/container_resist(mob/living/user)
-	if(user.incapacitated())
-		to_chat(user, "<span class='warning'>You can't get out while you're restrained like this!</span>")
-		return
-	user.changeNext_move(CLICK_CD_BREAKOUT)
-	user.last_special = world.time + CLICK_CD_BREAKOUT
-	to_chat(user, "<span class='notice'>You claw at the fabric of [src], trying to tear it open...</span>")
-	to_chat(loc, "<span class='warning'>Someone starts trying to break free of [src]!</span>")
-	if(!do_after(user, 200, target = src))
-		to_chat(loc, "<span class='warning'>The pressure subsides. It seems that they've stopped resisting...</span>")
-		return
-	loc.visible_message("<span class='warning'>[user] suddenly appears in front of [loc]!</span>", "<span class='userdanger'>[user] breaks free of [src]!</span>")
-	qdel(src)
+/obj/structure/closet/body_bag/MouseDrop(over_object, src_location, over_location)
+	..()
+	if((over_object == usr && (in_range(src, usr) || usr.contents.Find(src))))
+		fold(usr)
+
+/obj/item/robot_rack/body_bag
+	name = "stasis bag rack"
+	desc = "A rack for carrying folded stasis bags and body bags."
+	icon = 'icons/obj/closets/cryobag.dmi'
+	icon_state = "bodybag_folded"
+	object_type = /obj/item/bodybag
+	interact_type = /obj/structure/closet/body_bag
+	capacity = 3

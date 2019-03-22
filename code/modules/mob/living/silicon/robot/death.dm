@@ -1,35 +1,15 @@
-
-/mob/living/silicon/robot/gib_animation()
-	new /obj/effect/temp_visual/gib_animation(loc, "gibbed-r")
-
 /mob/living/silicon/robot/dust()
+	//Delete the MMI first so that it won't go popping out.
 	if(mmi)
 		qdel(mmi)
 	..()
 
-/mob/living/silicon/robot/spawn_dust()
-	new /obj/effect/decal/remains/robot(loc)
-
-/mob/living/silicon/robot/dust_animation()
-	new /obj/effect/temp_visual/dust_animation(loc, "dust-r")
-
-/mob/living/silicon/robot/death(gibbed)
-	if(stat == DEAD)
-		return
-
-	. = ..()
-
-	locked = FALSE //unlock cover
-
-	update_canmove()
-	if(!QDELETED(builtInCamera) && builtInCamera.status)
-		builtInCamera.toggle_cam(src,0)
-	update_headlamp(1) //So borg lights are disabled when killed.
-
-	uneq_all() // particularly to ensure sight modes are cleared
-
-	update_icons()
-
-	unbuckle_all_mobs(TRUE)
-
-	SSblackbox.ReportDeath(src)
+/mob/living/silicon/robot/death(gibbed,deathmessage, show_dead_message)
+	if(camera)
+		camera.status = 0
+	if(module)
+		for(var/obj/item/weapon/gripper/G in module.equipment)
+			G.drop_gripped_item()
+	locked = 0
+	remove_robot_verbs()
+	..(gibbed,"shudders violently for a moment, then becomes motionless, its eyes slowly darkening.", "You have suffered a critical system failure, and are dead.")

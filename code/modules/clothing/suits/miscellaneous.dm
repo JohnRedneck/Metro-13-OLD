@@ -9,24 +9,24 @@
  * Lasertag
  */
 /obj/item/clothing/suit/bluetag
-	name = "blue laser tag armor"
-	desc = "A piece of plastic armor. It has sensors that react to red light." //Lasers are concentrated light
+	name = "blue laser tag armour"
+	desc = "Blue Pride, Galaxy Wide."
 	icon_state = "bluetag"
 	item_state = "bluetag"
 	blood_overlay_type = "armor"
-	body_parts_covered = CHEST
-	allowed = list (/obj/item/gun/energy/laser/bluetag)
-	resistance_flags = NONE
+	body_parts_covered = UPPER_TORSO
+	allowed = list (/obj/item/weapon/gun/energy/lasertag/blue)
+	siemens_coefficient = 3.0
 
 /obj/item/clothing/suit/redtag
-	name = "red laser tag armor"
-	desc = "A piece of plastic armor. It has sensors that react to blue light."
+	name = "red laser tag armour"
+	desc = "Reputed to go faster."
 	icon_state = "redtag"
 	item_state = "redtag"
 	blood_overlay_type = "armor"
-	body_parts_covered = CHEST
-	allowed = list (/obj/item/gun/energy/laser/redtag)
-	resistance_flags = NONE
+	body_parts_covered = UPPER_TORSO
+	allowed = list (/obj/item/weapon/gun/energy/lasertag/red)
+	siemens_coefficient = 3.0
 
 /*
  * Costume
@@ -36,13 +36,16 @@
 	desc = "Yarr."
 	icon_state = "pirate"
 	item_state = "pirate"
-	allowed = list(/obj/item/melee/transforming/energy/sword/pirate, /obj/item/clothing/glasses/eyepatch, /obj/item/reagent_containers/food/drinks/bottle/rum)
+	body_parts_covered = UPPER_TORSO|ARMS
 
-/obj/item/clothing/suit/pirate/captain
+
+/obj/item/clothing/suit/hgpirate
 	name = "pirate captain coat"
 	desc = "Yarr."
 	icon_state = "hgpirate"
 	item_state = "hgpirate"
+	flags_inv = HIDEJUMPSUIT
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS|LEGS
 
 
 /obj/item/clothing/suit/cyborg_suit
@@ -50,17 +53,32 @@
 	desc = "Suit for a cyborg costume."
 	icon_state = "death"
 	item_state = "death"
-	flags_1 = CONDUCT_1
+	obj_flags = OBJ_FLAG_CONDUCTIBLE
 	fire_resist = T0C+5200
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
 
 
+/obj/item/clothing/suit/greatcoat
+	name = "great coat"
+	desc = "A heavy great coat."
+	icon_state = "nazi"
+	item_state = "nazi"
+
+
+/obj/item/clothing/suit/johnny_coat
+	name = "johnny~~ coat"
+	desc = "Johnny~~"
+	icon_state = "johnny"
+	item_state = "johnny"
+
+
 /obj/item/clothing/suit/justice
 	name = "justice suit"
-	desc = "this pretty much looks ridiculous" //Needs no fixing
+	desc = "This pretty much looks ridiculous."
 	icon_state = "justice"
 	item_state = "justice"
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS|HANDS|LEGS|FEET
 
 
 /obj/item/clothing/suit/judgerobe
@@ -68,8 +86,8 @@
 	desc = "This robe commands authority."
 	icon_state = "judge"
 	item_state = "judge"
-	body_parts_covered = CHEST|GROIN|LEGS|ARMS
-	allowed = list(/obj/item/storage/fancy/cigarettes, /obj/item/stack/spacecash)
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
+	allowed = list(/obj/item/weapon/storage/fancy/cigarettes,/obj/item/weapon/spacecash)
 	flags_inv = HIDEJUMPSUIT
 
 
@@ -78,617 +96,455 @@
 	desc = "A set of denim overalls."
 	icon_state = "overalls"
 	item_state = "overalls"
-	body_parts_covered = CHEST|GROIN|LEGS
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS
 
-/obj/item/clothing/suit/apron/purple_bartender
-	name = "purple bartender apron"
-	desc = "A fancy purple apron for a stylish person."
-	icon_state = "purplebartenderapron"
-	item_state = "purplebartenderapron"
-	body_parts_covered = CHEST|GROIN|LEGS
 
 /obj/item/clothing/suit/syndicatefake
-	name = "black and red space suit replica"
-	icon_state = "syndicate-black-red"
-	item_state = "syndicate-black-red"
-	desc = "A plastic replica of the Syndicate space suit. You'll look just like a real murderous Syndicate agent in this! This is a toy, it is not made for use in space!"
-	w_class = WEIGHT_CLASS_NORMAL
-	allowed = list(/obj/item/flashlight, /obj/item/tank/internals/emergency_oxygen, /obj/item/tank/internals/plasmaman, /obj/item/toy)
+	name = "red space suit replica"
+	icon_state = "syndicate"
+	item_state = "space_suit_syndicate"
+	desc = "A plastic replica of the syndicate space suit, you'll look just like a real murderous syndicate agent in this! This is a toy, it is not made for use in space!"
+	w_class = ITEM_SIZE_NORMAL
+	allowed = list(/obj/item/device/flashlight,/obj/item/weapon/tank/emergency,/obj/item/toy)
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
-	resistance_flags = NONE
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS|HANDS|LEGS|FEET
 
 /obj/item/clothing/suit/hastur
-	name = "\improper Hastur's robe"
+	name = "Hastur's Robes"
 	desc = "Robes not meant to be worn by man."
 	icon_state = "hastur"
 	item_state = "hastur"
-	body_parts_covered = CHEST|GROIN|LEGS|ARMS
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
 
 
 /obj/item/clothing/suit/imperium_monk
-	name = "\improper Imperium monk suit"
-	desc = "Have YOU killed a xeno today?"
+	name = "Imperium monk"
+	desc = "Have YOU killed a xenos today?"
 	icon_state = "imperium_monk"
 	item_state = "imperium_monk"
-	body_parts_covered = CHEST|GROIN|LEGS|ARMS
+	body_parts_covered = HEAD|UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS
 	flags_inv = HIDESHOES|HIDEJUMPSUIT
-	allowed = list(/obj/item/storage/book/bible, /obj/item/nullrod, /obj/item/reagent_containers/food/drinks/bottle/holywater, /obj/item/storage/fancy/candle_box, /obj/item/candle, /obj/item/tank/internals/emergency_oxygen)
 
 
 /obj/item/clothing/suit/chickensuit
-	name = "chicken suit"
+	name = "Chicken Suit"
 	desc = "A suit made long ago by the ancient empire KFC."
 	icon_state = "chickensuit"
 	item_state = "chickensuit"
-	body_parts_covered = CHEST|ARMS|GROIN|LEGS|FEET
+	body_parts_covered = UPPER_TORSO|ARMS|LOWER_TORSO|LEGS|FEET
 	flags_inv = HIDESHOES|HIDEJUMPSUIT
+	siemens_coefficient = 2.0
 
 
 /obj/item/clothing/suit/monkeysuit
-	name = "monkey suit"
+	name = "Monkey Suit"
 	desc = "A suit that looks like a primate."
 	icon_state = "monkeysuit"
 	item_state = "monkeysuit"
-	body_parts_covered = CHEST|ARMS|GROIN|LEGS|FEET|HANDS
+	body_parts_covered = UPPER_TORSO|ARMS|LOWER_TORSO|LEGS|FEET|HANDS
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
-
-/obj/item/clothing/suit/toggle/owlwings
-	name = "owl cloak"
-	desc = "A soft brown cloak made of synthetic feathers. Soft to the touch, stylish, and a 2 meter wing span that will drive the ladies mad."
-	icon_state = "owl_wings"
-	item_state = "owl_wings"
-	togglename = "wings"
-	body_parts_covered = ARMS|CHEST
-	actions_types = list(/datum/action/item_action/toggle_wings)
-
-/obj/item/clothing/suit/toggle/owlwings/Initialize()
-	. = ..()
-	allowed = GLOB.security_vest_allowed
-
-/obj/item/clothing/suit/toggle/owlwings/griffinwings
-	name = "griffon cloak"
-	desc = "A plush white cloak made of synthetic feathers. Soft to the touch, stylish, and a 2 meter wing span that will drive your captives mad."
-	icon_state = "griffin_wings"
-	item_state = "griffin_wings"
+	siemens_coefficient = 2.0
 
 
 /obj/item/clothing/suit/holidaypriest
-	name = "holiday priest"
-	desc = "This is a nice holiday, my son."
+	name = "Holiday Priest"
+	desc = "This is a nice holiday my son."
 	icon_state = "holidaypriest"
-	item_state = "w_suit"
-	body_parts_covered = CHEST|GROIN|LEGS|ARMS
+	item_state = "holidaypriest"
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	flags_inv = HIDEJUMPSUIT
-	allowed = list(/obj/item/storage/book/bible, /obj/item/nullrod, /obj/item/reagent_containers/food/drinks/bottle/holywater, /obj/item/storage/fancy/candle_box, /obj/item/candle, /obj/item/tank/internals/emergency_oxygen, /obj/item/tank/internals/plasmaman)
+
 
 /obj/item/clothing/suit/cardborg
 	name = "cardborg suit"
 	desc = "An ordinary cardboard box with holes cut in the sides."
 	icon_state = "cardborg"
 	item_state = "cardborg"
-	body_parts_covered = CHEST|GROIN
-	flags_inv = HIDEJUMPSUIT
-	dog_fashion = /datum/dog_fashion/back
-
-/obj/item/clothing/suit/cardborg/equipped(mob/living/user, slot)
-	..()
-	if(slot == SLOT_WEAR_SUIT)
-		disguise(user)
-
-/obj/item/clothing/suit/cardborg/dropped(mob/living/user)
-	..()
-	user.remove_alt_appearance("standard_borg_disguise")
-
-/obj/item/clothing/suit/cardborg/proc/disguise(mob/living/carbon/human/H, obj/item/clothing/head/cardborg/borghead)
-	if(istype(H))
-		if(!borghead)
-			borghead = H.head
-		if(istype(borghead, /obj/item/clothing/head/cardborg)) //why is this done this way? because equipped() is called BEFORE THE ITEM IS IN THE SLOT WHYYYY
-			var/image/I = image(icon = 'icons/mob/robots.dmi' , icon_state = "robot", loc = H)
-			I.override = 1
-			I.add_overlay(mutable_appearance('icons/mob/robots.dmi', "robot_e")) //gotta look realistic
-			add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/silicons, "standard_borg_disguise", I) //you look like a robot to robots! (including yourself because you're totally a robot)
-
-
-/obj/item/clothing/suit/snowman
-	name = "snowman outfit"
-	desc = "Two white spheres covered in white glitter. 'Tis the season."
-	icon_state = "snowman"
-	item_state = "snowman"
-	body_parts_covered = CHEST|GROIN
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 	flags_inv = HIDEJUMPSUIT
 
-/obj/item/clothing/suit/poncho
-	name = "poncho"
-	desc = "Your classic, non-racist poncho."
-	icon_state = "classicponcho"
-	item_state = "classicponcho"
-
-/obj/item/clothing/suit/poncho/green
-	name = "green poncho"
-	desc = "Your classic, non-racist poncho. This one is green."
-	icon_state = "greenponcho"
-	item_state = "greenponcho"
-
-/obj/item/clothing/suit/poncho/red
-	name = "red poncho"
-	desc = "Your classic, non-racist poncho. This one is red."
-	icon_state = "redponcho"
-	item_state = "redponcho"
-
-/obj/item/clothing/suit/poncho/ponchoshame
-	name = "poncho of shame"
-	desc = "Forced to live on your shameful acting as a fake Mexican, you and your poncho have grown inseparable. Literally."
-	icon_state = "ponchoshame"
-	item_state = "ponchoshame"
-	item_flags = NODROP
-
-/obj/item/clothing/suit/whitedress
-	name = "white dress"
-	desc = "A fancy white dress."
-	icon_state = "white_dress"
-	item_state = "w_suit"
-	body_parts_covered = CHEST|GROIN|LEGS|FEET
-	flags_inv = HIDEJUMPSUIT|HIDESHOES
-
-/obj/item/clothing/suit/hooded/carp_costume
-	name = "carp costume"
-	desc = "A costume made from 'synthetic' carp scales, it smells."
-	icon_state = "carp_casual"
-	item_state = "labcoat"
-	body_parts_covered = CHEST|GROIN|ARMS
-	cold_protection = CHEST|GROIN|ARMS
-	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT	//Space carp like space, so you should too
-	allowed = list(/obj/item/tank/internals/emergency_oxygen, /obj/item/tank/internals/plasmaman, /obj/item/gun/ballistic/automatic/speargun)
-	hoodtype = /obj/item/clothing/head/hooded/carp_hood
-
-/obj/item/clothing/head/hooded/carp_hood
-	name = "carp hood"
-	desc = "A hood attached to a carp costume."
-	icon_state = "carp_casual"
-	body_parts_covered = HEAD
-	cold_protection = HEAD
-	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
-	flags_inv = HIDEHAIR|HIDEEARS
-
-/obj/item/clothing/suit/hooded/ian_costume	//It's Ian, rub his bell- oh god what happened to his inside parts?
-	name = "corgi costume"
-	desc = "A costume that looks like someone made a human-like corgi, it won't guarantee belly rubs."
-	icon_state = "ian"
-	item_state = "labcoat"
-	body_parts_covered = CHEST|GROIN|ARMS
-	//cold_protection = CHEST|GROIN|ARMS
-	//min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
-	allowed = list()
-	hoodtype = /obj/item/clothing/head/hooded/ian_hood
-	dog_fashion = /datum/dog_fashion/back
-
-/obj/item/clothing/head/hooded/ian_hood
-	name = "corgi hood"
-	desc = "A hood that looks just like a corgi's head, it won't guarantee dog biscuits."
-	icon_state = "ian"
-	body_parts_covered = HEAD
-	//cold_protection = HEAD
-	//min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
-	flags_inv = HIDEHAIR|HIDEEARS
-
-/obj/item/clothing/suit/hooded/bee_costume // It's Hip!
-	name = "bee costume"
-	desc = "Bee the true Queen!"
-	icon_state = "bee"
-	item_state = "labcoat"
-	body_parts_covered = CHEST|GROIN|ARMS
-	clothing_flags = THICKMATERIAL
-	hoodtype = /obj/item/clothing/head/hooded/bee_hood
-
-/obj/item/clothing/head/hooded/bee_hood
-	name = "bee hood"
-	desc = "A hood attached to a bee costume."
-	icon_state = "bee"
-	body_parts_covered = HEAD
-	clothing_flags = THICKMATERIAL
-	flags_inv = HIDEHAIR|HIDEEARS
-	dynamic_hair_suffix = ""
-
-/obj/item/clothing/suit/hooded/bloated_human	//OH MY GOD WHAT HAVE YOU DONE!?!?!?
-	name = "bloated human suit"
-	desc = "A horribly bloated suit made from human skins."
-	icon_state = "lingspacesuit"
-	item_state = "labcoat"
-	body_parts_covered = CHEST|GROIN|ARMS
-	allowed = list()
-	actions_types = list(/datum/action/item_action/toggle_human_head)
-	hoodtype = /obj/item/clothing/head/hooded/human_head
-
-
-/obj/item/clothing/head/hooded/human_head
-	name = "bloated human head"
-	desc = "A horribly bloated and mismatched human head."
-	icon_state = "lingspacehelmet"
-	body_parts_covered = HEAD
-	flags_cover = HEADCOVERSEYES
-	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR
-
-/obj/item/clothing/suit/security/officer/russian
-	name = "russian officer's jacket"
-	desc = "This jacket is for those special occasions when a russian officer isn't required to wear their armor."
-	icon_state = "officertanjacket"
-	item_state = "officertanjacket"
-	body_parts_covered = CHEST|ARMS
+/obj/item/clothing/suit/cardborg/Initialize()
+	. = ..()
+	set_extension(src, /datum/extension/appearance, /datum/extension/appearance/cardborg)
 
 /*
  * Misc
  */
 
 /obj/item/clothing/suit/straight_jacket
-	name = "straight jacket"
-	desc = "A suit that completely restrains the wearer. Manufactured by Antyphun Corp." //Straight jacket is antifun
+	name = "straitjacket"
+	desc = "A suit that completely restrains the wearer."
 	icon_state = "straight_jacket"
 	item_state = "straight_jacket"
-	body_parts_covered = CHEST|GROIN|LEGS|ARMS|HANDS
-	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
-	equip_delay_self = 50
-	strip_delay = 60
-	breakouttime = 3000
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
+	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT|HIDETAIL
+
+/obj/item/clothing/suit/straight_jacket/equipped(var/mob/user, var/slot)
+	if(slot == slot_wear_suit)
+		if(iscarbon(user))
+			var/mob/living/carbon/C = user
+			C.drop_from_inventory(C.handcuffed)
+		user.drop_l_hand()
+		user.drop_r_hand()
 
 /obj/item/clothing/suit/ianshirt
 	name = "worn shirt"
 	desc = "A worn out, curiously comfortable t-shirt with a picture of Ian. You wouldn't go so far as to say it feels like being hugged when you wear it, but it's pretty close. Good for sleeping in."
 	icon_state = "ianshirt"
 	item_state = "ianshirt"
+	body_parts_covered = UPPER_TORSO|ARMS
 
-/obj/item/clothing/suit/nerdshirt
-	name = "gamer shirt"
-	desc = "A baggy shirt with vintage game character Phanic the Weasel. Why would anyone wear this?"
-	icon_state = "nerdshirt"
-	item_state = "nerdshirt"
+//pyjamas
+//originally intended to be pinstripes >.>
 
-/obj/item/clothing/suit/vapeshirt //wearing this is asking to get beat.
-	name = "Vape Naysh shirt"
-	desc = "A cheap white T-shirt with a big tacky \"VN\" on the front, Why would you wear this unironically?"
-	icon_state = "vapeshirt"
-	item_state = "vapeshirt"
+/obj/item/clothing/under/bluepyjamas
+	name = "blue pyjamas"
+	desc = "Slightly old-fashioned sleepwear."
+	icon_state = "blue_pyjamas"
+	item_state = "blue_pyjamas"
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS|LEGS
 
-/obj/item/clothing/suit/jacket
-	name = "bomber jacket"
-	desc = "Aviators not included."
-	icon_state = "bomberjacket"
-	item_state = "brownjsuit"
-	allowed = list(/obj/item/flashlight, /obj/item/tank/internals/emergency_oxygen, /obj/item/tank/internals/plasmaman, /obj/item/toy, /obj/item/storage/fancy/cigarettes, /obj/item/lighter, /obj/item/radio)
-	body_parts_covered = CHEST|GROIN|ARMS
-	cold_protection = CHEST|GROIN|ARMS
-	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
+/obj/item/clothing/under/redpyjamas
+	name = "red pyjamas"
+	desc = "Slightly old-fashioned sleepwear."
+	icon_state = "red_pyjamas"
+	item_state = "red_pyjamas"
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS|LEGS
 
-/obj/item/clothing/suit/jacket/leather
-	name = "leather jacket"
-	desc = "Pompadour not included."
-	icon_state = "leatherjacket"
-	item_state = "hostrench"
-	resistance_flags = NONE
-	max_heat_protection_temperature = ARMOR_MAX_TEMP_PROTECT
-	allowed = list(/obj/item/flashlight, /obj/item/tank/internals/emergency_oxygen, /obj/item/tank/internals/plasmaman, /obj/item/toy, /obj/item/storage/fancy/cigarettes, /obj/item/lighter, /obj/item/gun/ballistic/automatic/pistol, /obj/item/gun/ballistic/revolver, /obj/item/gun/ballistic/revolver/detective, /obj/item/radio)
+//coats
 
-/obj/item/clothing/suit/jacket/leather/overcoat
-	name = "leather overcoat"
-	desc = "That's a damn fine coat."
+/obj/item/clothing/suit/leathercoat
+	name = "leather coat"
+	desc = "A long, thick black leather coat."
 	icon_state = "leathercoat"
-	body_parts_covered = CHEST|GROIN|ARMS|LEGS
-	cold_protection = CHEST|GROIN|ARMS|LEGS
+	item_state = "leathercoat"
 
-/obj/item/clothing/suit/jacket/puffer
-	name = "puffer jacket"
-	desc = "A thick jacket with a rubbery, water-resistant shell."
-	icon_state = "pufferjacket"
-	item_state = "hostrench"
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 50, "rad" = 0, "fire" = 0, "acid" = 0)
+/obj/item/clothing/suit/browncoat
+	name = "brown leather coat"
+	desc = "A long, brown leather coat."
+	icon_state = "browncoat"
+	item_state = "browncoat"
 
-/obj/item/clothing/suit/jacket/puffer/vest
-	name = "puffer vest"
-	desc = "A thick vest with a rubbery, water-resistant shell."
-	icon_state = "puffervest"
-	item_state = "armor"
-	body_parts_covered = CHEST|GROIN
-	cold_protection = CHEST|GROIN
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 30, "rad" = 0, "fire" = 0, "acid" = 0)
+/obj/item/clothing/suit/neocoat
+	name = "black coat"
+	desc = "A flowing, black coat."
+	icon_state = "neocoat"
+	item_state = "neocoat"
 
-/obj/item/clothing/suit/jacket/miljacket
-	name = "military jacket"
-	desc = "A canvas jacket styled after classical American military garb. Feels sturdy, yet comfortable."
-	icon_state = "militaryjacket"
-	item_state = "militaryjacket"
-	allowed = list(/obj/item/flashlight, /obj/item/tank/internals/emergency_oxygen, /obj/item/tank/internals/plasmaman, /obj/item/toy, /obj/item/storage/fancy/cigarettes, /obj/item/lighter, /obj/item/gun/ballistic/automatic/pistol, /obj/item/gun/ballistic/revolver, /obj/item/gun/ballistic/revolver/detective, /obj/item/radio)
+//stripper
+/obj/item/clothing/under/stripper
+	body_parts_covered = 0
 
-/obj/item/clothing/suit/jacket/letterman
-	name = "letterman jacket"
-	desc = "A classic brown letterman jacket. Looks pretty hot and heavy."
-	icon_state = "letterman"
-	item_state = "letterman"
+/obj/item/clothing/under/stripper/stripper_pink
+	name = "pink swimsuit"
+	desc = "A rather skimpy pink swimsuit."
+	icon_state = "stripper_p_under"
+	siemens_coefficient = 1
 
-/obj/item/clothing/suit/jacket/letterman_red
-	name = "red letterman jacket"
-	desc = "A letterman jacket in a sick red color. Radical."
-	icon_state = "letterman_red"
-	item_state = "letterman_red"
+/obj/item/clothing/under/stripper/stripper_green
+	name = "green swimsuit"
+	desc = "A rather skimpy green swimsuit."
+	icon_state = "stripper_g_under"
+	siemens_coefficient = 1
 
-/obj/item/clothing/suit/jacket/letterman_syndie
-	name = "blood-red letterman jacket"
-	desc = "Oddly, this jacket seems to have a large S on the back..."
-	icon_state = "letterman_s"
-	item_state = "letterman_s"
+/obj/item/clothing/suit/stripper/stripper_pink
+	name = "pink skimpy dress"
+	desc = "A rather skimpy pink dress."
+	icon_state = "stripper_p_over"
+	siemens_coefficient = 1
 
-/obj/item/clothing/suit/jacket/letterman_nanotrasen
-	name = "blue letterman jacket"
-	desc = "A blue letterman jacket with a proud Nanotrasen N on the back. The tag says that it was made in Space China."
-	icon_state = "letterman_n"
-	item_state = "letterman_n"
+/obj/item/clothing/suit/stripper/stripper_green
+	name = "green skimpy dress"
+	desc = "A rather skimpy green dress."
+	icon_state = "stripper_g_over"
+	//item_state = "stripper_g"
+	siemens_coefficient = 1
 
-/obj/item/clothing/suit/dracula
-	name = "dracula coat"
-	desc = "Looks like this belongs in a very old movie set."
-	icon_state = "draculacoat"
-	item_state = "draculacoat"
-
-/obj/item/clothing/suit/drfreeze_coat
-	name = "doctor freeze's labcoat"
-	desc = "A labcoat imbued with the power of features and freezes."
-	icon_state = "drfreeze_coat"
-	item_state = "drfreeze_coat"
-
-/obj/item/clothing/suit/gothcoat
-	name = "gothic coat"
-	desc = "Perfect for those who want stalk in a corner of a bar."
-	icon_state = "gothcoat"
-	item_state = "gothcoat"
+/obj/item/clothing/under/stripper/mankini
+	name = "mankini"
+	desc = "No honest man would wear this abomination."
+	icon_state = "mankini"
+	siemens_coefficient = 1
 
 /obj/item/clothing/suit/xenos
 	name = "xenos suit"
 	desc = "A suit made out of chitinous alien hide."
 	icon_state = "xenos"
-	item_state = "xenos_helm"
-	body_parts_covered = CHEST|GROIN|LEGS|ARMS|HANDS
+	//item_state = "xenos_helm"
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
-	allowed = list(/obj/item/clothing/mask/facehugger/toy)
+	siemens_coefficient = 2.0
+//swimsuit
+/obj/item/clothing/under/swimsuit/
+	siemens_coefficient = 1
+	body_parts_covered = 0
 
-/obj/item/clothing/suit/nemes
-	name = "pharoah tunic"
-	desc = "Lavish space tomb not included."
-	icon_state = "pharoah"
-	icon_state = "pharoah"
-	body_parts_covered = CHEST|GROIN
+/obj/item/clothing/under/swimsuit/black
+	name = "black swimsuit"
+	desc = "An oldfashioned black swimsuit."
+	icon_state = "swim_black"
+	siemens_coefficient = 1
 
+/obj/item/clothing/under/swimsuit/blue
+	name = "blue swimsuit"
+	desc = "An oldfashioned blue swimsuit."
+	icon_state = "swim_blue"
+	siemens_coefficient = 1
 
+/obj/item/clothing/under/swimsuit/purple
+	name = "purple swimsuit"
+	desc = "An oldfashioned purple swimsuit."
+	icon_state = "swim_purp"
+	siemens_coefficient = 1
 
-// WINTER COATS
+/obj/item/clothing/under/swimsuit/green
+	name = "green swimsuit"
+	desc = "An oldfashioned green swimsuit."
+	icon_state = "swim_green"
+	siemens_coefficient = 1
 
-/obj/item/clothing/suit/hooded/wintercoat
-	name = "winter coat"
-	desc = "A heavy jacket made from 'synthetic' animal furs."
-	icon_state = "coatwinter"
-	item_state = "coatwinter"
-	body_parts_covered = CHEST|GROIN|ARMS
-	cold_protection = CHEST|GROIN|ARMS
-	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 10, "rad" = 0, "fire" = 0, "acid" = 0)
-	allowed = list(/obj/item/flashlight, /obj/item/tank/internals/emergency_oxygen, /obj/item/tank/internals/plasmaman, /obj/item/toy, /obj/item/storage/fancy/cigarettes, /obj/item/lighter)
+/obj/item/clothing/under/swimsuit/red
+	name = "red swimsuit"
+	desc = "An oldfashioned red swimsuit."
+	icon_state = "swim_red"
+	siemens_coefficient = 1
 
-/obj/item/clothing/head/hooded/winterhood
-	name = "winter hood"
-	desc = "A hood attached to a heavy winter jacket."
-	icon_state = "winterhood"
-	body_parts_covered = HEAD
-	cold_protection = HEAD
-	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
-	flags_inv = HIDEHAIR|HIDEEARS
+/obj/item/clothing/suit/poncho/colored
+	name = "poncho"
+	desc = "A simple, comfortable poncho."
+	species_restricted = null
+	icon_state = "classicponcho"
+	item_state = "classicponcho"
 
-/obj/item/clothing/suit/hooded/wintercoat/captain
-	name = "captain's winter coat"
-	icon_state = "coatcaptain"
-	item_state = "coatcaptain"
-	armor = list("melee" = 25, "bullet" = 25, "laser" = 16, "energy" = 16, "bomb" = 25, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 50)
-	hoodtype = /obj/item/clothing/head/hooded/winterhood/captain
+/obj/item/clothing/suit/poncho/colored/green
+	name = "green poncho"
+	desc = "A simple, comfortable cloak without sleeves. This one is green."
+	species_restricted = null
+	icon_state = "greenponcho"
+	item_state = "greenponcho"
 
-/obj/item/clothing/suit/hooded/wintercoat/captain/Initialize()
-	. = ..()
-	allowed = GLOB.security_wintercoat_allowed
+/obj/item/clothing/suit/poncho/colored/red
+	name = "red poncho"
+	desc = "A simple, comfortable cloak without sleeves. This one is red."
+	species_restricted = null
+	icon_state = "redponcho"
+	item_state = "redponcho"
 
-/obj/item/clothing/head/hooded/winterhood/captain
-	icon_state = "winterhood_captain"
+/obj/item/clothing/suit/poncho/colored/purple
+	name = "purple poncho"
+	desc = "A simple, comfortable cloak without sleeves. This one is purple."
+	species_restricted = null
+	icon_state = "purpleponcho"
+	item_state = "purpleponcho"
 
-/obj/item/clothing/suit/hooded/wintercoat/security
-	name = "security winter coat"
-	icon_state = "coatsecurity"
-	item_state = "coatsecurity"
-	armor = list("melee" = 25, "bullet" = 25, "laser" = 16, "energy" = 16, "bomb" = 25, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 45)
-	hoodtype = /obj/item/clothing/head/hooded/winterhood/security
+/obj/item/clothing/suit/poncho/colored/blue
+	name = "blue poncho"
+	desc = "A simple, comfortable cloak without sleeves. This one is blue."
+	species_restricted = null
+	icon_state = "blueponcho"
+	item_state = "blueponcho"
 
-/obj/item/clothing/suit/hooded/wintercoat/security/Initialize()
-	. = ..()
-	allowed = GLOB.security_wintercoat_allowed
+/obj/item/clothing/suit/storage/toggle/bomber
+	name = "bomber jacket"
+	desc = "A thick, well-worn WW2 leather bomber jacket."
+	icon_state = "bomber"
+	item_state = "bomber"
+	icon_open = "bomber_open"
+	icon_closed = "bomber"
+	body_parts_covered = UPPER_TORSO|ARMS
+	cold_protection = UPPER_TORSO|ARMS
+	min_cold_protection_temperature = T0C - 20
+	siemens_coefficient = 0.7
 
-/obj/item/clothing/head/hooded/winterhood/security
-	icon_state = "winterhood_security"
+/obj/item/clothing/suit/storage/leather_jacket
+	name = "leather jacket"
+	desc = "A black leather coat."
+	icon_state = "leather_jacket"
+	item_state = "leather_jacket"
+	body_parts_covered = UPPER_TORSO|ARMS
 
-/obj/item/clothing/suit/hooded/wintercoat/medical
-	name = "medical winter coat"
-	icon_state = "coatmedical"
-	item_state = "coatmedical"
-	allowed = list(/obj/item/analyzer, /obj/item/stack/medical, /obj/item/dnainjector, /obj/item/reagent_containers/dropper, /obj/item/reagent_containers/syringe, /obj/item/reagent_containers/hypospray, /obj/item/healthanalyzer, /obj/item/flashlight/pen, /obj/item/reagent_containers/glass/bottle, /obj/item/reagent_containers/glass/beaker, /obj/item/reagent_containers/pill, /obj/item/storage/pill_bottle, /obj/item/paper, /obj/item/melee/classic_baton/telescopic, /obj/item/toy, /obj/item/storage/fancy/cigarettes, /obj/item/lighter, /obj/item/tank/internals/emergency_oxygen, /obj/item/tank/internals/plasmaman)
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 50, "rad" = 0, "fire" = 0, "acid" = 45)
-	hoodtype = /obj/item/clothing/head/hooded/winterhood/medical
+/obj/item/clothing/suit/storage/leather_jacket/nanotrasen
+	desc = "A black leather coat. The NanoTrasen logo is proudly displayed on the back."
+	icon_state = "leather_jacket_nt"
 
-/obj/item/clothing/head/hooded/winterhood/medical
-	icon_state = "winterhood_medical"
+//This one has buttons for some reason
+/obj/item/clothing/suit/storage/toggle/brown_jacket
+	name = "leather jacket"
+	desc = "A brown leather coat."
+	icon_state = "brown_jacket"
+	item_state = "brown_jacket"
+	icon_open = "brown_jacket_open"
+	icon_closed = "brown_jacket"
+	body_parts_covered = UPPER_TORSO|ARMS
 
-/obj/item/clothing/suit/hooded/wintercoat/science
-	name = "science winter coat"
-	icon_state = "coatscience"
-	item_state = "coatscience"
-	allowed = list(/obj/item/analyzer, /obj/item/stack/medical, /obj/item/dnainjector, /obj/item/reagent_containers/dropper, /obj/item/reagent_containers/syringe, /obj/item/reagent_containers/hypospray, /obj/item/healthanalyzer, /obj/item/flashlight/pen, /obj/item/reagent_containers/glass/bottle, /obj/item/reagent_containers/glass/beaker, /obj/item/reagent_containers/pill, /obj/item/storage/pill_bottle, /obj/item/paper, /obj/item/melee/classic_baton/telescopic, /obj/item/toy, /obj/item/storage/fancy/cigarettes, /obj/item/lighter, /obj/item/tank/internals/emergency_oxygen, /obj/item/tank/internals/plasmaman)
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 10, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
-	hoodtype = /obj/item/clothing/head/hooded/winterhood/science
+/obj/item/clothing/suit/storage/toggle/brown_jacket/nanotrasen
+	desc = "A brown leather coat. The NanoTrasen logo is proudly displayed on the back."
+	icon_state = "brown_jacket_nt"
+	icon_open = "brown_jacket_nt_open"
+	icon_closed = "brown_jacket_nt"
 
-/obj/item/clothing/head/hooded/winterhood/science
-	icon_state = "winterhood_science"
+/obj/item/clothing/suit/storage/toggle/agent_jacket
+	name = "agent jacket"
+	desc = "A black leather jacket belonging to an agent of the Office of Civil Investigation and Enforcement."
+	icon_state = "agent_jacket"
+	item_state = "agent_jacket"
+	icon_open = "agent_jacket_open"
+	icon_closed = "agent_jacket"
+	valid_accessory_slots = list(ACCESSORY_SLOT_INSIGNIA)
+	body_parts_covered = UPPER_TORSO|ARMS
 
-/obj/item/clothing/suit/hooded/wintercoat/engineering
-	name = "engineering winter coat"
-	icon_state = "coatengineer"
-	item_state = "coatengineer"
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 20, "fire" = 30, "acid" = 45)
-	allowed = list(/obj/item/flashlight, /obj/item/tank/internals/emergency_oxygen, /obj/item/tank/internals/plasmaman, /obj/item/t_scanner, /obj/item/construction/rcd, /obj/item/pipe_dispenser, /obj/item/toy, /obj/item/storage/fancy/cigarettes, /obj/item/lighter)
-	hoodtype = /obj/item/clothing/head/hooded/winterhood/engineering
+/obj/item/clothing/suit/storage/toggle/hoodie
+	name = "hoodie"
+	desc = "A warm sweatshirt."
+	icon_state = "hoodie"
+	item_state = "hoodie"
+	icon_open = "hoodie_open"
+	icon_closed = "hoodie"
+	min_cold_protection_temperature = T0C - 20
+	cold_protection = UPPER_TORSO|LOWER_TORSO|ARMS
 
-/obj/item/clothing/head/hooded/winterhood/engineering
-	icon_state = "winterhood_engineer"
+/obj/item/clothing/suit/storage/toggle/hoodie/cti
+	name = "\improper CTI hoodie"
+	desc = "A warm, black sweatshirt.  It bears the letters CTI on the back, a lettering to the prestigious university in Tau Ceti, Ceti Technical Institute.  There is a blue supernova embroidered on the front, the emblem of CTI."
+	icon_state = "cti_hoodie"
+	icon_open = "cti_hoodie_open"
+	icon_closed = "cti_hoodie"
 
-/obj/item/clothing/suit/hooded/wintercoat/engineering/atmos
-	name = "atmospherics winter coat"
-	icon_state = "coatatmos"
-	item_state = "coatatmos"
-	hoodtype = /obj/item/clothing/head/hooded/winterhood/engineering/atmos
+/obj/item/clothing/suit/storage/toggle/hoodie/mu
+	name = "\improper Mariner University hoodie"
+	desc = "A warm, gray sweatshirt.  It bears the letters MU on the front, a lettering to the well-known public college, Mariner University."
+	icon_state = "mu_hoodie"
+	icon_open = "mu_hoodie_open"
+	icon_closed = "mu_hoodie"
 
-/obj/item/clothing/head/hooded/winterhood/engineering/atmos
-	icon_state = "winterhood_atmos"
+/obj/item/clothing/suit/storage/toggle/hoodie/nt
+	name = "\improper NanoTrasen hoodie"
+	desc = "A warm, blue sweatshirt. It proudly bears the NanoTrasen logo on the back. The edges are trimmed with silver."
+	icon_state = "nt_hoodie"
+	icon_open = "nt_hoodie_open"
+	icon_closed = "nt_hoodie"
 
-/obj/item/clothing/suit/hooded/wintercoat/hydro
-	name = "hydroponics winter coat"
-	icon_state = "coathydro"
-	item_state = "coathydro"
-	allowed = list(/obj/item/reagent_containers/spray/plantbgone, /obj/item/plant_analyzer, /obj/item/seeds, /obj/item/reagent_containers/glass/bottle, /obj/item/cultivator, /obj/item/reagent_containers/spray/pestspray, /obj/item/hatchet, /obj/item/storage/bag/plants, /obj/item/toy, /obj/item/tank/internals/emergency_oxygen, /obj/item/tank/internals/plasmaman, /obj/item/storage/fancy/cigarettes, /obj/item/lighter)
-	hoodtype = /obj/item/clothing/head/hooded/winterhood/hydro
+/obj/item/clothing/suit/storage/toggle/hoodie/smw
+	name = "\improper Space Mountain Wind hoodie"
+	desc = "A warm, black sweatshirt.  It has the logo for the popular softdrink Space Mountain Wind on both the front and the back."
+	icon_state = "smw_hoodie"
+	icon_open = "smw_hoodie_open"
+	icon_closed = "smw_hoodie"
 
-/obj/item/clothing/head/hooded/winterhood/hydro
-	icon_state = "winterhood_hydro"
+/obj/item/clothing/suit/storage/toggle/hoodie/black
+	name = "black hoodie"
+	desc = "A warm, black sweatshirt."
+	color = COLOR_DARK_GRAY
 
-/obj/item/clothing/suit/hooded/wintercoat/cargo
-	name = "cargo winter coat"
-	icon_state = "coatcargo"
-	item_state = "coatcargo"
-	hoodtype = /obj/item/clothing/head/hooded/winterhood/cargo
+/obj/item/clothing/suit/storage/mbill
+	name = "shipping jacket"
+	desc = "A green jacket bearing the logo of Major Bill's Shipping."
+	icon_state = "mbill"
+	item_state = "mbill"
 
-/obj/item/clothing/head/hooded/winterhood/cargo
-	icon_state = "winterhood_cargo"
+/obj/item/clothing/suit/poncho/roles/security
+	name = "security poncho"
+	desc = "A simple, comfortable cloak without sleeves. This one is black and red, which are standard Security colors."
+	species_restricted = null
+	icon_state = "secponcho"
+	item_state = "secponcho"
 
-/obj/item/clothing/suit/hooded/wintercoat/miner
-	name = "mining winter coat"
-	icon_state = "coatminer"
-	item_state = "coatminer"
-	allowed = list(/obj/item/pickaxe, /obj/item/flashlight, /obj/item/tank/internals/emergency_oxygen, /obj/item/tank/internals/plasmaman, /obj/item/toy, /obj/item/storage/fancy/cigarettes, /obj/item/lighter)
-	armor = list("melee" = 10, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
-	hoodtype = /obj/item/clothing/head/hooded/winterhood/miner
+/obj/item/clothing/suit/poncho/roles/medical
+	name = "medical poncho"
+	desc = "A simple, comfortable cloak without sleeves. This one is white with a blue tint, which are standard Medical colors."
+	species_restricted = null
+	icon_state = "medponcho"
+	item_state = "medponcho"
 
-/obj/item/clothing/head/hooded/winterhood/miner
-	icon_state = "winterhood_miner"
+/obj/item/clothing/suit/poncho/roles/engineering
+	name = "engineering poncho"
+	desc = "A simple, comfortable cloak without sleeves. This one is yellow and orange, which are standard Engineering colors."
+	species_restricted = null
+	icon_state = "engiponcho"
+	item_state = "engiponcho"
 
-/obj/item/clothing/suit/spookyghost
-	name = "spooky ghost"
-	desc = "This is obviously just a bedsheet, but maybe try it on?"
-	icon_state = "bedsheet"
-	user_vars_to_edit = list("name" = "Spooky Ghost", "real_name" = "Spooky Ghost" , "incorporeal_move" = INCORPOREAL_MOVE_BASIC, "appearance_flags" = KEEP_TOGETHER|TILE_BOUND, "alpha" = 150)
-	alternate_worn_layer = ABOVE_BODY_FRONT_LAYER //so the bedsheet goes over everything but fire
+/obj/item/clothing/suit/poncho/roles/science
+	name = "science poncho"
+	desc = "A simple, comfortable cloak without sleeves. This one is white with a few bottle green stripes, corporate colors."
+	species_restricted = null
+	icon_state = "sciponcho"
+	item_state = "sciponcho"
 
-/obj/item/clothing/suit/bronze
-	name = "bronze suit"
-	desc = "A big and clanky suit made of bronze that offers no protection and looks very unfashionable. Nice."
-	icon = 'icons/obj/clothing/clockwork_garb.dmi'
-	icon_state = "clockwork_cuirass_old"
-	armor = list("melee" = 5, "bullet" = 0, "laser" = -5, "energy" = 0, "bomb" = 10, "bio" = 0, "rad" = 0, "fire" = 20, "acid" = 20)
+/obj/item/clothing/suit/poncho/roles/science/nanotrasen
+	name = "\improper NanoTrasen poncho"
+	desc = "A simple, comfortable cloak without sleeves. This one is white with a few red stripes, colors of NanoTrasen. Go NanoTrasen!"
+	icon_state = "sciponcho_nt"
+	item_state = "sciponcho_nt"
 
+/obj/item/clothing/suit/poncho/roles/cargo
+	name = "cargo poncho"
+	desc = "A simple, comfortable cloak without sleeves. This one is tan and grey, which are standard Cargo colors."
+	species_restricted = null
+	icon_state = "cargoponcho"
+	item_state = "cargoponcho"
 
-//Fallout 13
-/obj/item/clothing/suit/fluff
-	allowed = list(/obj/item/gun)
+/*
+ * Track Jackets
+ */
+/obj/item/clothing/suit/storage/toggle/track
+	name = "track jacket"
+	desc = "A track jacket, for the athletic."
+	icon_state = "trackjacket"
+	icon_open = "trackjacket_open"
+	icon_closed = "trackjacket"
 
-/obj/item/clothing/suit/fluff/vest
-	name = "tan vest"
-	desc = "It's a vest made of tanned leather."
-	icon_state = "tanleather"
-	item_state = "det_suit"
-	body_parts_covered = CHEST
-	armor = list("melee" = 10, "bullet" = 16, "laser" = 0, "energy" = 0, "bomb" = 16, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
-	allowed = list(/obj/item/gun)
+/obj/item/clothing/suit/storage/toggle/track/blue
+	name = "blue track jacket"
+	desc = "A blue track jacket, for the athletic."
+	icon_state = "trackjacketblue"
+	icon_open = "trackjacketblue_open"
+	icon_closed = "trackjacketblue"
 
-/obj/item/clothing/suit/fluff/battlecruiser //Do we have Star Craft here as well?!
-	name = "captain's coat"
-	desc = "Battlecruiser operational!"
-	icon_state = "battlecruiser"
-	item_state = "hostrench"
-	body_parts_covered = CHEST|ARMS
-	armor = list("melee" = 10, "bullet" = 16, "laser" = 0, "energy" = 0, "bomb" = 16, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
-	allowed = list(/obj/item/gun)
+/obj/item/clothing/suit/storage/toggle/track/green
+	name = "green track jacket"
+	desc = "A green track jacket, for the athletic."
+	icon_state = "trackjacketgreen"
+	icon_open = "trackjacketgreen_open"
+	icon_closed = "trackjacketgreen"
 
-/obj/item/clothing/suit/fluff/cowboybvest //Originally cowboy stuff by Nienhaus
-	name = "brown vest"
-	desc = "A brown vest, typically worn by wannabe cowboys and prospectors. It has a few pockets for tiny items."
-	icon_state = "cowboybvest"
-	item_state = "lb_suit"
-	body_parts_covered = CHEST|GROIN
-	armor = list("melee" = 10, "bullet" = 16, "laser" = 0, "energy" = 0, "bomb" = 16, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
-	allowed = list(/obj/item/gun)
+/obj/item/clothing/suit/storage/toggle/track/red
+	name = "red track jacket"
+	desc = "A red track jacket, for the athletic."
+	icon_state = "trackjacketred"
+	icon_open = "trackjacketred_open"
+	icon_closed = "trackjacketred"
 
-/obj/item/clothing/suit/fluff/cowboygvest
-	name = "grey vest"
-	desc = "A grey vest, typically worn by wannabe cowboys and prospectors. It has a few pockets for tiny items."
-	icon_state = "cowboygvest"
-	item_state = "gy_suit"
-	body_parts_covered = CHEST|GROIN
-	armor = list("melee" = 10, "bullet" = 16, "laser" = 0, "energy" = 0, "bomb" = 16, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
-	allowed = list(/obj/item/gun)
+/obj/item/clothing/suit/storage/toggle/track/white
+	name = "white track jacket"
+	desc = "A white track jacket, for the athletic."
+	icon_state = "trackjacketwhite"
+	icon_open = "trackjacketwhite_open"
+	icon_closed = "trackjacketwhite"
 
-/obj/item/clothing/suit/f13/mfp //Mad Max 1979 babe!
-	name = "mfp jacket"
-	desc = "A Main Force Patrol leather jacket.<br>Offbeat."
-	icon_state = "wornmfp"
-	item_state = "hostrench"
-	body_parts_covered = CHEST|ARMS|LEGS
-	armor = list("melee" = 10, "bullet" = 16, "laser" = 0, "energy" = 0, "bomb" = 16, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
-	flags_inv = HIDEJUMPSUIT
-	allowed = list(/obj/item/gun)
+/obj/item/clothing/suit/storage/toggle/track/gcc
+	name = "GCC track jacket"
+	desc = "An Independent track jacket, for the truly cheeki breeki."
+	icon_state = "trackjackettcc"
+	icon_open = "trackjackettcc_open"
+	icon_closed = "trackjackettcc"
 
-/obj/item/clothing/suit/f13/veteran
-	name = "merc veteran coat"
-	desc = "A blue leather coat along with a few war medals.<br>That type of outfit is common for professional mercenaries and bounty hunters."
-	icon_state = "veteran"
-	item_state = "suit-command"
-	body_parts_covered = CHEST|GROIN
-	armor = list("melee" = 10, "bullet" = 16, "laser" = 0, "energy" = 0, "bomb" = 16, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
-	allowed = list(/obj/item/gun)
+/obj/item/clothing/suit/rubber
+	name = "human suit"
+	desc = "A Human suit made out of rubber."
+	icon_state = "mansuit"
 
-/obj/item/clothing/suit/f13/duster
-	name = "duster"
-	desc = "Long brown leather overcoat.<br>Powerful accessory of a respectful sherif or fearsome bounty hunter."
-	icon_state = "duster"
-	item_state = "det_suit"
-	body_parts_covered = CHEST|LEGS|FEET|ARMS
-	armor = list("melee" = 10, "bullet" = 16, "laser" = 0, "energy" = 0, "bomb" = 16, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
-	allowed = list(/obj/item/gun)
+/obj/item/clothing/suit/rubber/cat
+	name = "cat suit"
+	desc = "A cat suit made out of rubber."
+	icon_state = "catsuit"
 
-/obj/item/clothing/suit/f13/autumn //Based of Colonel Autumn's uniform.
-	name = "tan trenchcoat"
-	desc = "A resistant, tan trenchcoat, typically worn by pre-War generals."
-	icon_state = "autumn"
-	item_state = "autumn"
-	body_parts_covered = CHEST|LEGS|ARMS
-	armor = list("melee" = 10, "bullet" = 16, "laser" = 0, "energy" = 0, "bomb" = 16, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
-	allowed = list(/obj/item/gun)
+/obj/item/clothing/suit/rubber/skrell
+	name = "skrell suit"
+	desc = "A Skrell suit made out of rubber."
+	icon_state = "skrellsuit"
 
-/obj/item/clothing/suit/f13/elder //Robes are made of finest cloth, so you won't be able to put sharp objects but pens in.
-	name = "Brotherhood Elder's robe"
-	desc = "A blue cloth robe with some scarlet red parts, traditionally worn by the Brotherhood of Steel Elder."
-	icon_state = "elder"
-	item_state = "suit-command"
-	body_parts_covered = CHEST|ARMS|LEGS
-	armor = list("melee" = 10, "bullet" = 16, "laser" = 0, "energy" = 0, "bomb" = 16, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
-	allowed = list(/obj/item/gun)
-
-/obj/item/clothing/suit/f13/scribe
-	name = "Brotherhood Scribe's robe"
-	desc = "A blue cloth robe worn by the Brotherhood of Steel Scribes."
-	icon_state = "scribe"
-	item_state = "suit-command"
-	body_parts_covered = CHEST|ARMS|LEGS
-	armor = list("melee" = 10, "bullet" = 16, "laser" = 0, "energy" = 0, "bomb" = 16, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
-	allowed = list(/obj/item/gun)
-
-
+/obj/item/clothing/suit/rubber/unathi
+	name = "unathi suit"
+	desc = "A Unathi suit made out of rubber."
+	icon_state = "lizsuit"

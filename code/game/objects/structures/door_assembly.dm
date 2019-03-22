@@ -1,311 +1,250 @@
 /obj/structure/door_assembly
 	name = "airlock assembly"
-	icon = 'icons/obj/doors/airlocks/station/public.dmi'
+	icon = 'icons/obj/doors/station/door.dmi'
 	icon_state = "construction"
-	var/overlays_file = 'icons/obj/doors/airlocks/station/overlays.dmi'
-	anchored = FALSE
-	density = TRUE
-	max_integrity = 200
-	var/state = AIRLOCK_ASSEMBLY_NEEDS_WIRES
-	var/base_name = "airlock"
-	var/mineral = null
-	var/obj/item/electronics/airlock/electronics = null
+	anchored = 0
+	density = 1
+	w_class = ITEM_SIZE_NO_CONTAINER
+	var/state = 0
+	var/base_icon_state = ""
+	var/base_name = "Airlock"
+	var/obj/item/weapon/airlock_electronics/electronics = null
 	var/airlock_type = /obj/machinery/door/airlock //the type path of the airlock once completed
 	var/glass_type = /obj/machinery/door/airlock/glass
-	var/glass = 0 // 0 = glass can be installed. 1 = glass is already installed.
+	var/glass = 0 // 0 = glass can be installed. -1 = glass can't be installed. 1 = glass is already installed. Text = mineral plating is installed instead.
 	var/created_name = null
-	var/heat_proof_finished = 0 //whether to heat-proof the finished airlock
-	var/previous_assembly = /obj/structure/door_assembly
-	var/noglass = FALSE //airlocks with no glass version, also cannot be modified with sheets
-	var/material_type = /obj/item/stack/sheet/metal
-	var/material_amt = 4
+	var/panel_icon = 'icons/obj/doors/station/panel.dmi'
+	var/fill_icon = 'icons/obj/doors/station/fill_steel.dmi'
+	var/glass_icon = 'icons/obj/doors/station/fill_glass.dmi'
+	var/paintable = AIRLOCK_PAINTABLE|AIRLOCK_STRIPABLE
+	var/door_color = "none"
+	var/stripe_color = "none"
+	var/symbol_color = "none"
 
-/obj/structure/door_assembly/New()
-	update_icon()
-	update_name()
-	..()
+	New()
+		update_state()
 
-/obj/structure/door_assembly/examine(mob/user)
-	..()
-	var/doorname = ""
-	if(created_name)
-		doorname = ", written on it is '[created_name]'"
-	switch(state)
-		if(AIRLOCK_ASSEMBLY_NEEDS_WIRES)
-			if(anchored)
-				to_chat(user, "<span class='notice'>The anchoring bolts are <b>wrenched</b> in place, but the maintenance panel lacks <i>wiring</i>.</span>")
-			else
-				to_chat(user, "<span class='notice'>The assembly is <b>welded together</b>, but the anchoring bolts are <i>unwrenched</i>.</span>")
-		if(AIRLOCK_ASSEMBLY_NEEDS_ELECTRONICS)
-			to_chat(user, "<span class='notice'>The maintenance panel is <b>wired</b>, but the circuit slot is <i>empty</i>.</span>")
-		if(AIRLOCK_ASSEMBLY_NEEDS_SCREWDRIVER)
-			to_chat(user, "<span class='notice'>The circuit is <b>connected loosely</b> to its slot, but the maintenance panel is <i>unscrewed and open</i>.</span>")
-	if(!mineral && !glass && !noglass)
-		to_chat(user, "<span class='notice'>There is a small <i>paper</i> placard on the assembly[doorname]. There are <i>empty</i> slots for glass windows and mineral covers.</span>")
-	else if(!mineral && glass && !noglass)
-		to_chat(user, "<span class='notice'>There is a small <i>paper</i> placard on the assembly[doorname]. There are <i>empty</i> slots for mineral covers.</span>")
-	else if(mineral && !glass && !noglass)
-		to_chat(user, "<span class='notice'>There is a small <i>paper</i> placard on the assembly[doorname]. There are <i>empty</i> slots for glass windows.</span>")
-	else
-		to_chat(user, "<span class='notice'>There is a small <i>paper</i> placard on the assembly[doorname].</span>")
+/obj/structure/door_assembly/door_assembly_hatch
+	icon = 'icons/obj/doors/hatch/door.dmi'
+	panel_icon = 'icons/obj/doors/hatch/panel.dmi'
+	fill_icon = 'icons/obj/doors/hatch/fill_steel.dmi'
+	base_name = "Airtight Hatch"
+	airlock_type = /obj/machinery/door/airlock/hatch
+	glass = -1
 
-/obj/structure/door_assembly/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/pen))
-		var/t = stripped_input(user, "Enter the name for the door.", name, created_name,MAX_NAME_LEN)
-		if(!t)
-			return
-		if(!in_range(src, usr) && loc != usr)
-			return
-		created_name = t
+/obj/structure/door_assembly/door_assembly_highsecurity // Borrowing this until WJohnston makes sprites for the assembly
+	icon = 'icons/obj/doors/secure/door.dmi'
+	fill_icon = 'icons/obj/doors/secure/fill_steel.dmi'
+	base_name = "High Security Airlock"
+	airlock_type = /obj/machinery/door/airlock/highsecurity
+	glass = -1
+	paintable = 0
 
-	else if(istype(W, /obj/item/weldingtool) && (mineral || glass || !anchored ))
-		if(!W.tool_start_check(user, amount=0))
-			return
+/obj/structure/door_assembly/door_assembly_ext
+	icon = 'icons/obj/doors/external/door.dmi'
+	fill_icon = 'icons/obj/doors/external/fill_steel.dmi'
+	glass_icon = 'icons/obj/doors/external/fill_glass.dmi'
+	base_name = "External Airlock"
+	airlock_type = /obj/machinery/door/airlock/external
+	paintable = 0
 
-		if(mineral)
-			var/obj/item/stack/sheet/mineral/mineral_path = text2path("/obj/item/stack/sheet/mineral/[mineral]")
-			user.visible_message("[user] welds the [mineral] plating off the airlock assembly.", "You start to weld the [mineral] plating off the airlock assembly...")
-			if(W.use_tool(src, user, 40, volume=50))
-				to_chat(user, "<span class='notice'>You weld the [mineral] plating off.</span>")
-				new mineral_path(loc, 2)
-				var/obj/structure/door_assembly/PA = new previous_assembly(loc)
-				transfer_assembly_vars(src, PA)
+/obj/structure/door_assembly/multi_tile
+	icon = 'icons/obj/doors/double/door.dmi'
+	fill_icon = 'icons/obj/doors/double/fill_steel.dmi'
+	glass_icon = 'icons/obj/doors/double/fill_glass.dmi'
+	panel_icon = 'icons/obj/doors/double/panel.dmi'
+	dir = EAST
+	var/width = 1
+	airlock_type = /obj/machinery/door/airlock/multi_tile
+	glass_type = "/multi_tile/glass"
 
-		else if(glass)
-			user.visible_message("[user] welds the glass panel out of the airlock assembly.", "You start to weld the glass panel out of the airlock assembly...")
-			if(W.use_tool(src, user, 40, volume=50))
-				to_chat(user, "<span class='notice'>You weld the glass panel out.</span>")
-				if(heat_proof_finished)
-					new /obj/item/stack/sheet/rglass(get_turf(src))
-					heat_proof_finished = 0
-				else
-					new /obj/item/stack/sheet/glass(get_turf(src))
-				glass = 0
-		else if(!anchored)
-			user.visible_message("<span class='warning'>[user] disassembles the airlock assembly.</span>", \
-								"You start to disassemble the airlock assembly...")
-			if(W.use_tool(src, user, 40, volume=50))
-				to_chat(user, "<span class='notice'>You disassemble the airlock assembly.</span>")
-				deconstruct(TRUE)
-
-	else if(istype(W, /obj/item/wrench))
-		if(!anchored )
-			var/door_check = 1
-			for(var/obj/machinery/door/D in loc)
-				if(!D.sub_door)
-					door_check = 0
-					break
-
-			if(door_check)
-				user.visible_message("[user] secures the airlock assembly to the floor.", \
-									 "<span class='notice'>You start to secure the airlock assembly to the floor...</span>", \
-									 "<span class='italics'>You hear wrenching.</span>")
-
-				if(W.use_tool(src, user, 40, volume=100))
-					if(anchored)
-						return
-					to_chat(user, "<span class='notice'>You secure the airlock assembly.</span>")
-					name = "secured airlock assembly"
-					anchored = TRUE
-			else
-				to_chat(user, "There is another door here!")
-
+	New()
+		if(dir in list(EAST, WEST))
+			bound_width = width * world.icon_size
+			bound_height = world.icon_size
 		else
-			user.visible_message("[user] unsecures the airlock assembly from the floor.", \
-								 "<span class='notice'>You start to unsecure the airlock assembly from the floor...</span>", \
-								 "<span class='italics'>You hear wrenching.</span>")
-			if(W.use_tool(src, user, 40, volume=100))
-				if(!anchored)
-					return
-				to_chat(user, "<span class='notice'>You unsecure the airlock assembly.</span>")
-				name = "airlock assembly"
-				anchored = FALSE
+			bound_width = world.icon_size
+			bound_height = width * world.icon_size
+		update_state()
 
-	else if(istype(W, /obj/item/stack/cable_coil) && state == AIRLOCK_ASSEMBLY_NEEDS_WIRES && anchored )
-		if(!W.tool_start_check(user, amount=1))
+	Move()
+		. = ..()
+		if(dir in list(EAST, WEST))
+			bound_width = width * world.icon_size
+			bound_height = world.icon_size
+		else
+			bound_width = world.icon_size
+			bound_height = width * world.icon_size
+
+
+
+/obj/structure/door_assembly/attackby(obj/item/W as obj, mob/user as mob)
+	if(istype(W, /obj/item/weapon/pen))
+		var/t = sanitizeSafe(input(user, "Enter the name for the door.", src.name, src.created_name), MAX_NAME_LEN)
+		if(!t)	return
+		if(!in_range(src, usr) && src.loc != usr)	return
+		created_name = t
+		return
+
+	if(isWelder(W) && ( (istext(glass)) || (glass == 1) || (!anchored) ))
+		var/obj/item/weapon/weldingtool/WT = W
+		if (WT.remove_fuel(0, user))
+			playsound(src.loc, 'sound/items/Welder2.ogg', 50, 1)
+			if(istext(glass))
+				user.visible_message("[user] welds the [glass] plating off the airlock assembly.", "You start to weld the [glass] plating off the airlock assembly.")
+				if(do_after(user, 40,src))
+					if(!src || !WT.isOn()) return
+					to_chat(user, "<span class='notice'>You welded the [glass] plating off!</span>")
+					var/M = text2path("/obj/item/stack/material/[glass]")
+					new M(src.loc, 2)
+					glass = 0
+			else if(glass == 1)
+				user.visible_message("[user] welds the glass panel out of the airlock assembly.", "You start to weld the glass panel out of the airlock assembly.")
+				if(do_after(user, 40,src))
+					if(!src || !WT.isOn()) return
+					to_chat(user, "<span class='notice'>You welded the glass panel out!</span>")
+					new /obj/item/stack/material/glass/reinforced(src.loc)
+					glass = 0
+			else if(!anchored)
+				user.visible_message("[user] dissassembles the airlock assembly.", "You start to dissassemble the airlock assembly.")
+				if(do_after(user, 40,src))
+					if(!src || !WT.isOn()) return
+					to_chat(user, "<span class='notice'>You dissasembled the airlock assembly!</span>")
+					new /obj/item/stack/material/steel(src.loc, 4)
+					qdel (src)
+		else
+			to_chat(user, "<span class='notice'>You need more welding fuel.</span>")
 			return
 
-		user.visible_message("[user] wires the airlock assembly.", \
-							"<span class='notice'>You start to wire the airlock assembly...</span>")
-		if(W.use_tool(src, user, 40, amount=1))
-			if(state != AIRLOCK_ASSEMBLY_NEEDS_WIRES)
+	else if(isWrench(W) && state == 0)
+		playsound(src.loc, 'sound/items/Ratchet.ogg', 100, 1)
+		if(anchored)
+			user.visible_message("[user] begins unsecuring the airlock assembly from the floor.", "You begin unsecuring the airlock assembly from the floor.")
+		else
+			user.visible_message("[user] begins securing the airlock assembly to the floor.", "You begin securing the airlock assembly to the floor.")
+
+		if(do_after(user, 40,src))
+			if(!src) return
+			to_chat(user, "<span class='notice'>You [anchored? "un" : ""]secured the airlock assembly!</span>")
+			anchored = !anchored
+
+	else if(isCoil(W) && state == 0 && anchored)
+		var/obj/item/stack/cable_coil/C = W
+		if (C.get_amount() < 1)
+			to_chat(user, "<span class='warning'>You need one length of coil to wire the airlock assembly.</span>")
+			return
+		user.visible_message("[user] wires the airlock assembly.", "You start to wire the airlock assembly.")
+		if(do_after(user, 40,src) && state == 0 && anchored)
+			if (C.use(1))
+				src.state = 1
+				to_chat(user, "<span class='notice'>You wire the airlock.</span>")
+
+	else if(isWirecutter(W) && state == 1 )
+		playsound(src.loc, 'sound/items/Wirecutter.ogg', 100, 1)
+		user.visible_message("[user] cuts the wires from the airlock assembly.", "You start to cut the wires from airlock assembly.")
+
+		if(do_after(user, 40,src))
+			if(!src) return
+			to_chat(user, "<span class='notice'>You cut the airlock wires.!</span>")
+			new/obj/item/stack/cable_coil(src.loc, 1)
+			src.state = 0
+
+	else if(istype(W, /obj/item/weapon/airlock_electronics) && state == 1)
+		playsound(src.loc, 'sound/items/Screwdriver.ogg', 100, 1)
+		user.visible_message("[user] installs the electronics into the airlock assembly.", "You start to install electronics into the airlock assembly.")
+
+		if(do_after(user, 40,src))
+			if(!src) return
+			if(!user.unEquip(W, src))
 				return
-			state = AIRLOCK_ASSEMBLY_NEEDS_ELECTRONICS
-			to_chat(user, "<span class='notice'>You wire the airlock assembly.</span>")
-			name = "wired airlock assembly"
+			to_chat(user, "<span class='notice'>You installed the airlock electronics!</span>")
+			src.state = 2
+			src.SetName("Near finished Airlock Assembly")
+			src.electronics = W
 
-	else if(istype(W, /obj/item/wirecutters) && state == AIRLOCK_ASSEMBLY_NEEDS_ELECTRONICS )
-		user.visible_message("[user] cuts the wires from the airlock assembly.", \
-							"<span class='notice'>You start to cut the wires from the airlock assembly...</span>")
+	else if(isCrowbar(W) && state == 2 )
+		//This should never happen, but just in case I guess
+		if (!electronics)
+			to_chat(user, "<span class='notice'>There was nothing to remove.</span>")
+			src.state = 1
+			return
 
-		if(W.use_tool(src, user, 40, volume=100))
-			if(state != AIRLOCK_ASSEMBLY_NEEDS_ELECTRONICS)
-				return
-			to_chat(user, "<span class='notice'>You cut the wires from the airlock assembly.</span>")
-			new/obj/item/stack/cable_coil(get_turf(user), 1)
-			state = AIRLOCK_ASSEMBLY_NEEDS_WIRES
-			name = "secured airlock assembly"
+		playsound(src.loc, 'sound/items/Crowbar.ogg', 100, 1)
+		user.visible_message("\The [user] starts removing the electronics from the airlock assembly.", "You start removing the electronics from the airlock assembly.")
 
-	else if(istype(W, /obj/item/electronics/airlock) && state == AIRLOCK_ASSEMBLY_NEEDS_ELECTRONICS )
-		W.play_tool_sound(src, 100)
-		user.visible_message("[user] installs the electronics into the airlock assembly.", \
-							"<span class='notice'>You start to install electronics into the airlock assembly...</span>")
-		if(do_after(user, 40, target = src))
-			if( state != AIRLOCK_ASSEMBLY_NEEDS_ELECTRONICS )
-				return
-			if(!user.transferItemToLoc(W, src))
-				return
+		if(do_after(user, 40,src))
+			if(!src) return
+			to_chat(user, "<span class='notice'>You removed the airlock electronics!</span>")
+			src.state = 1
+			src.SetName("Wired Airlock Assembly")
+			electronics.dropInto(loc)
+			electronics = null
 
-			to_chat(user, "<span class='notice'>You install the airlock electronics.</span>")
-			state = AIRLOCK_ASSEMBLY_NEEDS_SCREWDRIVER
-			name = "near finished airlock assembly"
-			electronics = W
+	else if(istype(W, /obj/item/stack/material) && !glass)
+		var/obj/item/stack/material/S = W
+		var/material_name = S.get_material_name()		
+		if (S)
+			if (S.get_amount() >= 1)
+				if(material_name == MATERIAL_GLASS && S.reinf_material)
+					playsound(src.loc, 'sound/items/Crowbar.ogg', 100, 1)
+					user.visible_message("[user] adds [S.name] to the airlock assembly.", "You start to install [S.name] into the airlock assembly.")
+					if(do_after(user, 40,src) && !glass)
+						if (S.use(1))
+							to_chat(user, "<span class='notice'>You installed reinforced glass windows into the airlock assembly.</span>")
+							glass = 1
+				else if(!(material_name in list(MATERIAL_GOLD, MATERIAL_SILVER, MATERIAL_DIAMOND, MATERIAL_URANIUM, MATERIAL_PHORON, MATERIAL_SANDSTONE)))
+					to_chat(user, "You cannot make an airlock out of that material.")
+					return
+				else
+					if(S.get_amount() >= 2)
+						playsound(src.loc, 'sound/items/Crowbar.ogg', 100, 1)
+						user.visible_message("[user] adds [S.name] to the airlock assembly.", "You start to install [S.name] into the airlock assembly.")
+						if(do_after(user, 40,src) && !glass)
+							if (S.use(2))
+								to_chat(user, "<span class='notice'>You installed [S.get_material_name()] plating into the airlock assembly.</span>")
+								glass = S.get_material_name()
 
+	else if(isScrewdriver(W) && state == 2 )
+		playsound(src.loc, 'sound/items/Screwdriver.ogg', 100, 1)
+		to_chat(user, "<span class='notice'>Now finishing the airlock.</span>")
 
-	else if(istype(W, /obj/item/crowbar) && state == AIRLOCK_ASSEMBLY_NEEDS_SCREWDRIVER )
-		user.visible_message("[user] removes the electronics from the airlock assembly.", \
-								"<span class='notice'>You start to remove electronics from the airlock assembly...</span>")
-
-		if(W.use_tool(src, user, 40, volume=100))
-			if(state != AIRLOCK_ASSEMBLY_NEEDS_SCREWDRIVER)
-				return
-			to_chat(user, "<span class='notice'>You remove the airlock electronics.</span>")
-			state = AIRLOCK_ASSEMBLY_NEEDS_ELECTRONICS
-			name = "wired airlock assembly"
-			var/obj/item/electronics/airlock/ae
-			if (!electronics)
-				ae = new/obj/item/electronics/airlock( loc )
+		if(do_after(user, 40,src))
+			if(!src) return
+			to_chat(user, "<span class='notice'>You finish the airlock!</span>")
+			var/path
+			if(istext(glass))
+				path = text2path("/obj/machinery/door/airlock/[glass]")
+			else if (glass == 1)
+				path = glass_type
 			else
-				ae = electronics
-				electronics = null
-				ae.forceMove(src.loc)
+				path = airlock_type
 
-	else if(istype(W, /obj/item/stack/sheet) && (!glass || !mineral))
-		var/obj/item/stack/sheet/G = W
-		if(G)
-			if(G.get_amount() >= 1)
-				if(!noglass)
-					if(!glass)
-						if(istype(G, /obj/item/stack/sheet/rglass) || istype(G, /obj/item/stack/sheet/glass))
-							playsound(src, 'sound/items/crowbar.ogg', 100, 1)
-							user.visible_message("[user] adds [G.name] to the airlock assembly.", \
-												"<span class='notice'>You start to install [G.name] into the airlock assembly...</span>")
-							if(do_after(user, 40, target = src))
-								if(G.get_amount() < 1 || glass)
-									return
-								if(G.type == /obj/item/stack/sheet/rglass)
-									to_chat(user, "<span class='notice'>You install [G.name] windows into the airlock assembly.</span>")
-									heat_proof_finished = 1 //reinforced glass makes the airlock heat-proof
-									name = "near finished heat-proofed window airlock assembly"
-								else
-									to_chat(user, "<span class='notice'>You install regular glass windows into the airlock assembly.</span>")
-									name = "near finished window airlock assembly"
-								G.use(1)
-								glass = TRUE
-					if(!mineral)
-						if(istype(G, /obj/item/stack/sheet/mineral) && G.sheettype)
-							var/M = G.sheettype
-							if(G.get_amount() >= 2)
-								playsound(src, 'sound/items/crowbar.ogg', 100, 1)
-								user.visible_message("[user] adds [G.name] to the airlock assembly.", \
-												 "<span class='notice'>You start to install [G.name] into the airlock assembly...</span>")
-								if(do_after(user, 40, target = src))
-									if(G.get_amount() < 2 || mineral)
-										return
-									to_chat(user, "<span class='notice'>You install [M] plating into the airlock assembly.</span>")
-									G.use(2)
-									var/mineralassembly = text2path("/obj/structure/door_assembly/door_assembly_[M]")
-									var/obj/structure/door_assembly/MA = new mineralassembly(loc)
-									transfer_assembly_vars(src, MA, TRUE)
-							else
-								to_chat(user, "<span class='warning'>You need at least two sheets add a mineral cover!</span>")
-					else
-						to_chat(user, "<span class='warning'>You cannot add [G] to [src]!</span>")
-				else
-					to_chat(user, "<span class='warning'>You cannot add [G] to [src]!</span>")
-
-	else if(istype(W, /obj/item/screwdriver) && state == AIRLOCK_ASSEMBLY_NEEDS_SCREWDRIVER )
-		user.visible_message("[user] finishes the airlock.", \
-							 "<span class='notice'>You start finishing the airlock...</span>")
-
-		if(W.use_tool(src, user, 40, volume=100))
-			if(loc && state == AIRLOCK_ASSEMBLY_NEEDS_SCREWDRIVER)
-				to_chat(user, "<span class='notice'>You finish the airlock.</span>")
-				var/obj/machinery/door/airlock/door
-				if(glass)
-					door = new glass_type( loc )
-				else
-					door = new airlock_type( loc )
-				door.setDir(dir)
-				//door.req_access = req_access
-				door.electronics = electronics
-				door.heat_proof = heat_proof_finished
-				if(electronics.one_access)
-					door.req_one_access = electronics.accesses
-				else
-					door.req_access = electronics.accesses
-				if(created_name)
-					door.name = created_name
-				else
-					door.name = base_name
-				door.previous_airlock = previous_assembly
-				electronics.forceMove(door)
-				qdel(src)
+			new path(src.loc, src)
+			qdel(src)
 	else
-		return ..()
-	update_name()
-	update_icon()
+		..()
+	update_state()
 
-/obj/structure/door_assembly/update_icon()
-	cut_overlays()
-	if(!glass)
-		add_overlay(get_airlock_overlay("fill_construction", icon))
-	else if(glass)
-		add_overlay(get_airlock_overlay("glass_construction", overlays_file))
-	add_overlay(get_airlock_overlay("panel_c[state+1]", overlays_file))
-
-/obj/structure/door_assembly/proc/update_name()
-	name = ""
-	switch(state)
-		if(AIRLOCK_ASSEMBLY_NEEDS_WIRES)
-			if(anchored)
-				name = "secured "
-		if(AIRLOCK_ASSEMBLY_NEEDS_ELECTRONICS)
-			name = "wired "
-		if(AIRLOCK_ASSEMBLY_NEEDS_SCREWDRIVER)
-			name = "near finished "
-	name += "[heat_proof_finished ? "heat-proofed " : ""][glass ? "window " : ""][base_name] assembly"
-
-/obj/structure/door_assembly/proc/transfer_assembly_vars(obj/structure/door_assembly/source, obj/structure/door_assembly/target, previous = FALSE)
-	target.glass = source.glass
-	target.heat_proof_finished = source.heat_proof_finished
-	target.created_name = source.created_name
-	target.state = source.state
-	target.anchored = source.anchored
-	if(previous)
-		target.previous_assembly = source.type
-	if(electronics)
-		target.electronics = source.electronics
-		source.electronics.forceMove(target)
-	target.update_icon()
-	target.update_name()
-	qdel(source)
-
-/obj/structure/door_assembly/deconstruct(disassembled = TRUE)
-	if(!(flags_1 & NODECONSTRUCT_1))
-		var/turf/T = get_turf(src)
-		if(!disassembled)
-			material_amt = rand(2,4)
-		new material_type(T, material_amt)
-		if(glass)
-			if(disassembled)
-				if(heat_proof_finished)
-					new /obj/item/stack/sheet/rglass(T)
-				else
-					new /obj/item/stack/sheet/glass(T)
-			else
-				new /obj/item/shard(T)
-		if(mineral)
-			var/obj/item/stack/sheet/mineral/mineral_path = text2path("/obj/item/stack/sheet/mineral/[mineral]")
-			new mineral_path(T, 2)
-	qdel(src)
+/obj/structure/door_assembly/proc/update_state()
+	overlays.Cut()
+	var/image/filling_overlay
+	var/image/panel_overlay
+	var/final_name = ""
+	if(glass == 1)
+		filling_overlay = image(glass_icon, "construction")
+	else
+		filling_overlay = image(fill_icon, "construction")
+	switch (state)
+		if(0)
+			if (anchored)
+				final_name = "Secured "
+		if(1)
+			final_name = "Wired "
+			panel_overlay = image(panel_icon, "construction0")
+		if(2)
+			final_name = "Near Finished "
+			panel_overlay = image(panel_icon, "construction1")
+	final_name += "[glass == 1 ? "Window " : ""][istext(glass) ? "[glass] Airlock" : base_name] Assembly"
+	SetName(final_name)
+	overlays += filling_overlay
+	overlays += panel_overlay

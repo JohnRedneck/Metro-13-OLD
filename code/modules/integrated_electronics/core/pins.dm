@@ -12,8 +12,8 @@ A [2]\      /[8] result
 B [1]-\|++|/
 C [4]-/|++|
 D [1]/  ||
-        ||
-     Activator
+	    ||
+	 Activator
 
 
 
@@ -21,7 +21,7 @@ D [1]/  ||
 /datum/integrated_io
 	var/name = "input/output"
 	var/obj/item/integrated_circuit/holder
-	var/datum/weakref/data  // This is a weakref, to reduce typecasts.  Note that oftentimes numbers and text may also occupy this.
+	var/weakref/data  // This is a weakref, to reduce typecasts.  Note that oftentimes numbers and text may also occupy this.
 	var/list/linked = list()
 	var/io_type = DATA_CHANNEL
 	var/pin_type			// IC_INPUT, IC_OUTPUT, IC_ACTIVATOR - used in saving assembly wiring
@@ -50,7 +50,7 @@ D [1]/  ||
 /datum/integrated_io/proc/data_as_type(var/as_type)
 	if(!isweakref(data))
 		return
-	var/datum/weakref/w = data
+	var/weakref/w = data
 	var/output = w.resolve()
 	return istype(output, as_type) ? output : null
 
@@ -77,7 +77,7 @@ D [1]/  ||
 		return result
 
 	if(isweakref(input))
-		var/datum/weakref/w = input
+		var/weakref/w = input
 		var/atom/A = w.resolve()
 		return A ? "([A.name] \[Ref\])" : "(null)" // For refs, we want just the name displayed.
 
@@ -105,29 +105,16 @@ D [1]/  ||
 	push_data()
 
 /datum/integrated_io/proc/handle_wire(datum/integrated_io/linked_pin, obj/item/tool, action, mob/living/user)
-	if(istype(tool, /obj/item/multitool))
-		var/obj/item/multitool/multitool = tool
-		switch(action)
-			if("wire")
-				multitool.wire(src, user)
-				return TRUE
-			if("unwire")
-				if(linked_pin)
-					multitool.unwire(src, linked_pin, user)
-					return TRUE
-			if("data")
-				ask_for_pin_data(user)
-				return TRUE
-
-	else if(istype(tool, /obj/item/integrated_electronics/wirer))
-		var/obj/item/integrated_electronics/wirer/wirer = tool
+	if(istype(tool, /obj/item/device/integrated_electronics/wirer))
+		var/obj/item/device/integrated_electronics/wirer/wirer = tool
 		if(linked_pin)
 			wirer.wire(linked_pin, user)
 		else
 			wirer.wire(src, user)
+		return TRUE
 
-	else if(istype(tool, /obj/item/integrated_electronics/debugger))
-		var/obj/item/integrated_electronics/debugger/debugger = tool
+	else if(istype(tool, /obj/item/device/integrated_electronics/debugger))
+		var/obj/item/device/integrated_electronics/debugger/debugger = tool
 		debugger.write_data(src, user)
 		return TRUE
 
@@ -150,7 +137,7 @@ D [1]/  ||
 /datum/integrated_io/activate/push_data()
 	for(var/k in 1 to linked.len)
 		var/datum/integrated_io/io = linked[k]
-		io.holder.check_then_do_work(io.ord)
+		SScircuit_components.queue_component(io.holder, TRUE, io.ord)
 
 /datum/integrated_io/proc/pull_data()
 	for(var/k in 1 to linked.len)
@@ -185,7 +172,8 @@ D [1]/  ||
 	var/new_data = null
 	switch(type_to_use)
 		if("string")
-			new_data = stripped_multiline_input(user, "Now type in a string.","[src] string writing", istext(default) ? default : null, no_trim = TRUE)
+			var/input_text = input(user, "Now type in a string.", "[src] string writing", istext(default) ? default : null) as null|text
+			new_data = sanitize(input_text, trim = 0)
 			if(istext(new_data) && holder.check_interactivity(user) )
 				to_chat(user, "<span class='notice'>You input "+new_data+" into the pin.</span>")
 				return new_data

@@ -1,79 +1,55 @@
-/obj/structure/closet/secure_closet/freezer
-	icon_state = "freezer"
-	var/jones = FALSE
-
-/obj/structure/closet/secure_closet/freezer/ex_act()
-	if(!jones)
-		jones = TRUE
-	else
-		..()
-
 /obj/structure/closet/secure_closet/freezer/kitchen
-	name = "kitchen Cabinet"
-	req_access = list(ACCESS_KITCHEN)
+	name = "kitchen cabinet"
+	req_access = list(access_kitchen)
 
-/obj/structure/closet/secure_closet/freezer/kitchen/PopulateContents()
-	..()
-	for(var/i = 0, i < 3, i++)
-		new /obj/item/reagent_containers/food/condiment/flour(src)
-	new /obj/item/reagent_containers/food/condiment/rice(src)
-	new /obj/item/reagent_containers/food/condiment/sugar(src)
-
-/obj/structure/closet/secure_closet/freezer/kitchen/maintenance
-	name = "maintenance refrigerator"
-	desc = "This refrigerator looks quite dusty, is there anything edible still inside?"
-	req_access = list()
-
-/obj/structure/closet/secure_closet/freezer/kitchen/maintenance/PopulateContents()
-	..()
-	for(var/i = 0, i < 5, i++)
-		new /obj/item/reagent_containers/food/condiment/milk(src)
-	for(var/i = 0, i < 5, i++)
-		new /obj/item/reagent_containers/food/condiment/soymilk(src)
-	for(var/i = 0, i < 2, i++)
-		new /obj/item/storage/fancy/egg_box(src)
+/obj/structure/closet/secure_closet/freezer/kitchen/WillContain()
+	return list(
+		/obj/item/weapon/reagent_containers/food/condiment/salt = 1,
+		/obj/item/weapon/reagent_containers/food/condiment/flour = 7,
+		/obj/item/weapon/reagent_containers/food/condiment/sugar = 2
+	)
 
 /obj/structure/closet/secure_closet/freezer/kitchen/mining
 	req_access = list()
 
 /obj/structure/closet/secure_closet/freezer/meat
 	name = "meat fridge"
+	icon = 'icons/obj/closets/fridge.dmi'
+	closet_appearance = null
 
-/obj/structure/closet/secure_closet/freezer/meat/PopulateContents()
-	..()
-	for(var/i = 0, i < 4, i++)
-		new /obj/item/reagent_containers/food/snacks/meat/slab/monkey(src)
+/obj/structure/closet/secure_closet/freezer/meat/WillContain()
+	return list(
+		/obj/item/weapon/reagent_containers/food/snacks/meat/beef = 8,
+		/obj/item/weapon/reagent_containers/food/snacks/fish = 4
+	)
+
 /obj/structure/closet/secure_closet/freezer/fridge
 	name = "refrigerator"
+	icon = 'icons/obj/closets/fridge.dmi'
+	closet_appearance = null
 
-/obj/structure/closet/secure_closet/freezer/fridge/PopulateContents()
-	..()
-	for(var/i = 0, i < 5, i++)
-		new /obj/item/reagent_containers/food/condiment/milk(src)
-	for(var/i = 0, i < 5, i++)
-		new /obj/item/reagent_containers/food/condiment/soymilk(src)
-	for(var/i = 0, i < 2, i++)
-		new /obj/item/storage/fancy/egg_box(src)
+/obj/structure/closet/secure_closet/freezer/fridge/WillContain()
+	return list(
+		/obj/item/weapon/reagent_containers/food/drinks/milk = 6,
+		/obj/item/weapon/reagent_containers/food/drinks/soymilk = 4,
+		/obj/item/weapon/storage/fancy/egg_box = 4
+	)
 
 /obj/structure/closet/secure_closet/freezer/money
-	name = "freezer"
-	desc = "This contains cold hard cash."
-	req_access = list(ACCESS_VAULT)
+	name = "secure locker"
+	icon = 'icons/obj/closets/fridge.dmi'
+	closet_appearance = null
+	req_access = list(access_heads_vault)
 
-/obj/structure/closet/secure_closet/freezer/money/PopulateContents()
-	..()
-	for(var/i = 0, i < 3, i++)
-		new /obj/item/stack/spacecash/c1000(src)
-	for(var/i = 0, i < 5, i++)
-		new /obj/item/stack/spacecash/c500(src)
-	for(var/i = 0, i < 6, i++)
-		new /obj/item/stack/spacecash/c200(src)
-
-/obj/structure/closet/secure_closet/freezer/cream_pie
-	name = "cream pie closet"
-	desc = "Contains pies filled with cream and/or custard, you sickos."
-	req_access = list(ACCESS_THEATRE)
-
-/obj/structure/closet/secure_closet/freezer/cream_pie/PopulateContents()
-	..()
-	new /obj/item/reagent_containers/food/snacks/pie/cream(src)
+/obj/structure/closet/secure_closet/freezer/money/Initialize()
+	. = ..()
+	//let's make hold a substantial amount.
+	var/created_size = 0
+	for(var/i = 1 to 200) //sanity loop limit
+		var/obj/item/cash_type = pick(3; /obj/item/weapon/spacecash/bundle/c1000, 4; /obj/item/weapon/spacecash/bundle/c500, 5; /obj/item/weapon/spacecash/bundle/c200)
+		var/bundle_size = initial(cash_type.w_class) / 2
+		if(created_size + bundle_size <= storage_capacity)
+			created_size += bundle_size
+			new cash_type(src)
+		else
+			break

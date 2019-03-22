@@ -1,29 +1,32 @@
-/obj/item/pipe_painter
+/obj/item/device/pipe_painter
 	name = "pipe painter"
-	icon = 'icons/obj/bureaucracy.dmi'
-	icon_state = "labeler1"
+	icon = 'icons/obj/device.dmi'
+	icon_state = "pipainter"
 	item_state = "flight"
-	item_flags = NOBLUDGEON
-	var/paint_color = "grey"
+	desc = "A long, slender device consisting of a pigment synthesizer, dual applicators, and a small battery, all hooked up to a long extendable rod."
+	var/list/modes
+	var/mode
 
-	materials = list(MAT_METAL=5000, MAT_GLASS=2000)
-
-/obj/item/pipe_painter/afterattack(atom/A, mob/user, proximity_flag)
-	//Make sure we only paint adjacent items
-	if(!proximity_flag)
-		return
-
-	if(!istype(A, /obj/machinery/atmospherics/pipe))
-		return
-
-	var/obj/machinery/atmospherics/pipe/P = A
-	if(P.paint(GLOB.pipe_paint_colors[paint_color]))
-		playsound(src, 'sound/machines/click.ogg', 50, 1)
-		user.visible_message("<span class='notice'>[user] paints \the [P] [paint_color].</span>","<span class='notice'>You paint \the [P] [paint_color].</span>")
-
-/obj/item/pipe_painter/attack_self(mob/user)
-	paint_color = input("Which colour do you want to use?","Pipe painter") in GLOB.pipe_paint_colors
-
-/obj/item/pipe_painter/examine(mob/user)
+/obj/item/device/pipe_painter/New()
 	..()
-	to_chat(user, "<span class='notice'>It is set to [paint_color].</span>")
+	modes = new()
+	for(var/C in pipe_colors)
+		modes += "[C]"
+	mode = pick(modes)
+
+/obj/item/device/pipe_painter/afterattack(atom/A, mob/user as mob, proximity)
+	if(!proximity)
+		return
+
+	if(!istype(A,/obj/machinery/atmospherics/pipe) || istype(A,/obj/machinery/atmospherics/pipe/tank) || istype(A,/obj/machinery/atmospherics/pipe/vent) || istype(A,/obj/machinery/atmospherics/pipe/simple/heat_exchanging) || !in_range(user, A))
+		return
+	var/obj/machinery/atmospherics/pipe/P = A
+
+	P.change_color(pipe_colors[mode])
+
+/obj/item/device/pipe_painter/attack_self(mob/user as mob)
+	mode = input("Which colour do you want to use?", "Pipe painter", mode) in modes
+
+/obj/item/device/pipe_painter/examine(mob/user)
+	. = ..(user)
+	to_chat(user, "It is in [mode] mode.")

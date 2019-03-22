@@ -1,44 +1,31 @@
 /mob/living/simple_animal/hostile/retaliate/clown
-	name = "Clown"
-	desc = "A denizen of clown planet."
-	icon = 'icons/mob/simple_human.dmi'
+	name = "clown"
+	desc = "A denizen of clown planet"
 	icon_state = "clown"
 	icon_living = "clown"
 	icon_dead = "clown_dead"
 	icon_gib = "clown_gib"
-	mob_biotypes = list(MOB_ORGANIC, MOB_HUMANOID)
+	speak_chance = 0
 	turns_per_move = 5
 	response_help = "pokes"
 	response_disarm = "gently pushes aside"
-	response_harm = "robusts"
+	response_harm = "hits"
 	speak = list("HONK", "Honk!", "Welcome to clown planet!")
-	emote_see = list("honks", "squeaks")
+	emote_see = list("honks")
 	speak_chance = 1
-	a_intent = INTENT_HARM
+	a_intent = I_HURT
+	stop_automated_movement_when_pulled = 0
 	maxHealth = 75
 	health = 75
-	speed = 1
+	speed = -1
 	harm_intent_damage = 8
 	melee_damage_lower = 10
 	melee_damage_upper = 10
-	attacktext = "attacks"
+	can_escape = 1
+	attacktext = "attacked"
 	attack_sound = 'sound/items/bikehorn.ogg'
-	obj_damage = 0
-	environment_smash = ENVIRONMENT_SMASH_NONE
-	del_on_death = 1
-	loot = list(/obj/effect/mob_spawn/human/clown/corpse)
-
-	atmos_requirements = list("min_oxy" = 5, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 1, "min_co2" = 0, "max_co2" = 5, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 270
 	maxbodytemp = 370
+	heat_damage_per_tick = 15	//amount of damage applied if animal's body temperature is higher than maxbodytemp
+	cold_damage_per_tick = 10	//same as heat_damage_per_tick, only if the bodytemperature it's lower than minbodytemp
 	unsuitable_atmos_damage = 10
-
-/mob/living/simple_animal/hostile/retaliate/clown/handle_temperature_damage()
-	if(bodytemperature < minbodytemp)
-		adjustBruteLoss(10)
-	else if(bodytemperature > maxbodytemp)
-		adjustBruteLoss(15)
-
-/mob/living/simple_animal/hostile/retaliate/clown/attack_hand(mob/living/carbon/human/M)
-	..()
-	playsound(src.loc, 'sound/items/bikehorn.ogg', 50, 1)

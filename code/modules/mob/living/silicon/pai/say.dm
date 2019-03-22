@@ -1,8 +1,5 @@
-/mob/living/silicon/pai/say(msg)
-	if(silent)
-		to_chat(src, "<span class='warning'>Communication circuits remain unitialized.</span>")
+/mob/living/silicon/pai/say(var/msg)
+	if(silence_time)
+		to_chat(src, "<font color=green>Communication circuits remain uninitialized.</font>")
 	else
 		..(msg)
-
-/mob/living/silicon/pai/binarycheck()
-	return 0

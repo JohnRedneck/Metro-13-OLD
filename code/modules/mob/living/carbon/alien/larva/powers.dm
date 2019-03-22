@@ -1,63 +1,111 @@
-/obj/effect/proc_holder/alien/hide
-	name = "Hide"
-	desc = "Allows aliens to hide beneath tables or certain items. Toggled on or off."
-	plasma_cost = 0
-
-	action_icon_state = "alien_hide"
-
-/obj/effect/proc_holder/alien/hide/fire(mob/living/carbon/alien/user)
-	if(user.stat != CONSCIOUS)
-		return
-
-	if (user.layer != ABOVE_NORMAL_TURF_LAYER)
-		user.layer = ABOVE_NORMAL_TURF_LAYER
-		user.visible_message("<span class='name'>[user] scurries to the ground!</span>", \
-						"<span class='noticealien'>You are now hiding.</span>")
-	else
-		user.layer = MOB_LAYER
-		user.visible_message("[user.] slowly peeks up from the ground...", \
-					"<span class='noticealien'>You stop hiding.</span>")
+/mob/living/carbon/alien/larva/proc/check_can_infest(var/mob/living/M)
+	if(!src)
+		return 0
+	if(!istype(loc, /turf))
+		to_chat(src, "<span class='danger'>You cannot infest a target in your current position.</span>")
+		return 0
+	if(incapacitated())
+		to_chat(src, "<span class='danger'>You cannot infest a target in your current state.</span>")
+		return 0
+	if(!M)
+		return 1
+	if(!M.lying)
+		to_chat(src, "<span class='danger'>\The [M] is not prone.</span>")
+		return 0
+	if(!(src.Adjacent(M)))
+		to_chat(src, "<span class='danger'>\The [M] is not in range.</span>")
+		return 0
 	return 1
 
+/mob/living/carbon/alien/larva/verb/attach_host()
 
-/obj/effect/proc_holder/alien/larva_evolve
-	name = "Evolve"
-	desc = "Evolve into a higher alien caste."
-	plasma_cost = 0
+	set name = "Attach to host"
+	set desc = "Burrow into a prone victim and begin drinking their blood."
+	set category = "Abilities"
 
-	action_icon_state = "alien_evolve_larva"
-
-/obj/effect/proc_holder/alien/larva_evolve/fire(mob/living/carbon/alien/user)
-	if(!islarva(user))
-		return
-	var/mob/living/carbon/alien/larva/L = user
-
-	if(L.handcuffed || L.legcuffed) // Cuffing larvas ? Eh ?
-		to_chat(user, "<span class='danger'>You cannot evolve when you are cuffed.</span>")
+	if(!check_can_infest())
 		return
 
-	if(L.amount_grown >= L.max_grown)	//TODO ~Carn
-		to_chat(L, "<span class='name'>You are growing into a beautiful alien! It is time to choose a caste.</span>")
-		to_chat(L, "<span class='info'>There are three to choose from:</span>")
-		to_chat(L, "<span class='name'>Hunters</span> <span class='info'>are the most agile caste, tasked with hunting for hosts. They are faster than a human and can even pounce, but are not much tougher than a drone.</span>")
-		to_chat(L, "<span class='name'>Sentinels</span> <span class='info'>are tasked with protecting the hive. With their ranged spit, invisibility, and high health, they make formidable guardians and acceptable secondhand hunters.</span>")
-		to_chat(L, "<span class='name'>Drones</span> <span class='info'>are the weakest and slowest of the castes, but can grow into a praetorian and then queen if no queen exists, and are vital to maintaining a hive with their resin secretion abilities.</span>")
-		var/alien_caste = alert(L, "Please choose which alien caste you shall belong to.",,"Hunter","Sentinel","Drone")
+	var/list/choices = list()
+	for(var/mob/living/carbon/human/H in view(1,src))
+		if(isxenomorph(H))
+			continue
+		if(src.Adjacent(H) && H.lying)
+			choices += H
 
-		if(user.incapacitated()) //something happened to us while we were choosing.
-			return
+	if(!choices.len)
+		to_chat(src, "<span class='danger'>There are no viable hosts within range.</span>")
+		return
 
-		var/mob/living/carbon/alien/humanoid/new_xeno
-		switch(alien_caste)
-			if("Hunter")
-				new_xeno = new /mob/living/carbon/alien/humanoid/hunter(L.loc)
-			if("Sentinel")
-				new_xeno = new /mob/living/carbon/alien/humanoid/sentinel(L.loc)
-			if("Drone")
-				new_xeno = new /mob/living/carbon/alien/humanoid/drone(L.loc)
+	var/mob/living/carbon/human/H = input(src,"Who do you wish to infest?") as null|anything in choices
 
-		L.alien_evolve(new_xeno)
-		return 0
+	if(!H || !src || !H.lying) return
+
+	visible_message("<span class='danger'>\The [src] begins questing blindly towards \the [H]'s warm flesh...</span>")
+
+	if(!do_after(src,30, H))
+		return
+
+	if(!check_can_infest(H))
+		return
+
+	var/obj/item/organ/external/E = pick(H.organs)
+	to_chat(src, "<span class='danger'>You burrow deeply into \the [H]'s [E.name]!</span>")
+	var/obj/item/weapon/holder/holder = new (loc)
+	src.forceMove(holder)
+	holder.SetName(src.name)
+	E.embed(holder,0,"\The [src] burrows deeply into \the [H]'s [E.name]!")
+
+/mob/living/carbon/alien/larva/verb/release_host()
+	set category = "Abilities"
+	set name = "Release Host"
+	set desc = "Release your host."
+
+	if(incapacitated())
+		to_chat(src, "You cannot leave your host in your current state.")
+		return
+
+	if(!loc || !loc.loc)
+		to_chat(src, "You are not inside a host.")
+		return
+
+	var/mob/living/carbon/human/H = loc.loc
+
+	if(!istype(H))
+		to_chat(src, "You are not inside a host.")
+		return
+
+	to_chat(src, "<span class='danger'>You begin writhing your way free of \the [H]'s flesh...</span>")
+
+	if(!do_after(src, 30, H))
+		return
+
+	if(!H || !src)
+		return
+
+	leave_host()
+
+/mob/living/carbon/alien/larva/proc/leave_host()
+	if(!loc || !loc.loc)
+		to_chat(src, "You are not inside a host.")
+		return
+	var/mob/living/carbon/human/H = loc.loc
+	if(!istype(H))
+		to_chat(src, "You are not inside a host.")
+		return
+	var/obj/item/weapon/holder/holder = loc
+	var/obj/item/organ/external/affected
+	if(istype(holder))
+		for(var/obj/item/organ/external/organ in H.organs) //Grab the organ holding the implant.
+			for(var/obj/item/O in organ.implants)
+				if(O == holder)
+					affected = organ
+					break
+		affected.implants -= holder
+		holder.dropInto(holder.loc)
 	else
-		to_chat(user, "<span class='danger'>You are not fully grown.</span>")
-		return 0
+		dropInto(loc)
+	if(affected)
+		to_chat(src, "<span class='danger'>You crawl out of \the [H]'s [affected.name] and plop to the ground.</span>")
+	else
+		to_chat(src, "<span class='danger'>You plop to the ground.</span>")

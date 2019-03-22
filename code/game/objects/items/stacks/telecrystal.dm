@@ -4,36 +4,27 @@
 	singular_name = "telecrystal"
 	icon = 'icons/obj/telescience.dmi'
 	icon_state = "telecrystal"
-	w_class = WEIGHT_CLASS_TINY
+	w_class = ITEM_SIZE_TINY
 	max_amount = 50
-	item_flags = NOBLUDGEON
+	item_flags = ITEM_FLAG_NO_BLUDGEON
+	origin_tech = list(TECH_MATERIAL = 6, TECH_BLUESPACE = 4)
 
-/obj/item/stack/telecrystal/attack(mob/target, mob/user)
-	if(target == user) //You can't go around smacking people with crystals to find out if they have an uplink or not.
-		for(var/obj/item/implant/uplink/I in target)
-			if(I && I.imp_in)
-				GET_COMPONENT_FROM(hidden_uplink, /datum/component/uplink, I)
-				if(hidden_uplink)
-					hidden_uplink.telecrystals += amount
-					use(amount)
-					to_chat(user, "<span class='notice'>You press [src] onto yourself and charge your hidden uplink.</span>")
-	else
-		return ..()
+/obj/item/stack/telecrystal/afterattack(var/obj/item/I as obj, mob/user as mob, proximity)
+	if(!proximity)
+		return
+	if(istype(I, /obj/item))
+		if(I.hidden_uplink && I.hidden_uplink.active) //No metagaming by using this on every PDA around just to see if it gets used up.
+			I.hidden_uplink.uses += amount
+			I.hidden_uplink.update_nano_data()
+			SSnano.update_uis(I.hidden_uplink)
+			use(amount)
+			to_chat(user, "<span class='notice'>You slot \the [src] into \the [I] and charge its internal uplink.</span>")
 
-/obj/item/stack/telecrystal/afterattack(obj/item/I, mob/user, proximity)
-	if(istype(I, /obj/item/cartridge/virus/frame))
-		var/obj/item/cartridge/virus/frame/cart = I
-		if(!cart.charges)
-			to_chat(user, "<span class='notice'>[cart] is out of charges, it's refusing to accept [src].</span>")
-			return
-		cart.telecrystals += amount
-		use(amount)
-		to_chat(user, "<span class='notice'>You slot [src] into [cart].  The next time it's used, it will also give telecrystals.</span>")
-	else
-		return ..()
-
-/obj/item/stack/telecrystal/five
-	amount = 5
-
-/obj/item/stack/telecrystal/twenty
-	amount = 20
+/obj/item/stack/telecrystal/attack_self(var/mob/user)
+	if(use(ceil(DEFAULT_TELECRYSTAL_AMOUNT/20)))
+		user.visible_message("<span class='warning'>\The [user] crushes a crystal!</span>", "<span class='warning'>You crush \a [src]!</span>", "You hear the sound of a crystal breaking just before a sudden crack of electricity.")
+		var/turf/T = get_random_turf_in_range(user, 7, 3)
+		if(T)
+			user.phase_out(T, get_turf(user))
+			user.forceMove(T)
+			user.phase_in(T, get_turf(user))

@@ -1,31 +1,31 @@
-/obj/item/integrated_electronics/debugger
+/obj/item/device/integrated_electronics/debugger
 	name = "circuit debugger"
 	desc = "This small tool allows one working with custom machinery to directly set data to a specific pin, useful for writing \
 	settings to specific circuits, or for debugging purposes.  It can also pulse activation pins."
 	icon = 'icons/obj/assemblies/electronic_tools.dmi'
 	icon_state = "debugger"
-	flags_1 = CONDUCT_1
-	item_flags = NOBLUDGEON
-	w_class = WEIGHT_CLASS_SMALL
+	obj_flags = OBJ_FLAG_CONDUCTIBLE
+	item_flags = ITEM_FLAG_NO_BLUDGEON
+	w_class = ITEM_SIZE_SMALL
 	var/data_to_write = null
 	var/accepting_refs = FALSE
+	matter = list(MATERIAL_ALUMINIUM = 1500, MATERIAL_STEEL = 1000, MATERIAL_GLASS = 500, MATERIAL_PLASTIC = 500)
 
-/obj/item/integrated_electronics/debugger/attack_self(mob/user)
+/obj/item/device/integrated_electronics/debugger/attack_self(mob/user)
 	var/type_to_use = input("Please choose a type to use.","[src] type setting") as null|anything in list("string","number","ref", "null")
-	if(!user.IsAdvancedToolUser())
-		return
 
 	var/new_data = null
 	switch(type_to_use)
 		if("string")
 			accepting_refs = FALSE
-			new_data = stripped_input(user, "Now type in a string.","[src] string writing", no_trim = TRUE)
+			new_data = user.get_input("Now type in a string", "[src] string writing", null, MOB_INPUT_TEXT, src)
+			new_data = sanitize(new_data,trim = 0)
 			if(istext(new_data) && user.IsAdvancedToolUser())
 				data_to_write = new_data
 				to_chat(user, "<span class='notice'>You set \the [src]'s memory to \"[new_data]\".</span>")
 		if("number")
 			accepting_refs = FALSE
-			new_data = input(user, "Now type in a number.","[src] number writing") as null|num
+			new_data = user.get_input("Now type in a number", "[src] number writing", null, MOB_INPUT_NUM, src)
 			if(isnum(new_data) && user.IsAdvancedToolUser())
 				data_to_write = new_data
 				to_chat(user, "<span class='notice'>You set \the [src]'s memory to [new_data].</span>")
@@ -37,23 +37,25 @@
 			data_to_write = null
 			to_chat(user, "<span class='notice'>You set \the [src]'s memory to absolutely nothing.</span>")
 
-/obj/item/integrated_electronics/debugger/afterattack(atom/target, mob/living/user, proximity)
+/obj/item/device/integrated_electronics/debugger/afterattack(atom/target, mob/living/user, proximity)
+	. = ..()
 	if(accepting_refs && proximity)
-		data_to_write = WEAKREF(target)
+		data_to_write = weakref(target)
 		visible_message("<span class='notice'>[user] slides \a [src]'s over \the [target].</span>")
 		to_chat(user, "<span class='notice'>You set \the [src]'s memory to a reference to [target.name] \[Ref\].  The ref scanner is \
 		now off.</span>")
 		accepting_refs = FALSE
-	else
-		return ..()
 
-/obj/item/integrated_electronics/debugger/proc/write_data(var/datum/integrated_io/io, mob/user)
+/obj/item/device/integrated_electronics/debugger/proc/write_data(var/datum/integrated_io/io, mob/user)
 	if(io.io_type == DATA_CHANNEL)
 		io.write_data_to_pin(data_to_write)
 		var/data_to_show = data_to_write
 		if(isweakref(data_to_write))
-			var/datum/weakref/w = data_to_write
+			var/weakref/w = data_to_write
 			var/atom/A = w.resolve()
+			if(!A)
+				to_chat(user, "<span class='warning'>\The [src]'s reference is stale and won't transfer to \the [io.holder]'s pin.</span>")
+				return
 			data_to_show = A.name
 		to_chat(user, "<span class='notice'>You write '[data_to_write ? data_to_show : "NULL"]' to the '[io]' pin of \the [io.holder].</span>")
 	else if(io.io_type == PULSE_CHANNEL)

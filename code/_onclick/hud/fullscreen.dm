@@ -2,22 +2,28 @@
 /mob
 	var/list/screens = list()
 
+/mob/proc/set_fullscreen(condition, screen_name, screen_type, arg)
+	condition ? overlay_fullscreen(screen_name, screen_type, arg) : clear_fullscreen(screen_name)
+
 /mob/proc/overlay_fullscreen(category, type, severity)
 	var/obj/screen/fullscreen/screen = screens[category]
-	if (!screen || screen.type != type)
-		// needs to be recreated
-		clear_fullscreen(category, FALSE)
-		screens[category] = screen = new type()
-	else if ((!severity || severity == screen.severity) && (!client || screen.screen_loc != "CENTER-7,CENTER-7" || screen.view == client.view))
-		// doesn't need to be updated
-		return screen
+
+	if(screen)
+		if(screen.type != type)
+			clear_fullscreen(category, FALSE)
+			screen = null
+		else if(!severity || severity == screen.severity)
+			return null
+
+	if(!screen)
+		screen = new type()
 
 	screen.icon_state = "[initial(screen.icon_state)][severity]"
 	screen.severity = severity
-	if (client && screen.should_show_to(src))
-		screen.update_for_view(client.view)
-		client.screen += screen
 
+	screens[category] = screen
+	if(client && (stat != DEAD || screen.allstate))
+		client.screen += screen
 	return screen
 
 /mob/proc/clear_fullscreen(category, animated = 10)
@@ -28,17 +34,16 @@
 	screens -= category
 
 	if(animated)
-		animate(screen, alpha = 0, time = animated)
-		addtimer(CALLBACK(src, .proc/clear_fullscreen_after_animate, screen), animated, TIMER_CLIENT_TIME)
+		spawn(0)
+			animate(screen, alpha = 0, time = animated)
+			sleep(animated)
+			if(client)
+				client.screen -= screen
+			qdel(screen)
 	else
 		if(client)
 			client.screen -= screen
 		qdel(screen)
-
-/mob/proc/clear_fullscreen_after_animate(obj/screen/fullscreen/screen)
-	if(client)
-		client.screen -= screen
-	qdel(screen)
 
 /mob/proc/clear_fullscreens()
 	for(var/category in screens)
@@ -51,136 +56,96 @@
 
 /mob/proc/reload_fullscreen()
 	if(client)
-		var/obj/screen/fullscreen/screen
 		for(var/category in screens)
-			screen = screens[category]
-			if(screen.should_show_to(src))
-				screen.update_for_view(client.view)
-				client.screen |= screen
-			else
-				client.screen -= screen
+			client.screen |= screens[category]
 
 /obj/screen/fullscreen
 	icon = 'icons/mob/screen_full.dmi'
 	icon_state = "default"
 	screen_loc = "CENTER-7,CENTER-7"
-	layer = FULLSCREEN_LAYER
 	plane = FULLSCREEN_PLANE
-	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-	var/view = 7
+	mouse_opacity = 0
 	var/severity = 0
-	var/show_when_dead = FALSE
-
-/obj/screen/fullscreen/proc/update_for_view(client_view)
-	if (screen_loc == "CENTER-7,CENTER-7" && view != client_view)
-		var/list/actualview = getviewsize(client_view)
-		view = client_view
-		transform = matrix(actualview[1]/FULLSCREEN_OVERLAY_RESOLUTION_X, 0, 0, 0, actualview[2]/FULLSCREEN_OVERLAY_RESOLUTION_Y, 0)
-
-/obj/screen/fullscreen/proc/should_show_to(mob/mymob)
-	if(!show_when_dead && mymob.stat == DEAD)
-		return FALSE
-	return TRUE
+	var/allstate = 0 //shows if it should show up for dead people too
 
 /obj/screen/fullscreen/Destroy()
 	severity = 0
-	. = ..()
+	return ..()
 
 /obj/screen/fullscreen/brute
 	icon_state = "brutedamageoverlay"
-	layer = UI_DAMAGE_LAYER
-	plane = FULLSCREEN_PLANE
+	layer = DAMAGE_LAYER
 
 /obj/screen/fullscreen/oxy
 	icon_state = "oxydamageoverlay"
-	layer = UI_DAMAGE_LAYER
-	plane = FULLSCREEN_PLANE
+	layer = DAMAGE_LAYER
 
 /obj/screen/fullscreen/crit
 	icon_state = "passage"
 	layer = CRIT_LAYER
-	plane = FULLSCREEN_PLANE
-
-/obj/screen/fullscreen/crit/vision
-	icon_state = "oxydamageoverlay"
-	layer = BLIND_LAYER
 
 /obj/screen/fullscreen/blind
 	icon_state = "blackimageoverlay"
 	layer = BLIND_LAYER
-	plane = FULLSCREEN_PLANE
 
-/obj/screen/fullscreen/depression
-	icon_state = "depression"
-	layer = FLASH_LAYER
-	plane = FULLSCREEN_PLANE
-
-/obj/screen/fullscreen/curse
-	icon_state = "curse"
-	layer = CURSE_LAYER
-	plane = FULLSCREEN_PLANE
+/obj/screen/fullscreen/blackout
+	icon = 'icons/mob/screen1.dmi'
+	icon_state = "black"
+	screen_loc = "WEST,SOUTH to EAST,NORTH"
+	layer = BLIND_LAYER
 
 /obj/screen/fullscreen/impaired
 	icon_state = "impairedoverlay"
+	layer = IMPAIRED_LAYER
 
 /obj/screen/fullscreen/blurry
-	icon = 'icons/mob/screen_gen.dmi'
+	icon = 'icons/mob/screen1.dmi'
 	screen_loc = "WEST,SOUTH to EAST,NORTH"
 	icon_state = "blurry"
 
 /obj/screen/fullscreen/flash
-	icon = 'icons/mob/screen_gen.dmi'
+	icon = 'icons/mob/screen1.dmi'
 	screen_loc = "WEST,SOUTH to EAST,NORTH"
 	icon_state = "flash"
 
-/obj/screen/fullscreen/flash/static
-	icon = 'icons/mob/screen_gen.dmi'
-	screen_loc = "WEST,SOUTH to EAST,NORTH"
+/obj/screen/fullscreen/flash/noise
 	icon_state = "noise"
 
 /obj/screen/fullscreen/high
-	icon = 'icons/mob/screen_gen.dmi'
+	icon = 'icons/mob/screen1.dmi'
 	screen_loc = "WEST,SOUTH to EAST,NORTH"
 	icon_state = "druggy"
 
-/obj/screen/fullscreen/color_vision
-	icon = 'icons/mob/screen_gen.dmi'
-	screen_loc = "WEST,SOUTH to EAST,NORTH"
-	icon_state = "flash"
-	alpha = 80
+/obj/screen/fullscreen/noise
+	icon = 'icons/effects/static.dmi'
+	icon_state = "1 light"
+	screen_loc = ui_entire_screen
+	layer = FULLSCREEN_LAYER
+	alpha = 127
 
-/obj/screen/fullscreen/color_vision/green
-	color = "#00ff00"
+/obj/screen/fullscreen/fadeout
+	icon = 'icons/mob/screen1.dmi'
+	icon_state = "black"
+	screen_loc = ui_entire_screen
+	layer = FULLSCREEN_LAYER
+	alpha = 0
+	allstate = 1
 
-/obj/screen/fullscreen/color_vision/red
-	color = "#ff0000"
+/obj/screen/fullscreen/fadeout/Initialize()
+	. = ..()
+	animate(src, alpha = 255, time = 10)
 
-/obj/screen/fullscreen/color_vision/blue
-	color = "#0000ff"
+/obj/screen/fullscreen/scanline
+	icon = 'icons/effects/static.dmi'
+	icon_state = "scanlines"
+	screen_loc = ui_entire_screen
+	alpha = 50
+	layer = FULLSCREEN_LAYER
 
-/obj/screen/fullscreen/lighting_backdrop
-	icon = 'icons/mob/screen_gen.dmi'
-	icon_state = "flash"
-	transform = matrix(200, 0, 0, 0, 200, 0)
-	plane = LIGHTING_PLANE
-	blend_mode = BLEND_OVERLAY
-	show_when_dead = TRUE
+/obj/screen/fullscreen/fishbed
+	icon_state = "fishbed"
+	allstate = 1
 
-//Provides darkness to the back of the lighting plane
-/obj/screen/fullscreen/lighting_backdrop/lit
-	invisibility = INVISIBILITY_LIGHTING
-	layer = BACKGROUND_LAYER+21
-	color = "#000"
-	show_when_dead = TRUE
-
-//Provides whiteness in case you don't see lights so everything is still visible
-/obj/screen/fullscreen/lighting_backdrop/unlit
-	layer = BACKGROUND_LAYER+20
-	show_when_dead = TRUE
-
-/obj/screen/fullscreen/see_through_darkness
-	icon_state = "nightvision"
-	plane = LIGHTING_PLANE
-	layer = LIGHTING_LAYER
-	blend_mode = BLEND_ADD
-	show_when_dead = TRUE
+/obj/screen/fullscreen/pain
+	icon_state = "brutedamageoverlay6"
+	alpha = 0

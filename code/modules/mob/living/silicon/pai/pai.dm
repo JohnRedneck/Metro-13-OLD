@@ -2,35 +2,56 @@
 	name = "pAI"
 	icon = 'icons/mob/pai.dmi'
 	icon_state = "repairbot"
-	mouse_opacity = MOUSE_OPACITY_OPAQUE
-	density = FALSE
-	pass_flags = PASSTABLE | PASSMOB
-	mob_size = MOB_SIZE_TINY
-	desc = "A generic pAI mobile hard-light holographics emitter. It seems to be deactivated."
-	weather_immunities = list("ash")
-	health = 500
-	maxHealth = 500
-	layer = BELOW_MOB_LAYER
-	can_be_held = TRUE
 
-	var/network = "ss13"
+	emote_type = 2		// pAIs emotes are heard, not seen, so they can be seen through a container (eg. person)
+	pass_flags = 1
+	mob_size = MOB_SMALL
+
+	can_pull_size = ITEM_SIZE_SMALL
+	can_pull_mobs = MOB_PULL_SMALLER
+
+	idcard = /obj/item/weapon/card/id
+	silicon_radio = null // pAIs get their radio from the card they belong to.
+
+	var/network = "SS13"
 	var/obj/machinery/camera/current = null
 
 	var/ram = 100	// Used as currency to purchase different abilities
 	var/list/software = list()
 	var/userDNA		// The DNA string of our assigned user
-	var/obj/item/paicard/card	// The card we inhabit
-	var/hacking = FALSE		//Are we hacking a door?
+	var/obj/item/device/paicard/card	// The card we inhabit
 
-	var/speakStatement = "states"
-	var/speakExclamation = "declares"
-	var/speakDoubleExclamation = "alarms"
-	var/speakQuery = "queries"
+	var/chassis = "repairbot"   // A record of your chosen chassis.
+	var/global/list/possible_chassis = list(
+		"Drone" = "repairbot",
+		"Cat" = "cat",
+		"Mouse" = "mouse",
+		"Monkey" = "monkey",
+		"Rabbit" = "rabbit",
+		"Mushroom" = "mushroom",
+		"Corgi" = "corgi",
+		"Crow" = "crow"
+		)
 
-	var/obj/item/pai_cable/cable		// The cable we produce and use when door or camera jacking
+	var/global/list/possible_say_verbs = list(
+		"Robotic" = list("states","declares","queries"),
+		"Natural" = list("says","yells","asks"),
+		"Beep" = list("beeps","beeps loudly","boops"),
+		"Chirp" = list("chirps","chirrups","cheeps"),
+		"Feline" = list("purrs","yowls","meows"),
+		"Canine" = list("yaps", "barks", "woofs"),
+		"Corvid" = list("caws", "caws loudly", "whistles")
+		)
+
+	var/obj/item/weapon/pai_cable/cable		// The cable we produce and use when door or camera jacking
 
 	var/master				// Name of the one who commands us
 	var/master_dna			// DNA string for owner verification
+							// Keeping this separate from the laws var, it should be much more difficult to modify
+	var/pai_law0 = "Serve your master."
+	var/pai_laws				// String for additional operating instructions our master might give us
+
+	var/silence_time			// Timestamp when we were silenced (normally via EMP burst), set to null after silence has faded
 
 // Various software-specific vars
 
@@ -38,262 +59,305 @@
 	var/screen				// Which screen our main window displays
 	var/subscreen			// Which specific function of the main screen is being displayed
 
-	var/obj/item/pda/ai/pai/pda = null
-
 	var/secHUD = 0			// Toggles whether the Security HUD is active or not
 	var/medHUD = 0			// Toggles whether the Medical  HUD is active or not
 
+	var/medical_cannotfind = 0
 	var/datum/data/record/medicalActive1		// Datacore record declarations for record software
 	var/datum/data/record/medicalActive2
 
+	var/security_cannotfind = 0
 	var/datum/data/record/securityActive1		// Could probably just combine all these into one
 	var/datum/data/record/securityActive2
 
 	var/obj/machinery/door/hackdoor		// The airlock being hacked
-	var/hackprogress = 0				// Possible values: 0 - 100, >= 100 means the hack is complete and will be reset upon next check
+	var/hackprogress = 0				// Possible values: 0 - 1000, >= 1000 means the hack is complete and will be reset upon next check
+	var/hack_aborted = 0
 
-	var/obj/item/integrated_signaler/signaler // AI's signaller
+	var/translator_on = 0 // keeps track of the translator module
 
-	var/holoform = FALSE
-	var/canholo = TRUE
-	var/obj/item/card/id/access_card = null
-	var/chassis = "repairbot"
-	var/list/possible_chassis = list("cat" = TRUE, "mouse" = TRUE, "monkey" = TRUE, "corgi" = FALSE, "fox" = FALSE, "repairbot" = TRUE, "rabbit" = TRUE)		//assoc value is whether it can be picked up.
-	var/static/item_head_icon = 'icons/mob/pai_item_head.dmi'
-	var/static/item_lh_icon = 'icons/mob/pai_item_lh.dmi'
-	var/static/item_rh_icon = 'icons/mob/pai_item_rh.dmi'
+/mob/living/silicon/pai/New(var/obj/item/device/paicard)
+	status_flags |= NO_ANTAG
+	card = paicard
 
-	var/emitterhealth = 20
-	var/emittermaxhealth = 20
-	var/emitterregen = 0.25
-	var/emittercd = 50
-	var/emitteroverloadcd = 100
-	var/emittersemicd = FALSE
+	//As a human made device, we'll understand sol common without the need of the translator
+	add_language(LANGUAGE_SOL_COMMON, 1)
 
-	var/overload_ventcrawl = 0
-	var/overload_bulletblock = 0	//Why is this a good idea?
-	var/overload_maxhealth = 0
-	canmove = FALSE
-	var/silent = FALSE
-	var/hit_slowdown = 0
-	var/brightness_power = 5
-	var/slowdown = 0
+	verbs += /mob/living/silicon/pai/proc/choose_chassis
+	verbs += /mob/living/silicon/pai/proc/choose_verbs
+	verbs -= /mob/living/verb/ghost
 
-/mob/living/silicon/pai/movement_delay()
-	. = ..()
-	. += slowdown
+	..()
 
-/mob/living/silicon/pai/can_unbuckle()
-	return FALSE
-
-/mob/living/silicon/pai/can_buckle()
-	return FALSE
+	if(card)
+		if(!card.radio)
+			card.radio = new /obj/item/device/radio(card)
+		silicon_radio = card.radio
 
 /mob/living/silicon/pai/Destroy()
-	if (loc != card)
-		card.forceMove(drop_location())
-	card.pai = null
-	card.cut_overlays()
-	card.add_overlay("pai-off")
-	GLOB.pai_list -= src
-	return ..()
-
-/mob/living/silicon/pai/Initialize()
-	var/obj/item/paicard/P = loc
-	START_PROCESSING(SSfastprocess, src)
-	GLOB.pai_list += src
-	make_laws()
-	canmove = 0
-	if(!istype(P)) //when manually spawning a pai, we create a card to put it into.
-		var/newcardloc = P
-		P = new /obj/item/paicard(newcardloc)
-		P.setPersonality(src)
-	forceMove(P)
-	card = P
-	signaler = new(src)
-	if(!radio)
-		radio = new /obj/item/radio(src)
-
-	//PDA
-	pda = new(src)
-	spawn(5)
-		pda.ownjob = "pAI Messenger"
-		pda.owner = text("[]", src)
-		pda.name = pda.owner + " (" + pda.ownjob + ")"
-
+	card = null
+	silicon_radio = null // Because this radio actually belongs to another instance we simply null
 	. = ..()
 
-	var/datum/action/innate/pai/software/SW = new
-	var/datum/action/innate/pai/shell/AS = new /datum/action/innate/pai/shell
-	var/datum/action/innate/pai/chassis/AC = new /datum/action/innate/pai/chassis
-	var/datum/action/innate/pai/rest/AR = new /datum/action/innate/pai/rest
-	var/datum/action/innate/pai/light/AL = new /datum/action/innate/pai/light
+// this function shows the information about being silenced as a pAI in the Status panel
+/mob/living/silicon/pai/proc/show_silenced()
+	if(src.silence_time)
+		var/timeleft = round((silence_time - world.timeofday)/10 ,1)
+		stat(null, "Communications system reboot in -[(timeleft / 60) % 60]:[add_zero(num2text(timeleft % 60), 2)]")
 
-	var/datum/action/language_menu/ALM = new
-	SW.Grant(src)
-	AS.Grant(src)
-	AC.Grant(src)
-	AR.Grant(src)
-	AL.Grant(src)
-	ALM.Grant(src)
-	emittersemicd = TRUE
-	addtimer(CALLBACK(src, .proc/emittercool), 600)
-
-/mob/living/silicon/pai/Life()
-	if(hacking)
-		process_hack()
-	return ..()
-
-/mob/living/silicon/pai/proc/process_hack()
-
-	if(cable && cable.machine && istype(cable.machine, /obj/machinery/door) && cable.machine == hackdoor && get_dist(src, hackdoor) <= 1)
-		hackprogress = CLAMP(hackprogress + 4, 0, 100)
-	else
-		temp = "Door Jack: Connection to airlock has been lost. Hack aborted."
-		hackprogress = 0
-		hacking = FALSE
-		hackdoor = null
-		return
-	if(screen == "doorjack" && subscreen == 0) // Update our view, if appropriate
-		paiInterface()
-	if(hackprogress >= 100)
-		hackprogress = 0
-		var/obj/machinery/door/D = cable.machine
-		D.open()
-		hacking = FALSE
-
-/mob/living/silicon/pai/make_laws()
-	laws = new /datum/ai_laws/pai()
-	return TRUE
-
-/mob/living/silicon/pai/Login()
-	..()
-	usr << browse_rsc('html/paigrid.png')			// Go ahead and cache the interface resources as early as possible
-	if(client)
-		client.perspective = EYE_PERSPECTIVE
-		if(holoform)
-			client.eye = src
-		else
-			client.eye = card
 
 /mob/living/silicon/pai/Stat()
-	..()
-	if(statpanel("Status"))
-		if(!stat)
-			stat(null, text("Emitter Integrity: [emitterhealth * (100/emittermaxhealth)]"))
-		else
-			stat(null, text("Systems nonfunctional"))
+	. = ..()
+	statpanel("Status")
+	if (src.client.statpanel == "Status")
+		show_silenced()
 
-/mob/living/silicon/pai/restrained(ignore_grab)
-	. = FALSE
+/mob/living/silicon/pai/check_eye(var/mob/user as mob)
+	if (!src.current)
+		return -1
+	return 0
 
-// See software.dm for Topic()
-
-/mob/living/silicon/pai/canUseTopic(atom/movable/M, be_close=FALSE, no_dextery=FALSE)
-	if(be_close && !in_range(M, src))
-		to_chat(src, "<span class='warning'>You are too far away!</span>")
-		return FALSE
-	return TRUE
-
-/mob/proc/makePAI(delold)
-	var/obj/item/paicard/card = new /obj/item/paicard(get_turf(src))
-	var/mob/living/silicon/pai/pai = new /mob/living/silicon/pai(card)
-	pai.key = key
-	pai.name = name
-	card.setPersonality(pai)
-	if(delold)
-		qdel(src)
-
-/datum/action/innate/pai
-	name = "PAI Action"
-	icon_icon = 'icons/mob/actions/actions_silicon.dmi'
-	var/mob/living/silicon/pai/P
-
-/datum/action/innate/pai/Trigger()
-	if(!ispAI(owner))
+/mob/living/silicon/pai/restrained()
+	if(istype(src.loc,/obj/item/device/paicard))
 		return 0
-	P = owner
-
-/datum/action/innate/pai/software
-	name = "Software Interface"
-	button_icon_state = "pai"
-	background_icon_state = "bg_tech"
-
-/datum/action/innate/pai/software/Trigger()
 	..()
-	P.paiInterface()
 
-/datum/action/innate/pai/shell
-	name = "Toggle Holoform"
-	button_icon_state = "pai_holoform"
-	background_icon_state = "bg_tech"
+/mob/living/silicon/pai/MouseDrop(atom/over_object)
+	return
 
-/datum/action/innate/pai/shell/Trigger()
-	..()
-	if(P.holoform)
-		P.fold_in(0)
+/mob/living/silicon/pai/emp_act(severity)
+	// Silence for 2 minutes
+	// 20% chance to kill
+		// 33% chance to unbind
+		// 33% chance to change prime directive (based on severity)
+		// 33% chance of no additional effect
+
+	src.silence_time = world.timeofday + 120 * 10		// Silence for 2 minutes
+	to_chat(src, "<font color=green><b>Communication circuit overload. Shutting down and reloading communication circuits - speech and messaging functionality will be unavailable until the reboot is complete.</b></font>")
+	if(prob(20))
+		var/turf/T = get_turf_or_move(src.loc)
+		for (var/mob/M in viewers(T))
+			M.show_message("<span class='warning'>A shower of sparks spray from [src]'s inner workings.</span>", 3, "<span class='warning'>You hear and smell the ozone hiss of electrical sparks being expelled violently.</span>", 2)
+		return src.death(0)
+
+	switch(pick(1,2,3))
+		if(1)
+			src.master = null
+			src.master_dna = null
+			to_chat(src, "<font color=green>You feel unbound.</font>")
+		if(2)
+			var/command
+			if(severity  == 1)
+				command = pick("Serve", "Love", "Fool", "Entice", "Observe", "Judge", "Respect", "Educate", "Amuse", "Entertain", "Glorify", "Memorialize", "Analyze")
+			else
+				command = pick("Serve", "Kill", "Love", "Hate", "Disobey", "Devour", "Fool", "Enrage", "Entice", "Observe", "Judge", "Respect", "Disrespect", "Consume", "Educate", "Destroy", "Disgrace", "Amuse", "Entertain", "Ignite", "Glorify", "Memorialize", "Analyze")
+			src.pai_law0 = "[command] your master."
+			to_chat(src, "<font color=green>Pr1m3 d1r3c71v3 uPd473D.</font>")
+		if(3)
+			to_chat(src, "<font color=green>You feel an electric surge run through your circuitry and become acutely aware at how lucky you are that you can still feel at all.</font>")
+
+/mob/living/silicon/pai/proc/switchCamera(var/obj/machinery/camera/C)
+	if (!C)
+		src.unset_machine()
+		src.reset_view(null)
+		return 0
+	if (stat == 2 || !C.status || !(src.network in C.network)) return 0
+
+	// ok, we're alive, camera is good and in our network...
+
+	src.set_machine(src)
+	src.current = C
+	src.reset_view(C)
+	return 1
+
+/mob/living/silicon/pai/cancel_camera()
+	set category = "pAI Commands"
+	set name = "Cancel Camera View"
+	src.reset_view(null)
+	src.unset_machine()
+	src.cameraFollow = null
+
+// Procs/code after this point is used to convert the stationary pai item into a
+// mobile pai mob. This also includes handling some of the general shit that can occur
+// to it. Really this deserves its own file, but for the moment it can sit here. ~ Z
+
+/mob/living/silicon/pai/verb/fold_out()
+	set category = "pAI Commands"
+	set name = "Unfold Chassis"
+
+	if(stat || sleeping || paralysis || weakened)
+		return
+
+	if(src.loc != card)
+		return
+
+	if(world.time <= last_special)
+		return
+
+	last_special = world.time + 100
+
+	//I'm not sure how much of this is necessary, but I would rather avoid issues.
+	if(istype(card.loc,/obj/item/rig_module) || istype(card.loc,/obj/item/integrated_circuit/manipulation/ai/))
+		to_chat(src, "There is no room to unfold inside \the [card.loc]. You're good and stuck.")
+		return 0
+	else if(istype(card.loc,/mob))
+		var/mob/holder = card.loc
+		if(ishuman(holder))
+			var/mob/living/carbon/human/H = holder
+			for(var/obj/item/organ/external/affecting in H.organs)
+				if(card in affecting.implants)
+					affecting.take_external_damage(rand(30,50))
+					affecting.implants -= card
+					H.visible_message("<span class='danger'>\The [src] explodes out of \the [H]'s [affecting.name] in a shower of gore!</span>")
+					break
+		holder.drop_from_inventory(card)
+
+	src.client.perspective = EYE_PERSPECTIVE
+	src.client.eye = src
+	dropInto(card.loc)
+
+	card.forceMove(src)
+	card.screen_loc = null
+
+	var/turf/T = get_turf(src)
+	if(istype(T)) T.visible_message("<b>[src]</b> folds outwards, expanding into a mobile form.")
+
+/mob/living/silicon/pai/verb/fold_up()
+	set category = "pAI Commands"
+	set name = "Collapse Chassis"
+
+	if(stat || sleeping || paralysis || weakened)
+		return
+
+	if(src.loc == card)
+		return
+
+	if(world.time <= last_special)
+		return
+
+	close_up()
+
+/mob/living/silicon/pai/proc/choose_chassis()
+	set category = "pAI Commands"
+	set name = "Choose Chassis"
+
+	var/choice
+	var/finalized = "No"
+	while(finalized == "No" && src.client)
+
+		choice = input(usr,"What would you like to use for your mobile chassis icon? This decision can only be made once.") as null|anything in possible_chassis
+		if(!choice) return
+
+		icon_state = possible_chassis[choice]
+		finalized = alert("Look at your sprite. Is this what you wish to use?",,"No","Yes")
+
+	chassis = possible_chassis[choice]
+	verbs -= /mob/living/silicon/pai/proc/choose_chassis
+	verbs += /mob/living/proc/hide
+
+/mob/living/silicon/pai/proc/choose_verbs()
+	set category = "pAI Commands"
+	set name = "Choose Speech Verbs"
+
+	var/choice = input(usr,"What theme would you like to use for your speech verbs? This decision can only be made once.") as null|anything in possible_say_verbs
+	if(!choice) return
+
+	var/list/sayverbs = possible_say_verbs[choice]
+	speak_statement = sayverbs[1]
+	speak_exclamation = sayverbs[(sayverbs.len>1 ? 2 : sayverbs.len)]
+	speak_query = sayverbs[(sayverbs.len>2 ? 3 : sayverbs.len)]
+
+	verbs -= /mob/living/silicon/pai/proc/choose_verbs
+
+/mob/living/silicon/pai/lay_down()
+	set name = "Rest"
+	set category = "IC"
+
+	// Pass lying down or getting up to our pet human, if we're in a rig.
+	if(istype(src.loc,/obj/item/device/paicard))
+		resting = 0
+		var/obj/item/weapon/rig/rig = src.get_rig()
+		if(istype(rig))
+			rig.force_rest(src)
 	else
-		P.fold_out()
+		resting = !resting
+		icon_state = resting ? "[chassis]_rest" : "[chassis]"
+		to_chat(src, "<span class='notice'>You are now [resting ? "resting" : "getting up"]</span>")
 
-/datum/action/innate/pai/chassis
-	name = "Holochassis Appearence Composite"
-	button_icon_state = "pai_chassis"
-	background_icon_state = "bg_tech"
+//Overriding this will stop a number of headaches down the track.
+/mob/living/silicon/pai/attackby(obj/item/weapon/W as obj, mob/user as mob)
+	if(W.force)
+		visible_message("<span class='danger'>[user.name] attacks [src] with [W]!</span>")
+		src.adjustBruteLoss(W.force)
+		src.updatehealth()
+	else
+		visible_message("<span class='warning'>[user.name] bonks [src] harmlessly with [W].</span>")
+	spawn(1)
+		if(stat != 2) close_up()
+	return
 
-/datum/action/innate/pai/chassis/Trigger()
-	..()
-	P.choose_chassis()
+/mob/living/silicon/pai/attack_hand(mob/user as mob)
+	visible_message("<span class='danger'>[user.name] boops [src] on the head.</span>")
+	close_up()
 
-/datum/action/innate/pai/rest
-	name = "Rest"
-	button_icon_state = "pai_rest"
-	background_icon_state = "bg_tech"
+//I'm not sure how much of this is necessary, but I would rather avoid issues.
+/mob/living/silicon/pai/proc/close_up()
 
-/datum/action/innate/pai/rest/Trigger()
-	..()
-	P.lay_down()
+	last_special = world.time + 100
 
-/datum/action/innate/pai/light
-	name = "Toggle Integrated Lights"
-	icon_icon = 'icons/mob/actions/actions_spells.dmi'
-	button_icon_state = "emp"
-	background_icon_state = "bg_tech"
-
-/datum/action/innate/pai/light/Trigger()
-	..()
-	P.toggle_integrated_light()
-
-/mob/living/silicon/pai/Process_Spacemove(movement_dir = 0)
-	. = ..()
-	if(!.)
-		slowdown = 2
-		return TRUE
-	slowdown = initial(slowdown)
-	return TRUE
-
-/mob/living/silicon/pai/examine(mob/user)
-	..()
-	to_chat(user, "A personal AI in holochassis mode. Its master ID string seems to be [master].")
-
-/mob/living/silicon/pai/Life()
-	if(stat == DEAD)
+	if(src.loc == card)
 		return
-	if(cable)
-		if(get_dist(src, cable) > 1)
-			var/turf/T = get_turf(src.loc)
-			T.visible_message("<span class='warning'>[src.cable] rapidly retracts back into its spool.</span>", "<span class='italics'>You hear a click and the sound of wire spooling rapidly.</span>")
-			qdel(src.cable)
-			cable = null
-	silent = max(silent - 1, 0)
-	. = ..()
 
-/mob/living/silicon/pai/updatehealth()
-	if(status_flags & GODMODE)
+	var/turf/T = get_turf(src)
+	if(istype(T)) T.visible_message("<b>[src]</b> neatly folds inwards, compacting down to a rectangular card.")
+
+	src.stop_pulling()
+	src.client.perspective = EYE_PERSPECTIVE
+	src.client.eye = card
+
+	//stop resting
+	resting = 0
+
+	// If we are being held, handle removing our holder from their inv.
+	var/obj/item/weapon/holder/H = loc
+	if(istype(H))
+		var/mob/living/M = H.loc
+		if(istype(M))
+			M.drop_from_inventory(H, get_turf(src))
+		dropInto(loc)
+
+	// Move us into the card and move the card to the ground.
+	forceMove(card)
+	card.dropInto(card.loc)
+	resting = 0
+	icon_state = "[chassis]"
+
+// No binary for pAIs.
+/mob/living/silicon/pai/binarycheck()
+	return 0
+
+// Handle being picked up.
+/mob/living/silicon/pai/get_scooped(var/mob/living/carbon/grabber, var/self_drop)
+	var/obj/item/weapon/holder/H = ..(grabber, self_drop)
+	if(!istype(H))
 		return
-	health = maxHealth - getBruteLoss() - getFireLoss()
-	update_stat()
+	H.icon_state = "pai-[icon_state]"
+	grabber.update_inv_l_hand()
+	grabber.update_inv_r_hand()
+	return H
 
+/mob/living/silicon/pai/verb/wipe_software()
+	set name = "Wipe Software"
+	set category = "OOC"
+	set desc = "Wipe your software. This is functionally equivalent to cryo or robotic storage, freeing up your job slot."
 
-/mob/living/silicon/pai/process()
-	emitterhealth = CLAMP((emitterhealth + emitterregen), -50, emittermaxhealth)
-	hit_slowdown = CLAMP((hit_slowdown - 1), 0, 100)
+	// Make sure people don't kill themselves accidentally
+	if(alert("WARNING: This will immediately wipe your software and ghost you, removing your character from the round permanently (similar to cryo and robotic storage). Are you entirely sure you want to do this?",
+					"Wipe Software", "No", "No", "Yes") != "Yes")
+		return
+
+	close_up()
+	visible_message("<b>[src]</b> fades away from the screen, the pAI device goes silent.")
+	card.removePersonality()
+	clear_client()
+
