@@ -22,6 +22,8 @@ matrix:
       env: TEST=MAP MAP_PATH=torch
     - name: "Map - Bearcat"
       env: TEST=MAP MAP_PATH=bearcat
+    - name: "Map - Metro"
+      env: TEST=MAP MAP_PATH=metro
     - name: "Map - Away Sites"
       env: TEST=MAP MAP_PATH=away_sites_testing
 
