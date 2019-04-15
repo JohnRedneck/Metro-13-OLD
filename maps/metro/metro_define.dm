@@ -3,7 +3,7 @@
 	full_name = "The Metro"
 	path = "metro"
 
-	lobby_icon = 'maps/example/metro_lobby.dmi'
+	lobby_icon = 'maps/metro/metro_lobby.dmi'
 	lobby_tracks = list(/music_track/tomorrow)
 
 	allowed_spawns = list("debugspawn")
