@@ -66,12 +66,12 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/unowned/metrotunnels
 	name = "\improper The Metro Tunnels"
 	icon_state = "metrotunnels"
-	//ambience = list('')
+	ambience = list('')
 
 /area/natural/caves
 	name = "\improper Caves"
 	icon_state = "caves"
-	//ambience = list('')
+	ambience = list('')
 
 /////////
 //SPACE//

@@ -91,6 +91,12 @@
 	current = new_character		//link ourself to our new body
 	new_character.mind = src	//and link our new body to ourself
 
+	if(learned_spells && learned_spells.len)
+		restore_spells(new_character)
+
+	if(changeling)
+		new_character.make_changeling()
+
 	if(active)
 		new_character.key = key		//now transfer the key to link the client to our new body
 
@@ -522,12 +528,10 @@
 		brigged_since = -1
 		return 0
 	var/is_currently_brigged = 0
-	/* Don't have a brig area so we can't use this
 	if(istype(T.loc,/area/security/brig))
 		is_currently_brigged = 1
 		if(current.GetIdCard())
 			is_currently_brigged = 0
-	*/
 
 	if(!is_currently_brigged)
 		brigged_since = -1

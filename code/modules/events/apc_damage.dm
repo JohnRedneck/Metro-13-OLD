@@ -33,6 +33,11 @@
 	for(var/obj/machinery/power/apc/apc in range(epicentre,apcSelectionRange))
 		if(is_valid_apc(apc))
 			apcs += apc
+			// Greatly increase the chance for APCs in maintenance areas to be selected
+			var/area/A = get_area(apc)
+			if(istype(A,/area/maintenance))
+				apcs += apc
+				apcs += apc
 
 	if(!apcs.len)
 		return

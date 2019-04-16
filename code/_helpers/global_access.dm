@@ -243,6 +243,8 @@
 			return global.appearance_manager;
 		if("area_repository")
 			return global.area_repository;
+		if("artefact_feedback")
+			return global.artefact_feedback;
 		if("ascii_esc")
 			return global.ascii_esc;
 		if("ascii_green")
@@ -289,6 +291,8 @@
 			return global.camera_repository;
 		if("cameranet")
 			return global.cameranet;
+		if("can_call_ert")
+			return global.can_call_ert;
 		if("captain_announcement")
 			return global.captain_announcement;
 		if("changelog_hash")
@@ -385,6 +389,8 @@
 			return global.endgame_exits;
 		if("endgame_safespawns")
 			return global.endgame_safespawns;
+		if("ert_base_chance")
+			return global.ert_base_chance;
 		if("escape_pods")
 			return global.escape_pods;
 		if("escape_pods_by_name")
@@ -737,6 +743,8 @@
 			return global.same_wires;
 		if("secret_force_mode")
 			return global.secret_force_mode;
+		if("send_emergency_team")
+			return global.send_emergency_team;
 		if("sent_spiders_to_station")
 			return global.sent_spiders_to_station;
 		if("server_name")
@@ -767,6 +775,8 @@
 			return global.spacevines_spawned;
 		if("sparring_attack_cache")
 			return global.sparring_attack_cache;
+		if("spells")
+			return global.spells;
 		if("splatter_cache")
 			return global.splatter_cache;
 		if("sqladdress")
@@ -933,7 +943,7 @@
 			return global.z_levels;
 		if("zone_blocked")
 			return global.zone_blocked;
-
+		
 /proc/writeglobal(which, newval)
 	switch(which)
 		if("ALL_ANTIGENS")
@@ -1178,6 +1188,8 @@
 			global.appearance_manager=newval;
 		if("area_repository")
 			global.area_repository=newval;
+		if("artefact_feedback")
+			global.artefact_feedback=newval;
 		if("ascii_esc")
 			global.ascii_esc=newval;
 		if("ascii_green")
@@ -1224,6 +1236,8 @@
 			global.camera_repository=newval;
 		if("cameranet")
 			global.cameranet=newval;
+		if("can_call_ert")
+			global.can_call_ert=newval;
 		if("captain_announcement")
 			global.captain_announcement=newval;
 		if("changelog_hash")
@@ -1320,6 +1334,8 @@
 			global.endgame_exits=newval;
 		if("endgame_safespawns")
 			global.endgame_safespawns=newval;
+		if("ert_base_chance")
+			global.ert_base_chance=newval;
 		if("escape_pods")
 			global.escape_pods=newval;
 		if("escape_pods_by_name")
@@ -1672,6 +1688,8 @@
 			global.same_wires=newval;
 		if("secret_force_mode")
 			global.secret_force_mode=newval;
+		if("send_emergency_team")
+			global.send_emergency_team=newval;
 		if("sent_spiders_to_station")
 			global.sent_spiders_to_station=newval;
 		if("server_name")
@@ -1702,6 +1720,8 @@
 			global.spacevines_spawned=newval;
 		if("sparring_attack_cache")
 			global.sparring_attack_cache=newval;
+		if("spells")
+			global.spells=newval;
 		if("splatter_cache")
 			global.splatter_cache=newval;
 		if("sqladdress")
@@ -1868,7 +1888,7 @@
 			global.z_levels=newval;
 		if("zone_blocked")
 			global.zone_blocked=newval;
-
+		
 /var/list/_all_globals=list(
 	"ALL_ANTIGENS",
 	"ANTAG_FREQS",
@@ -1991,6 +2011,7 @@
 	"antag_add_finished",
 	"appearance_manager",
 	"area_repository",
+	"artefact_feedback",
 	"ascii_esc",
 	"ascii_green",
 	"ascii_red",
@@ -2014,6 +2035,7 @@
 	"camera_range_display_status",
 	"camera_repository",
 	"cameranet",
+	"can_call_ert",
 	"captain_announcement",
 	"changelog_hash",
 	"channel_color_presets",
@@ -2062,6 +2084,7 @@
 	"empty_playable_ai_cores",
 	"endgame_exits",
 	"endgame_safespawns",
+	"ert_base_chance",
 	"escape_pods",
 	"escape_pods_by_name",
 	"evacuation_controller",
@@ -2238,6 +2261,7 @@
 	"rune_list",
 	"same_wires",
 	"secret_force_mode",
+	"send_emergency_team",
 	"sent_spiders_to_station",
 	"server_name",
 	"severity_to_string",
@@ -2253,6 +2277,7 @@
 	"sounds_cache",
 	"spacevines_spawned",
 	"sparring_attack_cache",
+	"spells",
 	"splatter_cache",
 	"sqladdress",
 	"sqldb",

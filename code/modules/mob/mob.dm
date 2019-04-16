@@ -16,6 +16,8 @@
 			if(!istype(screenobj) || !screenobj.globalscreen)
 				qdel(screenobj)
 		client.screen = list()
+	if(mind && mind.current == src)
+		spellremove(src)
 	ghostize()
 	..()
 	return QDEL_HINT_HARDDEL
@@ -855,7 +857,7 @@
 
 /mob/living/carbon/human/remove_implant(var/obj/item/implant, var/surgical_removal = FALSE, var/obj/item/organ/external/affected)
 	if(!affected) //Grab the organ holding the implant.
-		for(var/obj/item/organ/external/organ in organs)
+		for(var/obj/item/organ/external/organ in organs) 
 			for(var/obj/item/O in organ.implants)
 				if(O == implant)
 					affected = organ
