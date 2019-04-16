@@ -60,6 +60,20 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /*-----------------------------------------------------------------------------*/
 
 /////////
+//METRO//
+/////////
+
+/area/unowned/metrotunnels
+	name = "\improper The Metro Tunnels"
+	icon_state = "metrotunnels"
+	ambience = list('')
+
+/area/natural/caves
+	name = "\improper Caves"
+	icon_state = "caves"
+	ambience = list('')
+
+/////////
 //SPACE//
 /////////
 
@@ -77,127 +91,32 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	ambience = list('sound/ambience/ambispace.ogg','sound/music/title2.ogg','sound/music/space.ogg','sound/music/main.ogg','sound/music/traitor.ogg')
 	secure = FALSE
 
-area/space/atmosalert()
-	return
-
-/area/space/fire_alert()
-	return
-
-/area/space/fire_reset()
-	return
-
-/area/space/readyalert()
-	return
-
-/area/space/partyalert()
-	return
-
 //////////////////////
 //AREAS USED BY CODE//
 //////////////////////
+
 /area/centcom
 	name = "\improper Centcom"
-	icon_state = "centcom"
+	icon_state = "unknown"
 	requires_power = 0
 	dynamic_lighting = 0
-	req_access = list(access_cent_general)
 
 /area/centcom/holding
 	name = "\improper Holding Facility"
 
-/area/chapel
-	name = "\improper Chapel"
-	icon_state = "chapel"
-
 /area/centcom/specops
 	name = "\improper Centcom Special Ops"
-	req_access = list(access_cent_specops)
 
 /area/hallway
 	name = "hallway"
 
-/area/medical
-	req_access = list(access_medical)
-
-/area/medical/virology
-	name = "\improper Virology"
-	icon_state = "virology"
-	req_access = list(access_virology)
-
-/area/medical/virologyaccess
-	name = "\improper Virology Access"
-	icon_state = "virology"
-	req_access = list() // This is like the lobby, needs low access to allow passing through in a different direction.
-
-/area/security
-	req_access = list(access_sec_doors)
-
-/area/security/brig
-	name = "\improper Security - Brig"
-	icon_state = "brig"
-	req_access = list(access_brig)
-
-/area/security/prison
-	name = "\improper Security - Prison Wing"
-	icon_state = "sec_prison"
-	req_access = list(access_brig)
-
-/area/maintenance
-	area_flags = AREA_FLAG_RAD_SHIELDED
-	sound_env = TUNNEL_ENCLOSED
-	turf_initializer = /decl/turf_initializer/maintenance
-	forced_ambience = list('sound/ambience/maintambience.ogg')
-	req_access = list(access_maint_tunnels)
-
-/area/rnd
-	req_access = list(access_research)
-
-/area/rnd/xenobiology
-	name = "\improper Xenobiology Lab"
-	icon_state = "xeno_lab"
-	req_access = list(access_xenobiology, access_research)
-
-/area/rnd/xenobiology/xenoflora
-	name = "\improper Xenoflora Lab"
-	icon_state = "xeno_f_lab"
-
-/area/rnd/xenobiology/xenoflora_storage
-	name = "\improper Xenoflora Storage"
-	icon_state = "xeno_f_store"
-
 /area/shuttle/escape/centcom
 	name = "\improper Emergency Shuttle Centcom"
-	icon_state = "shuttle"
-	req_access = list(access_cent_general)
-
-/area/shuttle/specops/centcom
-	icon_state = "shuttlered"
-	req_access = list(access_cent_specops)
-	area_flags = AREA_FLAG_RAD_SHIELDED | AREA_FLAG_ION_SHIELDED
-
-/area/shuttle/syndicate_elite/mothership
-	icon_state = "shuttlered"
-	req_access = list(access_syndicate)
-
-/area/shuttle/syndicate_elite/station
-	icon_state = "shuttlered2"
-	req_access = list(access_syndicate)
-
-/area/skipjack_station/start
-	name = "\improper Skipjack"
-	icon_state = "yellow"
-	req_access = list(access_syndicate)
-	area_flags = AREA_FLAG_RAD_SHIELDED | AREA_FLAG_ION_SHIELDED
+	icon_state = "unknown"
 
 /area/supply
 	name = "Supply Shuttle"
-	icon_state = "shuttle3"
-	req_access = list(access_cargo)
-
-/area/syndicate_mothership/elite_squad
-	name = "\improper Elite Mercenary Squad"
-	icon_state = "syndie-elite"
-	req_access = list(access_syndicate)
+	icon_state = "unknown"
 
 ////////////
 //SHUTTLES//
@@ -209,68 +128,3 @@ area/space/atmosalert()
 	requires_power = 0
 	sound_env = SMALL_ENCLOSED
 	base_turf = /turf/space
-
-/*
-* Special Areas
-*/
-/area/wizard_station
-	name = "\improper Wizard's Den"
-	icon_state = "yellow"
-	requires_power = 0
-	dynamic_lighting = 0
-	req_access = list(access_syndicate)
-
-/area/beach
-	name = "Keelin's private beach"
-	icon_state = "null"
-	luminosity = 1
-	dynamic_lighting = 0
-	requires_power = 0
-	var/sound/mysound = null
-
-/area/beach/New()
-	..()
-	var/sound/S = new/sound()
-	mysound = S
-	S.file = 'sound/ambience/shore.ogg'
-	S.repeat = 1
-	S.wait = 0
-	S.channel = GLOB.sound_channels.RequestChannel(/area/beach)
-	S.volume = 100
-	S.priority = 255
-	S.status = SOUND_UPDATE
-	process()
-
-/area/beach/Entered(atom/movable/Obj,atom/OldLoc)
-	if(ismob(Obj))
-		var/mob/M = Obj
-		if(M.client)
-			mysound.status = SOUND_UPDATE
-			sound_to(M, mysound)
-
-/area/beach/Exited(atom/movable/Obj)
-	. = ..()
-	if(ismob(Obj))
-		var/mob/M = Obj
-		if(M.client)
-			mysound.status = SOUND_PAUSED | SOUND_UPDATE
-			sound_to(M, mysound)
-
-/area/beach/proc/process()
-	set background = 1
-
-	var/sound/S = null
-	var/sound_delay = 0
-	if(prob(25))
-		S = sound(file=pick('sound/ambience/seag1.ogg','sound/ambience/seag2.ogg','sound/ambience/seag3.ogg'), volume=100)
-		sound_delay = rand(0, 50)
-
-	for(var/mob/living/carbon/human/H in src)
-		if(H.client)
-			mysound.status = SOUND_UPDATE
-			to_chat(H, mysound)
-			if(S)
-				spawn(sound_delay)
-					sound_to(H, S)
-
-	spawn(60) .()
