@@ -12,10 +12,10 @@ SUBSYSTEM_DEF(mapping)
 
 /datum/controller/subsystem/mapping/Initialize(timeofday)
 	// Load templates and build away sites.
-	preloadTemplates()
+	//preloadTemplates()
 	for(var/atype in subtypesof(/decl/submap_archetype))
 		submap_archetypes[atype] = new atype
-	GLOB.using_map.build_away_sites()
+	//GLOB.using_map.build_away_sites()
 	. = ..()
 
 /datum/controller/subsystem/mapping/Recover()
@@ -30,8 +30,10 @@ SUBSYSTEM_DEF(mapping)
 	for(var/map in filelist)
 		var/datum/map_template/T = new(path = "[path][map]", rename = "[map]")
 		map_templates[T.name] = T
-	preloadBlacklistableTemplates()
+	//preloadBlacklistableTemplates()
 
+
+/* This was throwing some errors and I don't believe we'll need it
 /datum/controller/subsystem/mapping/proc/preloadBlacklistableTemplates()
 	// Still supporting bans by filename
 	var/list/banned_exoplanet_dmms = generateMapList("config/exoplanet_ruin_blacklist.txt")
@@ -66,3 +68,5 @@ SUBSYSTEM_DEF(mapping)
 			space_ruins_templates[R.name] = R
 		else if(istype(R, /datum/map_template/ruin/away_site))
 			away_sites_templates[R.name] = R
+
+*/

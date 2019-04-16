@@ -1,3 +1,4 @@
+#define using_map_DATUM /datum/map/metro
 GLOBAL_DATUM_INIT(using_map, /datum/map, new using_map_DATUM)
 GLOBAL_LIST_EMPTY(all_maps)
 
@@ -231,6 +232,8 @@ var/const/MAP_HAS_RANK = 2		//Rank system, also togglable
 /datum/map/proc/perform_map_generation()
 	return
 
+
+/* This was throwing errors and we're not going to be using it right now
 /datum/map/proc/build_away_sites()
 #ifdef UNIT_TEST
 	report_progress("Unit testing, so not loading away sites")
@@ -282,6 +285,8 @@ var/const/MAP_HAS_RANK = 2		//Rank system, also togglable
 		var/turf/simulated/floor/asteroid/M = thing
 		if(istype(M))
 			M.updateMineralOverlays()
+
+*/
 
 /datum/map/proc/get_network_access(var/network)
 	return 0
