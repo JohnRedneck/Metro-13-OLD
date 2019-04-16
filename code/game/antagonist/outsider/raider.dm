@@ -187,9 +187,6 @@ GLOBAL_DATUM_INIT(raiders, /datum/antagonist/raider, new)
 	if(!current_antagonists || current_antagonists.len == 0)
 		return 0
 
-	for(var/datum/mind/player in current_antagonists)
-		if(!player.current || get_area(player.current) != locate(/area/skipjack_station/start))
-			return 0
 	return 1
 
 /datum/antagonist/raider/equip(var/mob/living/carbon/human/player)
