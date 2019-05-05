@@ -14,10 +14,10 @@
 	var/copies = 1	//how many copies to print!
 	var/toner = 30 //how much toner is left! woooooo~
 	var/maxcopies = 10	//how many copies can be copied at once- idea shamelessly stolen from bs12's copier!
-
+/*
 /obj/machinery/photocopier/attack_ai(mob/user as mob)
 	return attack_hand(user)
-
+*/
 /obj/machinery/photocopier/attack_hand(mob/user as mob)
 	user.set_machine(src)
 
@@ -77,13 +77,14 @@
 		if(copies < maxcopies)
 			copies++
 			updateUsrDialog()
+	/*
 	else if(href_list["aipic"])
 		if(!istype(usr,/mob/living/silicon)) return
 		if(stat & (BROKEN|NOPOWER)) return
 
 		if(toner >= 5)
-			var/mob/living/silicon/tempAI = usr
-			var/obj/item/device/camera/siliconcam/camera = tempAI.silicon_camera
+			//var/mob/living/silicon/tempAI = usr
+			//var/obj/item/device/camera/siliconcam/camera = tempAI.silicon_camera
 
 			if(!camera)
 				return
@@ -92,14 +93,16 @@
 				return
 
 			var/obj/item/weapon/photo/p = photocopy(selection)
+			/*
 			if (p.desc == "")
 				p.desc += "Copied by [tempAI.name]"
 			else
 				p.desc += " - Copied by [tempAI.name]"
+			*/
 			toner -= 5
 			sleep(15)
 		updateUsrDialog()
-
+	*/
 /obj/machinery/photocopier/attackby(obj/item/O as obj, mob/user as mob)
 	if(istype(O, /obj/item/weapon/paper) || istype(O, /obj/item/weapon/photo) || istype(O, /obj/item/weapon/paper_bundle))
 		if(!copyitem)

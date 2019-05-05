@@ -52,6 +52,6 @@
 	if(chambered)
 		qdel(chambered)
 		chambered = null
-		return new /obj/item/weapon/energy_net/safari(src)
+		//return new /obj/item/weapon/energy_net/safari(src)
 
 	return null

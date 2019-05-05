@@ -19,8 +19,10 @@
 		return UI_INTERACTIVE
 	return UI_CLOSE
 
+/*
 /mob/living/silicon/robot/hands_can_use_topic(src_object)
 	for(var/obj/item/weapon/gripper/active_gripper in list(module_state_1, module_state_2, module_state_3))
 		if(active_gripper.contains(src_object))
 			return UI_INTERACTIVE
 	return UI_CLOSE
+*/

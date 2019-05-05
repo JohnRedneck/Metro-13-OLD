@@ -12,17 +12,13 @@
 	S.add_to_stacks(user, 1)
 	return S
 
-// Tiles 
+// Tiles
 /datum/stack_recipe/tile
 	res_amount = 4
 	max_res_amount = 20
 	time = 5
 	difficulty = 1
 	apply_material_name = FALSE
-
-/datum/stack_recipe/tile/nullglass
-	title = "nullglass floor tile"
-	result_type = /obj/item/stack/tile/floor_nullglass
 
 /datum/stack_recipe/tile/spawn_result(user, location, amount)
 	var/obj/item/stack/S = ..()

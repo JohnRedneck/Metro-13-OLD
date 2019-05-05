@@ -25,9 +25,9 @@
 		/obj/structure/closet,
 		/obj/structure/hygiene/sink,
 		/obj/item/weapon/storage,
-		/obj/machinery/atmospherics/unary/cryo_cell,
+		// /obj/machinery/atmospherics/unary/cryo_cell,
 		/obj/item/weapon/grenade/chem_grenade,
-		/mob/living/bot/medbot,
+		// /mob/living/bot/medbot,
 		/obj/item/weapon/storage/secure/safe,
 		/obj/structure/iv_drip,
 		/obj/machinery/disease2/incubator,
@@ -35,11 +35,11 @@
 		/mob/living/simple_animal/cow,
 		/mob/living/simple_animal/hostile/retaliate/goat,
 		/obj/machinery/computer/centrifuge,
-		/obj/machinery/sleeper,
+		// /obj/machinery/sleeper,
 		/obj/machinery/smartfridge/,
-		/obj/machinery/biogenerator,
+		// /obj/machinery/biogenerator,
 		/obj/machinery/constructable_frame,
-		/obj/machinery/radiocarbon_spectrometer
+		// /obj/machinery/radiocarbon_spectrometer
 	)
 
 /obj/item/weapon/reagent_containers/glass/New()
@@ -263,7 +263,7 @@
 	if(isprox(D))
 		to_chat(user, "You add [D] to [src].")
 		qdel(D)
-		user.put_in_hands(new /obj/item/weapon/bucket_sensor)
+		//user.put_in_hands(new /obj/item/weapon/bucket_sensor)
 		qdel(src)
 		return
 	else if(istype(D, /obj/item/weapon/mop))

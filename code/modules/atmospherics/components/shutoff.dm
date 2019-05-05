@@ -24,10 +24,10 @@
 /obj/machinery/atmospherics/valve/shutoff/attack_hand(var/mob/user as mob)
 	close_on_leaks = !close_on_leaks
 	to_chat(user, "You [close_on_leaks ? "enable" : "disable"] the automatic shutoff circuit.")
-
+/*
 /obj/machinery/atmospherics/valve/shutoff/attack_ai(var/mob/user as mob)
 	attack_hand(user)
-
+*/
 /obj/machinery/atmospherics/valve/shutoff/hide(var/do_hide)
 	if(do_hide)
 		if(level == 1)

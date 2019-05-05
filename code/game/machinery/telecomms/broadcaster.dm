@@ -18,8 +18,10 @@ var/message_delay = 0 // To make sure restarting the recentmessages list is kept
 	density = 1
 	anchored = 1
 	idle_power_usage = 25
+	/*
 	machinetype = 5
 	produces_heat = 0
+	*/
 	delay = 7
 	circuitboard = /obj/item/weapon/circuitboard/telecomms/broadcaster
 	outage_probability = 10
@@ -126,7 +128,7 @@ var/message_delay = 0 // To make sure restarting the recentmessages list is kept
 	var/channel_color
 	var/channel_name
 	var/intercept = 0 // if nonzero, broadcasts all messages to syndicate channel
-	
+
 /obj/machinery/telecomms/allinone/Initialize()
 	if(!listening_freqs)
 		listening_freqs = ANTAG_FREQS	//Covers any updates to ANTAG_FREQS

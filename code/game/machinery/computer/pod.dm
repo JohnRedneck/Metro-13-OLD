@@ -107,10 +107,10 @@
 	return
 */
 
-
+/*
 /obj/machinery/computer/pod/attack_ai(var/mob/user as mob)
 	return attack_hand(user)
-
+*/
 /obj/machinery/computer/pod/attack_hand(var/mob/user as mob)
 	if(..())
 		return
@@ -164,12 +164,14 @@
 	else if(href_list["alarm"])
 		alarm()
 		. = TOPIC_REFRESH
+	/*
 	else if(href_list["drive"])
 		for(var/obj/machinery/mass_driver/M in SSmachines.machinery)
 			if(M.id == id)
 				M.power = connected.power
 				M.drive()
 		. = TOPIC_REFRESH
+	*/
 	else if(href_list["time"])
 		timing = text2num(href_list["time"])
 		. = TOPIC_REFRESH

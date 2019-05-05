@@ -61,7 +61,7 @@ meteor_act
 			def_zone = zone
 			. += .() * organ_rel_size/tally
 		return
-	return ..()		
+	return ..()
 
 /mob/living/carbon/human/get_armors_by_zone(obj/item/organ/external/def_zone, damage_type, damage_flags)
 	. = ..()
@@ -120,10 +120,12 @@ meteor_act
 /mob/living/carbon/human/proc/check_shields(var/damage = 0, var/atom/damage_source = null, var/mob/attacker = null, var/def_zone = null, var/attack_text = "the attack")
 
 	var/obj/item/projectile/P = damage_source
+	/*
 	if(istype(P) && !P.disrupts_psionics() && psi && P.starting && prob(psi.get_armour(get_armor_key(P.damage_type, P.damage_flags())) * 0.5) && psi.spend_power(round(damage/10)))
 		visible_message("<span class='danger'>\The [src] deflects [attack_text]!</span>")
 		P.redirect(P.starting.x + rand(-2,2), P.starting.y + rand(-2,2), get_turf(src), src)
 		return PROJECTILE_FORCE_MISS
+	*/
 
 	for(var/obj/item/shield in list(l_hand, r_hand, wear_suit))
 		if(!shield) continue

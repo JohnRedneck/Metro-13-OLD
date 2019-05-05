@@ -213,10 +213,10 @@
 
 /obj/item/weapon/reagent_containers/spray/plantbgone/afterattack(atom/A as mob|obj, mob/user as mob, proximity)
 	if(!proximity) return
-
+	/*
 	if(istype(A, /obj/effect/blob)) // blob damage in blob code
 		return
-
+	*/
 	..()
 
 /obj/item/weapon/reagent_containers/spray/cleaner/deodorant

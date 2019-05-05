@@ -29,14 +29,14 @@
 	return 1
 
 /mob/living/carbon/brain/can_use_rig()
-	return istype(loc, /obj/item/device/mmi)
-
+	return 0//istype(loc, /obj/item/device/mmi)
+/*
 /mob/living/silicon/ai/can_use_rig()
 	return carded
 
 /mob/living/silicon/pai/can_use_rig()
 	return loc == card
-
+*/
 /mob/living/proc/HardsuitClickOn(var/atom/A, var/alert_ai = 0)
 	if(!can_use_rig() || !canClick())
 		return 0

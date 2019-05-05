@@ -66,10 +66,12 @@
 	overlays += detail_overlay
 
 /obj/item/weapon/card/data/attackby(obj/item/I, mob/living/user)
+	/*
 	if(istype(I, /obj/item/device/integrated_electronics/detailer))
 		var/obj/item/device/integrated_electronics/detailer/D = I
 		detail_color = D.detail_color
 		update_icon()
+	*/
 	return ..()
 
 /obj/item/weapon/card/data/clown
@@ -375,7 +377,7 @@ var/const/NO_EMAG_ACT = -50
 /obj/item/weapon/card/id/centcom/ERT/New()
 	..()
 	access |= get_all_station_access()
-
+/*
 /obj/item/weapon/card/id/foundation
 	name = "\improper Foundation warrant card"
 	desc = "A warrant card in a handsome leather case."
@@ -408,7 +410,7 @@ var/const/NO_EMAG_ACT = -50
 /obj/item/weapon/card/id/foundation/New()
 	..()
 	access |= get_all_station_access()
-
+*/
 /obj/item/weapon/card/id/all_access
 	name = "\improper Administrator's spare ID"
 	desc = "The spare ID of the Lord of Lords himself."

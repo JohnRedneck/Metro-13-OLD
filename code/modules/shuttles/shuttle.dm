@@ -54,8 +54,8 @@
 	if(src.name in SSshuttle.shuttles)
 		CRASH("A shuttle with the name '[name]' is already defined.")
 	SSshuttle.shuttles[src.name] = src
-	if(logging_home_tag)
-		new /datum/shuttle_log(src)
+	//if(logging_home_tag)
+	//	new /datum/shuttle_log(src)
 	if(flags & SHUTTLE_FLAGS_PROCESS)
 		SSshuttle.process_shuttles += src
 	if(flags & SHUTTLE_FLAGS_SUPPLY)

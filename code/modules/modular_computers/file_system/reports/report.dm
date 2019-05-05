@@ -22,7 +22,7 @@
 /*
 Access stuff. The report's access/access_edit should control whether it can be opened/submitted.
 For field editing or viewing, use the field's access/access_edit permission instead.
-The access system is based on "access patterns", lists of access values. 
+The access system is based on "access patterns", lists of access values.
 A user needs all access values in a pattern to be granted access.
 A user needs to only match one of the potentially several stored access patterns to be granted access.
 You must have access to have edit access.
@@ -166,7 +166,7 @@ no_html will strip any html, possibly killing useful formatting in the process.
 //recipient reports have a designated recipients field, for recieving submitted reports.
 /datum/computer_file/report/recipient
 	var/datum/report_field/people/list_from_manifest/recipients
-
+/*
 /datum/computer_file/report/recipient/Destroy()
 	recipients = null
 	return ..()
@@ -177,3 +177,4 @@ no_html will strip any html, possibly killing useful formatting in the process.
 /datum/computer_file/report/recipient/submit(mob/user)
 	if((. = ..()))
 		recipients.send_email(user)
+*/

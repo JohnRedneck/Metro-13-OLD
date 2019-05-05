@@ -70,10 +70,10 @@
 			to_chat(user, "<span class='warning'>There is already ID card inside.</span>")
 		return
 	..()
-
+/*
 /obj/machinery/computer/guestpass/attack_ai(var/mob/user as mob)
 	return attack_hand(user)
-
+*/
 /obj/machinery/computer/guestpass/attack_hand(var/mob/user as mob)
 	if(..())
 		return

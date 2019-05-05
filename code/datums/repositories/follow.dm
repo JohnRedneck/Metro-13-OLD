@@ -143,6 +143,7 @@
 	followed_type = /mob/observer/eye
 	suffix = "Eye"
 
+/*
 /datum/follow_holder/ai
 	sort_order = 1
 	followed_type = /mob/living/silicon/ai
@@ -164,6 +165,7 @@
 /datum/follow_holder/robot/get_suffix(var/mob/living/silicon/robot/R)
 	suffix = "\[[R.braintype]\][R.module ? " \[[R.module.name]\]" : ""]"
 	return ..()
+*/
 
 /datum/follow_holder/human
 	sort_order = 2
@@ -205,17 +207,17 @@
 /datum/follow_holder/spiderling/show_entry()
 	var/obj/effect/spider/spiderling/S = followed_instance
 	return ..() && S.amount_grown > 0
-
+/*
 /datum/follow_holder/bot
 	sort_order = 7
 	followed_type = /mob/living/bot
 	suffix = "Bot"
-
+*/
 /datum/follow_holder/mob
 	sort_order = 7
 	followed_type = /mob/living // List all other (living) mobs we haven't given a special suffix
 	suffix = "Mob"
-
+/*
 /datum/follow_holder/mech
 	sort_order = 8
 	followed_type = /obj/mecha
@@ -237,6 +239,7 @@
 /datum/follow_holder/singularity
 	sort_order = 10
 	followed_type = /obj/singularity
+*/
 
 /datum/follow_holder/nuke_disc
 	sort_order = 11
@@ -245,11 +248,11 @@
 /datum/follow_holder/nuclear_bomb
 	sort_order = 12
 	followed_type = /obj/machinery/nuclearbomb
-
+/*
 /datum/follow_holder/captains_spare
 	sort_order = 13
 	followed_type = /obj/item/weapon/card/id/captains_spare
-
+*/
 /datum/follow_holder/stack
 	sort_order = 14
 	followed_type = /obj/item/organ/internal/stack

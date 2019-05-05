@@ -114,7 +114,7 @@
 
 /turf/simulated/wall/voxshuttle/New(var/newloc)
 	..(newloc, MATERIAL_VOX)
-	
+
 /turf/simulated/wall/voxshuttle/attackby()
 	return
 
@@ -144,7 +144,7 @@
 	..(newloc, 1)
 
 /turf/simulated/wall/cult/dismantle_wall()
-	GLOB.cult.remove_cultiness(CULTINESS_PER_TURF)
+	//GLOB.cult.remove_cultiness(CULTINESS_PER_TURF)
 	..()
 
 /turf/simulated/wall/cult/can_join_with(var/turf/simulated/wall/W)

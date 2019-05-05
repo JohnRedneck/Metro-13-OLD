@@ -77,7 +77,7 @@
 		if (world.byond_version < 511)
 			version_message += "\nThis server does not currently support client side fps. You can set now for when it does."
 		var/new_fps = input(user, "Choose your desired fps.[version_message]\n(0 = synced with server tick rate (currently:[world.fps]))", "Global Preference") as num|null
-		if (isnum(new_fps) && CanUseTopic(user))
+		if (isnum(new_fps) /*&& CanUseTopic(user)*/)
 			pref.clientfps = Clamp(new_fps, CLIENT_MIN_FPS, CLIENT_MAX_FPS)
 
 			var/mob/target_mob = preference_mob()

@@ -88,6 +88,7 @@
 	..()
 
 // The following mirror is ~special~.
+/*
 /obj/item/weapon/storage/mirror/raider
 	name = "cracked mirror"
 	desc = "Something seems strange about this old, dirty mirror. Your reflection doesn't look like you remember it."
@@ -113,6 +114,7 @@
 					vox.SetName(vox.real_name)
 					GLOB.raiders.update_access(vox)
 				qdel(user)
+*/
 
 /obj/item/weapon/mirror
 	name = "mirror"

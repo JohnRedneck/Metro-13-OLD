@@ -21,7 +21,7 @@
 
 /datum/goal/clean/walk/get_summary_value()
 	return " ([cleaned]/[need_cleaned]so far)"
-
+/*
 /datum/goal/money
 	var/target_amount
 
@@ -40,7 +40,7 @@
 		if(acct.owner_name == mind.current.real_name)
 			return acct.get_balance() > target_amount
 	return FALSE
-
+*/
 /datum/goal/sickness
 	description = "Don't get sick! Avoid catching any viruses during the shift."
 	var/got_sick

@@ -331,7 +331,7 @@ datum/unit_test/ladder_check/start_test()
 	return 1
 
 //=======================================================================================
-
+/*
 /datum/unit_test/cryopod_comp_check
 	name = "MAP: Cryopod Validity Check"
 
@@ -354,7 +354,7 @@ datum/unit_test/ladder_check/start_test()
 		fail("Cryopods were not set up correctly.")
 
 	return 1
-
+*/
 //=======================================================================================
 
 /datum/unit_test/camera_nil_c_tag_check
@@ -764,7 +764,7 @@ datum/unit_test/ladder_check/start_test()
 							objs_with_numeric_req_access |= O
 				else if(isnum(req))
 					objs_with_numeric_req_access |= O
-			
+
 	if(objs_with_numeric_req_access.len)
 		for(var/entry in objs_with_numeric_req_access)
 			log_bad("[log_info_line(entry)] has a numeric value in req_access.")

@@ -164,10 +164,10 @@
 		network_node3.update = 1
 
 	return 1
-
+/*
 /obj/machinery/atmospherics/tvalve/attack_ai(mob/user as mob)
 	return
-
+*/
 /obj/machinery/atmospherics/tvalve/attack_hand(mob/user as mob)
 	src.add_fingerprint(usr)
 	update_icon(1)
@@ -214,7 +214,7 @@
 	update_underlays()
 
 /obj/machinery/atmospherics/tvalve/build_network()
-	if(!network_node1 && node1)				
+	if(!network_node1 && node1)
 		network_node1 = new /datum/pipe_network()
 		network_node1.normal_members += src
 		network_node1.build_network(node1, src)

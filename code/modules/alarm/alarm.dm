@@ -141,6 +141,7 @@ area/get_alarm_z()
 /area/get_alarm_cameras()
 	return get_cameras()
 
+/*
 /mob/living/silicon/robot/get_alarm_cameras()
 	var/list/cameras = ..()
 	if(camera)
@@ -150,5 +151,6 @@ area/get_alarm_z()
 
 /mob/living/silicon/robot/syndicate/get_alarm_cameras()
 	return list()
+*/
 
 #undef ALARM_RESET_DELAY

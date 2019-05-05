@@ -25,8 +25,10 @@
 	default_language = language
 
 // Silicons can't neccessarily speak everything in their languages list
+/*
 /mob/living/silicon/set_default_language(language as null|anything in speech_synthesizer_langs)
 	..()
+*/
 
 /mob/living/verb/check_default_language()
 	set name = "Check Default Language"

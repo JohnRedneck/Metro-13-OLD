@@ -53,7 +53,7 @@
 	)
 
 	blend_objects = list(/obj/machinery/door/firedoor, /obj/structure/wall_frame, /turf/unsimulated/wall, /obj/structure/window) // Objects which to blend with
-	
+
 /obj/machinery/door/firedoor/autoset
 	autoset_access = TRUE	//subtype just to make mapping away sites with custom access usage
 	req_access = list()
@@ -124,6 +124,7 @@
 		return
 	if(!density)
 		return ..()
+	/*
 	if(istype(AM, /obj/mecha))
 		var/obj/mecha/mecha = AM
 		if(mecha.occupant)
@@ -131,6 +132,7 @@
 			if(world.time - M.last_bumped <= 10) return //Can bump-open one airlock per second. This is to prevent popup message spam.
 			M.last_bumped = world.time
 			attack_hand(M)
+	*/
 	return 0
 
 /obj/machinery/door/firedoor/attack_hand(mob/user as mob)

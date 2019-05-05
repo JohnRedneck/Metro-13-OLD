@@ -749,6 +749,7 @@ var/list/obj/machinery/newscaster/allCasters = list() //Global list that will co
 			return
 		var/obj/item/photo = user.get_active_hand()
 		photo_data = new(photo, 0)
+	/*
 	else if(istype(user,/mob/living/silicon))
 		var/mob/living/silicon/tempAI = user
 		var/obj/item/weapon/photo/selection = tempAI.GetPicture()
@@ -756,7 +757,7 @@ var/list/obj/machinery/newscaster/allCasters = list() //Global list that will co
 			return
 
 		photo_data = new(selection, 1)
-
+	*/
 
 //########################################################################################################################
 //###################################### NEWSPAPER! ######################################################################

@@ -45,7 +45,7 @@
 	tank_type = /obj/item/weapon/tank/oxygen
 	mask_type = /obj/item/clothing/mask/breath
 	req_access = list(access_eva)
-
+/*
 /obj/machinery/suit_storage_unit/atmos
 	name = "Atmospherics Voidsuit Storage Unit"
 	suit_type = /obj/item/clothing/suit/space/void/atmos
@@ -144,7 +144,7 @@
 	mask_type = /obj/item/clothing/mask/breath
 	req_access = list(access_syndicate)
 	islocked = 1
-
+*/
 
 
 /obj/machinery/suit_storage_unit/Initialize()
@@ -429,15 +429,15 @@
 		if(occupant)
 			occupant.apply_damage(50, IRRADIATE, damage_flags = DAM_DISPERSED)
 			var/obj/item/organ/internal/diona/nutrients/rad_organ = locate() in occupant.internal_organs
-			if (!rad_organ)
-				if (occupant.can_feel_pain())
-					occupant.emote("scream")
-				if(issuperUV)
-					var/burndamage = rand(40,60)
-					occupant.take_organ_damage(0,burndamage)
-				else
-					var/burndamage = rand(10,15)
-					occupant.take_organ_damage(0,burndamage)
+			//if (!rad_organ)
+			if (occupant.can_feel_pain())
+				occupant.emote("scream")
+			if(issuperUV)
+				var/burndamage = rand(40,60)
+				occupant.take_organ_damage(0,burndamage)
+			else
+				var/burndamage = rand(10,15)
+				occupant.take_organ_damage(0,burndamage)
 		if(i==3) //End of the cycle
 			if(!issuperUV)
 				if(helmet )
@@ -618,10 +618,10 @@
 	update_icon()
 	updateUsrDialog()
 #undef TRY_INSERT_SUIT_PIECE
-
+/*
 /obj/machinery/suit_storage_unit/attack_ai(mob/user as mob)
 	return attack_hand(user)
-
+*/
 //////////////////////////////REMINDER: Make it lock once you place some fucker inside.
 
 //God this entire file is fucking awful
@@ -764,10 +764,10 @@
 	req_access = list(access_mining_office)
 	available_modifications = list(/decl/item_modifier/space_suit/pilot)
 	species = list(SPECIES_HUMAN,SPECIES_SKRELL,SPECIES_UNATHI)
-
+/*
 /obj/machinery/suit_cycler/attack_ai(mob/user as mob)
 	return attack_hand(user)
-
+*/
 /obj/machinery/suit_cycler/attackby(obj/item/I as obj, mob/user as mob)
 
 	if(electrified != 0)

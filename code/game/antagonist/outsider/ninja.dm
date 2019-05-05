@@ -117,9 +117,10 @@ GLOBAL_DATUM_INIT(ninjas, /datum/antagonist/ninja, new)
 
 	var/obj/item/modular_computer/pda/syndicate/U = new
 	player.put_in_hands(U)
+	/*
 	var/decl/uplink_source/pda/uplink_source = new
 	uplink_source.setup_uplink_source(player, 0)
-
+	*/
 	spawn(10)
 		if(player.internal)
 			player.internals.icon_state = "internal1"

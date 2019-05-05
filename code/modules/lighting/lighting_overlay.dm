@@ -118,10 +118,10 @@
 // Variety of overrides so the overlays don't get affected by weird things.
 /atom/movable/lighting_overlay/ex_act()
 	return
-
+/*
 /atom/movable/lighting_overlay/singularity_pull()
 	return
-
+*/
 /atom/movable/lighting_overlay/Destroy()
 	total_lighting_overlays--
 	SSlighting.overlay_queue -= src

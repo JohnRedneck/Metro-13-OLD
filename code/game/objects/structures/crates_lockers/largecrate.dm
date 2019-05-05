@@ -32,7 +32,7 @@
 
 /obj/structure/largecrate/mule
 	name = "MULE crate"
-
+/*
 /obj/structure/largecrate/hoverpod
 	name = "\improper Hoverpod assembly crate"
 	desc = "It comes in a box for the fabricator's sake. Where does the wood come from? ... And why is it lighter?"
@@ -48,7 +48,7 @@
 		ME = new /obj/item/mecha_parts/mecha_equipment/tool/passenger
 		ME.attach(H)
 	..()
-
+*/
 /obj/structure/largecrate/animal
 	icon_state = "mulecrate"
 	var/held_count = 1
@@ -59,11 +59,11 @@
 	if(held_type)
 		for(var/i = 1;i<=held_count;i++)
 			new held_type(src)
-
+/*
 /obj/structure/largecrate/animal/mulebot
 	name = "Mulebot crate"
 	held_type = /mob/living/bot/mulebot
-
+*/
 /obj/structure/largecrate/animal/corgi
 	name = "corgi carrier"
 	held_type = /mob/living/simple_animal/corgi

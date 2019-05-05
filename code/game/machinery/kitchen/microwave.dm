@@ -151,11 +151,11 @@
 		to_chat(user, "<span class='warning'>You have no idea what you can cook with this [O].</span>")
 	..()
 	src.updateUsrDialog()
-
+/*
 /obj/machinery/microwave/attack_ai(mob/user as mob)
 	if(istype(user, /mob/living/silicon/robot) && Adjacent(user))
 		attack_hand(user)
-
+*/
 /obj/machinery/microwave/attack_hand(mob/user as mob)
 	user.set_machine(src)
 	interact(user)

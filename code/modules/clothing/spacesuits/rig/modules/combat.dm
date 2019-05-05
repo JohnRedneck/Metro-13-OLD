@@ -196,7 +196,7 @@
 	interface_desc = "A palm-mounted, cell-powered taser."
 	origin_tech = list(TECH_POWER = 5, TECH_COMBAT = 5, TECH_ENGINEERING = 6)
 	gun = /obj/item/weapon/gun/energy/taser/mounted
-
+/*
 /obj/item/rig_module/mounted/plasmacutter
 	name = "mounted plasma cutter"
 	desc = "A knee-mounted plasma cutter. Don't question it."
@@ -264,7 +264,7 @@
 
 	for(var/obj/item/weapon/melee/energy/blade/blade in M.contents)
 		qdel(blade)
-
+*/
 /obj/item/rig_module/fabricator
 
 	name = "matter fabricator"

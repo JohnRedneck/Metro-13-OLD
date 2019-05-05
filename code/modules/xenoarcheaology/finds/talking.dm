@@ -34,9 +34,9 @@
 	else if(findtext(msg," ")==0)
 		return
 	else
-		/*var/l = lentext(msg)
+		var/l = lentext(msg)
 		if(findtext(msg," ",l,l+1)==0)
-			msg+=" "*/
+			msg+=" "
 		seperate = splittext(msg, " ")
 
 	for(var/Xa = 1,Xa<seperate.len,Xa++)

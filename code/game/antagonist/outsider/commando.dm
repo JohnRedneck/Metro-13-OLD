@@ -22,7 +22,7 @@ GLOBAL_DATUM_INIT(commandos, /datum/antagonist/deathsquad/mercenary, new)
 	player.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/syndicate(player), slot_wear_mask)
 	player.equip_to_slot_or_del(new /obj/item/weapon/storage/box(player), slot_in_backpack)
 	player.equip_to_slot_or_del(new /obj/item/ammo_magazine/box/pistol(player), slot_in_backpack)
-	player.equip_to_slot_or_del(new /obj/item/weapon/rig/merc(player), slot_back)
+	//player.equip_to_slot_or_del(new /obj/item/weapon/rig/merc(player), slot_back)
 	player.equip_to_slot_or_del(new /obj/item/weapon/gun/energy/pulse_rifle(player), slot_r_hand)
 	player.equip_to_slot_or_del(new /obj/item/weapon/melee/energy/sword(player), slot_l_hand)
 

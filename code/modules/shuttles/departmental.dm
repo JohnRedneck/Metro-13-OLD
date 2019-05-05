@@ -1,3 +1,4 @@
+/*
 /obj/machinery/computer/shuttle_control/mining
 	name = "mining shuttle control console"
 	shuttle_tag = "Mining"
@@ -12,7 +13,7 @@
 	name = "research shuttle control console"
 	shuttle_tag = "Research"
 	circuit = /obj/item/weapon/circuitboard/research_shuttle
-
+*/
 /obj/machinery/computer/shuttle_control/merchant
 	name = "merchant shuttle control console"
 	icon_keyboard = "power_key"

@@ -51,6 +51,7 @@ SUBSYSTEM_DEF(circuit_components)
 // Store the entries like this so that components can be queued multiple times at once.
 // With immediate set, will generally imitate the order of the call stack if execution happened directly.
 // With immediate off, you go to the bottom of the pile.
+/*
 /datum/controller/subsystem/circuit_components/proc/queue_component(obj/item/integrated_circuit/circuit, immediate = TRUE)
 	if(!can_fire)
 		return
@@ -72,3 +73,4 @@ SUBSYSTEM_DEF(circuit_components)
 				position--
 		else
 			i++
+*/

@@ -318,6 +318,7 @@
 	equip_custom_items(character)
 
 	// AIs don't need a spawnpoint, they must spawn at an empty core
+	/*
 	if(character.mind.assigned_role == "AI")
 
 		character = character.AIize(move=0) // AIize the character, but don't move them yet
@@ -336,19 +337,19 @@
 		qdel(C)
 		qdel(src)
 		return
+	*/
 
 	SSticker.mode.handle_latejoin(character)
 	GLOB.universe.OnPlayerLatejoin(character)
 	spawnpoint.after_join(character)
+
 	if(job.create_record)
-		if(character.mind.assigned_role != "Robot")
-			CreateModularRecord(character)
-			SSticker.minds += character.mind//Cyborgs and AIs handle this in the transform proc.	//TODO!!!!! ~Carn
-			AnnounceArrival(character, job, spawnpoint.msg)
-		else
-			AnnounceCyborg(character, job, spawnpoint.msg)
+		CreateModularRecord(character)
+		SSticker.minds += character.mind//Cyborgs and AIs handle this in the transform proc.	//TODO!!!!! ~Carn
+		//AnnounceArrival(character, job, spawnpoint.msg)
 		matchmaker.do_matchmaking()
 	log_and_message_admins("has joined the round as [character.mind.assigned_role].", character)
+
 
 	if(character.needs_wheelchair())
 		equip_wheelchair(character)
@@ -454,10 +455,11 @@
 			spawning = 0 //abort
 			return null
 		new_character = new(spawn_turf, chosen_species.name)
+		/*
 		if(chosen_species.has_organ[BP_POSIBRAIN] && client && client.prefs.is_shackled)
 			var/obj/item/organ/internal/posibrain/B = new_character.internal_organs_by_name[BP_POSIBRAIN]
 			if(B)	B.shackle(client.prefs.get_lawset())
-
+		*/
 	if(!new_character)
 		new_character = new(spawn_turf)
 

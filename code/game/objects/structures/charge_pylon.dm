@@ -21,10 +21,11 @@
 		var/obj/item/organ/internal/cell/cell = locate() in H.internal_organs
 		if(cell && cell.cell)
 			power_cell = cell.cell
+	/*
 	else if(isrobot(user))
 		var/mob/living/silicon/robot/robot = user
 		power_cell = robot.get_cell()
-
+	*/
 	user.setClickCooldown(DEFAULT_ATTACK_COOLDOWN)
 	if(power_cell)
 		user.visible_message("<span class='notice'>There is a loud crack and the smell of ozone as \the [user] touches \the [src].</span>")
@@ -41,7 +42,7 @@
 		visible_message("<span class='danger'>\The [user] has been shocked by \the [src]!</span>")
 
 /obj/structure/adherent_pylon/attackby(obj/item/grab/normal/G, mob/user)
-	if(!istype(G))		
+	if(!istype(G))
 		return
-	var/mob/M = G.affecting	
+	var/mob/M = G.affecting
 	charge_user(M)

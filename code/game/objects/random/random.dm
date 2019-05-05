@@ -575,7 +575,7 @@ obj/random/obstruction/spawn_choices()
 				/obj/item/weapon/caution/cone,
 				/obj/structure/inflatable/wall,
 				/obj/structure/inflatable/door)
-
+/*
 /obj/random/assembly
 	name = "random assembly"
 	desc = "This is a random circuit assembly."
@@ -587,7 +587,7 @@ obj/random/obstruction/spawn_choices()
 				/obj/item/device/electronic_assembly/medium,
 				/obj/item/device/electronic_assembly/large,
 				/obj/item/device/electronic_assembly/drone)
-
+*/
 /obj/random/advdevice
 	name = "random advanced device"
 	desc = "This is a random advanced device."
@@ -599,13 +599,13 @@ obj/random/obstruction/spawn_choices()
 				/obj/item/device/flashlight/flare,
 				/obj/item/device/flashlight/pen,
 				/obj/item/device/toner,
-				/obj/item/device/paicard,
+				// /obj/item/device/paicard,
 				/obj/item/device/destTagger,
 				/obj/item/weapon/beartrap,
 				/obj/item/weapon/handcuffs,
 				/obj/item/weapon/camera_assembly,
 				/obj/item/device/camera,
-				/obj/item/modular_computer/pda,
+				// /obj/item/modular_computer/pda,
 				/obj/item/weapon/card/emag_broken,
 				/obj/item/device/radio/headset,
 				/obj/item/device/flashlight/flare/glowstick/yellow,
@@ -954,11 +954,11 @@ something, make sure it's not in one of the other lists.*/
 /obj/random/loot/spawn_choices()
 	return list(/obj/random/energy = 10,
 				/obj/random/projectile = 10,
-				/obj/random/voidhelmet = 10,
-				/obj/random/voidsuit = 10,
-				/obj/random/hardsuit = 10,
+				// /obj/random/voidhelmet = 10,
+				// /obj/random/voidsuit = 10,
+				// /obj/random/hardsuit = 10,
 				/obj/item/clothing/mask/muzzle = 7,
-				/obj/item/clothing/mask/gas/vox = 8,
+				// /obj/item/clothing/mask/gas/vox = 8,
 				/obj/item/clothing/mask/gas/syndicate = 10,
 				/obj/item/clothing/glasses/night = 3,
 				/obj/item/clothing/glasses/thermal = 1,
@@ -984,8 +984,8 @@ something, make sure it's not in one of the other lists.*/
 				/obj/item/weapon/storage/box/monkeycubes/farwacubes = 4,
 				/obj/item/weapon/storage/firstaid/surgery = 4,
 				/obj/item/weapon/cell/infinite = 1,
-				/obj/item/weapon/archaeological_find = 2,
-				/obj/machinery/artifact = 1,
+				// /obj/item/weapon/archaeological_find = 2,
+				// /obj/machinery/artifact = 1,
 				/obj/item/device/multitool/hacktool = 2,
 				/obj/item/weapon/surgicaldrill = 7,
 				/obj/item/weapon/FixOVein = 7,
@@ -998,7 +998,7 @@ something, make sure it's not in one of the other lists.*/
 				/obj/item/weapon/scalpel = 7,
 				/obj/item/weapon/melee/baton/loaded = 9,
 				/obj/item/device/radio/headset/syndicate = 6)
-
+/*
 /obj/random/voidhelmet
 	name = "Random Voidsuit Helmet"
 	desc = "This is a random voidsuit helmet."
@@ -1055,7 +1055,7 @@ something, make sure it's not in one of the other lists.*/
 				/obj/item/weapon/rig/light,
 				/obj/item/weapon/rig/unathi,
 				/obj/item/weapon/rig/unathi/fancy)
-
+*/
 /obj/random/hostile
 	name = "Random Hostile Mob"
 	desc = "This is a random hostile mob."

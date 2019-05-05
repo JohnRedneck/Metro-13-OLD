@@ -282,7 +282,7 @@
 /*////////////////////////////
 //	Rapid Crossbow Device	//
 */////////////////////////////
-
+/*
 /obj/item/weapon/arrow/rapidcrossbowdevice
 	name = "flashforged bolt"
 	desc = "The ultimate ghetto deconstruction implement."
@@ -364,3 +364,4 @@
 	. = ..()
 	if(.)
 		to_chat(user, "It currently holds [stored_matter]/[max_stored_matter] matter-units.")
+*/

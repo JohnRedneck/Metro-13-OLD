@@ -53,9 +53,9 @@
 
 /mob/proc/get_looc_mob()
 	return src
-
+/*
 /mob/living/silicon/ai/get_looc_mob()
 	if(!eyeobj)
 		return src
 	return eyeobj
-
+*/

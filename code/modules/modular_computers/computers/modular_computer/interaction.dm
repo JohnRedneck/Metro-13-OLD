@@ -166,10 +166,10 @@
 		var/response = alert(user, "This computer is turned off. Would you like to turn it on?", "Admin Override", "Yes", "No")
 		if(response == "Yes")
 			turn_on(user)
-
+/*
 /obj/item/modular_computer/attack_ai(var/mob/user)
 	return attack_self(user)
-
+*/
 /obj/item/modular_computer/attack_hand(var/mob/user)
 	if(anchored)
 		return attack_self(user)
@@ -219,11 +219,12 @@
 	if(istype(W, /obj/item/weapon/paper) || istype(W, /obj/item/weapon/paper_bundle))
 		if(nano_printer)
 			nano_printer.attackby(W, user)
+	/*
 	if(istype(W, /obj/item/weapon/aicard))
 		if(!ai_slot)
 			return
 		ai_slot.attackby(W, user)
-
+	*/
 	if(!modifiable)
 		return ..()
 

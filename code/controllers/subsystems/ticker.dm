@@ -89,7 +89,6 @@ SUBSYSTEM_DEF(ticker)
 			var/datum/job/job = SSjobs.get_by_title(H.mind.assigned_role)
 			if(job && job.create_record)
 				CreateModularRecord(H)
-
 	callHook("roundstart")
 
 	spawn(0)//Forking here so we dont have to wait for this to finish
@@ -139,6 +138,7 @@ SUBSYSTEM_DEF(ticker)
 				SSstatistics.set_field_details("end_proper","proper completion")
 				if(!delay_end)
 					to_world("<span class='notice'><b>Restarting in [restart_timeout/10] seconds</b></span>")
+
 			handle_tickets()
 		if(END_GAME_ENDING)
 			restart_timeout -= (world.time - last_fire)
@@ -270,10 +270,7 @@ Helpers
 /datum/controller/subsystem/ticker/proc/create_characters()
 	for(var/mob/new_player/player in GLOB.player_list)
 		if(player && player.ready && player.mind)
-			if(player.mind.assigned_role=="AI")
-				player.close_spawn_windows()
-				player.AIize()
-			else if(!player.mind.assigned_role)
+			if(!player.mind.assigned_role)
 				continue
 			else
 				if(player.create_character())
@@ -400,6 +397,7 @@ Helpers
 					to_chat(Player, "<font color='red'><b>You did not survive the events on [station_name()]...</b></font>")
 	to_world("<br>")
 
+	/*
 	for (var/mob/living/silicon/ai/aiPlayer in SSmobs.mob_list)
 		if (aiPlayer.stat != 2)
 			to_world("<b>[aiPlayer.name] (Played by: [aiPlayer.key])'s laws at the end of the round were:</b>")
@@ -436,7 +434,8 @@ Helpers
 
 	if(dronecount)
 		to_world("<b>There [dronecount>1 ? "were" : "was"] [dronecount] industrious maintenance [dronecount>1 ? "drones" : "drone"] at the end of this round.</b>")
-
+	*/
+	/*
 	if(all_money_accounts.len)
 		var/datum/money_account/max_profit = all_money_accounts[1]
 		var/datum/money_account/max_loss = all_money_accounts[1]
@@ -450,7 +449,7 @@ Helpers
 				max_loss = D
 		to_world("<b>[max_profit.owner_name]</b> received most <font color='green'><B>PROFIT</B></font> today, with net profit of <b>T[max_profit.get_balance()]</b>.")
 		to_world("On the other hand, <b>[max_loss.owner_name]</b> had most <font color='red'><B>LOSS</B></font>, with total loss of <b>T[max_loss.get_balance()]</b>.")
-
+	*/
 	mode.declare_completion()//To declare normal completion.
 
 	//Ask the event manager to print round end information

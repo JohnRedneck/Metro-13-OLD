@@ -161,7 +161,7 @@
 /obj/item/modular_computer/proc/add_log(var/text)
 	if(!get_ntnet_status())
 		return 0
-	return ntnet_global.add_log(text, network_card)
+	//return ntnet_global.add_log(text, network_card)
 
 /obj/item/modular_computer/proc/shutdown_computer(var/loud = 1)
 	kill_program(1)

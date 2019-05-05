@@ -59,7 +59,7 @@
 	if(istype(O,/obj/item/seeds/))
 		return 1
 	return 0
-
+/*
 /obj/machinery/smartfridge/secure/extract
 	name = "\improper Slime Extract Storage"
 	desc = "A refrigerated storage unit for slime extracts."
@@ -69,7 +69,7 @@
 	if(istype(O,/obj/item/slime_extract))
 		return 1
 	return 0
-
+*/
 /obj/machinery/smartfridge/secure/medbay
 	name = "\improper Refrigerated Medicine Storage"
 	desc = "A refrigerated storage unit for storing medicine and chemicals."
@@ -263,10 +263,10 @@
 /obj/machinery/smartfridge/proc/stock(var/datum/stored_items/I, var/obj/item/O)
 	I.add_product(O)
 	SSnano.update_uis(src)
-
+/*
 /obj/machinery/smartfridge/attack_ai(mob/user as mob)
 	attack_hand(user)
-
+*/
 /obj/machinery/smartfridge/attack_hand(mob/user as mob)
 	if(stat & (NOPOWER|BROKEN))
 		return

@@ -583,6 +583,7 @@
 			M.emote(pick("twitch", "giggle"))
 
 
+/*
 /datum/reagent/three_eye
 	name = "Three Eye"
 	taste_description = "liquid starlight"
@@ -755,6 +756,7 @@
 	color = "#535e66"
 	hidden_from_codex = TRUE
 	heating_point = 100 CELSIUS
+*/
 
 /datum/reagent/toxin/hair_remover
 	name = "Hair Remover"

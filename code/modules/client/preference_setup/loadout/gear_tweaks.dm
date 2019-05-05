@@ -180,6 +180,7 @@
 	if(reagent)
 		return I.reagents.add_reagent(reagent, I.reagents.get_free_space())
 
+/*
 /datum/gear_tweak/tablet
 	var/list/ValidProcessors = list(/obj/item/weapon/computer_hardware/processor_unit/small)
 	var/list/ValidBatteries = list(/obj/item/weapon/computer_hardware/battery_module/nano, /obj/item/weapon/computer_hardware/battery_module/micro, /obj/item/weapon/computer_hardware/battery_module)
@@ -331,3 +332,4 @@
 	if(ValidTeslaLinks[metadata[7]])
 		var/t = ValidTeslaLinks[metadata[7]]
 		I.tesla_link = new t(I)
+*/

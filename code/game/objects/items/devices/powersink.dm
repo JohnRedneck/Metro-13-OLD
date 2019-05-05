@@ -59,10 +59,10 @@
 			return
 	else
 		..()
-
+/*
 /obj/item/device/powersink/attack_ai()
 	return
-
+*/
 /obj/item/device/powersink/attack_hand(var/mob/user)
 	switch(mode)
 		if(0)
@@ -99,6 +99,7 @@
 			// Enough power drained this tick, no need to torture more APCs
 			if(drained >= drain_rate)
 				break
+			/*
 			if(istype(T.master, /obj/machinery/power/apc))
 				var/obj/machinery/power/apc/A = T.master
 				if(A.operating && A.cell)
@@ -106,6 +107,7 @@
 					var/drain_val = min(apc_drain_rate, cur_charge)
 					A.cell.use(drain_val * CELLRATE)
 					drained += drain_val
+			*/
 	power_drained += drained
 	return 1
 

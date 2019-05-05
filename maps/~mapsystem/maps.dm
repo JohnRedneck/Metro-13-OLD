@@ -92,7 +92,7 @@ var/const/MAP_HAS_RANK = 2		//Rank system, also togglable
 	var/list/lobby_tracks = list()                  // The list of lobby tracks to pick() from. If left unset will randomly select among all available /music_track subtypes.
 	var/welcome_sound = 'sound/AI/welcome.ogg'		// Sound played on roundstart
 
-	var/default_law_type = /datum/ai_laws/nanotrasen  // The default lawset use by synth units, if not overriden by their laws var.
+	//var/default_law_type = /datum/ai_laws/nanotrasen  // The default lawset use by synth units, if not overriden by their laws var.
 	var/security_state = /decl/security_state/default // The default security state system to use.
 
 	var/id_hud_icons = 'icons/mob/hud.dmi' // Used by the ID HUD (primarily sechud) overlay.
@@ -306,7 +306,7 @@ var/const/MAP_HAS_RANK = 2		//Rank system, also togglable
 		empty_levels = list(world.maxz)
 	return pick(empty_levels)
 
-
+/*
 /datum/map/proc/setup_economy()
 	news_network.CreateFeedChannel("Nyx Daily", "SolGov Minister of Information", 1, 1)
 	news_network.CreateFeedChannel("The Gibson Gazette", "Editor Mike Hammers", 1, 1)
@@ -330,7 +330,7 @@ var/const/MAP_HAS_RANK = 2		//Rank system, also togglable
 
 	department_accounts["Vendor"] = create_account("Vendor Account", 0)
 	vendor_account = department_accounts["Vendor"]
-
+*/
 /datum/map/proc/map_info(var/client/victim)
 	return
 
@@ -340,6 +340,7 @@ var/const/MAP_HAS_RANK = 2		//Rank system, also togglable
 /datum/map/proc/unbolt_saferooms()
 	return // overriden by torch
 
+/*
 /datum/map/proc/make_maint_all_access(var/radstorm = 0) // parameter used by torch
 	maint_all_access = 1
 	priority_announcement.Announce("The maintenance access requirement has been revoked on all maintenance airlocks.", "Attention!")
@@ -347,6 +348,7 @@ var/const/MAP_HAS_RANK = 2		//Rank system, also togglable
 /datum/map/proc/revoke_maint_all_access(var/radstorm = 0) // parameter used by torch
 	maint_all_access = 0
 	priority_announcement.Announce("The maintenance access requirement has been readded on all maintenance airlocks.", "Attention!")
+*/
 
 // Access check is of the type requires one. These have been carefully selected to avoid allowing the janitor to see channels he shouldn't
 // This list needs to be purged but people insist on adding more cruft to the radio.

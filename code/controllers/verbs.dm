@@ -35,9 +35,11 @@
 		if("Configuration")
 			debug_variables(config)
 			SSstatistics.add_field_details("admin_verb","DConf")
+		/*
 		if("pAI")
 			debug_variables(paiController)
 			SSstatistics.add_field_details("admin_verb","DpAI")
+		*/
 		if("Cameras")
 			debug_variables(cameranet)
 			SSstatistics.add_field_details("admin_verb","DCameras")

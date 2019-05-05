@@ -91,7 +91,7 @@
 	if(H.stat == CONSCIOUS)
 		return "staring blankly, not reacting to your presence"
 	return ..()
-
+/*
 /datum/species/skrell
 	name = SPECIES_SKRELL
 	name_plural = SPECIES_SKRELL
@@ -375,3 +375,4 @@
 /datum/species/diona/handle_environment_special(var/mob/living/carbon/human/H)
 	if(!H.InStasis() && H.stat != DEAD && H.nutrition < 10)
 		H.take_overall_damage(2,0)
+*/

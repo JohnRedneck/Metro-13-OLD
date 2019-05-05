@@ -104,7 +104,7 @@ Subtypes
 	if(!ch)
 		return "hwinfo: No such hardware found."
 	ch.diagnostics(user)
-	return "Running diagnostic protocols..."	
+	return "Running diagnostic protocols..."
 
 // Sysadmin
 /datum/terminal_command/relays
@@ -112,10 +112,10 @@ Subtypes
 	man_entry = list("Format: relays", "Gives the number of active relays found on the network.")
 	pattern = "^relays$"
 	req_access = list(access_network)
-
+/*
 /datum/terminal_command/relays/proper_input_entered(text, mob/user, terminal)
 	return "Number of relays found: [ntnet_global.relays.len]"
-
+*/
 /datum/terminal_command/banned
 	name = "banned"
 	man_entry = list("Format: banned", "Lists currently banned network ids.")
@@ -125,7 +125,7 @@ Subtypes
 /datum/terminal_command/banned/proper_input_entered(text, mob/user, terminal)
 	. = list()
 	. += "The following ids are banned:"
-	. += jointext(ntnet_global.banned_nids, ", ") || "No ids banned."
+	//. += jointext(ntnet_global.banned_nids, ", ") || "No ids banned."
 
 /datum/terminal_command/status
 	name = "status"
@@ -135,11 +135,12 @@ Subtypes
 
 /datum/terminal_command/status/proper_input_entered(text, mob/user, terminal)
 	. = list()
-	. += "NTnet status: [ntnet_global.check_function() ? "ENABLED" : "DISABLED"]"
-	. += "Alarm status: [ntnet_global.intrusion_detection_enabled ? "ENABLED" : "DISABLED"]"
+	//. += "NTnet status: [ntnet_global.check_function() ? "ENABLED" : "DISABLED"]"
+	//. += "Alarm status: [ntnet_global.intrusion_detection_enabled ? "ENABLED" : "DISABLED"]"
+	/*
 	if(ntnet_global.intrusion_detection_alarm)
 		. += "NETWORK INCURSION DETECTED"
-
+	*/
 /datum/terminal_command/locate
 	name = "locate"
 	man_entry = list("Format: locate nid", "Attempts to locate the device with the given nid by triangulating via relays.")
@@ -155,11 +156,12 @@ Subtypes
 	if(!origin || !origin.get_ntnet_status())
 		return
 	var/nid = text2num(copytext(text, 8))
+	/*
 	var/obj/item/modular_computer/comp = ntnet_global.get_computer_by_nid(nid)
 	if(!comp || !comp.enabled || !comp.get_ntnet_status())
 		return
 	return "... Estimating location: [get_area(comp)]"
-
+	*/
 /datum/terminal_command/ping
 	name = "ping"
 	man_entry = list("Format: ping nid", "Checks connection to the given nid.")
@@ -176,12 +178,14 @@ Subtypes
 		. += "failed. Check network status."
 		return
 	var/nid = text2num(copytext(text, 6))
+	/*
 	var/obj/item/modular_computer/comp = ntnet_global.get_computer_by_nid(nid)
 	if(!comp || !comp.enabled || !comp.get_ntnet_status())
 		. += "failed. Target device not responding."
 		return
 	. += "ping successful."
-
+	*/
+/*
 /datum/terminal_command/ssh
 	name = "ssh"
 	man_entry = list("Format: ssh nid", "Opens a remote terminal at the location of nid, if a valid device nid is specified.")
@@ -255,3 +259,4 @@ Subtypes
 		file.stored_data += "([time_stamp()]) Proxy routing request accepted from: [comp.network_card.get_network_tag()].\[br\]"
 	comp.network_card.proxy_id = id
 	return "proxy: Device proxy set to [id]."
+*/

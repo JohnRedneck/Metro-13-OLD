@@ -21,6 +21,7 @@
 		return STATUS_UPDATE					// update only (orange visibility)
 	return STATUS_INTERACTIVE
 
+/*
 /mob/living/silicon/ai/shared_nano_interaction()
 	if(!has_power())
 		return STATUS_CLOSE
@@ -35,3 +36,4 @@
 	if(lockcharge)
 		. = STATUS_DISABLED
 	return min(., ..())
+*/

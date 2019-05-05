@@ -193,8 +193,10 @@ move an amendment</a> to the drawing, or <a href='?src=\ref[src];action=delete_a
 
 	for(var/obj/machinery/alarm/M in A)
 		M.SetName(replacetext(M.name,oldtitle,title))
+	/*
 	for(var/obj/machinery/power/apc/M in A)
 		M.SetName(replacetext(M.name,oldtitle,title))
+	*/
 	for(var/obj/machinery/atmospherics/unary/vent_scrubber/M in A)
 		M.SetName(replacetext(M.name,oldtitle,title))
 	for(var/obj/machinery/atmospherics/unary/vent_pump/M in A)

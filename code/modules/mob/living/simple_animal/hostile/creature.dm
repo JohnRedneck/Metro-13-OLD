@@ -16,6 +16,7 @@
 	speed = 4
 	supernatural = 1
 
+/*
 /mob/living/simple_animal/hostile/creature/cult
 	faction = "cult"
 	min_gas = null
@@ -24,3 +25,4 @@
 
 /mob/living/simple_animal/hostile/creature/cult/cultify()
 	return
+*/

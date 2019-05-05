@@ -151,7 +151,7 @@
 		return 1
 
 /obj/machinery/vending/attackby(obj/item/weapon/W as obj, mob/user as mob)
-
+	/*
 	var/obj/item/weapon/card/id/I = W.GetIdCard()
 
 	if (currently_vending && vendor_account && !vendor_account.suspended)
@@ -180,7 +180,8 @@
 	if (I || istype(W, /obj/item/weapon/spacecash))
 		attack_hand(user)
 		return
-	else if(istype(W, /obj/item/weapon/screwdriver))
+	else...*/
+	if(istype(W, /obj/item/weapon/screwdriver))
 		src.panel_open = !src.panel_open
 		to_chat(user, "You [src.panel_open ? "open" : "close"] the maintenance panel.")
 		src.overlays.Cut()
@@ -266,6 +267,7 @@
  * Takes payment for whatever is the currently_vending item. Returns 1 if
  * successful, 0 if failed
  */
+/*
 /obj/machinery/vending/proc/pay_with_card(var/obj/item/weapon/card/id/I, var/obj/item/ID_container)
 	if(I==ID_container || ID_container == null)
 		visible_message("<span class='info'>\The [usr] swipes \the [I] through \the [src].</span>")
@@ -308,21 +310,24 @@
 		// owner made them
 		credit_purchase(customer_account.owner_name)
 		return 1
-
+*/
 /**
  *  Add money for current purchase to the vendor account.
  *
  *  Called after the money has already been taken from the customer.
  */
+
 /obj/machinery/vending/proc/credit_purchase(var/target as text)
-	vendor_account.money += currently_vending.price
+	return
+	//vendor_account.money += currently_vending.price
 
-	var/datum/transaction/T = new(target, "Purchase of [currently_vending.item_name]", currently_vending.price, name)
-	vendor_account.do_transaction(T)
+	//var/datum/transaction/T = new(target, "Purchase of [currently_vending.item_name]", currently_vending.price, name)
+	//vendor_account.do_transaction(T)
 
+/*
 /obj/machinery/vending/attack_ai(mob/user as mob)
 	return attack_hand(user)
-
+*/
 /obj/machinery/vending/attack_hand(mob/user as mob)
 	if(stat & (BROKEN|NOPOWER))
 		return
@@ -418,6 +423,7 @@
 
 			if(R.price <= 0)
 				src.vend(R, usr)
+			/*
 			else if(istype(usr,/mob/living/silicon)) //If the item is not free, provide feedback if a synth is trying to buy something.
 				to_chat(usr, "<span class='danger'>Artificial unit recognized.  Artificial units cannot complete this transaction.  Purchase canceled.</span>")
 				return
@@ -429,7 +435,7 @@
 				else
 					src.status_message = "Please swipe a card or insert cash to pay for the item."
 					src.status_error = 0
-
+			*/
 		else if (href_list["cancelpurchase"])
 			src.currently_vending = null
 
@@ -1004,7 +1010,7 @@
 			product.category = category
 
 			src.product_records.Add(product)
-
+/*
 /obj/machinery/vending/magivend
 	name = "MagiVend"
 	desc = "A magic vending machine."
@@ -1014,7 +1020,7 @@
 	vend_reply = "Have an enchanted evening!"
 	product_ads = "FJKLFJSD;AJKFLBJAKL;1234 LOONIES LOL!;>MFW;Kill them fuckers!;GET DAT FUKKEN DISK;HONK!;EI NATH;Down with Central!;Admin conspiracies since forever!;Space-time bending hardware!"
 	products = list(/obj/item/clothing/head/wizard = 1,/obj/item/clothing/suit/wizrobe = 1,/obj/item/clothing/head/wizard/red = 1,/obj/item/clothing/suit/wizrobe/red = 1,/obj/item/clothing/shoes/sandal = 1,/obj/item/weapon/staff = 2)
-
+*/
 /obj/machinery/vending/dinnerware
 	name = "Dinnerware"
 	desc = "A kitchen and restaurant equipment vendor."
@@ -1061,7 +1067,7 @@
 					/obj/item/weapon/reagent_containers/food/drinks/glass2/square/bodaplus = 20)
 	contraband = list(/obj/item/weapon/reagent_containers/food/drinks/bottle/space_up = 300) // TODO Russian cola can
 	idle_power_usage = 211 //refrigerator - believe it or not, this is actually the average power consumption of a refrigerated vending machine according to NRCan.
-
+/*
 /obj/machinery/vending/tool
 	name = "YouTool"
 	desc = "Tools for tools."
@@ -1105,11 +1111,12 @@
 	icon_vend = "engivend-vend"
 	vend_delay = 21
 	req_access = list(list(access_atmospherics,access_engine_equip))
-	products = list(/obj/item/clothing/glasses/meson = 2,/obj/item/device/multitool = 4,/obj/item/device/geiger = 4,/obj/item/weapon/airlock_electronics = 10,/obj/item/weapon/module/power_control = 10,/obj/item/weapon/airalarm_electronics = 10,/obj/item/weapon/cell = 10,/obj/item/clamp = 10)
+	products = list(/obj/item/clothing/glasses/meson = 2,/obj/item/device/multitool = 4,/obj/item/device/geiger = 4,/obj/item/weapon/airlock_electronics = 10,/*/obj/item/weapon/module/power_control = 10,*//obj/item/weapon/airalarm_electronics = 10,/obj/item/weapon/cell = 10,/obj/item/clamp = 10)
 	contraband = list(/obj/item/weapon/cell/high = 3)
 	premium = list(/obj/item/weapon/storage/belt/utility = 3)
 
 //This one's from bay12
+
 /obj/machinery/vending/engineering
 	name = "Robco Tool Maker"
 	desc = "Everything you need for do-it-yourself repair."
@@ -1140,14 +1147,14 @@
 					/obj/item/weapon/scalpel = 1,/obj/item/weapon/circular_saw = 1,/obj/item/weapon/tank/anesthetic = 2,/obj/item/clothing/mask/breath/medical = 5,
 					/obj/item/weapon/screwdriver = 2,/obj/item/weapon/crowbar = 2)
 	contraband = list(/obj/item/device/flash = 2)
-
+*/
 //FOR ACTORS GUILD - mainly props that cannot be spawned otherwise
 /obj/machinery/vending/props
 	name = "prop dispenser"
 	desc = "All the props an actor could need. Probably."
 	icon_state = "Theater"
 	products = list(/obj/structure/flora/pottedplant = 2, /obj/item/device/flashlight/lamp = 2, /obj/item/device/flashlight/lamp/green = 2, /obj/item/weapon/reagent_containers/food/drinks/jar = 1,
-					/obj/item/weapon/nullrod = 1, /obj/item/toy/cultsword = 4, /obj/item/toy/katana = 2)
+					/*/obj/item/weapon/nullrod = 1,*/ /obj/item/toy/cultsword = 4, /obj/item/toy/katana = 2)
 
 //FOR ACTORS GUILD - Containers
 /obj/machinery/vending/containers

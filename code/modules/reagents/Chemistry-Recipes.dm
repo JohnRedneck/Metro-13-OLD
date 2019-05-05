@@ -925,7 +925,7 @@
 	return "#f0f8ff"
 
 /* Slime cores */
-
+/*
 /datum/chemical_reaction/slime
 	hidden_from_codex = TRUE
 	mix_message = "The slime core twitches sharply."
@@ -1305,6 +1305,7 @@
 /datum/chemical_reaction/slime/extract_enhance/on_reaction(var/datum/reagents/holder)
 	new /obj/item/weapon/slimesteroid2(get_turf(holder.my_atom))
 	..()
+*/
 
 /datum/chemical_reaction/soap_key
 	name = "Soap Key"
@@ -2248,6 +2249,7 @@
 	mix_message = "The solution gives off the eye-watering reek of spilled fertilizer and petroleum."
 
 // psi-altering drug
+/*
 /datum/chemical_reaction/three_eye
 	name = "Three Eye"
 	result = /datum/reagent/three_eye
@@ -2267,7 +2269,7 @@
 		/datum/reagent/toxin/phoron = 1,
 		/datum/reagent/blood = 1
 	)
-
+*/
 // tea expansion pack content - black tea drinks
 /datum/chemical_reaction/icetea
 	name = "Iced Tea"
@@ -2320,11 +2322,12 @@
 	result_amount = 10
 	mix_message = "The tea mingles with the rice."
 
+/*
 /datum/chemical_reaction/resin_pack
 	name = "Resin Globule"
 	result = null
 	required_reagents = list(
-		/datum/reagent/crystal = 1, 
+		/datum/reagent/crystal = 1,
 		/datum/reagent/silicon = 2
 	)
 	catalysts = list(
@@ -2340,3 +2343,4 @@
 		var/create_stacks = Floor(created_volume)
 		if(create_stacks > 0)
 			new /obj/item/stack/medical/resin/handmade(T, create_stacks)
+*/

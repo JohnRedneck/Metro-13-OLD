@@ -77,10 +77,10 @@
 
 /obj/machinery/reagent_temperature/attack_hand(var/mob/user)
 	interact(user)
-
+/*
 /obj/machinery/reagent_temperature/attack_ai(var/mob/user)
 	interact(user)
-
+*/
 /obj/machinery/reagent_temperature/ProcessAtomTemperature()
 	if(use_power >= POWER_USE_ACTIVE)
 		var/last_temperature = temperature

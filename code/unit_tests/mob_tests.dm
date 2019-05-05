@@ -468,7 +468,7 @@ datum/unit_test/mob_damage/machine/halloss
 
 // ==============================================================================
 
-
+/*
 datum/unit_test/robot_module_icons
 	name = "MOB: Robot module icon check"
 	var/icon_file = 'icons/mob/screen1_robot.dmi'
@@ -497,7 +497,7 @@ datum/unit_test/robot_module_icons/start_test()
 		pass("All modules had valid icon states")
 
 	return 1
-
+*/
 #undef IMMUNE
 #undef SUCCESS
 #undef FAILURE

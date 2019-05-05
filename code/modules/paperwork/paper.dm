@@ -78,9 +78,11 @@
 
 /obj/item/weapon/paper/proc/show_content(mob/user, forceshow)
 	var/can_read = (istype(user, /mob/living/carbon/human) || isghost(user) || istype(user, /mob/living/silicon)) || forceshow
+	/*
 	if(!forceshow && istype(user,/mob/living/silicon/ai))
 		var/mob/living/silicon/ai/AI = user
 		can_read = get_dist(src, AI.camera) < 2
+	*/
 	user << browse("<HTML><HEAD><TITLE>[name]</TITLE></HEAD><BODY bgcolor='[color]'>[can_read ? info : stars(info)][stamps]</BODY></HTML>", "window=[name]")
 	onclose(user, "[name]")
 
@@ -116,10 +118,10 @@
 			playsound(loc, 'sound/items/bikehorn.ogg', 50, 1)
 			spawn(20)
 				spam_flag = 0
-
+/*
 /obj/item/weapon/paper/attack_ai(var/mob/living/silicon/ai/user)
 	show_content(user)
-
+*/
 /obj/item/weapon/paper/attack(mob/living/carbon/M as mob, mob/living/carbon/user as mob)
 	if(user.zone_sel.selecting == BP_EYES)
 		user.visible_message("<span class='notice'>You show the paper to [M]. </span>", \

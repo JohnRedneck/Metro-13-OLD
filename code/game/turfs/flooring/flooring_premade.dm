@@ -148,10 +148,10 @@
 	icon = 'icons/turf/flooring/cult.dmi'
 	icon_state = "cult"
 	initial_flooring = /decl/flooring/reinforced/cult
-
+/*
 /turf/simulated/floor/cult/cultify()
 	return
-
+*/
 //Tiled floor + sub-types
 
 /turf/simulated/floor/tiled
@@ -254,7 +254,7 @@
 	name = "floor"
 	icon_state = "techfloor_grid"
 	initial_flooring = /decl/flooring/tiling/tech/grid
-	
+
 /turf/simulated/floor/tiled/skrell
 	icon = 'icons/turf/skrellturf.dmi'
 	icon_state = "skrellblack"

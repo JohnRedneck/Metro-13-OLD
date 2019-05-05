@@ -253,7 +253,7 @@ update_flag
 	..()
 
 /obj/machinery/portable_atmospherics/canister/attackby(var/obj/item/weapon/W as obj, var/mob/user as mob)
-	if(!isWrench(W) && !istype(W, /obj/item/weapon/tank) && !istype(W, /obj/item/device/analyzer) && !istype(W, /obj/item/modular_computer/pda))
+	if(!isWrench(W) && !istype(W, /obj/item/weapon/tank) && !istype(W, /obj/item/device/analyzer)/* && !istype(W, /obj/item/modular_computer/pda)*/)
 		visible_message("<span class='warning'>\The [user] hits \the [src] with \a [W]!</span>")
 		src.health -= W.force
 		healthcheck()
@@ -274,10 +274,10 @@ update_flag
 	..()
 
 	SSnano.update_uis(src) // Update all NanoUIs attached to src
-
+/*
 /obj/machinery/portable_atmospherics/canister/attack_ai(var/mob/user as mob)
 	ui_interact(user)
-
+*/
 /obj/machinery/portable_atmospherics/canister/attack_hand(var/mob/user as mob)
 	ui_interact(user)
 

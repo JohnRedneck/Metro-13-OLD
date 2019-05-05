@@ -163,7 +163,7 @@ var/world_topic_spam_protect_time = world.timeofday
 			s["active_players"] = active
 
 		return list2params(s)
-
+	/*
 	else if(T == "manifest")
 		var/list/positions = list()
 		var/list/nano_crew_manifest = nano_crew_manifest()
@@ -179,6 +179,7 @@ var/world_topic_spam_protect_time = world.timeofday
 			positions[k] = list2params(positions[k]) // converts positions["heads"] = list("Bob"="Captain", "Bill"="CMO") into positions["heads"] = "Bob=Captain&Bill=CMO"
 
 		return list2params(positions)
+	*/
 
 	else if(T == "revision")
 		var/list/L = list()
@@ -195,6 +196,7 @@ var/world_topic_spam_protect_time = world.timeofday
 
 		return list2params(L)
 
+	/*
 	else if(copytext(T,1,5) == "laws")
 		var/input[] = params2list(T)
 		if(input["key"] != config.comms_password)
@@ -244,6 +246,7 @@ var/world_topic_spam_protect_time = world.timeofday
 			for(var/mob/M in match)
 				ret[M.key] = M.name
 			return list2params(ret)
+	*/
 
 	else if(copytext(T,1,5) == "info")
 		var/input[] = params2list(T)

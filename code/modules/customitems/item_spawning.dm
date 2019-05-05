@@ -77,6 +77,7 @@
 			U.update_rolldown_status()
 
 	// Kits are dumb so this is going to have to be hardcoded/snowflake.
+	/*
 	if(istype(item, /obj/item/device/kit))
 		var/obj/item/device/kit/K = item
 		K.new_name = kit_name
@@ -90,7 +91,7 @@
 			var/obj/item/device/kit/suit/kit = item
 			kit.new_light_overlay = additional_data
 			kit.new_mob_icon_file = CUSTOM_ITEM_MOB
-
+	*/
 	return item
 
 /datum/custom_item/proc/apply_inherit_inhands(var/obj/item/item)
@@ -232,9 +233,10 @@
 		var/obj/item/existing_item
 		if(citem.item_path == /obj/item/weapon/card/id && istype(current_id)) //Set earlier.
 			existing_item = M.wear_id
+		/*
 		else if(citem.item_path == /obj/item/modular_computer/pda)
 			existing_item = locate(/obj/item/modular_computer/pda) in M.contents
-
+		*/
 		// Spawn and equip the item.
 		if(existing_item)
 			citem.apply_to_item(existing_item)

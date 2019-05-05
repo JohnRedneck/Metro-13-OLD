@@ -43,6 +43,7 @@
 
 	msg += "<EM>[src.name]</EM>"
 
+/*
 	var/is_synth = isSynthetic()
 	if(!(skipjumpsuit && skipface))
 		var/species_name = "\improper "
@@ -50,7 +51,7 @@
 			species_name += "[species.cyborg_noun] "
 		species_name += "[species.name]"
 		msg += ", <b><font color='[species.get_flesh_colour(src)]'>\a [species_name]!</font></b>[(user.can_use_codex() && SScodex.get_codex_entry(get_codex_value())) ?  SPAN_NOTICE(" \[<a href='?src=\ref[SScodex];show_examined_info=\ref[src];show_to=\ref[user]'>?</a>\]") : ""]"
-
+*/
 	var/extra_species_text = species.get_additional_examine_text(src)
 	if(extra_species_text)
 		msg += "[extra_species_text]<br>"
@@ -235,7 +236,7 @@
 				if(E.wounds.len && E.parent)
 					wound_flavor_text[E.name] += "[T.He] [T.has] [E.get_wounds_desc()] on [T.his] [E.parent.name].<br>"
 			else
-				if(!is_synth && BP_IS_ROBOTIC(E) && (E.parent && !BP_IS_ROBOTIC(E.parent) && !BP_IS_ASSISTED(E.parent)))
+				if(/*!is_synth && */BP_IS_ROBOTIC(E) && (E.parent && !BP_IS_ROBOTIC(E.parent) && !BP_IS_ASSISTED(E.parent)))
 					wound_flavor_text[E.name] = "[T.He] [T.has] a [E.name].\n"
 				var/wounddesc = E.get_wounds_desc()
 				if(wounddesc != "nothing")
@@ -273,6 +274,7 @@
 	if(digitalcamo)
 		msg += "[T.He] [T.is] repulsively uncanny!\n"
 
+	/*
 	if(hasHUD(user, HUD_SECURITY))
 		var/perpname = "wot"
 		var/criminal = "None"
@@ -307,7 +309,7 @@
 
 		msg += "<span class = 'deptradio'>Physical status:</span> <a href='?src=\ref[src];medical=1'>\[[medical]\]</a>\n"
 		msg += "<span class = 'deptradio'>Medical records:</span> <a href='?src=\ref[src];medrecord=`'>\[View\]</a>\n"
-
+	*/
 
 	if(print_flavor_text()) msg += "[print_flavor_text()]\n"
 
@@ -330,18 +332,20 @@
 	to_chat(user, jointext(msg, null))
 
 //Helper procedure. Called by /mob/living/carbon/human/examine() and /mob/living/carbon/human/Topic() to determine HUD access to security and medical records.
+
 /proc/hasHUD(mob/M as mob, hudtype)
 	if(istype(M, /mob/living/carbon/human))
 		var/mob/living/carbon/human/H = M
 		var/obj/item/clothing/glasses/G = H.glasses
 		return istype(G) && ((G.hud_type & hudtype) || (G.hud && (G.hud.hud_type & hudtype)))
+	/*
 	else if(istype(M, /mob/living/silicon/robot))
 		var/mob/living/silicon/robot/R = M
 		for(var/obj/item/borg/sight/sight in list(R.module_state_1, R.module_state_2, R.module_state_3))
 			if(istype(sight) && (sight.hud_type & hudtype))
 				return TRUE
+	*/
 	return FALSE
-
 /mob/living/carbon/human/verb/pose()
 	set name = "Set Pose"
 	set desc = "Sets a description which will be shown when someone examines you."

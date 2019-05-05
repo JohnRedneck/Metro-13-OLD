@@ -243,10 +243,11 @@
 // called when something steps onto a human
 // this handles mulebots and vehicles
 /mob/living/carbon/human/Crossed(var/atom/movable/AM)
+	/*
 	if(istype(AM, /mob/living/bot/mulebot))
 		var/mob/living/bot/mulebot/MB = AM
 		MB.runOver(src)
-
+	*/
 	if(istype(AM, /obj/vehicle))
 		var/obj/vehicle/V = AM
 		V.RunOver(src)
@@ -396,7 +397,7 @@
 	if(href_list["item"])
 		if(!handle_strip(href_list["item"],usr,locate(href_list["holder"])))
 			show_inv(usr)
-
+	/*
 	if (href_list["criminal"])
 		if(hasHUD(usr, HUD_SECURITY))
 
@@ -499,7 +500,7 @@
 					read = 1
 			if(!read)
 				to_chat(usr, "<span class='warning'>Unable to locate a data core entry for this person.</span>")
-
+	*/
 	if (href_list["lookitem"])
 		var/obj/item/I = locate(href_list["lookitem"])
 		if(I)

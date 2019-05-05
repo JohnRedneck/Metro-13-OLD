@@ -120,10 +120,10 @@
 	if(user)
 		to_chat(user, "<span class='notice'>You deactivate the beacon.</span>")
 
-
+/*
 /obj/machinery/power/singularity_beacon/attack_ai(mob/user as mob)
 	return
-
+*/
 
 /obj/machinery/power/singularity_beacon/attack_hand(var/mob/user as mob)
 	if(anchored)

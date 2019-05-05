@@ -20,7 +20,7 @@
 		pass("All cable colors are unique.")
 
 	return 1
-
+/*
 /datum/unit_test/research_designs_shall_be_unique
 	name = "UNIQUENESS: Research Designs Shall Be Unique"
 
@@ -45,7 +45,7 @@
 		pass("All research designs are unique.")
 
 	return 1
-
+*/
 /datum/unit_test/player_preferences_shall_have_unique_key
 	name = "UNIQUENESS: Player Preferences Shall Be Unique"
 

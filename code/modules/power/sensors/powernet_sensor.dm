@@ -72,6 +72,7 @@
 // Proc: find_apcs()
 // Parameters: None
 // Description: Searches powernet for APCs and returns them in a list.
+/*
 /obj/machinery/power/sensor/proc/find_apcs()
 	if(!powernet)
 		return
@@ -83,7 +84,7 @@
 			L += A
 
 	return L
-
+*/
 
 // Proc: return_reading_text()
 // Parameters: None
@@ -98,8 +99,9 @@
 		return out
 
 
-	var/list/L = find_apcs()
-	var/total_apc_load = 0
+	//var/list/L = find_apcs()
+	//var/total_apc_load = 0
+	/*
 	if(L.len <= 0) 	// No APCs found.
 		out = "<b>No APCs located in connected powernet!</b>"
 	else			// APCs found. Create very ugly (but working!) HTML table.
@@ -122,10 +124,10 @@
 			total_apc_load += load
 			load = reading_to_text(load)
 			out += "<td>[load]"
-
+	*/
 	out += "<br><b>TOTAL AVAILABLE: [reading_to_text(powernet.avail)]</b>"
-	out += "<br><b>APC LOAD: [reading_to_text(total_apc_load)]</b>"
-	out += "<br><b>OTHER LOAD: [reading_to_text(max(powernet.load - total_apc_load, 0))]</b>"
+	//out += "<br><b>APC LOAD: [reading_to_text(total_apc_load)]</b>"
+	//out += "<br><b>OTHER LOAD: [reading_to_text(max(powernet.load - total_apc_load, 0))]</b>"
 	out += "<br><b>TOTAL GRID LOAD: [reading_to_text(powernet.viewload)] ([round((powernet.load / powernet.avail) * 100)]%)</b>"
 
 	if(powernet.problem)
@@ -146,14 +148,14 @@
 		data["alarm"] = 0 // Runtime Prevention
 		return data
 
-	var/list/L = find_apcs()
-	var/total_apc_load = 0
-	var/list/APC_data = list()
+	//var/list/L = find_apcs()
+	//var/total_apc_load = 0
+	//var/list/APC_data = list()
+	/*
 	if(L.len > 0)
 		// These lists are used as replacement for number based APC settings
-		var/list/S = list("M-OFF", "DC-OFF","A-OFF","M-ON", "A-ON")
-		var/list/chg = list("N","C","F")
-
+		//var/list/S = list("M-OFF", "DC-OFF","A-OFF","M-ON", "A-ON")
+		//var/list/chg = list("N","C","F")
 		for(var/obj/machinery/power/apc/A in L)
 			var/list/APC_entry = list()
 			// Channel Statuses
@@ -174,10 +176,11 @@
 			APC_data += list(APC_entry)
 			// Add load of this APC to total APC load calculation
 			total_apc_load += A.lastused_total
-	data["apc_data"] = APC_data
+	*/
+	//data["apc_data"] = APC_data
 	data["total_avail"] = reading_to_text(max(powernet.avail, 0))
-	data["total_used_apc"] = reading_to_text(max(total_apc_load, 0))
-	data["total_used_other"] = reading_to_text(max(powernet.viewload - total_apc_load, 0))
+	//data["total_used_apc"] = reading_to_text(max(total_apc_load, 0))
+	//data["total_used_other"] = reading_to_text(max(powernet.viewload - total_apc_load, 0))
 	data["total_used_all"] = reading_to_text(max(powernet.viewload, 0))
 	// Prevents runtimes when avail is 0 (division by zero)
 	if(powernet.avail)

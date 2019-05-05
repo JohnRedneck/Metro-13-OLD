@@ -37,6 +37,7 @@
 		)
 
 // Space suit uplink kit
+/*
 /obj/item/weapon/storage/backpack/satchel/syndie_kit/space
 	//name = "\improper EVA gear pack"
 
@@ -46,7 +47,7 @@
 		/obj/item/clothing/mask/gas/syndicate,
 		/obj/item/weapon/tank/emergency/oxygen/double,
 		)
-
+*/
 // Chameleon uplink kit
 /obj/item/weapon/storage/backpack/chameleon/sydie_kit
 	startswith = list(
@@ -145,12 +146,13 @@
 		C.reagents.add_reagent(reagent, reagents[reagent] * C.max_storage_space)
 
 //Rig Electrowarfare and Voice Synthesiser kit
+/*
 /obj/item/weapon/storage/backpack/satchel/syndie_kit/ewar_voice
 	startswith = list(
 		/obj/item/rig_module/electrowarfare_suite,
 		/obj/item/rig_module/voice,
 		)
-
+*/
 /obj/item/weapon/storage/secure/briefcase/heavysniper
 	startswith = list(
 		/obj/item/weapon/gun/projectile/heavysniper,

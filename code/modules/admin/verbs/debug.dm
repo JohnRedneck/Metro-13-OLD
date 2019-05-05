@@ -73,7 +73,7 @@
 	spawn(10)
 		M.Animalize()
 
-
+/*
 /client/proc/makepAI(var/turf/T in SSmobs.mob_list)
 	set category = "Fun"
 	set name = "Make pAI"
@@ -116,6 +116,7 @@
 		log_and_message_admins("made [key_name(M)] into a slime.")
 	else
 		alert("Invalid mob")
+*/
 
 //TODO: merge the vievars version into this or something maybe mayhaps
 /client/proc/cmd_debug_del_all()
@@ -149,7 +150,7 @@
 	log_admin("[key_name(src)] has turned aliens [config.aliens_allowed ? "on" : "off"].")
 	message_admins("[key_name_admin(src)] has turned aliens [config.aliens_allowed ? "on" : "off"].", 0)
 	SSstatistics.add_field_details("admin_verb","TAL") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-
+/* We won't have too many access cards except on speciality maps like D-6, so we don't need this for now -Ben
 /client/proc/cmd_admin_grantfullaccess(var/mob/M in SSmobs.mob_list)
 	set category = "Admin"
 	set name = "Grant Full Access"
@@ -176,7 +177,7 @@
 		alert("Invalid mob")
 	SSstatistics.add_field_details("admin_verb","GFA") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 	log_and_message_admins("has granted [M.key] full access.")
-
+*/
 /client/proc/cmd_assume_direct_control(var/mob/M in SSmobs.mob_list)
 	set category = "Admin"
 	set name = "Assume direct control"
@@ -217,12 +218,12 @@
 	for(var/area/A in world)
 		if(!(A.type in areas_all))
 			areas_all.Add(A.type)
-
+	/*
 	for(var/obj/machinery/power/apc/APC in world)
 		var/area/A = get_area(APC)
 		if(!(A.type in areas_with_APC))
 			areas_with_APC.Add(A.type)
-
+	*/s
 	for(var/obj/machinery/alarm/alarm in world)
 		var/area/A = get_area(alarm)
 		if(!(A.type in areas_with_air_alarm))
@@ -318,7 +319,7 @@
 		H.delete_inventory(TRUE)
 	outfit.equip(H)
 	log_and_message_admins("changed the equipment of [key_name(H)] to [outfit.name].")
-
+/*
 /client/proc/startSinglo()
 	set category = "Debug"
 	set name = "Start Singularity"
@@ -364,7 +365,7 @@
 
 			if(!Rad.active)
 				Rad.toggle_power()
-
+*/
 	for(var/obj/machinery/power/smes/SMES in world)
 		if(SMES.anchored)
 			SMES.input_attempt = 1

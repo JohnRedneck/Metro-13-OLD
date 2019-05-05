@@ -1,7 +1,7 @@
 #ifndef T_BOARD
 #error T_BOARD macro is not defined but we need it!
 #endif
-
+/*
 /obj/item/weapon/circuitboard/message_monitor
 	name = T_BOARD("message monitor console")
 	build_path = /obj/machinery/computer/message_monitor
@@ -39,7 +39,7 @@
 	name = T_BOARD("drone control console")
 	build_path = /obj/machinery/computer/drone_control
 	origin_tech = list(TECH_DATA = 3)
-
+*/
 /obj/item/weapon/circuitboard/arcade/battle
 	name = T_BOARD("battle arcade machine")
 	build_path = /obj/machinery/computer/arcade/battle
@@ -62,7 +62,7 @@
 /obj/item/weapon/circuitboard/powermonitor
 	name = T_BOARD("power monitoring console")
 	build_path = /obj/machinery/computer/power_monitor
-
+/*
 /obj/item/weapon/circuitboard/olddoor
 	name = T_BOARD("DoorMex")
 	build_path = /obj/machinery/computer/pod/old
@@ -136,12 +136,13 @@
 	name = T_BOARD("area air control console")
 	build_path = /obj/machinery/computer/area_atmos
 	origin_tech = list(TECH_DATA = 2)
-
+*/
 /obj/item/weapon/circuitboard/rcon_console
 	name = T_BOARD("RCON remote control console")
 	build_path = /obj/machinery/computer/rcon
 	origin_tech = list(TECH_DATA = 4, TECH_ENGINEERING = 3, TECH_POWER = 5)
-
+/*
 /obj/item/weapon/circuitboard/account_database
 	name = T_BOARD("accounts uplink terminal")
 	build_path = /obj/machinery/computer/account_database
+*/

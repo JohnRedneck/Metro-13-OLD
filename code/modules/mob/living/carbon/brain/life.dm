@@ -101,6 +101,7 @@
 			return 1
 
 		//Handling EMP effect in the Life(), it's made VERY simply, and has some additional effects handled elsewhere
+		/*
 		if(emp_damage)			//This is pretty much a damage type only used by MMIs, dished out by the emp_act
 			if(!(container && istype(container, /obj/item/device/mmi)))
 				emp_damage = 0
@@ -152,6 +153,7 @@
 					alert = 0
 					to_chat(src, "<span class='warning'>All systems restored.</span>")
 					emp_damage -= 1
+		*/
 
 	return 1
 

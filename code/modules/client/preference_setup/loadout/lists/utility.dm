@@ -28,11 +28,11 @@
 	folders["white folder"] = /obj/item/weapon/folder/white
 	folders["yellow folder"] = /obj/item/weapon/folder/yellow
 	gear_tweaks += new/datum/gear_tweak/path(folders)
-
+/*
 /datum/gear/utility/paicard
 	display_name = "personal AI device"
 	path = /obj/item/device/paicard
-
+*/
 /datum/gear/utility/camera
 	display_name = "camera"
 	path = /obj/item/device/camera
@@ -63,7 +63,7 @@
 /****************
 modular computers
 ****************/
-
+/*
 /datum/gear/utility/cheaptablet
 	display_name = "tablet computer, cheap"
 	path = /obj/item/modular_computer/tablet/preset/custom_loadout/cheap
@@ -92,3 +92,4 @@ modular computers
 	display_name = "laptop computer, advanced"
 	path = /obj/item/modular_computer/laptop/preset/custom_loadout/advanced
 	cost = 6
+*/

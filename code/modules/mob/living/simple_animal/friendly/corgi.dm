@@ -94,6 +94,7 @@
 	desc = "Tastes like... well you know..."
 
 /mob/living/simple_animal/corgi/attackby(var/obj/item/O as obj, var/mob/user as mob)  //Marker -Agouri
+	/*
 	if(istype(O, /obj/item/weapon/newspaper))
 		if(!stat)
 			for(var/mob/M in viewers(user, null))
@@ -104,7 +105,8 @@
 					set_dir(i)
 					sleep(1)
 	else
-		..()
+		*/
+	..()
 
 /mob/living/simple_animal/corgi/regenerate_icons()
 	overlays = list()
@@ -188,8 +190,10 @@
 					alone = 0
 					break
 			if(alone && ian && puppies < 4)
+				/*
 				if(near_camera(src) || near_camera(ian))
 					return
+				*/
 				new /mob/living/simple_animal/corgi/puppy(loc)
 
 

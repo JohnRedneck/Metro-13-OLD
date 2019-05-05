@@ -43,11 +43,13 @@ var/const/CHARACTER_PREFERENCE_INPUT_TITLE = "Character Preference"
 	sort_order = 7
 	category_item_type = /datum/category_item/player_setup_item/player_global
 
+/*
 /datum/category_group/player_setup_category/law_pref
 	name = "Laws"
 	sort_order = 8
 	category_item_type = /datum/category_item/player_setup_item/law_pref
 
+*/
 
 /****************************
 * Category Collection Setup *
@@ -252,8 +254,10 @@ var/const/CHARACTER_PREFERENCE_INPUT_TITLE = "Character Preference"
 	if(. & TOPIC_REFRESH)
 		pref_mob.client.prefs.ShowChoices(usr)
 
+/*
 /datum/category_item/player_setup_item/CanUseTopic(var/mob/user)
 	return 1
+*/
 
 /datum/category_item/player_setup_item/proc/OnTopic(var/href,var/list/href_list, var/mob/user)
 	return TOPIC_NOACTION

@@ -186,18 +186,21 @@
 	..()
 
 // Stunbaton module for Security synthetics
+/*
 /obj/item/weapon/melee/baton/robot
 	bcell = null
 	hitcost = 20
-
+*/
 // Addition made by Techhead0, thanks for fullfilling the todo!
+/*
 /obj/item/weapon/melee/baton/robot/examine_cell(mob/user)
 	to_chat(user, "<span class='notice'>The baton is running off an external power supply.</span>")
-
+*/
 // Override proc for the stun baton module, found in PC Security synthetics
 // Refactored to fix #14470 - old proc defination increased the hitcost beyond
 // usability without proper checks.
 // Also hard-coded to be unuseable outside their righteous synthetic owners.
+/*
 /obj/item/weapon/melee/baton/robot/attack_self(mob/user)
 	var/mob/living/silicon/robot/R = isrobot(user) ? user : null // null if the user is NOT a robot
 	update_cell(R) // takes both robots and null
@@ -217,13 +220,14 @@
 
 // Updates the baton's cell to use user's own cell
 // Otherwise, if null (when the user isn't a robot), render it unuseable
+/*
 /obj/item/weapon/melee/baton/robot/proc/update_cell(mob/living/silicon/robot/user)
 	if (!user)
 		bcell = null
 		set_status(0)
 	else if (!bcell || bcell != user.cell)
 		bcell = user.cell // if it is null, nullify it anyway
-
+*/
 // Traitor variant for Engineering synthetics.
 /obj/item/weapon/melee/baton/robot/electrified_arm
 	name = "electrified arm"
@@ -237,7 +241,7 @@
 	else
 		icon_state = "electrified_arm"
 		set_light(0)
-
+*/
 //Makeshift stun baton. Replacement for stun gloves.
 /obj/item/weapon/melee/baton/cattleprod
 	name = "stunprod"

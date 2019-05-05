@@ -76,10 +76,10 @@
 	if(console && usr.Adjacent(console))
 		usr.set_machine(console)
 		console.add_fingerprint(usr)
-
+/*
 /obj/machinery/mineral/attack_ai(var/mob/user)
 	interact(user)
-
+*/
 /obj/machinery/mineral/attack_hand(var/mob/user)
 	add_fingerprint(user)
 	interact(user)

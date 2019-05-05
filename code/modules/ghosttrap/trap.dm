@@ -20,14 +20,14 @@ var/list/ghost_traps
 		ghost_traps[G.object] = G
 
 /datum/ghosttrap
-	var/object = "positronic brain"
+	var/object = "ghosttrap default type"
 	var/minutes_since_death = 0     // If non-zero the ghost must have been dead for this many minutes to be allowed to spawn
-	var/list/ban_checks = list("AI","Robot")
+	var/list/ban_checks = list()
 	var/pref_check = BE_SYNTH
-	var/ghost_trap_message = "They are occupying a positronic brain now."
-	var/ghost_trap_role = "Positronic Brain"
-	var/can_set_own_name = TRUE
-	var/list_as_special_role = TRUE	// If true, this entry will be listed as a special role in the character setup
+	var/ghost_trap_message = "They are inhabiting the ghosttrap default type now."
+	var/ghost_trap_role = "ghosttrap default type"
+	var/can_set_own_name = FALSE
+	var/list_as_special_role = FALSE	// If true, this entry will be listed as a special role in the character setup
 
 	var/list/request_timeouts
 
@@ -103,17 +103,14 @@ var/list/ghost_traps
 
 // Fluff!
 /datum/ghosttrap/proc/welcome_candidate(var/mob/target)
-	to_chat(target, "<b>You are a positronic brain, brought into existence on [station_name()].</b>")
-	to_chat(target, "<b>As a synthetic intelligence, you answer to all crewmembers, as well as the AI.</b>")
-	to_chat(target, "<b>Remember, the purpose of your existence is to serve the crew and the [station_name()]. Above all else, do no harm.</b>")
-	to_chat(target, "<b>Use say [target.get_language_prefix()]b to speak to other artificial intelligences.</b>")
+	to_chat(target, "<b>You have inhabited the ghosttrap default type, please report this to a developer!</b>")
 	var/turf/T = get_turf(target)
 	var/obj/item/organ/internal/posibrain/P = target.loc
-	T.visible_message("<span class='notice'>\The [P] chimes quietly.</span>")
+	T.visible_message("<span class='notice'>\The [P] screams in bug as a ghost inhabits it.</span>")
 	if(!istype(P)) //wat
 		return
 	P.searching = 0
-	P.SetName("positronic brain ([P.brainmob.name])")
+	P.SetName("ghosttrap default type ([P.brainmob.name])")
 	P.update_icon()
 
 // Allows people to set their own name. May or may not need to be removed for posibrains if people are dumbasses.
@@ -125,7 +122,7 @@ var/list/ghost_traps
 	if (newname && newname != "")
 		target.real_name = newname
 		target.SetName(target.real_name)
-
+/*
 /***********************************
 * Diona pods and walking mushrooms *
 ***********************************/
@@ -234,3 +231,4 @@ datum/ghosttrap/pai/transfer_personality(var/mob/candidate, var/mob/living/silic
 	object = "soul stone"
 	ghost_trap_message = "They are occupying a soul stone now."
 	ghost_trap_role = "Shade"
+*/

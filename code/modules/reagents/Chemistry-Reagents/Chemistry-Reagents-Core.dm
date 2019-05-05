@@ -185,6 +185,7 @@
 			L.adjust_fire_stacks(-(amount / 10))
 			remove_self(amount)
 
+/*
 /datum/reagent/water/affect_touch(var/mob/living/carbon/M, var/alien, var/removed)
 	if(!istype(M, /mob/living/carbon/slime) && alien != IS_SLIME)
 		return
@@ -198,6 +199,7 @@
 	if(M.chem_doses[type] == removed)
 		M.visible_message("<span class='warning'>[S]'s flesh sizzles where the water touches it!</span>", "<span class='danger'>Your flesh burns in the water!</span>")
 		M.confused = max(M.confused, 2)
+*/
 
 /datum/reagent/water/boiling
 	name = "Boiling water"

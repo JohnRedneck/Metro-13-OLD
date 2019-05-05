@@ -18,6 +18,7 @@
 				"insult_bad"        = "If I had my gun I'd shoot you!"
 				)
 
+	/*
 	possible_trading_items = list(/obj/item/weapon/gun/projectile/pistol/holdout    = TRADER_ALL,
 								/obj/item/weapon/gun/projectile/pistol/military/alt    = TRADER_ALL,
 								/obj/item/weapon/gun/projectile/pistol/magnum_pistol= TRADER_ALL,
@@ -36,6 +37,7 @@
 								/obj/item/ammo_magazine/smg_top/empty        = TRADER_BLACKLIST,
 								/obj/item/ammo_magazine/magnum/empty           = TRADER_BLACKLIST,
 								/obj/item/clothing/accessory/storage/holster        = TRADER_ALL)
+	*/
 
 /datum/trader/ship/egunshop
 	name = "Energy Gun Shop Employee"
@@ -89,9 +91,11 @@
 	compliment_increase = 0
 	insult_drop = 0
 
+	/*
 	possible_trading_items = list(/obj/item/weapon/gun/projectile/pirate                = TRADER_THIS_TYPE,
 								/obj/item/weapon/gun/projectile/pistol/sec/MK                  = TRADER_THIS_TYPE,
 								/obj/item/weapon/gun/projectile/heavysniper/ant         = TRADER_THIS_TYPE,
 								/obj/item/weapon/gun/energy/laser/dogan                 = TRADER_THIS_TYPE,
 								/obj/item/weapon/gun/projectile/automatic/machine_pistol/usi  = TRADER_THIS_TYPE,
 								/obj/item/clothing/accessory/storage/holster                    = TRADER_ALL)
+	*/

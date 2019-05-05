@@ -91,8 +91,10 @@
 			new/obj/item/weapon/pickaxe/diamonddrill(src)
 		if(79 to 80)
 			new/obj/item/weapon/pickaxe/gold(src)
+		/*
 		if(81 to 82)
 			new/obj/item/weapon/gun/energy/plasmacutter(src)
+		*/
 		if(83 to 84)
 			new/obj/item/toy/katana(src)
 		if(85 to 86)
@@ -128,12 +130,14 @@
 			new/obj/item/clothing/accessory/suspenders(src)
 			new/obj/item/weapon/pen/crayon/mime(src)
 			new/obj/item/weapon/reagent_containers/food/drinks/bottle/bottleofnothing(src)
+		/*
 		if(96)
 			new/obj/item/weapon/vampiric(src)
 		if(97)
 			new/obj/item/weapon/archaeological_find(src)
 		if(98)
 			new/obj/item/weapon/melee/energy/sword(src)
+		*/
 		if(99)
 			new/obj/item/weapon/storage/belt/champion(src)
 			new/obj/item/clothing/mask/luchador(src)

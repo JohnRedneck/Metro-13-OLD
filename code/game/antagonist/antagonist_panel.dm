@@ -36,7 +36,7 @@
 			dat += "<td><i>Mob not found/([player.key])!</i></td>"
 		dat += "</tr>"
 	dat += "</table>"
-
+/*
 	if(flags & ANTAG_HAS_NUKE)
 		dat += "<br><table><tr><td><B>Nuclear disk(s)</B></td></tr>"
 		for(var/obj/item/weapon/disk/nuclear/N in world)
@@ -55,7 +55,7 @@
 	dat += get_additional_check_antag_output(caller)
 	dat += "<hr>"
 	return dat
-
+*/
 //Overridden elsewhere.
 /datum/antagonist/proc/get_additional_check_antag_output(var/datum/admins/caller)
 	return ""

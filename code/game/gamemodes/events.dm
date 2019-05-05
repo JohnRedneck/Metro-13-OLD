@@ -92,7 +92,7 @@ var/hadevent    = 0
 					domutcheck(H,null,MUTCHK_FORCED)
 	sleep(100)
 	GLOB.using_map.radiation_detected_announcement()
-
+/*
 /proc/carp_migration() // -- Darem
 	for(var/obj/effect/landmark/C in landmarks_list)
 		if(C.name == "carpspawn")
@@ -130,7 +130,8 @@ var/hadevent    = 0
 			apc.overload_lighting()
 
 	return
-
+*/
+/*
 /proc/IonStorm(botEmagChance = 10)
 
 /*Deuryn's current project, notes here for those who care.
@@ -295,3 +296,4 @@ Would like to add a law like "Law x is _______" where x = a number, and _____ is
 
 
 	*/
+*/

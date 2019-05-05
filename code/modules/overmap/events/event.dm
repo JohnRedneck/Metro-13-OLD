@@ -137,7 +137,7 @@
 	var/list/victims
 	var/continuous = TRUE //if it should form continous blob, or can have gaps
 	var/weaknesses //if the BSA can destroy them and with what
-
+/*
 /datum/overmap_event/proc/enter(var/obj/effect/overmap/ship/victim)
 	if(victim in victims)
 		log_error("Multiple attempts to trigger the same event by [victim] detected.")
@@ -183,7 +183,7 @@
 	event_icon_states = list("electrical1", "electrical2", "electrical3", "electrical4")
 	difficulty = EVENT_LEVEL_MAJOR
 	weaknesses = BSA_EMP
-
+*/
 /datum/overmap_event/dust
 	name = "dust cloud"
 	events = list(/datum/event/dust)
@@ -191,7 +191,7 @@
 	radius = 4
 	event_icon_states = list("dust1", "dust2", "dust3", "dust4")
 	weaknesses = BSA_MINING | BSA_EXPLOSIVE | BSA_FIRE
-
+/*
 /datum/overmap_event/ion
 	name = "ion cloud"
 	events = list(/datum/event/ionstorm, /datum/event/computer_damage)
@@ -201,7 +201,7 @@
 	event_icon_states = list("ion1", "ion2", "ion3", "ion4")
 	difficulty = EVENT_LEVEL_MAJOR
 	weaknesses = BSA_EMP
-
+*/
 /datum/overmap_event/carp
 	name = "carp shoal"
 	events = list(/datum/event/carp_migration)

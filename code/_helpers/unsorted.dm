@@ -312,6 +312,7 @@ Turf and target are seperate in case you want to teleport some distance from a t
 
 		fully_replace_character_name(newname)
 
+/*
 //Picks a string of symbols to display as the law number for hacked or ion laws
 /proc/ionnum()
 	return "[pick("1","2","3","4","5","6","7","8","9","0")][pick("!","@","#","$","%","^","&","*")][pick("!","@","#","$","%","^","&","*")][pick("!","@","#","$","%","^","&","*")]"
@@ -365,19 +366,20 @@ Turf and target are seperate in case you want to teleport some distance from a t
 	if(z)
 		return GetConnectedZlevels(z)
 	return list() //We return an empty list, because we are apparently in nullspace
+*/
 
 /proc/get_sorted_mobs()
 	var/list/old_list = getmobs()
-	var/list/AI_list = list()
+	//var/list/AI_list = list()
 	var/list/Dead_list = list()
 	var/list/keyclient_list = list()
 	var/list/key_list = list()
 	var/list/logged_list = list()
 	for(var/named in old_list)
 		var/mob/M = old_list[named]
-		if(issilicon(M))
+		/*if(issilicon(M))
 			AI_list |= M
-		else if(isghost(M) || M.stat == DEAD)
+		else */if(isghost(M) || M.stat == DEAD)
 			Dead_list |= M
 		else if(M.key && M.client)
 			keyclient_list |= M
@@ -387,7 +389,7 @@ Turf and target are seperate in case you want to teleport some distance from a t
 			logged_list |= M
 		old_list.Remove(named)
 	var/list/new_list = list()
-	new_list += AI_list
+	//new_list += AI_list
 	new_list += keyclient_list
 	new_list += key_list
 	new_list += logged_list
@@ -435,8 +437,8 @@ Turf and target are seperate in case you want to teleport some distance from a t
 		moblist.Add(M)
 	for(var/mob/living/silicon/robot/M in sortmob)
 		moblist.Add(M)
-	for(var/mob/living/deity/M in sortmob)
-		moblist.Add(M)
+	/*for(var/mob/living/deity/M in sortmob)
+		moblist.Add(M)*/
 	for(var/mob/living/carbon/human/M in sortmob)
 		moblist.Add(M)
 	for(var/mob/living/carbon/brain/M in sortmob)
@@ -911,13 +913,14 @@ var/global/list/common_tools = list(
 				return 1000
 			else
 				return 0
+		/*
 		if(/obj/item/weapon/gun/energy/plasmacutter)
 			return 3800
 		if(/obj/item/weapon/melee/energy)
 			return 3500
 		else
 			return 0
-
+		*/
 	return 0
 
 //Whether or not the given item counts as sharp in terms of dealing damage
@@ -969,8 +972,8 @@ var/global/list/common_tools = list(
 		. = TRUE
 	if(locate(/obj/structure/table, T))
 		. = TRUE
-	if(locate(/obj/effect/rune/, T))
-		. = TRUE
+	/*if(locate(/obj/effect/rune/, T))
+		. = TRUE*/
 
 	if(M == user)
 		var/hitzone = check_zone(user.zone_sel.selecting)

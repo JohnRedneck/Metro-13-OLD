@@ -39,6 +39,7 @@
 
 	return src
 
+/*
 /mob/new_player/AIize()
 	spawning = 1
 	return ..()
@@ -174,6 +175,7 @@
 	to_chat(new_slime, "<B>You are now a slime. Skreee!</B>")
 	qdel(src)
 	return
+*/
 
 /mob/living/carbon/human/proc/corgize()
 	if (HAS_TRANSFORMATION_MOVEMENT_HANDLER(src))
@@ -262,8 +264,6 @@
 	if(ispath(MP, /mob/living/simple_animal/corgi))
 		return 1
 	if(ispath(MP, /mob/living/simple_animal/crab))
-		return 1
-	if(ispath(MP, /mob/living/simple_animal/hostile/carp))
 		return 1
 	if(ispath(MP, /mob/living/simple_animal/mushroom))
 		return 1

@@ -149,10 +149,10 @@
 			stasis = text2num(href_list["stasis"])
 			change_power_consumption(initial(active_power_usage) + 5 KILOWATTS * (stasis-1), POWER_USE_ACTIVE)
 			return TOPIC_REFRESH
-
+/*
 /obj/machinery/sleeper/attack_ai(var/mob/user)
 	return attack_hand(user)
-
+*/
 /obj/machinery/sleeper/attackby(var/obj/item/I, var/mob/user)
 	if(default_deconstruction_screwdriver(user, I))
 		updateUsrDialog()

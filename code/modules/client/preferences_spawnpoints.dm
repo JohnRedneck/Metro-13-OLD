@@ -56,7 +56,7 @@ GLOBAL_VAR(spawntypes)
 /datum/spawnpoint/gateway/New()
 	..()
 	turfs = GLOB.latejoin_gateway
-
+/*
 /datum/spawnpoint/cryo
 	display_name = "Cryogenic Storage"
 	msg = "has completed cryogenic revival"
@@ -76,7 +76,7 @@ GLOBAL_VAR(spawntypes)
 			victim.Sleeping(rand(1,3))
 			to_chat(victim,SPAN_NOTICE("You are slowly waking up from the cryostasis aboard [GLOB.using_map.full_name]. It might take a few seconds."))
 			return
-
+*/
 /datum/spawnpoint/cyborg
 	display_name = "Cyborg Storage"
 	msg = "has been activated from storage"

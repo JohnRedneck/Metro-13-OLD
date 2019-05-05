@@ -160,7 +160,7 @@
 /obj/item/rig_module/ai_container/removed()
 	eject_ai()
 	..()
-
+/*
 /obj/item/rig_module/ai_container/proc/eject_ai(var/mob/user)
 
 	if(ai_card)
@@ -474,7 +474,7 @@
 	interfaced_with = null
 	total_power_drained = 0
 
-/*
+
 //Maybe make this use power when active or something
 /obj/item/rig_module/emp_shielding
 	name = "\improper EMP dissipation module"

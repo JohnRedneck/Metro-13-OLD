@@ -1,3 +1,4 @@
+/*
 /obj/machinery/acting/wardrobe
 	name = "wardrobe dispenser"
 	desc = "A machine that dispenses holo-clothing for those in need."
@@ -15,7 +16,7 @@
 			new /obj/item/weapon/storage/backpack/chameleon/sydie_kit(src.loc)
 			src.visible_message("\The [src] beeps, dispensing a small box onto the floor.", "You hear a beeping sound followed by a thumping noise of some kind.")
 			active = 1
-
+*/
 /obj/machinery/acting/changer
 	name = "Quickee's Plastic Surgeon"
 	desc = "For when you need to be someone else right now."

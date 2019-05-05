@@ -168,11 +168,11 @@
 		if(!target.reagents.total_volume)
 			to_chat(user, "<span class='notice'>[target] is empty.</span>")
 			return
-
+		/*
 		if(!target.is_open_container() && !istype(target, /obj/structure/reagent_dispensers) && !istype(target, /obj/item/slime_extract))
 			to_chat(user, "<span class='notice'>You cannot directly remove reagents from this object.</span>")
 			return
-
+		*/
 		var/trans = target.reagents.trans_to_obj(src, amount_per_transfer_from_this)
 		to_chat(user, "<span class='notice'>You fill the syringe with [trans] units of the solution.</span>")
 		update_icon()
@@ -191,10 +191,11 @@
 		return
 	if(istype(target, /obj/item/weapon/implantcase/chem))
 		return
-
+	/*
 	if(!target.is_open_container() && !ismob(target) && !istype(target, /obj/item/weapon/reagent_containers/food) && !istype(target, /obj/item/slime_extract) && !istype(target, /obj/item/clothing/mask/smokable/cigarette) && !istype(target, /obj/item/weapon/storage/fancy/cigarettes))
 		to_chat(user, "<span class='notice'>You cannot directly fill this object.</span>")
 		return
+	*/
 	if(!target.reagents.get_free_space())
 		to_chat(user, "<span class='notice'>[target] is full.</span>")
 		return

@@ -146,7 +146,7 @@
 	for(var/mob/M in viewers(1, src))
 		if ((M.client && M.machine == src))
 			src.interact(M)
-	AutoUpdateAI(src)
+	//AutoUpdateAI(src)
 
 /obj/machinery/power/turbine/interact(mob/user)
 

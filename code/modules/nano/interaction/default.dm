@@ -15,7 +15,7 @@ GLOBAL_DATUM_INIT(default_state, /datum/topic_state/default, new)
 	if(!client || get_dist(src_object, src)	> client.view)	// Preventing ghosts from having a million windows open by limiting to objects in range
 		return STATUS_CLOSE
 	return STATUS_UPDATE									// Ghosts can view updates
-
+/*
 /mob/living/silicon/pai/default_can_use_topic(var/src_object)
 	if((src_object == src || src_object == silicon_radio) && !stat)
 		return STATUS_INTERACTIVE
@@ -57,7 +57,7 @@ GLOBAL_DATUM_INIT(default_state, /datum/topic_state/default, new)
 		return STATUS_INTERACTIVE
 
 	return STATUS_CLOSE
-
+*/
 //Some atoms such as vehicles might have special rules for how mobs inside them interact with NanoUI.
 /atom/proc/contents_nano_distance(var/src_object, var/mob/living/user)
 	return user.shared_living_nano_distance(src_object)

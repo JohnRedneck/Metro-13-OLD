@@ -27,6 +27,7 @@
 		if(prob(getBrainLoss()))
 			return UI_UPDATE
 
+/*
 /mob/living/silicon/robot/tg_default_can_use_topic(src_object)
 	. = shared_ui_interaction(src_object)
 	if(. <= UI_DISABLED)
@@ -53,3 +54,4 @@
 		return UI_INTERACTIVE
 	else
 		return ..()
+*/

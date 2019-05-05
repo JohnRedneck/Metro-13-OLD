@@ -919,7 +919,6 @@
 	This proc below is only called when those HUD elements need to change as determined by the mobs hud_updateflag.
 */
 
-
 /mob/living/carbon/human/proc/handle_hud_list()
 	if (BITTEST(hud_updateflag, HEALTH_HUD) && hud_list[HEALTH_HUD])
 		var/image/holder = hud_list[HEALTH_HUD]
@@ -998,6 +997,7 @@
 			if(I)
 				perpname = I.registered_name
 
+		/*
 		var/datum/computer_file/report/crew_record/E = get_crewmember_record(perpname)
 		if(E)
 			switch(E.get_criminalStatus())
@@ -1010,6 +1010,7 @@
 				if("Released")
 					holder.icon_state = "hudreleased"
 		hud_list[WANTED_HUD] = holder
+		*/
 
 	if (  BITTEST(hud_updateflag, IMPLOYAL_HUD) \
 	   || BITTEST(hud_updateflag,  IMPCHEM_HUD) \

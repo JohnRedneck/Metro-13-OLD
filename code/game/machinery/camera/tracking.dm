@@ -2,12 +2,12 @@
 #define TRACKING_NO_COVERAGE 1
 #define TRACKING_TERMINATE 2
 
-/mob/living/silicon/ai/var/max_locations = 10
-/mob/living/silicon/ai/var/stored_locations[0]
+// /mob/living/silicon/ai/var/max_locations = 10
+// /mob/living/silicon/ai/var/stored_locations[0]
 
 /proc/InvalidPlayerTurf(turf/T as turf)
 	return !(T && T.z in GLOB.using_map.player_levels)
-
+/*
 /mob/living/silicon/ai/proc/get_camera_list()
 	if(src.stat == 2)
 		return
@@ -21,8 +21,8 @@
 	track = new()
 	track.cameras = T
 	return T
-
-
+*/
+/*
 /mob/living/silicon/ai/proc/ai_camera_list(var/camera in get_camera_list())
 	set category = "Silicon Commands"
 	set name = "Show Camera List"
@@ -37,7 +37,8 @@
 	src.eyeobj.setLoc(C)
 
 	return
-
+*/
+/*
 /mob/living/silicon/ai/proc/ai_store_location(loc as text)
 	set category = "Silicon Commands"
 	set name = "Store Camera Location"
@@ -63,10 +64,12 @@
 
 	stored_locations[loc] = L
 	to_chat(src, "Location '[loc]' stored")
-
+*/
+/*
 /mob/living/silicon/ai/proc/sorted_stored_locations()
 	return sortList(stored_locations)
-
+*/
+/*
 /mob/living/silicon/ai/proc/ai_goto_location(loc in sorted_stored_locations())
 	set category = "Silicon Commands"
 	set name = "Goto Camera Location"
@@ -90,7 +93,7 @@
 
 	stored_locations.Remove(loc)
 	to_chat(src, "Location [loc] removed")
-
+*/
 // Used to allow the AI is write in mob names/camera name from the CMD line.
 /datum/trackable
 	var/list/names = list()
@@ -98,7 +101,7 @@
 	var/list/humans = list()
 	var/list/others = list()
 	var/list/cameras = list()
-
+/*
 /mob/living/silicon/ai/proc/trackable_mobs()
 	if(usr.stat == 2)
 		return list()
@@ -125,7 +128,8 @@
 	var/list/targets = sortList(TB.humans) + sortList(TB.others)
 	src.track = TB
 	return targets
-
+*/
+/*
 /mob/living/silicon/ai/proc/ai_camera_track(var/target_name in trackable_mobs())
 	set category = "Silicon Commands"
 	set name = "Follow With Camera"
@@ -149,6 +153,8 @@
 	cameraFollow.tracking_cancelled()
 	cameraFollow = null
 
+*/
+/*
 /mob/living/silicon/ai/proc/ai_actual_track(mob/living/target as mob)
 	if(!istype(target))	return
 	var/mob/living/silicon/ai/U = usr
@@ -182,7 +188,7 @@
 				view_core()
 				return
 			sleep(10)
-
+*/
 /obj/machinery/camera/attack_ai(var/mob/living/silicon/ai/user as mob)
 	if (!istype(user))
 		return
@@ -190,10 +196,10 @@
 		return
 	user.eyeobj.setLoc(get_turf(src))
 
-
+/*
 /mob/living/silicon/ai/attack_ai(var/mob/user as mob)
 	ai_camera_list()
-
+*/
 /proc/camera_sort(list/L)
 	var/obj/machinery/camera/a
 	var/obj/machinery/camera/b
@@ -220,9 +226,11 @@ mob/living/proc/near_camera()
 
 /mob/living/proc/tracking_status()
 	// Easy checks first.
+	/*
 	var/obj/item/weapon/card/id/id = GetIdCard()
 	if(id && id.prevent_tracking())
 		return TRACKING_TERMINATE
+	*/
 	if(InvalidPlayerTurf(get_turf(src)))
 		return TRACKING_TERMINATE
 	if(invisibility >= INVISIBILITY_LEVEL_ONE) //cloaked
@@ -234,12 +242,12 @@ mob/living/proc/near_camera()
 
 	 // Now, are they viewable by a camera? (This is last because it's the most intensive check)
 	return near_camera() ? TRACKING_POSSIBLE : TRACKING_NO_COVERAGE
-
+/*
 /mob/living/silicon/robot/tracking_status()
 	. = ..()
 	if(. == TRACKING_NO_COVERAGE)
 		return camera && camera.can_use() ? TRACKING_POSSIBLE : TRACKING_NO_COVERAGE
-
+*/
 /mob/living/carbon/human/tracking_status()
 	if(is_cloaked())
 		. = TRACKING_TERMINATE
@@ -255,19 +263,19 @@ mob/living/proc/near_camera()
 			return TRACKING_POSSIBLE
 
 mob/living/proc/tracking_initiated()
-
+/*
 mob/living/silicon/robot/tracking_initiated()
 	tracking_entities++
 	if(tracking_entities == 1 && has_zeroth_law())
 		to_chat(src, "<span class='warning'>Internal camera is currently being accessed.</span>")
-
+*/
 mob/living/proc/tracking_cancelled()
-
+/*
 mob/living/silicon/robot/tracking_cancelled()
 	tracking_entities--
 	if(!tracking_entities && has_zeroth_law())
 		to_chat(src, "<span class='notice'>Internal camera is no longer being accessed.</span>")
-
+*/
 
 #undef TRACKING_POSSIBLE
 #undef TRACKING_NO_COVERAGE

@@ -1,3 +1,4 @@
+/*
 /obj/item/weapon/nullrod
 	name = "null sceptre"
 	desc = "A sceptre of pure black obsidian capped at both ends with silver ferrules. Some religious groups claim it disrupts and dampens the powers of paranormal phenomenae."
@@ -245,3 +246,4 @@ obj/effect/energy_net/user_unbuckle_mob(mob/user)
 		return 1
 	else
 		return 0
+*/

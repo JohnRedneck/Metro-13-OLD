@@ -17,12 +17,14 @@
 			return
 		found = 1
 		hard_drive = H
+	/*
 	else if(istype(H, /obj/item/weapon/computer_hardware/network_card))
 		if(network_card)
 			to_chat(user, "This computer's network card slot is already occupied by \the [network_card].")
 			return
 		found = 1
 		network_card = H
+	*/
 	else if(istype(H, /obj/item/weapon/computer_hardware/nano_printer))
 		if(nano_printer)
 			to_chat(user, "This computer's nano printer slot is already occupied by \the [nano_printer].")
@@ -47,6 +49,7 @@
 			return
 		found = 1
 		processor_unit = H
+	/*
 	else if(istype(H, /obj/item/weapon/computer_hardware/ai_slot))
 		if(ai_slot)
 			to_chat(user, "This computer's intellicard slot is already occupied by \the [ai_slot].")
@@ -59,6 +62,7 @@
 			return
 		found = 1
 		tesla_link = H
+	*/
 	else if(istype(H, /obj/item/weapon/computer_hardware/scanner))
 		if(scanner)
 			to_chat(user, "This computer's scanner slot is already occupied by \the [scanner].")

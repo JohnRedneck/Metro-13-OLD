@@ -101,10 +101,11 @@
 
 /datum/reagent/nutriment/honey/affect_ingest(var/mob/living/carbon/human/M, var/alien, var/removed)
 	..()
-
+	/*
 	if(alien == IS_UNATHI)
 		var/datum/species/unathi/S = M.species
 		S.handle_sugar(M,src)
+	*/
 
 /datum/reagent/nutriment/flour
 	name = "flour"
@@ -525,9 +526,11 @@
 /datum/reagent/drink/juice/affect_ingest(var/mob/living/carbon/human/M, var/alien, var/removed)
 	..()
 	M.immunity = min(M.immunity + 0.25, M.immunity_norm*1.5)
+	/*
 	if(alien == IS_UNATHI)
 		var/datum/species/unathi/S = M.species
 		S.handle_sugar(M,src,0.5)
+	*/
 
 /datum/reagent/drink/juice/banana
 	name = "Banana Juice"
@@ -920,10 +923,11 @@
 
 /datum/reagent/milkshake/affect_ingest(var/mob/living/carbon/human/M, var/alien, var/removed)
 	..()
-
+	/*
 	if(alien == IS_UNATHI)
 		var/datum/species/unathi/S = M.species
 		S.handle_sugar(M,src,0.5)
+	*/
 
 /datum/reagent/drink/rewriter
 	name = "Rewriter"

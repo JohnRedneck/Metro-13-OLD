@@ -298,10 +298,12 @@
 
 /obj/item/weapon/archaeological_find/crystal/spawn_item()
 	var/obj/item/new_item
+	/*
 	if(prob(25))
 		new_item = new /obj/item/device/soulstone(loc)
 	else
-		new_item = new(loc)
+	*/
+	new_item = new(loc)
 	apply_image_decorations = 1
 	additional_desc = pick("It shines faintly as it catches the light.","It appears to have a faint inner glow.","It seems to draw you inward as you look it at.","Something twinkles faintly as you look at it.","It's mesmerizing to behold.")
 
@@ -322,10 +324,10 @@
 	apply_prefix = 0
 	apply_material_decorations = 0
 	apply_image_decorations = 0
-
+/*
 /obj/item/weapon/archaeological_find/blade/spawn_item()
 	return new /obj/item/weapon/melee/cultblade(loc)
-
+*/
 /obj/item/weapon/archaeological_find/beacon
 	item_type = "device"
 	find_type = ARCHAEO_TELEBEACON
@@ -347,7 +349,7 @@
 /obj/item/weapon/archaeological_find/robes
 	item_type = "garments"
 	find_type = ARCHAEO_CULTROBES
-
+/*
 /obj/item/weapon/archaeological_find/robes/spawn_item()
 	var/list/possible_spawns = list(/obj/item/clothing/head/culthood,
 	/obj/item/clothing/head/culthood/magus,
@@ -355,7 +357,7 @@
 	/obj/item/clothing/head/helmet/space/cult)
 	var/new_type = pick(possible_spawns)
 	return new new_type(loc)
-
+*/
 /obj/item/weapon/archaeological_find/katana
 	item_type = "blade"
 	find_type = ARCHAEO_KATANA

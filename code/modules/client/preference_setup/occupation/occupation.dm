@@ -144,9 +144,6 @@
 
 				var/title = job.title
 				var/title_link = job.alt_titles ? "<a href='?src=\ref[src];select_alt_title=\ref[job]'>[pref.GetPlayerAltTitle(job)]</a>" : job.title
-				if((title in SSjobs.titles_by_department(COM)) || (title == "AI"))//Bold head jobs
-					title_link = "<b>[title_link]</b>"
-
 				var/help_link = "</td><td width = '10%' align = 'center'><a href='?src=\ref[src];job_info=[title]'>?</a></td>"
 				lastJob = job
 
@@ -324,7 +321,7 @@
 				set_to = JOB_LEVEL_NEVER
 			else if(set_to > JOB_LEVEL_NEVER)
 				set_to = JOB_LEVEL_HIGH
-		if(SetJob(user, set_job, set_to)) 
+		if(SetJob(user, set_job, set_to))
 			return (pref.equip_preview_mob ? TOPIC_REFRESH_UPDATE_PREVIEW : TOPIC_REFRESH)
 
 	else if(href_list["char_branch"])
@@ -389,7 +386,7 @@
 		show_browser(user, jointext(HTML, null), "window=\ref[user]skillinfo")
 
 	else if(href_list["job_info"])
-		
+
 		var/rank = href_list["job_info"]
 		var/datum/job/job = SSjobs.get_by_title(rank)
 
@@ -437,7 +434,7 @@
 		pref.player_alt_titles[job.title] = new_title
 
 /datum/category_item/player_setup_item/occupation/proc/SetJob(mob/user, role, level)
-	
+
 	level = Clamp(level, JOB_LEVEL_HIGH, JOB_LEVEL_NEVER)
 	var/datum/job/job = SSjobs.get_by_title(role, TRUE)
 	if(!job)

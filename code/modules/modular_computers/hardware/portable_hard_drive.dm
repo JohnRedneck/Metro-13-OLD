@@ -37,6 +37,7 @@
 	return ..()
 
 // For idiot merchants who wipe the program from their console.
+/*
 /obj/item/weapon/computer_hardware/hard_drive/portable/merchant
 	name = "merchant_list_1155_CRACKZ_1155_no_keygen_repack"
 	desc = "An obviously pirated copy of well-known trading software."
@@ -44,3 +45,4 @@
 /obj/item/weapon/computer_hardware/hard_drive/portable/merchant/Initialize()
 	. = ..()
 	store_file(new/datum/computer_file/program/merchant(src))
+*/

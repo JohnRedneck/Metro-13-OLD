@@ -145,7 +145,7 @@
 		speaker_name = "unknown"
 
 	var/changed_voice
-
+	/*
 	if(istype(src, /mob/living/silicon/ai) && !hard_to_hear)
 		var/jobname // the mob's "job"
 		var/mob/living/carbon/human/impersonating //The crew member being impersonated, if any.
@@ -193,7 +193,7 @@
 				track = "[speaker_name] ([jobname])"
 		else
 			track = "<a href='byond://?src=\ref[src];trackname=[html_encode(speaker_name)];track=\ref[speaker]'>[speaker_name] ([jobname])</a>"
-
+	*/
 	if(isghost(src))
 		if(speaker_name != speaker.real_name && !isAI(speaker)) //Announce computer and various stuff that broadcasts doesn't use it's real name but AI's can't pretend to be other mobs.
 			speaker_name = "[speaker.real_name] ([speaker_name])"

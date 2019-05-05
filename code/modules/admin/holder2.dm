@@ -103,7 +103,7 @@ NOTE: It checks usr by default. Supply the "user" argument if you wish to check 
 /client/proc/deadmin()
 	if(holder)
 		holder.disassociate()
-		//qdel(holder)
+		qdel(holder)
 	return 1
 
 /mob/Stat()

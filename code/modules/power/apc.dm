@@ -210,9 +210,10 @@
 		cell = null
 
 	// Malf AI, removes the APC from AI's hacked APCs list.
+	/*
 	if((hacker) && (hacker.hacked_apcs) && (src in hacker.hacked_apcs))
 		hacker.hacked_apcs -= src
-
+	*/
 	return ..()
 
 /obj/machinery/power/apc/proc/energy_fail(var/duration)
@@ -399,7 +400,7 @@
 			update_state |= UPDATE_OPENED1
 		if(opened==2)
 			update_state |= UPDATE_OPENED2
-	else if(emagged || (hacker && !hacker.hacked_apcs_hidden) || failure_timer)
+	else if(emagged/* || (hacker && !hacker.hacked_apcs_hidden) */|| failure_timer)
 		update_state |= UPDATE_BLUESCREEN
 	else if(wiresexposed)
 		update_state |= UPDATE_WIREEXP
@@ -466,7 +467,7 @@
 		else if (opened!=2) //cover isn't removed
 			opened = 0
 			update_icon()
-	else if(isCrowbar(W) && !((stat & BROKEN) || (hacker && !hacker.hacked_apcs_hidden)) )
+	else if(isCrowbar(W) && !((stat & BROKEN) || (hacker/* && !hacker.hacked_apcs_hidden*/)) )
 		if(coverlocked && !(stat & MAINT))
 			to_chat(user, "<span class='warning'>The cover is locked and cannot be opened.</span>")
 			return
@@ -527,7 +528,7 @@
 			to_chat(user, "You must close the panel")
 		else if(stat & (BROKEN|MAINT))
 			to_chat(user, "Nothing happens.")
-		else if(hacker && !hacker.hacked_apcs_hidden)
+		else if(hacker/* && !hacker.hacked_apcs_hidden*/)
 			to_chat(user, "<span class='warning'>Access denied.</span>")
 		else
 			if(src.allowed(usr) && !isWireCut(APC_WIRE_IDSCAN))
@@ -879,6 +880,7 @@
 		to_chat(user, "<span class='warning'>You must stand to use [src]!</span>")
 		return 0
 	autoflag = 5
+	/*
 	if (istype(user, /mob/living/silicon))
 		var/permit = 0 // Malfunction variable. If AI hacks APC it can control it even without AI control wire.
 		var/mob/living/silicon/ai/AI = user
@@ -894,8 +896,9 @@
 				to_chat(user, "<span class='danger'>\The [src] have AI control disabled!</span>")
 			return 0
 	else
-		if (!in_range(src, user) || !istype(src.loc, /turf))
-			return 0
+	*/
+	if (!in_range(src, user) || !istype(src.loc, /turf))
+		return 0
 	var/mob/living/carbon/human/H = user
 	if (istype(H) && prob(H.getBrainLoss()))
 		to_chat(user, "<span class='danger'>You momentarily forget how to use [src].</span>")
@@ -1278,6 +1281,7 @@ obj/machinery/power/apc/proc/autoset(var/cur_state, var/on)
 
 
 // Malfunction: Transfers APC under AI's control
+/*
 /obj/machinery/power/apc/proc/ai_hack(var/mob/living/silicon/ai/A = null)
 	if(!A || !A.hacked_apcs || hacker || aidisabled || A.stat == DEAD)
 		return 0
@@ -1286,7 +1290,7 @@ obj/machinery/power/apc/proc/autoset(var/cur_state, var/on)
 	locked = 1
 	update_icon()
 	return 1
-
+*/
 /obj/item/weapon/module/power_control
 	name = "power control module"
 	desc = "Heavy-duty switching circuits for power control."

@@ -598,20 +598,22 @@
 				if("select_charge_type")
 					module.charge_selected = href_list["charge_type"]
 		return 1
+	/*
 	if(href_list["toggle_ai_control"])
 		ai_override_enabled = !ai_override_enabled
 		notify_ai("Synthetic suit control has been [ai_override_enabled ? "enabled" : "disabled"].")
 		return 1
+	*/
 	if(href_list["toggle_suit_lock"])
 		locked = !locked
 		return 1
-
+/*
 /obj/item/weapon/rig/proc/notify_ai(var/message)
 	for(var/obj/item/rig_module/ai_container/module in installed_modules)
 		if(module.integrated_ai && module.integrated_ai.client && !module.integrated_ai.stat)
 			to_chat(module.integrated_ai, "[message]")
 			. = 1
-
+*/
 /obj/item/weapon/rig/equipped(mob/living/carbon/human/M)
 	..()
 
@@ -817,7 +819,7 @@
 			to_chat(user, "<span class='danger'>ERROR: Hardware fault. Rebooting interface...</span>")
 		return 1
 	return 0
-
+/*
 /obj/item/weapon/rig/proc/ai_can_move_suit(var/mob/user, var/check_user_module = 0, var/check_for_ai = 0)
 
 	if(check_for_ai)
@@ -873,7 +875,7 @@
 
 	cell.use(aimove_power_usage * CELLRATE)
 	wearer.DoMove(direction, user)
-
+*/
 // This returns the rig if you are contained inside one, but not if you are wearing it
 /atom/proc/get_rig()
 	if(loc)

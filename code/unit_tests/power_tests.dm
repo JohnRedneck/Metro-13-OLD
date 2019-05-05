@@ -48,7 +48,7 @@ datum/unit_test/roundstart_cable_connectivity/start_test()
 
 	return 1
 
-
+/*
 /datum/unit_test/areas_apc_uniqueness
 	name = "POWER: Each area should have at most one APC."
 
@@ -69,7 +69,7 @@ datum/unit_test/roundstart_cable_connectivity/start_test()
 	else
 		pass("No areas with duplicated APCs have been found.")
 	return 1
-
+*/
 /datum/unit_test/area_power_tally_accuracy
 	name = "POWER: All areas must have accurate power use values."
 

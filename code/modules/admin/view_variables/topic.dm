@@ -408,10 +408,12 @@
 		switch(H.type)
 			if(/mob/living/carbon/human)
 				possibleverbs += typesof(/mob/living/carbon/proc,/mob/living/carbon/verb,/mob/living/carbon/human/verb,/mob/living/carbon/human/proc)
+			/*
 			if(/mob/living/silicon/robot)
 				possibleverbs += typesof(/mob/living/silicon/proc,/mob/living/silicon/robot/proc,/mob/living/silicon/robot/verb)
 			if(/mob/living/silicon/ai)
 				possibleverbs += typesof(/mob/living/silicon/proc,/mob/living/silicon/ai/proc,/mob/living/silicon/ai/verb)
+			*/
 		possibleverbs -= H.verbs
 		possibleverbs += "Cancel" 								// ...And one for the bottom
 
@@ -484,7 +486,7 @@
 		to_chat(usr, "Removed [rem_organ] from [M].")
 		rem_organ.removed()
 		qdel(rem_organ)
-
+	/*
 	else if(href_list["fix_nano"])
 		if(!check_rights(R_DEBUG)) return
 
@@ -503,7 +505,7 @@
 		to_chat(H, "Your NanoUI Resource files have been refreshed")
 
 		log_admin("[key_name(usr)] resent the NanoUI resource files to [key_name(H)] ")
-
+	*/
 	else if(href_list["regenerateicons"])
 		if(!check_rights(0))	return
 

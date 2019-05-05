@@ -57,7 +57,7 @@
 		var/obj/item/weapon/evidencebag/S = new(src)
 		S.SetName("sample bag")
 		S.desc = "a bag for holding research samples."
-
+/*
 /obj/item/device/ano_scanner
 	name = "\improper Alden-Saraspova counter"
 	desc = "A device which aids in triangulation of exotic particles."
@@ -114,6 +114,7 @@
 			to_chat(user, "Background radiation levels detected.")
 	else
 		to_chat(user, "Scanning array is recharging.")
+*/
 
 /obj/item/device/depth_scanner
 	name = "depth analysis scanner"

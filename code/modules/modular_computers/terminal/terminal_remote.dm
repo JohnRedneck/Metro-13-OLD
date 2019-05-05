@@ -27,7 +27,8 @@
 		return FALSE
 	if(!computer.network_card || !computer.network_card.check_functionality())
 		return FALSE
+	/*
 	if(!ntnet_global.check_function())
 		return FALSE
-
+	*/
 	return TRUE

@@ -477,10 +477,10 @@
 		alert_signal.data["alert"] = "clear"
 
 	frequency.post_signal(src, alert_signal)
-
+/*
 /obj/machinery/alarm/attack_ai(mob/user)
 	ui_interact(user)
-
+*/
 /obj/machinery/alarm/attack_hand(mob/user)
 	. = ..()
 	if (.)

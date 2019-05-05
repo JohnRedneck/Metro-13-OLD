@@ -13,7 +13,7 @@
 //Helper procs.
 /datum/report_field/people/proc/perform_send(subject, body, attach_report)
 	return
-
+/*
 /datum/report_field/people/proc/send_to_recipient(subject, body, attach_report, recipient)
 	var/datum/computer_file/data/email_account/server = ntnet_global.find_email_by_name(EMAIL_DOCUMENTS)
 	var/datum/computer_file/data/email_message/message = new()
@@ -23,7 +23,7 @@
 	if(attach_report)
 		message.attachment = owner.clone()
 	server.send_mail(recipient, message)
-
+*/
 /datum/report_field/people/proc/format_output(name, rank, milrank)
 	. = list()
 	if(milrank)
@@ -60,7 +60,7 @@
 
 /datum/report_field/people/from_manifest/perform_send(subject, body, attach_report)
 	var/login = find_email(value["name"])
-	send_to_recipient(subject, body, attach_report, login)
+	//send_to_recipient(subject, body, attach_report, login)
 	return 1
 
 //Lets you select multiple people.
@@ -91,7 +91,7 @@
 		if(in_as_list(entry, new_value))
 			continue //ignore repeats
 		new_value += list(entry)
-	value = new_value	
+	value = new_value
 
 /datum/report_field/people/list_from_manifest/ask_value(mob/user)
 	var/alert = alert(user, "Would you like to add or remove a name?", "Form Input", "Add", "Remove")
@@ -120,5 +120,5 @@
 /datum/report_field/people/list_from_manifest/perform_send(subject, body, attach_report)
 	for(var/entry in value)
 		var/login = find_email(entry["name"])
-		send_to_recipient(subject, body, attach_report, login)
+		//send_to_recipient(subject, body, attach_report, login)
 	return 1

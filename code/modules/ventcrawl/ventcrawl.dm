@@ -10,11 +10,11 @@ var/list/ventcrawl_machinery = list(
 	/obj/item/weapon/holder,
 	/obj/machinery/camera,
 	/mob/living/simple_animal/borer,
-	/obj/item/clothing/head/culthood,
-	/obj/item/clothing/suit/cultrobes,
-	/obj/item/weapon/book/tome,
+	// /obj/item/clothing/head/culthood,
+	// /obj/item/clothing/suit/cultrobes,
+	// /obj/item/weapon/book/tome,
 	/obj/item/weapon/paper/,
-	/obj/item/weapon/melee/cultblade
+	// /obj/item/weapon/melee/cultblade
 	)
 
 /mob/living/var/list/icon/pipes_shown = list()
@@ -39,12 +39,13 @@ var/list/ventcrawl_machinery = list(
 	if(is_ventcrawling && istype(loc, /obj/machinery/atmospherics)) //attach us back into the pipes
 		remove_ventcrawl()
 		add_ventcrawl(loc)
-
+/*
 /mob/living/carbon/slime/can_ventcrawl()
 	if(Victim)
 		to_chat(src, SPAN_WARNING("You cannot ventcrawl while feeding."))
 		return FALSE
 	. = ..()
+*/
 
 /mob/living/proc/is_allowed_vent_crawl_item(var/obj/item/carried_item)
 	if(is_type_in_list(carried_item, can_enter_vent_with))

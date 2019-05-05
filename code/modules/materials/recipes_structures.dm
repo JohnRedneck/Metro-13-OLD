@@ -1,5 +1,5 @@
 //Furniture is in a separate file.
-
+/*
 /datum/stack_recipe/ai_core
 	title = "AI core"
 	result_type = /obj/structure/AIcore
@@ -7,7 +7,7 @@
 	time = 50
 	one_per_turf = 1
 	difficulty = 2
-
+*/
 /datum/stack_recipe/railing
 	title = "railing"
 	result_type = /obj/structure/railing

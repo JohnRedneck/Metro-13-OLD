@@ -44,7 +44,7 @@
 	new /obj/item/weapon/storage/belt/archaeology(src)
 	new /obj/item/weapon/storage/excavation(src)
 	new /obj/item/device/flashlight/lantern(src)
-	new /obj/item/device/ano_scanner(src)
+	//new /obj/item/device/ano_scanner(src)
 	new /obj/item/device/depth_scanner(src)
 	new /obj/item/device/core_sampler(src)
 	new /obj/item/device/gps(src)

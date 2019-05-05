@@ -218,7 +218,7 @@
 /obj/item/integrated_circuit/input/adv_med_scanner/old
 	name = "integrated advanced medical analyser"
 	spawn_flags = 0
-
+/*
 /obj/item/integrated_circuit/input/slime_scanner
 	name = "slime_scanner"
 	desc = "A very small version of the xenobio analyser. This allows the machine to know every needed properties of slime. Output mutation list is non-associative."
@@ -259,8 +259,6 @@
 
 	push_data()
 	activate_pin(2)
-
-
 
 /obj/item/integrated_circuit/input/plant_scanner
 	name = "integrated plant analyzer"
@@ -349,8 +347,7 @@
 	set_pin_data(IC_OUTPUT, 1, greagents)
 	push_data()
 	activate_pin(2)
-
-
+*/
 /obj/item/integrated_circuit/input/examiner
 	name = "examiner"
 	desc = "It's a little machine vision system. It can return the name, description, distance, \
@@ -788,7 +785,7 @@
 	set_pin_data(IC_OUTPUT,1,signal.data["command"])
 	push_data()
 	..()
-
+/*
 /obj/item/integrated_circuit/input/teleporter_locator
 	name = "teleporter locator"
 	desc = "This circuit can locate and allow for selection of teleporter computers."
@@ -820,7 +817,7 @@
 		push_data()
 		activate_pin(1)
 		return IC_TOPIC_REFRESH
-
+*/
 //This circuit gives information on where the machine is.
 /obj/item/integrated_circuit/input/gps
 	name = "global positioning system"

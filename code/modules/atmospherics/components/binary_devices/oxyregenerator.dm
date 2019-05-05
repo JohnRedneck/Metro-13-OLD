@@ -162,10 +162,10 @@
 		icon_state = "off"
 	else
 		icon_state = "[use_power ? "on" : "off"]"
-
+/*
 /obj/machinery/atmospherics/binary/oxyregenerator/attack_ai(mob/user as mob)
 	ui_interact(user)
-
+*/
 /obj/machinery/atmospherics/binary/oxyregenerator/attack_hand(mob/user as mob)
 	ui_interact(user)
 

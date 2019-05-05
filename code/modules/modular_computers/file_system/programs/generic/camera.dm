@@ -115,6 +115,7 @@
 
 /datum/nano_module/camera_monitor/proc/switch_to_camera(var/mob/user, var/obj/machinery/camera/C)
 	//don't need to check if the camera works for AI because the AI jumps to the camera location and doesn't actually look through cameras.
+	/*
 	if(isAI(user))
 		var/mob/living/silicon/ai/A = user
 		// Only allow non-carded AIs to view because the interaction with the eye gets all wonky otherwise.
@@ -124,7 +125,7 @@
 		A.eyeobj.setLoc(get_turf(C))
 		A.client.eye = A.eyeobj
 		return 1
-
+	*/
 	set_current(C)
 	return 1
 

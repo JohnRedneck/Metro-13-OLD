@@ -145,7 +145,7 @@
 	projectile_type = /obj/item/projectile/energy/phoron
 
 /* Staves */
-
+/*
 /obj/item/weapon/gun/energy/staff
 	name = "staff of change"
 	desc = "An artefact that spits bolts of coruscating energy which cause the target's very form to reshape itself."
@@ -217,3 +217,4 @@
 	use_external_power = 1
 	max_shots = 4
 	has_safety = FALSE
+*/

@@ -133,14 +133,10 @@
 		return 0
 
 	return user.has_internal_radio_channel_access(internal_channels[freq])
-
-/mob/proc/has_internal_radio_channel_access(var/list/req_one_accesses)
-	var/obj/item/weapon/card/id/I = GetIdCard()
-	return has_access(list(req_one_accesses), I ? I.GetAccess() : list()) // Double list does an OR check instead of the usual AND.
-
+/*
 /mob/observer/ghost/has_internal_radio_channel_access(var/list/req_one_accesses)
 	return can_admin_interact()
-
+*/
 /obj/item/device/radio/get_cell()
 	return cell
 
@@ -169,9 +165,11 @@
 	usr.set_machine(src)
 	if (href_list["track"])
 		var/mob/target = locate(href_list["track"])
+		/*
 		var/mob/living/silicon/ai/A = locate(href_list["track2"])
 		if(A && target)
 			A.ai_actual_track(target)
+		*/
 		. = 1
 
 	else if (href_list["freq"])
@@ -391,14 +389,14 @@
 		signal.frequency = connection.frequency // Quick frequency set
 
 	  //#### Sending the signal to all subspace receivers ####//
-
+		/*
 		for(var/obj/machinery/telecomms/receiver/R in telecomms_list)
 			R.receive_signal(signal)
 
 		// Allinone can act as receivers.
 		for(var/obj/machinery/telecomms/allinone/R in telecomms_list)
 			R.receive_signal(signal)
-
+		*/
 		// Receiving code can be located in Telecommunications.dm
 		if(signal.data["done"] && position.z in signal.data["level"])
 			return TRUE //Huzzah, sent via subspace
@@ -454,9 +452,10 @@
 	signal.frequency = connection.frequency // Quick frequency set
 	if(cell && cell.percent() < 20)
 		signal.data["compression"] = max(0, 80 - cell.percent()*3)
+	/*
 	for(var/obj/machinery/telecomms/receiver/R in telecomms_list)
 		R.receive_signal(signal)
-
+	*/
 	sleep(rand(10,25)) // wait a little...
 
 	if(signal.data["done"] && position.z in signal.data["level"])
@@ -468,11 +467,12 @@
 
 	//THIS IS TEMPORARY. YEAH RIGHT
 	if(!connection)	return 0	//~Carn
+	/*
 	return Broadcast_Message(connection, M, voicemask, pick(M.speak_emote),
 					  src, message, displayname, jobname, real_name, M.voice_name,
 					  filter_type, signal.data["compression"], GetConnectedZlevels(position.z), connection.frequency, verb, speaking,
 					  "[connection.frequency]", channel_color_presets["Menacing Maroon"])
-
+	*/
 
 /obj/item/device/radio/hear_talk(mob/M as mob, msg, var/verb = "says", var/datum/language/speaking = null)
 

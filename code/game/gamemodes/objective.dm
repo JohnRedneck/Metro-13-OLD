@@ -407,6 +407,7 @@ datum/objective/steal
 	var/target_name
 
 	var/global/possible_items[] = list(
+		/*
 		"the captain's antique laser gun" = /obj/item/weapon/gun/energy/captain,
 		"a bluespace rift generator" = /obj/item/integrated_circuit/manipulation/bluespace_rift,
 		"an RCD" = /obj/item/weapon/rcd,
@@ -427,10 +428,12 @@ datum/objective/steal
 		"the hypospray" = /obj/item/weapon/reagent_containers/hypospray,
 		"the captain's pinpointer" = /obj/item/weapon/pinpointer,
 		"an ablative armor vest" = /obj/item/clothing/suit/armor/laserproof,
+		*/
 	)
 
 	var/global/possible_items_special[] = list(
 		/*"nuclear authentication disk" = /obj/item/weapon/disk/nuclear,*///Broken with the change to nuke disk making it respawn on z level change.
+		/*
 		"nuclear gun" = /obj/item/weapon/gun/energy/gun/nuclear,
 		"diamond drill" = /obj/item/weapon/pickaxe/diamonddrill,
 		"bag of holding" = /obj/item/weapon/storage/backpack/holding,
@@ -438,6 +441,7 @@ datum/objective/steal
 		"10 diamonds" = /obj/item/stack/material/diamond,
 		"50 gold bars" = /obj/item/stack/material/gold,
 		"25 refined uranium bars" = /obj/item/stack/material/uranium,
+		*/
 	)
 
 
@@ -486,7 +490,7 @@ datum/objective/steal
 					if(istype(I, steal_target))
 						found_amount += (target_name=="28 moles of phoron (full tank)" ? (I:air_contents:gas["phoron"]) : (I:amount))
 				return found_amount>=target_amount
-
+			/*
 			if("a functional AI")
 				for(var/mob/living/silicon/ai/ai in SSmobs.mob_list)
 					if(ai.stat == DEAD)
@@ -494,6 +498,7 @@ datum/objective/steal
 					var/turf/T = get_turf(ai)
 					if(owner.current.contains(ai) || (T && is_type_in_list(T.loc, GLOB.using_map.post_round_safe_areas)))
 						return 1
+			*/
 			else
 
 				for(var/obj/I in all_items) //Check for items
@@ -524,7 +529,7 @@ datum/objective/download
 
 		if(!istype(S) || !S.installed_modules || !S.installed_modules.len)
 			return 0
-
+/*
 		var/obj/item/rig_module/datajack/stolen_data = locate() in S.installed_modules
 		if(!istype(stolen_data))
 			return 0
@@ -534,7 +539,7 @@ datum/objective/download
 				current_amount += (current_data.level-1)
 
 		return (current_amount<target_amount) ? 0 : 1
-
+*/
 datum/objective/capture
 	proc/gen_amount_goal()
 		target_amount = rand(5,10)
@@ -592,7 +597,7 @@ datum/objective/capture
 datum/objective/heist
 	proc/choose_target()
 		return
-
+/*
 datum/objective/heist/kidnap
 	choose_target()
 		var/list/roles = list("Chief Engineer","Chief Science Officer","Roboticist","Chemist","Engineer")
@@ -622,8 +627,8 @@ datum/objective/heist/kidnap
 		if(target && target.current)
 			if (target.current.stat == 2)
 				return 0 // They're dead. Fail.
-			//if (!target.current.restrained())
-			//	return 0 // They're loose. Close but no cigar.
+			if (!target.current.restrained())
+				return 0 // They're loose. Close but no cigar.
 
 			var/area/skipjack_station/start/A = locate()
 			for(var/mob/living/carbon/human/M in A)
@@ -749,6 +754,8 @@ datum/objective/heist/salvage
 		if(total_amount >= target_amount) return 1
 		return 0
 
+*/
+
 
 /datum/objective/heist/preserve_crew
 	explanation_text = "Do not leave anyone behind, alive or dead."
@@ -809,6 +816,7 @@ datum/objective/heist/salvage
 	else
 		return 1
 
+/*
 /datum/objective/cult/eldergod
 	explanation_text = "Summon Nar-Sie via the use of the appropriate rune (Hell join self). It will only work if nine cultists stand on and around it. The convert rune is join blood self."
 
@@ -830,6 +838,7 @@ datum/objective/heist/salvage
 
 /datum/objective/cult/sacrifice/check_completion()
 	return (target && GLOB.cult && !GLOB.cult.sacrificed.Find(target))
+*/
 
 /datum/objective/rev/find_target()
 	..()

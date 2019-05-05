@@ -96,7 +96,7 @@
 	name = "medical crate"
 	desc = "A medical crate."
 	closet_appearance = /decl/closet_appearance/crate/medical
-
+/*
 /obj/structure/closet/crate/rcd
 	name = "\improper RCD crate"
 	desc = "A crate with rapid construction device."
@@ -106,7 +106,7 @@
 		/obj/item/weapon/rcd_ammo = 3,
 		/obj/item/weapon/rcd
 	)
-
+*/
 /obj/structure/closet/crate/solar
 	name = "solar pack crate"
 

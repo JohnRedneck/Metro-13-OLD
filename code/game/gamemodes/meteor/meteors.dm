@@ -60,8 +60,8 @@
 		/obj/effect/meteor/irradiated=10,\
 		/obj/effect/meteor/golden=10,\
 		/obj/effect/meteor/silver=10,\
-		/obj/effect/meteor/flaming=10,\
-		/obj/effect/meteor/supermatter=1\
+		/obj/effect/meteor/flaming=10\
+		// /obj/effect/meteor/supermatter=1
 		)
 
 
@@ -327,6 +327,7 @@
 	explosion(src.loc, 3, 6, 9, 20, 0)
 
 // This is the final solution against shields - a single impact can bring down most shield generators.
+/*
 /obj/effect/meteor/supermatter
 	name = "supermatter shard"
 	desc = "Oh god, what will be next..?"
@@ -351,7 +352,7 @@
 	meteordrop = null
 	ismissile = TRUE
 	dropamt = 0
-
+*/
 /obj/effect/meteor/medium/missile
 	name = "missile"
 	desc = "Some kind of missile."

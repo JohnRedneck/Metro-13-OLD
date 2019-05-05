@@ -61,10 +61,10 @@ var/global/list/navbeacons = list()
 		else
 			to_chat(user, "You must open the cover first!")
 	return
-
+/*
 /obj/machinery/navbeacon/attack_ai(var/mob/user)
 	interact(user, 1)
-
+*/
 /obj/machinery/navbeacon/attack_hand(var/mob/user)
 
 	if(!user.IsAdvancedToolUser())

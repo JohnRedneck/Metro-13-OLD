@@ -92,6 +92,7 @@
 	if(!. || !in_depth)
 		return
 
+	/*
 	var/datum/computer_file/report/crew_record/R = get_crewmember_record(old_name)
 	if(R)
 		R.set_name(new_name)
@@ -112,7 +113,7 @@
 			if(findtext(PDA.name, old_name))
 				PDA.SetName(replacetext(PDA.name, old_name, new_name))
 				search_pda = 0
-
+	*/
 
 //Get species or synthetic temp if the mob is a FBP. Used when a synthetic type human mob is exposed to a temp check.
 //Essentially, used when a synthetic human mob should act diffferently than a normal type mob.

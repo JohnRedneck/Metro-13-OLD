@@ -148,6 +148,7 @@
 				new /obj/effect/decal/cleanable/greenglow(T)
 			return
 
+/*
 /datum/reagent/water/holywater
 	name = "Holy Water"
 	description = "An ashen-obsidian-water mix, this solution will alter certain sections of the brain's rationality."
@@ -183,6 +184,7 @@
 	if(volume >= 5)
 		T.holy = 1
 	return
+*/
 
 /datum/reagent/diethylamine
 	name = "Diethylamine"

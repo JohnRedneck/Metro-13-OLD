@@ -84,12 +84,12 @@ obj/machinery/resleever/Process()
 		if(!resleeving)
 			return 1
 	return 0
-
+/*
 /obj/machinery/resleever/attack_ai(mob/user as mob)
 
 	add_hiddenprint(user)
 	return attack_hand(user)
-
+*/
 
 /obj/machinery/resleever/attack_hand(mob/user as mob)
 	if(!anchored)

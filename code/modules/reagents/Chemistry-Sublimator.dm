@@ -87,10 +87,10 @@
 		update_icon()
 	else
 		to_chat(user, "<span class='warning'>\The [src] has no reagent container loaded.</span>")
-
+/*
 /obj/machinery/portable_atmospherics/reagent_sublimator/attack_ai(var/mob/user)
 	attack_hand(user)
-
+*/
 /obj/machinery/portable_atmospherics/reagent_sublimator/attack_hand(var/mob/user)
 	if(stat & (BROKEN|NOPOWER))
 		to_chat(user, "<span class='warning'>\The [src] is not currently functional.</span>")

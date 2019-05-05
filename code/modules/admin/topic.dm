@@ -1184,7 +1184,7 @@
 			log_and_message_admins("healed / Rrvived [key_name(L)]")
 		else
 			to_chat(usr, "Admin Rejuvinates have been disabled")
-
+	/*
 	else if(href_list["makeai"])
 		if(!check_rights(R_SPAWN))	return
 
@@ -1215,7 +1215,7 @@
 			return
 
 		usr.client.cmd_admin_robotize(H)
-
+	*/
 	else if(href_list["makeanimal"])
 		if(!check_rights(R_SPAWN))	return
 
@@ -1307,10 +1307,10 @@
 		if(!isghost(usr))	C.admin_ghost()
 		sleep(2)
 		C.jumptocoord(x,y,z)
-
+	/*
 	else if(href_list["adminchecklaws"])
 		output_ai_laws()
-
+	*/
 	else if(href_list["adminmoreinfo"])
 		var/mob/M = locate(href_list["adminmoreinfo"])
 		if(!ismob(M))
@@ -2002,15 +2002,16 @@
 			if("No")
 				return
 
-
 mob/living/proc/can_centcom_reply()
 	return 0
 
 mob/living/carbon/human/can_centcom_reply()
-	return istype(l_ear, /obj/item/device/radio/headset) || istype(r_ear, /obj/item/device/radio/headset)
+	return 0//istype(l_ear, /obj/item/device/radio/headset) || istype(r_ear, /obj/item/device/radio/headset)
 
+/*
 mob/living/silicon/ai/can_centcom_reply()
 	return silicon_radio != null && !check_unable(2)
+*/
 
 /datum/proc/extra_admin_link(var/prefix, var/sufix, var/short_links)
 	return list()

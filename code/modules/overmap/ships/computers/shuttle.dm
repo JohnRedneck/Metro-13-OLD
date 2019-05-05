@@ -1,4 +1,5 @@
 //Shuttle controller computer for shuttles going between sectors
+//Will jiggle this around later to better suit the setting - Bennett
 /obj/machinery/computer/shuttle_control/explore
 	name = "general shuttle control console"
 	ui_template = "shuttle_control_console_exploration.tmpl"
@@ -25,7 +26,7 @@
 			"fuel_pressure_status" = (fuel_pressure/fuel_max_pressure > 0.2)? "good" : "bad"
 		)
 
-/obj/machinery/computer/shuttle_control/explore/handle_topic_href(var/datum/shuttle/autodock/overmap/shuttle, var/list/href_list)	
+/obj/machinery/computer/shuttle_control/explore/handle_topic_href(var/datum/shuttle/autodock/overmap/shuttle, var/list/href_list)
 	if(ismob(usr))
 		var/mob/user = usr
 		shuttle.operator_skill = user.get_skill_value(SKILL_PILOT)

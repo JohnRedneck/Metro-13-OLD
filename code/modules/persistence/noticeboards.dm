@@ -124,10 +124,10 @@
 				to_chat(user, SPAN_WARNING("You hesitate, certain \the [thing] will not be seen among the many others already attached to \the [src]."))
 		return
 	..()
-
+/*
 /obj/structure/noticeboard/attack_ai(var/mob/user)
 	examine(user)
-
+*/
 /obj/structure/noticeboard/attack_hand(var/mob/user)
 	examine(user)
 

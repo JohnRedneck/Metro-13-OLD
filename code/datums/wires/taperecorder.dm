@@ -13,4 +13,5 @@ var/const/TAPE_WIRE_TOGGLE = 1
 		T.stop()
 	else
 		T.play()
+
 	SSnano.update_uis(holder)

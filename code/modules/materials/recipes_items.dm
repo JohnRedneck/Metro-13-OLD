@@ -122,13 +122,13 @@
 	result_type = /obj/item/frame/light_switch/windowtint
 	req_amount = 1
 	difficulty = 2
-
+/*
 /datum/stack_recipe/apc
 	title = "APC frame"
 	result_type = /obj/item/frame/apc
 	req_amount = 2
 	difficulty = 2
-
+*/
 /datum/stack_recipe/air_alarm
 	title = "air alarm frame"
 	result_type = /obj/item/frame/air_alarm

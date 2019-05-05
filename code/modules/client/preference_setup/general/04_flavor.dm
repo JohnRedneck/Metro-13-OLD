@@ -1,6 +1,6 @@
 /datum/preferences
 	var/list/flavor_texts        = list()
-	var/list/flavour_texts_robot = list()
+	//var/list/flavour_texts_robot = list()
 
 /datum/category_item/player_setup_item/physical/flavor
 	name = "Flavor"
@@ -18,9 +18,11 @@
 	S["flavor_texts_feet"]		>> pref.flavor_texts["feet"]
 
 	//Flavour text for robots.
+	/*
 	S["flavour_texts_robot_Default"] >> pref.flavour_texts_robot["Default"]
 	for(var/module in SSrobots.all_module_names)
 		S["flavour_texts_robot_[module]"] >> pref.flavour_texts_robot[module]
+	*/
 
 /datum/category_item/player_setup_item/physical/flavor/save_character(var/savefile/S)
 	S["flavor_texts_general"]	<< pref.flavor_texts["general"]
@@ -33,18 +35,20 @@
 	S["flavor_texts_legs"]		<< pref.flavor_texts["legs"]
 	S["flavor_texts_feet"]		<< pref.flavor_texts["feet"]
 
+	/*
 	S["flavour_texts_robot_Default"] << pref.flavour_texts_robot["Default"]
 	for(var/module in SSrobots.all_module_names)
 		S["flavour_texts_robot_[module]"] << pref.flavour_texts_robot[module]
+	*/
 
 /datum/category_item/player_setup_item/physical/flavor/sanitize_character()
 	if(!istype(pref.flavor_texts))        pref.flavor_texts = list()
-	if(!istype(pref.flavour_texts_robot)) pref.flavour_texts_robot = list()
+	//if(!istype(pref.flavour_texts_robot)) pref.flavour_texts_robot = list()
 
 /datum/category_item/player_setup_item/physical/flavor/content(var/mob/user)
 	. += "<b>Flavor:</b><br>"
 	. += "<a href='?src=\ref[src];flavor_text=open'>Set Flavor Text</a><br/>"
-	. += "<a href='?src=\ref[src];flavour_text_robot=open'>Set Robot Flavor Text</a><br/>"
+	//. += "<a href='?src=\ref[src];flavour_text_robot=open'>Set Robot Flavor Text</a><br/>"
 
 /datum/category_item/player_setup_item/physical/flavor/OnTopic(var/href,var/list/href_list, var/mob/user)
 	if(href_list["flavor_text"])
@@ -60,7 +64,7 @@
 					pref.flavor_texts[href_list["flavor_text"]] = msg
 		SetFlavorText(user)
 		return TOPIC_HANDLED
-
+	/*
 	else if(href_list["flavour_text_robot"])
 		switch(href_list["flavour_text_robot"])
 			if("open")
@@ -74,6 +78,7 @@
 					pref.flavour_texts_robot[href_list["flavour_text_robot"]] = msg
 		SetFlavourTextRobot(user)
 		return TOPIC_HANDLED
+	*/
 
 	return ..()
 
@@ -114,6 +119,7 @@
 	user << browse(HTML, "window=flavor_text;size=430x300")
 	return
 
+/*
 /datum/category_item/player_setup_item/physical/flavor/proc/SetFlavourTextRobot(mob/user)
 	var/HTML = "<body>"
 	HTML += "<tt><center>"
@@ -130,3 +136,4 @@
 	HTML += "<tt>"
 	user << browse(HTML, "window=flavour_text_robot;size=430x300")
 	return
+*/

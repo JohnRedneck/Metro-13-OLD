@@ -265,7 +265,7 @@ var/list/mob/living/forced_ambiance_list = new
 				H.AdjustStunned(3)
 				H.AdjustWeakened(3)
 			to_chat(mob, "<span class='notice'>The sudden appearance of gravity makes you fall to the floor!</span>")
-
+/*
 /area/proc/prison_break()
 	var/obj/machinery/power/apc/theAPC = get_apc()
 	if(theAPC && theAPC.operating)
@@ -275,7 +275,7 @@ var/list/mob/living/forced_ambiance_list = new
 			temp_airlock.prison_open()
 		for(var/obj/machinery/door/window/temp_windoor in src)
 			temp_windoor.open()
-
+*/
 /area/proc/has_gravity()
 	return has_gravity
 

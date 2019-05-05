@@ -248,7 +248,7 @@ var/list/airlock_overlays = list()
 	frequency =  1380
 	locked = 1
 
-/obj/machinery/door/airlock/external/escapepod/attackby(obj/item/C, mob/user)	
+/obj/machinery/door/airlock/external/escapepod/attackby(obj/item/C, mob/user)
 	if(p_open && !arePowerSystemsOn())
 		if(isWrench(C))
 			playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
@@ -790,10 +790,10 @@ About the new airlock wires panel:
 		else
 			update_icon()
 	return
-
+/*
 /obj/machinery/door/airlock/attack_ai(mob/user as mob)
 	ui_interact(user)
-
+*/
 /obj/machinery/door/airlock/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1, var/datum/topic_state/state = GLOB.default_state)
 	var/data[0]
 
@@ -979,6 +979,7 @@ About the new airlock wires panel:
 			return 0
 		cut_verb = "cutting"
 		cut_sound = 'sound/items/Welder.ogg'
+	/*
 	else if(istype(item,/obj/item/weapon/gun/energy/plasmacutter)) //They could probably just shoot them out, but who cares!
 		cut_verb = "cutting"
 		cut_sound = 'sound/items/Welder.ogg'
@@ -987,6 +988,7 @@ About the new airlock wires panel:
 		cut_verb = "slicing"
 		cut_sound = "sparks"
 		cut_delay *= 0.66
+	*/
 	else if(istype(item,/obj/item/weapon/circular_saw))
 		cut_verb = "sawing"
 		cut_sound = 'sound/weapons/circsawhit.ogg'
@@ -1105,9 +1107,11 @@ About the new airlock wires panel:
 		return src.attack_hand(user)
 	else if(istype(C, /obj/item/device/assembly/signaler))
 		return src.attack_hand(user)
+	/*
 	else if(istype(C, /obj/item/weapon/pai_cable))	// -- TLE
 		var/obj/item/weapon/pai_cable/cable = C
 		cable.plugin(src, user)
+	*/
 	else if(!repairing && isCrowbar(C))
 		if(src.p_open && (operating < 0 || (!operating && welded && !src.arePowerSystemsOn() && density && !src.locked)) && !brace)
 			playsound(src.loc, 'sound/items/Crowbar.ogg', 100, 1)
@@ -1193,7 +1197,7 @@ About the new airlock wires panel:
 		new /obj/item/weapon/circuitboard/broken(src.loc)
 		operating = 0
 	else
-		if (!electronics) 
+		if (!electronics)
 			create_electronics()
 
 		electronics.dropInto(loc)

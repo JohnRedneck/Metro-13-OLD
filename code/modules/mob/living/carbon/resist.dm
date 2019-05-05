@@ -48,10 +48,11 @@
 	var/mob/living/carbon/human/H = src
 	if(istype(H) && H.gloves && istype(H.gloves,/obj/item/clothing/gloves/rig))
 		breakouttime /= 2
-
+/*
 	if(psi && psi.can_use())
 		var/psi_mod = (1 - (psi.get_rank(PSI_PSYCHOKINESIS)*0.2))
 		breakouttime = max(5, breakouttime * psi_mod)
+*/
 
 	visible_message(
 		"<span class='danger'>\The [src] attempts to remove \the [HC]!</span>",
@@ -68,7 +69,7 @@
 		drop_from_inventory(handcuffed)
 
 /mob/living/proc/can_break_cuffs()
-	. = (psi && psi.can_use() && psi.get_rank(PSI_PSYCHOKINESIS) >= 5)
+	. = ..()//(psi && psi.can_use() && psi.get_rank(PSI_PSYCHOKINESIS) >= 5)
 
 /mob/living/carbon/can_break_cuffs()
 	. = ..() || (MUTATION_HULK in mutations)
@@ -101,10 +102,10 @@
 	. = ..() || species.can_shred(src,1)
 
 /mob/living/carbon/escape_buckle()
-	if(src.handcuffed && istype(src.buckled, /obj/effect/energy_net))
+	/*if(src.handcuffed && istype(src.buckled, /obj/effect/energy_net))
 		var/obj/effect/energy_net/N = src.buckled
 		N.escape_net(src) //super snowflake but is literally used NOWHERE ELSE.-Luke
-		return
+		return*/
 
 	setClickCooldown(100)
 	if(!buckled) return
@@ -113,8 +114,10 @@
 		..()
 	else
 		var/unbuckle_time = 2 MINUTES
+		/*
 		if(psi && psi.can_use())
 			unbuckle_time = max(0, unbuckle_time - ((25 SECONDS) * psi.get_rank(PSI_PSYCHOKINESIS)))
+		*/
 
 		visible_message(
 			"<span class='danger'>[usr] attempts to unbuckle themself!</span>",

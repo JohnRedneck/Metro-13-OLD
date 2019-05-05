@@ -102,9 +102,10 @@
 	if(known)
 		layer = ABOVE_LIGHTING_LAYER
 		plane = EFFECTS_ABOVE_LIGHTING_PLANE
+		/*
 		for(var/obj/machinery/computer/ship/helm/H in SSmachines.machinery)
 			H.get_known_sectors()
-
+		*/
 /obj/effect/overmap/sector/get_areas()
 	return get_filtered_areas(list(/proc/area_belongs_to_zlevels = map_z))
 

@@ -105,7 +105,7 @@
 			dat += "<dd><A href='?src=\ref[src];find=1'>&#09;[++i]. Link To A Server</a></dd>"
 			if(auth)
 				if(!linkedServer || (linkedServer.stat & (NOPOWER|BROKEN)))
-					dat += "<dd><A>&#09;ERROR: Server not found!</A><br></dd>"
+						dat += "<dd><A>&#09;ERROR: Server not found!</A><br></dd>"
 				else
 					dat += "<dd><A href='?src=\ref[src];viewr=1'>&#09;[++i]. View Request Console Logs </a></br></dd>"
 					dat += "<dd><A href='?src=\ref[src];clearr=1'>&#09;[++i]. Clear Request Console Logs</a><br></dd>"

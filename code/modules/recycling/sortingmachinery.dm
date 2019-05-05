@@ -137,10 +137,10 @@
 		return
 	user.put_in_hands(wrapped)
 	qdel(src)
-
+/*
 /obj/item/smallDelivery/attack_robot(mob/user as mob)
 	unwrap(user)
-
+*/
 /obj/item/smallDelivery/attack_self(mob/user as mob)
 	unwrap(user)
 
@@ -404,7 +404,7 @@
 
 /obj/machinery/disposal/deliveryChute/Bumped(var/atom/movable/AM) //Go straight into the chute
 	if(istype(AM, /obj/item/projectile) || istype(AM, /obj/effect))	return
-	if(istype(AM, /obj/mecha))	return
+	//if(istype(AM, /obj/mecha))	return
 	switch(dir)
 		if(NORTH)
 			if(AM.loc.y != src.loc.y+1) return

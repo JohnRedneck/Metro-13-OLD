@@ -125,7 +125,7 @@
 		if(!M.restrained() && (!issmall(M) || ishuman(M) || issilicon(M)))
 			bumpopen(M)
 		return
-
+	/*
 	if(istype(AM, /mob/living/bot))
 		var/mob/living/bot/bot = AM
 		if(src.check_access(bot.botcard))
@@ -141,6 +141,7 @@
 			else
 				do_animate("deny")
 		return
+	*/
 	if(istype(AM, /obj/structure/bed/chair/wheelchair))
 		var/obj/structure/bed/chair/wheelchair/wheel = AM
 		if(density)
@@ -560,7 +561,7 @@
 	var/area/aft = access_area_by_dir(GLOB.reverse_dir[dir])
 	fore = fore || aft
 	aft = aft || fore
-	
+
 	if (!fore && !aft)
 		req_access = list()
 	else if (fore.secure || aft.secure)

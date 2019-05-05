@@ -82,7 +82,7 @@
 			current.verbs -= /datum/changeling/proc/EvolutionMenu
 		current.mind = null
 
-		SSnano.user_transferred(current, new_character) // transfer active NanoUI instances to new user
+		//SSnano.user_transferred(current, new_character) // transfer active NanoUI instances to new user
 	if(new_character.mind)		//remove any mind currently in our new body's mind variable
 		new_character.mind.current = null
 
@@ -210,6 +210,7 @@
 
 	if(!check_rights(R_ADMIN))	return
 
+/*
 	if(current && isliving(current))
 		if(href_list["set_psi_faculty"] && href_list["set_psi_faculty_rank"])
 			current.set_psi_rank(href_list["set_psi_faculty"], text2num(href_list["set_psi_faculty_rank"]))
@@ -217,6 +218,7 @@
 			var/datum/admins/admin = GLOB.admins[usr.key]
 			if(istype(admin)) admin.show_player_panel(current)
 			return TRUE
+*/
 
 	if(href_list["add_antagonist"])
 		var/datum/antagonist/antag = GLOB.all_antag_types_[href_list["add_antagonist"]]
@@ -433,6 +435,7 @@
 				H.implant_loyalty(H, override = TRUE)
 				log_admin("[key_name_admin(usr)] has loyalty implanted [current].")
 			else
+			/*
 	else if (href_list["silicon"])
 		BITSET(current.hud_updateflag, SPECIALROLE_HUD)
 		switch(href_list["silicon"])
@@ -472,12 +475,13 @@
 								R.module_state_3 = null
 								R.contents -= R.module.emag
 					log_admin("[key_name_admin(usr)] has unemag'ed [ai]'s Cyborgs.")
-
+			*/
 	else if (href_list["common"])
 		switch(href_list["common"])
 			if("undress")
 				for(var/obj/item/W in current)
 					current.drop_from_inventory(W)
+			/*
 			if("takeuplink")
 				take_uplink()
 				memory = null//Remove any memory they may have had.
@@ -492,6 +496,7 @@
 					if (!isnull(crystals) && !QDELETED(suplink))
 						suplink.uses = crystals
 						log_and_message_admins("set the telecrystals for [key] to [crystals]")
+			*/
 
 	else if (href_list["obj_announce"])
 		var/obj_count = 1
@@ -501,6 +506,7 @@
 			obj_count++
 	edit_memory()
 
+/*
 /datum/mind/proc/find_syndicate_uplink()
 	var/list/L = current.get_contents()
 	for (var/obj/item/I in L)
@@ -512,6 +518,7 @@
 	var/obj/item/device/uplink/H = find_syndicate_uplink()
 	if(H)
 		qdel(H)
+*/
 
 
 // check whether this mind's mob has been brigged for the given duration
@@ -545,7 +552,7 @@
 	assigned_job =    null
 	//faction =       null //Uncommenting this causes a compile error due to 'undefined type', fucked if I know.
 	changeling =      null
-	initial_account = null
+	//initial_account = null
 	objectives =      list()
 	special_verbs =   list()
 	has_been_rev =    0

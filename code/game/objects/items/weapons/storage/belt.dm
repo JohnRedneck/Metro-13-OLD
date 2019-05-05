@@ -118,7 +118,7 @@
 		/obj/item/device/analyzer,
 		/obj/item/taperoll/engineering,
 		/obj/item/inducer/,
-		/obj/item/device/robotanalyzer,
+		// /obj/item/device/robotanalyzer,
 		/obj/item/weapon/material/minihoe,
 		/obj/item/weapon/material/hatchet,
 		/obj/item/device/analyzer/plant_analyzer,
@@ -211,13 +211,13 @@
 		/obj/item/weapon/melee/telebaton,
 		/obj/item/weapon/flame/lighter,
 		/obj/item/device/flashlight,
-		/obj/item/modular_computer/pda,
+		// /obj/item/modular_computer/pda,
 		/obj/item/device/radio/headset,
 		/obj/item/device/hailer,
 		/obj/item/device/megaphone,
 		/obj/item/weapon/melee,
 		/obj/item/taperoll,
-		/obj/item/device/holowarrant,
+		// /obj/item/device/holowarrant,
 		/obj/item/weapon/magnetic_ammo,
 		/obj/item/device/binoculars,
 		/obj/item/clothing/gloves
@@ -243,13 +243,13 @@
 		/obj/item/weapon/melee/telebaton,
 		/obj/item/weapon/flame/lighter,
 		/obj/item/device/flashlight,
-		/obj/item/modular_computer/pda,
+		// /obj/item/modular_computer/pda,
 		/obj/item/device/radio/headset,
 		/obj/item/device/hailer,
 		/obj/item/device/megaphone,
 		/obj/item/weapon/melee,
 		/obj/item/taperoll,
-		/obj/item/device/holowarrant,
+		// /obj/item/device/holowarrant,
 		/obj/item/weapon/magnetic_ammo,
 		/obj/item/device/binoculars,
 		/obj/item/clothing/gloves
@@ -270,11 +270,11 @@
 		/obj/item/weapon/material/clipboard,
 		/obj/item/modular_computer/tablet,
 		/obj/item/device/flashlight,
-		/obj/item/modular_computer/pda,
+		// /obj/item/modular_computer/pda,
 		/obj/item/device/radio/headset,
 		/obj/item/device/megaphone,
 		/obj/item/taperoll,
-		/obj/item/device/holowarrant,
+		// /obj/item/device/holowarrant,
 		/obj/item/device/radio,
 		/obj/item/device/tape,
 		/obj/item/weapon/pen,
@@ -327,11 +327,11 @@
 		/obj/item/modular_computer/tablet,
 		/obj/item/device/flash,
 		/obj/item/device/flashlight,
-		/obj/item/modular_computer/pda,
+		// /obj/item/modular_computer/pda,
 		/obj/item/device/radio/headset,
 		/obj/item/device/megaphone,
 		/obj/item/taperoll,
-		/obj/item/device/holowarrant,
+		// /obj/item/device/holowarrant,
 		/obj/item/device/radio,
 		/obj/item/device/tape,
 		/obj/item/weapon/pen,
@@ -390,7 +390,7 @@
 		/obj/item/device/radio,
 		/obj/item/device/gps,
 		/obj/item/weapon/mining_scanner,
-		/obj/item/device/slime_scanner,
+		// /obj/item/device/slime_scanner,
 		/obj/item/device/analyzer/plant_analyzer,
 		/obj/item/weapon/folder,
 		/obj/item/weapon/paper,
@@ -406,6 +406,7 @@
 	sound_in = 'sound/effects/holster/sheathin.ogg'
 	sound_out = 'sound/effects/holster/sheathout.ogg'
 
+/*
 /obj/item/weapon/storage/belt/soulstone
 	name = "soul stone belt"
 	desc = "Designed for ease of access to the shards during a fight, as to not let a single enemy spirit slip away."
@@ -425,6 +426,7 @@
 	new /obj/item/device/soulstone(src)
 	new /obj/item/device/soulstone(src)
 
+*/
 
 /obj/item/weapon/storage/belt/champion
 	name = "championship belt"

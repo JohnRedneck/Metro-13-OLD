@@ -46,7 +46,7 @@
 	use_power_cost = 75
 	origin_tech = list(TECH_MATERIAL = 6, TECH_POWER = 4, TECH_ENGINEERING = 6)
 	device_type = /obj/item/weapon/pickaxe/diamonddrill
-
+/*
 /obj/item/rig_module/device/anomaly_scanner
 	name = "hardsuit anomaly scanner"
 	desc = "You think it's called an Elder Sarsparilla or something."
@@ -84,7 +84,7 @@
 	use_power_cost = 300
 	origin_tech = list(TECH_MATERIAL = 6, TECH_MAGNET = 5, TECH_ENGINEERING = 7)
 	device_type = /obj/item/weapon/rcd/mounted
-
+*/
 /obj/item/rig_module/device/Initialize()
 	. = ..()
 	if(device_type) device = new device_type(src)
@@ -432,7 +432,7 @@
 			device = iastamp
 			to_chat(holder.wearer, "<span class='notice'>Switched to internal affairs stamp.</span>")
 		return 1
-
+/*
 /obj/item/rig_module/device/decompiler
 	name = "mounted matter decompiler"
 	desc = "A drone matter decompiler reconfigured for hardsuit use."
@@ -441,7 +441,7 @@
 	interface_desc = "Eats trash like no one's business."
 	origin_tech = list(TECH_MATERIAL = 5, TECH_ENGINEERING = 5)
 	device_type = /obj/item/weapon/matter_decompiler
-
+*/
 /obj/item/rig_module/cooling_unit
 	name = "mounted cooling unit"
 	toggleable = 1

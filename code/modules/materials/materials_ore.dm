@@ -11,11 +11,13 @@
 	return material
 
 /obj/item/weapon/ore/attackby(obj/item/weapon/W as obj, mob/user as mob)
+	/*
 	if(istype(W,/obj/item/device/core_sampler))
 		var/obj/item/device/core_sampler/C = W
 		C.sample_item(src, user)
 	else
-		return ..()
+	*/
+	return ..()
 
 /obj/item/weapon/ore/New(var/newloc, var/_mat)
 	if(_mat)

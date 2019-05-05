@@ -82,7 +82,7 @@
 	Slimes
 	Nothing happening here
 */
-
+/*
 /mob/living/carbon/slime/RestrainedClickOn(var/atom/A)
 	return
 
@@ -138,7 +138,7 @@
 					M.Weaken(power)
 				else
 					A.attack_generic(src, (is_adult ? rand(20,40) : rand(5,25)), "glomped")
-
+*/
 /*
 	New Players:
 	Have no reason to click on anything at all.

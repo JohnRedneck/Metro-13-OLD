@@ -387,7 +387,7 @@ var/bomb_set
 	GLOB.moved_event.unregister(src, src, /obj/item/weapon/disk/nuclear/proc/check_z_level)
 	nuke_disks -= src
 	if(!nuke_disks.len)
-		var/turf/T = pick_area_turf(/area/maintenance, list(/proc/is_station_turf, /proc/not_turf_contains_dense_objects))
+		var/turf/T = pick_area_turf(/*/area/maintenance, */list(/proc/is_station_turf, /proc/not_turf_contains_dense_objects))
 		if(T)
 			var/obj/D = new /obj/item/weapon/disk/nuclear(T)
 			log_and_message_admins("[src], the last authentication disk, has been destroyed. Spawning [D] at ([D.x], [D.y], [D.z]).", location = T)
@@ -400,7 +400,7 @@ var/bomb_set
 	desc = "A large briefcase with a digital locking system."
 	startswith = list(
 		/obj/item/weapon/disk/nuclear,
-		/obj/item/weapon/pinpointer,
+		// /obj/item/weapon/pinpointer,
 		/obj/item/weapon/folder/envelope/nuke_instructions,
 		/obj/item/modular_computer/laptop/preset/custom_loadout/cheap/
 	)

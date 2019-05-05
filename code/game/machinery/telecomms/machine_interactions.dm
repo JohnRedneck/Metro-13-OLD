@@ -101,10 +101,10 @@
 					F.dropInto(loc)
 					qdel(src)
 
-
+/*
 /obj/machinery/telecomms/attack_ai(var/mob/user as mob)
 	attack_hand(user)
-
+*/
 /obj/machinery/telecomms/attack_hand(var/mob/user as mob)
 
 	// You need a multitool to use this, or be silicon
@@ -182,7 +182,7 @@
 
 	dat += "</font>"
 	temp = ""
-	
+
 	var/datum/browser/popup = new(user, "tcommmachine", "Telecommunications Machine Configuration Panel", 520, 600)
 	popup.set_content(JOINTEXT(dat))
 	popup.open()
@@ -212,11 +212,14 @@
 
 	var/obj/item/device/multitool/P = null
 	// Let's double check
+
 	if(!issilicon(user) && istype(user.get_active_hand(), /obj/item/device/multitool))
 		P = user.get_active_hand()
+	/*
 	else if(isAI(user))
 		var/mob/living/silicon/ai/U = user
 		P = U.aiMulti
+	*/
 	else if(isrobot(user) && in_range(user, src))
 		if(istype(user.get_active_hand(), /obj/item/device/multitool))
 			P = user.get_active_hand()

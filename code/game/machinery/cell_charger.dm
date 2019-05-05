@@ -71,11 +71,11 @@
 		chargelevel = -1
 		set_power()
 		STOP_PROCESSING(SSmachines, src)
-
+/*
 /obj/machinery/cell_charger/attack_robot(mob/user)
 	if(Adjacent(user)) // Borgs can remove the cell if they are near enough
 		attack_hand(user)
-
+*/
 /obj/machinery/cell_charger/emp_act(severity)
 	if(stat & (BROKEN|NOPOWER))
 		return

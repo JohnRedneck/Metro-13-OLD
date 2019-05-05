@@ -124,7 +124,7 @@ var/list/mining_floors = list()
 			attackby(H.l_hand,H)
 		else if((istype(H.r_hand,/obj/item/weapon/pickaxe)) && H.hand)
 			attackby(H.r_hand,H)
-
+	/*
 	else if(istype(AM,/mob/living/silicon/robot))
 		var/mob/living/silicon/robot/R = AM
 		if(istype(R.module_active,/obj/item/weapon/pickaxe))
@@ -134,7 +134,7 @@ var/list/mining_floors = list()
 		var/obj/mecha/M = AM
 		if(istype(M.selected,/obj/item/mecha_parts/mecha_equipment/tool/drill))
 			M.selected.action(src)
-
+	*/
 /turf/simulated/mineral/proc/MineralSpread()
 	if(istype(mineral) && mineral.ore_spread_chance > 0)
 		for(var/trydir in GLOB.cardinal)
@@ -163,7 +163,6 @@ var/list/mining_floors = list()
 	if (!user.IsAdvancedToolUser())
 		to_chat(usr, "<span class='warning'>You don't have the dexterity to do this!</span>")
 		return
-
 	if (istype(W, /obj/item/device/core_sampler))
 		geologic_data.UpdateNearbyArtifactInfo(src)
 		var/obj/item/device/core_sampler/C = W
@@ -174,7 +173,6 @@ var/list/mining_floors = list()
 		var/obj/item/device/depth_scanner/C = W
 		C.scan_atom(user, src)
 		return
-
 	if (istype(W, /obj/item/device/measuring_tape))
 		var/obj/item/device/measuring_tape/P = W
 		user.visible_message("<span class='notice'>\The [user] extends [P] towards [src].</span>","<span class='notice'>You extend [P] towards [src].</span>")
@@ -231,9 +229,10 @@ var/list/mining_floors = list()
 							B.artifact_find = artifact_find
 					else
 						artifact_debris(1)
-				else if(prob(5))
-					//empty boulder
-					B = new(src)
+				else
+					if(prob(5))
+						//empty boulder
+						B = new(src)
 
 				if(B)
 					GetDrilled(0)
@@ -294,7 +293,6 @@ var/list/mining_floors = list()
 /turf/simulated/mineral/proc/DropMineral()
 	if(!mineral)
 		return
-
 	clear_ore_effects()
 	var/obj/item/weapon/ore/O = new(src, mineral.name)
 	if(geologic_data && istype(O))
@@ -303,7 +301,7 @@ var/list/mining_floors = list()
 	return O
 
 /turf/simulated/mineral/proc/GetDrilled(var/artifact_fail = 0)
-	//var/destroyed = 0 //used for breaking strange rocks
+	var/destroyed = 0 //used for breaking strange rocks
 	if (mineral && mineral.ore_result_amount)
 
 		//if the turf has already been excavated, some of it's ore has been removed
@@ -328,7 +326,6 @@ var/list/mining_floors = list()
 					M.Stun(5)
 		SSradiation.flat_radiate(src, 25, 200)
 	//Add some rubble,  you did just clear out a big chunk of rock.
-
 	var/turf/simulated/floor/asteroid/N = ChangeTurf(mined_turf)
 
 	if(istype(N))
@@ -344,7 +341,6 @@ var/list/mining_floors = list()
 			visible_message("<span class='danger'>[pick("An object in the rock crumbles away into dust.","Something falls out of the rock and shatters onto the ground.")]</span>")
 			finds.Remove(F)
 			return
-
 	//with skill and luck, players can cleanly extract finds
 	//otherwise, they come out inside a chunk of rock
 	if(prob_clean)
@@ -356,7 +352,6 @@ var/list/mining_floors = list()
 		rock.geologic_data = geologic_data
 
 	finds.Remove(F)
-
 
 /turf/simulated/mineral/proc/artifact_debris(var/severity = 0)
 	//cael's patented random limited drop componentized loot system!
@@ -505,7 +500,6 @@ var/list/mining_floors = list()
 			for(var/obj/item/weapon/fossil/F in contents)
 				F.attackby(W,user)
 				return
-
 	else
 		..(W,user)
 	return
@@ -555,6 +549,7 @@ var/list/mining_floors = list()
 
 /turf/simulated/floor/asteroid/Entered(atom/movable/M as mob|obj)
 	..()
+	/*
 	if(istype(M,/mob/living/silicon/robot))
 		var/mob/living/silicon/robot/R = M
 		if(R.module)
@@ -566,3 +561,4 @@ var/list/mining_floors = list()
 				attackby(R.module_state_3,R)
 			else
 				return
+	*/

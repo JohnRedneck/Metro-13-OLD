@@ -62,10 +62,10 @@
 	else
 		icon_state = "freezer_0"
 	return
-
+/*
 /obj/machinery/atmospherics/unary/freezer/attack_ai(mob/user as mob)
 	ui_interact(user)
-
+*/
 /obj/machinery/atmospherics/unary/freezer/attack_hand(mob/user as mob)
 	ui_interact(user)
 

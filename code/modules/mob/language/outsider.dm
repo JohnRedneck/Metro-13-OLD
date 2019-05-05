@@ -1,3 +1,4 @@
+/*
 /datum/language/xenocommon
 	name = LANGUAGE_XENOPHAGE
 	colour = "alien"
@@ -31,7 +32,7 @@
 		return 1
 
 	return 0
-
+*/
 /datum/language/ling
 	name = "Changeling"
 	desc = "Although they are normally wary and suspicious of each other, changelings can commune over a distance."
@@ -72,7 +73,7 @@
 	if(B)
 		speaker_mask = B.truename
 	..(speaker,message,speaker_mask)
-
+/*
 /datum/language/vox
 	name = LANGUAGE_VOX
 	desc = "The common tongue of the various Vox ships making up the Shoal. It sounds like chaotic shrieking to everyone else."
@@ -99,7 +100,7 @@
 
 /datum/language/vox/get_random_name()
 	return ..(FEMALE,1,6)
-
+*/
 /datum/language/cultcommon
 	name = LANGUAGE_CULT
 	desc = "The chants of the occult, the incomprehensible."

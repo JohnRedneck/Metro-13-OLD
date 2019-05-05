@@ -68,7 +68,7 @@
 		)
 
 /mob/living/carbon/brain/can_emote()
-	return (istype(container, /obj/item/device/mmi) && ..())
+	return 0/*(istype(container, /obj/item/device/mmi) && ..())*/
 
 /mob/living/carbon/brain
 	default_emotes = list(

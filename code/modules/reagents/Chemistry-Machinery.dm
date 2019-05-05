@@ -235,10 +235,10 @@
 	P.icon_state = bottlesprite
 	reagents.trans_to_obj(P,60)
 	P.update_icon()
-
+/*
 /obj/machinery/chem_master/attack_ai(mob/user)
 	return attack_hand(user)
-
+*/
 /obj/machinery/chem_master/attack_hand(mob/user)
 	if(inoperable())
 		return
@@ -410,20 +410,20 @@
 	holdingitems += O
 	src.updateUsrDialog()
 	return 0
-
+/*
 /obj/machinery/reagentgrinder/attack_ai(mob/user as mob)
 	return 0
-
+*/
 /obj/machinery/reagentgrinder/attack_hand(mob/user as mob)
 	interact(user)
-
+/*
 /obj/machinery/reagentgrinder/attack_robot(var/mob/user)
 	//Calling for adjacency as I don't think grinders are wireless.
 	if(Adjacent(user))
 		//Calling attack_hand(user) to make ensure no functionality is missed.
 		//If attack_hand is updated, this segment won't have to be updated as well.
 		return attack_hand(user)
-
+*/
 /obj/machinery/reagentgrinder/interact(mob/user as mob) // The microwave Menu
 	if(inoperable())
 		return

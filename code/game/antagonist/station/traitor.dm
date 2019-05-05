@@ -3,7 +3,7 @@ GLOBAL_DATUM_INIT(traitors, /datum/antagonist/traitor, new)
 // Inherits most of its vars from the base datum.
 /datum/antagonist/traitor
 	id = MODE_TRAITOR
-	blacklisted_jobs = list(/datum/job/ai, /datum/job/submap)
+	blacklisted_jobs = list(/datum/job/submap)
 	protected_jobs = list(/datum/job/officer, /datum/job/warden, /datum/job/detective, /datum/job/captain, /datum/job/lawyer, /datum/job/hos)
 	flags = ANTAG_SUSPICIOUS | ANTAG_RANDSPAWN | ANTAG_VOTABLE
 	skill_setter = /datum/antag_skill_setter/station
@@ -11,12 +11,14 @@ GLOBAL_DATUM_INIT(traitors, /datum/antagonist/traitor, new)
 /datum/antagonist/traitor/get_extra_panel_options(var/datum/mind/player)
 	return "<a href='?src=\ref[player];common=crystals'>\[set crystals\]</a><a href='?src=\ref[src];spawn_uplink=\ref[player.current]'>\[spawn uplink\]</a>"
 
+/*
 /datum/antagonist/traitor/Topic(href, href_list)
 	if (..())
 		return 1
 	if(href_list["spawn_uplink"])
 		spawn_uplink(locate(href_list["spawn_uplink"]))
 		return 1
+*/
 
 /datum/antagonist/traitor/create_objectives(var/datum/mind/traitor)
 	if(!..())
@@ -73,6 +75,7 @@ GLOBAL_DATUM_INIT(traitors, /datum/antagonist/traitor, new)
 	return
 
 /datum/antagonist/traitor/equip(var/mob/living/carbon/human/traitor_mob)
+	/*
 	if(istype(traitor_mob, /mob/living/silicon)) // this needs to be here because ..() returns false if the mob isn't human
 		add_law_zero(traitor_mob)
 		give_intel(traitor_mob)
@@ -85,6 +88,7 @@ GLOBAL_DATUM_INIT(traitors, /datum/antagonist/traitor, new)
 		return 0
 
 	spawn_uplink(traitor_mob)
+	*/
 	give_intel(traitor_mob)
 
 /datum/antagonist/traitor/proc/give_intel(mob/living/traitor_mob)
@@ -113,6 +117,7 @@ GLOBAL_DATUM_INIT(traitors, /datum/antagonist/traitor, new)
 	traitor_mob.mind.store_memory("<b>Code Response</b>: [syndicate_code_response]")
 	to_chat(traitor_mob, "Use the code words, preferably in the order provided, during regular conversation, to identify other agents. Proceed with caution, however, as everyone is a potential foe.")
 
+/*
 /datum/antagonist/traitor/proc/spawn_uplink(var/mob/living/carbon/human/traitor_mob)
 	setup_uplink_source(traitor_mob, DEFAULT_TELECRYSTAL_AMOUNT)
 
@@ -122,3 +127,4 @@ GLOBAL_DATUM_INIT(traitors, /datum/antagonist/traitor, new)
 	to_chat(killer, "<b>Your laws have been changed!</b>")
 	killer.set_zeroth_law(law, law_borg)
 	to_chat(killer, "New law: 0. [law]")
+*/

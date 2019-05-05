@@ -80,6 +80,7 @@
 			AI.eyeobj.setLoc(src)
 
 // Return to the Core.
+
 /mob/living/silicon/ai/proc/core()
 	set category = "Silicon Commands"
 	set name = "AI Core"

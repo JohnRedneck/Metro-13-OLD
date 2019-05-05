@@ -44,6 +44,7 @@
 	desc = "An antique pistol bullet casing. Somewhere between 9 and 11 mm in caliber."
 	caliber = CALIBER_PISTOL_ANTIQUE
 
+
 /obj/item/ammo_casing/gyrojet
 	desc = "A minirocket casing."
 	caliber = CALIBER_GYROJET
@@ -57,6 +58,7 @@
 	projectile_type = /obj/item/projectile/bullet/flechette
 	icon_state = "flechette-casing"
 	spent_icon = "flechette-casing-spent"
+
 
 /obj/item/ammo_casing/shotgun
 	name = "shotgun slug"

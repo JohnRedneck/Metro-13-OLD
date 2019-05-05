@@ -66,8 +66,10 @@
 	// Relying on BYOND proc ordering isn't working, so go go ugly workaround.
 	if(ishuman(user) && affecting == M)
 		var/mob/living/carbon/human/H = user
+		/*
 		if(H.check_psi_grab(src))
 			return
+		*/
 	// End workaround
 
 	current_grab.hit_with_grab(src)

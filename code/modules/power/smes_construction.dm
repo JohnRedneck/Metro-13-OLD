@@ -122,6 +122,7 @@
 // Proc: attack_ai()
 // Parameters: None
 // Description: AI requires the RCON wire to be intact to operate the SMES.
+/*
 /obj/machinery/power/smes/buildable/attack_ai()
 	if(RCon)
 		..()
@@ -131,7 +132,7 @@
 	// Cyborgs standing next to the SMES can play with the wiring.
 	if(istype(usr, /mob/living/silicon/robot) && Adjacent(usr) && panel_open)
 		wires.Interact(usr)
-
+*/
 // Proc: New()
 // Parameters: None
 // Description: Adds standard components for this SMES, and forces recalculation of properties.
@@ -302,7 +303,7 @@
 /obj/machinery/power/smes/buildable/proc/apcs_overload(var/failure_chance, var/overload_chance, var/reboot_chance)
 	if (!src.powernet)
 		return
-
+	/*
 	for(var/obj/machinery/power/terminal/T in src.powernet.nodes)
 		if(istype(T.master, /obj/machinery/power/apc))
 			var/obj/machinery/power/apc/A = T.master
@@ -312,7 +313,7 @@
 				A.set_broken(TRUE)
 			if(prob(reboot_chance))
 				A.energy_fail(rand(30,60))
-
+	*/
 // Proc: update_icon()
 // Parameters: None
 // Description: Allows us to use special icon overlay for critical SMESs

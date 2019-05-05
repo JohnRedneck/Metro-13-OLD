@@ -87,11 +87,12 @@
 		queue_icon_update()
 	if (src.use_sound)
 		playsound(src.loc, src.use_sound, 50, 0, -5)
+	/*
 	if (isrobot(user) && user.hud_used)
 		var/mob/living/silicon/robot/robot = user
 		if(robot.shown_robot_modules) //The robot's inventory is open, need to close it first.
 			robot.hud_used.toggle_show_robot_modules()
-
+	*/
 	prepare_ui()
 	storage_ui.on_open(user)
 	storage_ui.show_to(user)

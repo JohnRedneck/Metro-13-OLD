@@ -41,7 +41,7 @@
 	. = ..()
 	if(stat & BROKEN)
 		to_chat(user, "<span class='warning'>It is completely demolished.</span>")
-
+/*
 /obj/machinery/camera/malf_upgrade(var/mob/living/silicon/ai/user)
 	..()
 	malf_upgraded = 1
@@ -51,7 +51,7 @@
 
 	to_chat(user, "\The [src] has been upgraded. It now has X-Ray capability and EMP resistance.")
 	return 1
-
+*/
 /obj/machinery/camera/apply_visual(mob/living/carbon/human/M)
 	if(!M.client)
 		return
@@ -120,7 +120,7 @@
 		stat &= ~EMPED
 		cancelCameraAlarm()
 		update_icon()
-		update_coverage()
+		//update_coverage()
 	return internal_process()
 
 /obj/machinery/camera/proc/internal_process()
@@ -135,7 +135,7 @@
 			set_light(0)
 			triggerCameraAlarm()
 			update_icon()
-			update_coverage()
+			//update_coverage()
 			START_PROCESSING(SSmachines, src)
 
 /obj/machinery/camera/bullet_act(var/obj/item/projectile/P)
@@ -176,7 +176,7 @@
 		destroy()
 
 /obj/machinery/camera/attackby(obj/item/W as obj, mob/living/user as mob)
-	update_coverage()
+	//update_coverage()
 	// DECONSTRUCTION
 	if(isScrewdriver(W))
 //		to_chat(user, "<span class='notice'>You start to [panel_open ? "close" : "open"] the camera's panel.</span>")
@@ -275,7 +275,7 @@
 
 	triggerCameraAlarm()
 	queue_icon_update()
-	update_coverage()
+	//update_coverage()
 
 	//sparks
 	var/datum/effect/effect/system/spark_spread/spark_system = new /datum/effect/effect/system/spark_spread()
@@ -286,11 +286,11 @@
 /obj/machinery/camera/proc/set_status(var/newstatus)
 	if (status != newstatus)
 		status = newstatus
-		update_coverage()
+		//update_coverage()
 
 /obj/machinery/camera/check_eye(mob/user)
 	if(!can_use()) return -1
-	if(isXRay()) return SEE_TURFS|SEE_MOBS|SEE_OBJS
+	//if(isXRay()) return SEE_TURFS|SEE_MOBS|SEE_OBJS
 	return 0
 
 /obj/machinery/camera/on_update_icon()
@@ -337,11 +337,12 @@
 	var/turf/pos = get_turf(src)
 	if(!pos)
 		return list()
-
+	/*
 	if(isXRay())
 		see = range(view_range, pos)
 	else
-		see = hear(view_range, pos)
+	*/
+	see = hear(view_range, pos)
 	return see
 
 /atom/proc/auto_turn()
@@ -424,10 +425,10 @@
 		if(!(network_name in src.network))
 			network += network_name
 			network_added = 1
-
+	/*
 	if(network_added)
 		update_coverage(1)
-
+	*/
 /obj/machinery/camera/proc/remove_networks(var/list/networks)
 	var/network_removed
 	network_removed = 0
@@ -435,26 +436,26 @@
 		if(network_name in src.network)
 			network -= network_name
 			network_removed = 1
-
+	/*
 	if(network_removed)
 		update_coverage(1)
-
+	*/
 /obj/machinery/camera/proc/replace_networks(var/list/networks)
 	if(networks.len != network.len)
 		network = networks
-		update_coverage(1)
+		//update_coverage(1)
 		return
 
 	for(var/new_network in networks)
 		if(!(new_network in network))
 			network = networks
-			update_coverage(1)
+			//update_coverage(1)
 			return
 
 /obj/machinery/camera/proc/clear_all_networks()
 	if(network.len)
 		network.Cut()
-		update_coverage(1)
+		//update_coverage(1)
 
 /obj/machinery/camera/proc/nano_structure()
 	var/cam[0]
@@ -473,4 +474,4 @@
 	set_broken(FALSE) // Fixes the camera and updates the icon.
 	wires.CutAll()
 	wires.MendAll()
-	update_coverage()
+	//update_coverage()

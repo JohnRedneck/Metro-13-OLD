@@ -123,10 +123,10 @@
 		scanning = 0
 		update_icon()
 	return
-
+/*
 /obj/machinery/dnaforensics/attack_ai(mob/user as mob)
 	ui_interact(user)
-
+*/
 /obj/machinery/dnaforensics/attack_hand(mob/user as mob)
 	ui_interact(user)
 

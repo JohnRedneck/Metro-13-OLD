@@ -191,13 +191,13 @@ var/list/turret_icons
 		return 1
 
 	return 0
-
+/*
 /obj/machinery/porta_turret/attack_ai(mob/user)
 	if(isLocked(user))
 		return
 
 	ui_interact(user)
-
+*/
 /obj/machinery/porta_turret/attack_hand(mob/user)
 	if(isLocked(user))
 		return
@@ -509,10 +509,10 @@ var/list/turret_icons
 
 	if(isanimal(L) || issmall(L)) // Animals are not so dangerous
 		return check_anomalies ? TURRET_SECONDARY_TARGET : TURRET_NOT_TARGET
-
+	/*
 	if(isxenomorph(L) || isalien(L)) // Xenos are dangerous
 		return check_anomalies ? TURRET_PRIORITY_TARGET	: TURRET_NOT_TARGET
-
+	*/
 	if(ishuman(L))	//if the target is a human, analyze threat level
 		if(assess_perp(L) < 4)
 			return TURRET_NOT_TARGET	//if threat level < 4, keep going
@@ -865,10 +865,10 @@ var/list/turret_icons
 			to_chat(user, "<span class='notice'>You remove the prox sensor from the turret frame.</span>")
 			new /obj/item/device/assembly/prox_sensor(loc)
 			build_step = 4
-
+/*
 /obj/machinery/porta_turret_construct/attack_ai()
 	return
-
+*/
 /atom/movable/porta_turret_cover
 	icon = 'icons/obj/turrets.dmi'
 

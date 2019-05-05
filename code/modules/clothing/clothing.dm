@@ -434,11 +434,11 @@ BLIND     // can't see anything
 		light_applied = 0
 	update_icon(user)
 	user.update_action_buttons()
-
+/*
 /obj/item/clothing/head/attack_ai(var/mob/user)
 	if(!mob_wear_hat(user))
 		return ..()
-
+*/
 /obj/item/clothing/head/attack_generic(var/mob/user)
 	if(!istype(user) || !mob_wear_hat(user))
 		return ..()
@@ -447,6 +447,7 @@ BLIND     // can't see anything
 	if(!Adjacent(user))
 		return 0
 	var/success
+	/*
 	if(is_drone(user))
 		var/mob/living/silicon/robot/drone/D = user
 		if(D.hat)
@@ -461,7 +462,7 @@ BLIND     // can't see anything
 		else
 			D.wear_hat(src)
 			success = 1
-
+	*/
 	if(!success)
 		return 0
 	else if(success == 2)

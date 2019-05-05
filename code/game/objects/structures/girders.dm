@@ -76,14 +76,14 @@
 			if(do_after(user, 40,src))
 				to_chat(user, "<span class='notice'>You secured the girder!</span>")
 				reset_girder()
-
+	/*
 	else if(istype(W, /obj/item/weapon/gun/energy/plasmacutter) || istype(W, /obj/item/psychic_power/psiblade/master/grand/paramount))
 		to_chat(user, "<span class='notice'>Now slicing apart the girder...</span>")
 		if(do_after(user,30,src))
 			if(!src) return
 			to_chat(user, "<span class='notice'>You slice apart the girder!</span>")
 			dismantle()
-
+	*/
 	else if(istype(W, /obj/item/weapon/pickaxe/diamonddrill))
 		to_chat(user, "<span class='notice'>You drill through the girder!</span>")
 		dismantle()
@@ -247,13 +247,13 @@
 		if(do_after(user,40,src))
 			to_chat(user, "<span class='notice'>You dissasembled the girder!</span>")
 			dismantle()
-
+	/*
 	else if(istype(W, /obj/item/weapon/gun/energy/plasmacutter))
 		to_chat(user, "<span class='notice'>Now slicing apart the girder...</span>")
 		if(do_after(user,30,src))
 			to_chat(user, "<span class='notice'>You slice apart the girder!</span>")
 		dismantle()
-
+	*/
 	else if(istype(W, /obj/item/weapon/pickaxe/diamonddrill))
 		to_chat(user, "<span class='notice'>You drill through the girder!</span>")
 		new /obj/item/remains/human(get_turf(src))

@@ -152,7 +152,7 @@
 	body_parts_covered = HEAD|FACE|EYES
 
 //Vox Unique Masks
-
+/*
 /obj/item/clothing/mask/gas/vox
 	name = "vox breathing mask"
 	desc = "A small oxygen filter for use by Vox"
@@ -172,7 +172,7 @@
 	body_parts_covered = 0 //Hack to allow vox to eat while wearing this mask.
 	species_restricted = list(SPECIES_VOX, SPECIES_VOX_ARMALIS)
 	filtered_gases = list("phoron", "sleeping_agent", "oxygen")
-
+*/
 /obj/item/clothing/mask/gas/aquabreather
 	name = "aquabreather"
 	desc = "A compact CO2 scrubber and breathing apparatus that draws oxygen from water."

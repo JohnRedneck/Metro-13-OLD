@@ -65,7 +65,7 @@
 	//Null rod stuff
 	var/supernatural = 0
 	var/purge = 0
-	
+
 	var/bleed_ticks = 0
 	var/bleed_colour = COLOR_BLOOD_HUMAN
 	var/can_bleed = TRUE
@@ -108,15 +108,15 @@
 	handle_confused()
 	handle_supernatural()
 	handle_impaired_vision()
-	
+
 	if(can_bleed && bleed_ticks > 0)
 		handle_bleeding()
 
 	if(buckled && can_escape)
-		if(istype(buckled, /obj/effect/energy_net))
+		/*if(istype(buckled, /obj/effect/energy_net))
 			var/obj/effect/energy_net/Net = buckled
-			Net.escape_net(src)
-		else if(prob(50))
+			Net.escape_net(src)*/
+		if(prob(50)) //changed from else if to if
 			escape(src, buckled)
 		else if(prob(50))
 			visible_message("<span class='warning'>\The [src] struggles against \the [buckled]!</span>")
@@ -294,9 +294,11 @@
 		damage = 0
 	if (O.damtype == STUN)
 		damage = (O.force / 8)
+	/*
 	if(supernatural && istype(O,/obj/item/weapon/nullrod))
 		damage *= 2
 		purge = 3
+	*/
 	adjustBruteLoss(damage)
 	if(O.edge || O.sharp)
 		adjustBleedTicks(damage)
@@ -366,10 +368,12 @@
 		var/mob/living/L = target_mob
 		if(!L.stat && L.health >= 0)
 			return (0)
+	/*
 	if (istype(target_mob,/obj/mecha))
 		var/obj/mecha/M = target_mob
 		if (M.occupant)
 			return (0)
+	*/
 	return 1
 
 /mob/living/simple_animal/say(var/message)
@@ -427,13 +431,13 @@
 		bleed_ticks = max(bleed_ticks, amount)
 	else
 		bleed_ticks = max(bleed_ticks + amount, 0)
-		
+
 	bleed_ticks = round(bleed_ticks)
-	
+
 /mob/living/simple_animal/proc/handle_bleeding()
 	bleed_ticks--
 	adjustBruteLoss(1)
-	
+
 	var/obj/effect/decal/cleanable/blood/drip/drip = new(get_turf(src))
 	drip.basecolor = bleed_colour
 	drip.update_icon()
@@ -449,5 +453,5 @@
 			return FLASH_PROTECTION_NONE
 		if(0)
 			return FLASH_PROTECTION_MAJOR
-		else 
+		else
 			return FLASH_PROTECTION_MAJOR

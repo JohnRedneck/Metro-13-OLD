@@ -34,7 +34,7 @@
 	/obj/item/device/flashlight,
 	/obj/item/device/healthanalyzer,
 	/obj/item/device/multitool,
-	/obj/item/device/paicard,
+	// /obj/item/device/paicard,
 	/obj/item/device/radio,
 	/obj/item/device/radio/headset,
 	/obj/item/device/radio/beacon,

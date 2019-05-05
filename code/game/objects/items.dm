@@ -97,7 +97,7 @@
 				break
 
 /obj/item/Destroy()
-	QDEL_NULL(hidden_uplink)
+	//QDEL_NULL(hidden_uplink)
 	if(ismob(loc))
 		var/mob/m = loc
 		m.drop_from_inventory(src)
@@ -167,7 +167,7 @@
 			size = "huge"
 	var/desc_comp = "" //For "description composite"
 	desc_comp += "It is a [size] item."
-
+	/*
 	if(hasHUD(user, HUD_SCIENCE)) //Mob has a research scanner active.
 		desc_comp += "<BR>*--------* <BR>"
 
@@ -186,7 +186,7 @@
 		else
 			desc_comp += "<span class='danger'>No extractable materials detected.</span><BR>"
 		desc_comp += "*--------*"
-
+	*/
 	return ..(user, distance, "", desc_comp)
 
 /obj/item/attack_hand(mob/user as mob)
@@ -232,7 +232,7 @@
 			pixel_x = 0
 			pixel_y = 0
 	return
-
+/*
 /obj/item/attack_ai(mob/user as mob)
 	if (istype(src.loc, /obj/item/weapon/robot_module))
 		//If the item is part of a cyborg module, equip it
@@ -241,7 +241,7 @@
 		var/mob/living/silicon/robot/R = user
 		R.activate_module(src)
 		R.hud_used.update_robot_modules_display()
-
+*/
 /obj/item/attackby(obj/item/weapon/W as obj, mob/user as mob)
 	if(istype(W, /obj/item/weapon/storage))
 		var/obj/item/weapon/storage/S = W
@@ -392,8 +392,10 @@ var/list/global/slot_flags_enumeration = list(
 				if(!disable_warning)
 					to_chat(usr, "<span class='warning'>You somehow have a suit with no defined allowed items for suit storage, stop that.</span>")
 				return 0
+			/*
 			if( !(istype(src, /obj/item/modular_computer/pda) || istype(src, /obj/item/weapon/pen) || is_type_in_list(src, H.wear_suit.allowed)) )
 				return 0
+			*/
 		if(slot_handcuffed)
 			if(!istype(src, /obj/item/weapon/handcuffs))
 				return 0
@@ -481,7 +483,7 @@ var/list/global/slot_flags_enumeration = list(
 //Otherwise should return 0 to indicate that the attack is not affected in any way.
 /obj/item/proc/handle_shield(mob/user, var/damage, atom/damage_source = null, mob/attacker = null, var/def_zone = null, var/attack_text = "the attack")
 	var/parry_chance = get_parry_chance(user)
-	if(attacker)	
+	if(attacker)
 		parry_chance = max(0, parry_chance - 10 * attacker.get_skill_difference(SKILL_COMBAT, user))
 	if(parry_chance)
 		if(default_parry_check(user, attacker, damage_source) && prob(parry_chance))

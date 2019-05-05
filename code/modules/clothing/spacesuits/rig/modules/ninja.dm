@@ -129,7 +129,7 @@
 
 	return 1
 
-
+/*
 /obj/item/rig_module/fabricator/energy_net
 
 	name = "net projector"
@@ -153,7 +153,7 @@
 			holder.wearer.Beam(target,"n_beam",,10)
 		return 1
 	return 0
-
+*/
 /obj/item/rig_module/self_destruct
 	name = "self-destruct module"
 	desc = "Oh my God, Captain. A bomb."

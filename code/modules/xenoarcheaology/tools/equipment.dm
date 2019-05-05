@@ -11,7 +11,7 @@
 	icon_state = "bio_anom"
 	item_state = "bio_anom"
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 100, rad = 100)
-
+/*
 /obj/item/clothing/suit/space/void/excavation
 	name = "excavation voidsuit"
 	desc = "A specially shielded voidsuit that insulates against some exotic alien energies, as well as the more mundane dangers of excavation."
@@ -29,7 +29,7 @@
 
 /obj/item/clothing/suit/space/void/excavation/prepared
 	helmet = /obj/item/clothing/head/helmet/space/void/excavation
-
+*/
 /obj/item/weapon/storage/belt/archaeology
 	name = "excavation gear-belt"
 	desc = "Can hold various excavation gear."
@@ -52,11 +52,11 @@
 		/obj/item/weapon/pen,
 		/obj/item/weapon/folder,
 		/obj/item/weapon/material/clipboard,
-		/obj/item/weapon/anodevice,
+		// /obj/item/weapon/anodevice,
 		/obj/item/clothing/glasses,
 		/obj/item/weapon/wrench,
 		/obj/item/weapon/storage/excavation,
-		/obj/item/weapon/anobattery,
-		/obj/item/device/ano_scanner,
+		// /obj/item/weapon/anobattery,
+		// /obj/item/device/ano_scanner,
 		/obj/item/taperoll,
 		/obj/item/weapon/pickaxe/xeno/hand)

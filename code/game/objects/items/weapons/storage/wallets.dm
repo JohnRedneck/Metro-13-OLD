@@ -34,7 +34,7 @@
 		/obj/item/weapon/reagent_containers/hypospray/autoinjector,
 		/obj/item/weapon/reagent_containers/glass/beaker/vial,
 		/obj/item/device/radio/headset,
-		/obj/item/device/paicard,
+		// /obj/item/device/paicard,
 		/obj/item/weapon/stamp,
 		/obj/item/weapon/key,
 		/obj/item/clothing/accessory/badge,

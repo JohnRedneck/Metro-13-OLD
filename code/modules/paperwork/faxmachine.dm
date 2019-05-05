@@ -37,7 +37,7 @@ GLOBAL_LIST_EMPTY(adminfaxes)	//cache for faxes that have been sent to admins
 			return
 		scan = O
 		to_chat(user, "<span class='notice'>You insert \the [O] into \the [src].</span>")
-	else 
+	else
 		..()
 
 /obj/machinery/photocopier/faxmachine/attack_hand(mob/user as mob)
@@ -202,10 +202,11 @@ GLOBAL_LIST_EMPTY(adminfaxes)	//cache for faxes that have been sent to admins
 	rcvdcopy.forceMove(null) //hopefully this shouldn't cause trouble
 	GLOB.adminfaxes += rcvdcopy
 
-	var/mob/intercepted = check_for_interception()
+	//var/mob/intercepted = check_for_interception()
 
 
 	//message badmins that a fax has arrived
+	/*
 	if (destination == GLOB.using_map.boss_name)
 		message_admins(sender, "[uppertext(destination)] FAX[intercepted ? "(Intercepted by [intercepted])" : null]", rcvdcopy, destination, "#006100")
 	else if (destination == "Office of Civil Investigation and Enforcement")
@@ -216,7 +217,7 @@ GLOBAL_LIST_EMPTY(adminfaxes)	//cache for faxes that have been sent to admins
 		message_admins(sender, "[uppertext(destination)] FAX[intercepted ? "(Intercepted by [intercepted])" : null]", rcvdcopy, destination, "#510b74")
 	else
 		message_admins(sender, "[uppertext(destination)] FAX[intercepted ? "(Intercepted by [intercepted])" : null]", rcvdcopy, "UNKNOWN")
-
+	*/
 	sendcooldown = 1800
 	sleep(50)
 	visible_message("[src] beeps, \"Message transmitted successfully.\"")

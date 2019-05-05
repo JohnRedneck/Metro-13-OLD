@@ -1,15 +1,7 @@
-var/const/ENG               =(1<<0)
-var/const/SEC               =(1<<1)
-var/const/MED               =(1<<2)
-var/const/SCI               =(1<<3)
-var/const/CIV               =(1<<4)
-var/const/COM               =(1<<5)
-var/const/MSC               =(1<<6)
-var/const/SRV               =(1<<7)
-var/const/SUP               =(1<<8)
-var/const/SPT               =(1<<9)
-var/const/EXP               =(1<<10)
-
+var/const/RED               =(1<<0)
+var/const/VDNK              =(1<<1)
+var/const/REICH               =(1<<2)
+var/const/VAGRANT               =(1<<3)
 SUBSYSTEM_DEF(jobs)
 	name = "Jobs"
 	init_order = SS_INIT_JOBS
@@ -68,8 +60,6 @@ SUBSYSTEM_DEF(jobs)
 				if(J)
 					J.total_positions = text2num(value)
 					J.spawn_positions = text2num(value)
-					if(name == "AI" || name == "Robot")//I dont like this here but it will do for now
-						J.total_positions = 0
 
 	// Init skills.
 	if(!GLOB.skills.len)
@@ -112,18 +102,14 @@ SUBSYSTEM_DEF(jobs)
 					if(job.department_flag & GLOB.bitflags[I])
 						LAZYDISTINCTADD(positions_by_department["[GLOB.bitflags[I]]"], job.title)
 
-	// Set up syndicate phrases.
-	syndicate_code_phrase = generate_code_phrase()
-	syndicate_code_response	= generate_code_phrase()
-
 	. = ..()
-
+/*
 /datum/controller/subsystem/jobs/proc/guest_jobbans(var/job)
 	for(var/dept in list(COM, MSC, SEC))
 		if(job in titles_by_department(dept))
 			return TRUE
 	return FALSE
-
+*/
 /datum/controller/subsystem/jobs/proc/reset_occupations()
 	for(var/mob/new_player/player in GLOB.player_list)
 		if((player) && (player.mind))
@@ -237,8 +223,10 @@ SUBSYSTEM_DEF(jobs)
 			continue
 		if(job.is_restricted(player.client.prefs))
 			continue
+		/*
 		if(job.title in titles_by_department(COM)) //If you want a command position, select it!
 			continue
+		*/
 		if(jobban_isbanned(player, job.title))
 			continue
 		if(!job.player_old_enough(player.client))
@@ -298,11 +286,13 @@ SUBSYSTEM_DEF(jobs)
  *  This proc must not have any side effect besides of modifying "assigned_role".
  **/
 /datum/controller/subsystem/jobs/proc/divide_occupations(datum/game_mode/mode)
+	/*
 	if(GLOB.triai)
 		for(var/datum/job/A in primary_job_datums)
 			if(A.title == "AI")
 				A.spawn_positions = 3
 				break
+	*/
 	//Get the players who are ready
 	for(var/mob/new_player/player in GLOB.player_list)
 		if(player.ready && player.mind && !player.mind.assigned_role)
@@ -458,6 +448,7 @@ SUBSYSTEM_DEF(jobs)
 		job.setup_account(H)
 
 		// EMAIL GENERATION
+		/*
 		if(rank != "Robot" && rank != "AI")		//These guys get their emails later.
 			var/domain
 			if(H.char_branch)
@@ -467,6 +458,7 @@ SUBSYSTEM_DEF(jobs)
 				domain = "freemail.net"
 			if(domain)
 				ntnet_global.create_email(H, H.real_name, domain)
+		*/
 		// END EMAIL GENERATION
 
 		job.equip(H, H.mind ? H.mind.role_alt_title : "", H.char_branch, H.char_rank)
@@ -493,9 +485,10 @@ SUBSYSTEM_DEF(jobs)
 			H.buckled.set_dir(H.dir)
 
 	// If they're head, give them the account info for their department
+	/*
 	if(H.mind && job.head_position)
 		var/remembered_info = ""
-		var/datum/money_account/department_account = department_accounts[job.department]
+		//var/datum/money_account/department_account = department_accounts[job.department]
 
 		if(department_account)
 			remembered_info += "<b>Your department's account number is:</b> #[department_account.account_number]<br>"
@@ -503,7 +496,7 @@ SUBSYSTEM_DEF(jobs)
 			remembered_info += "<b>Your department's account funds are:</b> T[department_account.money]<br>"
 
 		H.mind.store_memory(remembered_info)
-
+	*/
 	var/alt_title = null
 	if(H.mind)
 		H.mind.assigned_job = job
@@ -511,10 +504,12 @@ SUBSYSTEM_DEF(jobs)
 		alt_title = H.mind.role_alt_title
 
 		switch(rank)
+			/*
 			if("Robot")
 				return H.Robotize(SSrobots.get_mob_type_by_title(alt_title ? alt_title : job.title))
 			if("AI")
 				return H
+			*/
 			if("Captain")
 				var/sound/announce_sound = (GAME_STATE <= RUNLEVEL_SETUP)? null : sound('sound/misc/boatswain.ogg', volume=20)
 				captain_announcement.Announce("All hands, Captain [H.real_name] on deck!", new_sound=announce_sound)
@@ -554,7 +549,7 @@ SUBSYSTEM_DEF(jobs)
 	BITSET(H.hud_updateflag, ID_HUD)
 	BITSET(H.hud_updateflag, IMPLOYAL_HUD)
 	BITSET(H.hud_updateflag, SPECIALROLE_HUD)
-	
+
 	job.post_equip_rank(H)
 
 	return H

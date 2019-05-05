@@ -129,7 +129,7 @@
 	say_messages = list("NEEIIGGGHHHH!", "NEEEIIIIGHH!", "NEIIIGGHH!", "HAAWWWWW!", "HAAAWWW!")
 	say_verbs = list("whinnies", "neighs", "says")
 
-
+/*
 /obj/item/clothing/mask/ai
 	name = "camera MIU"
 	desc = "Allows for direct mental connection to accessible camera networks."
@@ -187,7 +187,7 @@
 		to_chat(eye.owner, "<span class='notice'>You feel disorented for a moment as your mind disconnects from the camera network.</span>")
 		eye.release(eye.owner)
 		eye.forceMove(src)
-
+*/
 /obj/item/clothing/mask/rubber
 	name = "rubber mask"
 	desc = "A rubber mask."

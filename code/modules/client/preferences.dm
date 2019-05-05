@@ -289,11 +289,12 @@ datum/preferences
 	character.flavor_texts["hands"] = flavor_texts["hands"]
 	character.flavor_texts["legs"] = flavor_texts["legs"]
 	character.flavor_texts["feet"] = flavor_texts["feet"]
-
+/*
 	character.public_record = public_record
 	character.med_record = med_record
 	character.sec_record = sec_record
 	character.gen_record = gen_record
+*/
 	character.exploit_record = exploit_record
 
 	if(LAZYLEN(character.descriptors))

@@ -181,7 +181,7 @@
 
 /datum/computer_file/report/recipient/docked/New()
 	..()
-	set_access(access_edit = access_hangar)
+	//set_access(access_edit = access_hangar)
 	set_access(access_edit = access_research, override = 0)
 
 /datum/computer_file/report/recipient/fauna/generate_fields()
@@ -240,7 +240,7 @@
 /datum/computer_file/report/recipient/nt/fire/New()
 	..()
 	set_access(access_heads, access_heads)
-	set_access(access_nanotrasen, override = 0)
+	//set_access(access_nanotrasen, override = 0)
 
 /datum/computer_file/report/recipient/nt/fire/generate_fields()
 	..()
@@ -255,7 +255,7 @@
 
 /datum/computer_file/report/recipient/nt/incident/New()
 	..()
-	set_access(access_edit = access_nanotrasen)
+	//set_access(access_edit = access_nanotrasen)
 
 /datum/computer_file/report/recipient/nt/incident/generate_fields()
 	..()
@@ -361,8 +361,8 @@
 	add_field(/datum/report_field/signature, "Volunteer's Signature:")
 	temp_fields += add_field(/datum/report_field/signature, "Corporate Representative's Signature")
 	temp_fields += add_field(/datum/report_field/options/yes_no, "Approved")
-	for(var/datum/report_field/temp_field in temp_fields)
-		temp_field.set_access(access_edit = access_nanotrasen)
+	//for(var/datum/report_field/temp_field in temp_fields)
+	//	temp_field.set_access(access_edit = access_nanotrasen)
 
 /datum/computer_file/report/recipient/nt/deny
 	form_name = "C-1443D"
@@ -381,7 +381,7 @@
 	add_field(/datum/report_field/options/yes_no, "Project Cancellation")
 	add_field(/datum/report_field/simple_text, "Other")
 	add_field(/datum/report_field/options/yes_no, "Report Approved")
-	set_access(access_edit = access_nanotrasen)
+	//set_access(access_edit = access_nanotrasen)
 
 /datum/computer_file/report/recipient/nt/memo/generate_fields()
 	..()
@@ -398,7 +398,7 @@
 
 /datum/computer_file/report/recipient/nt/memo/internal/New()
 	..()
-	set_access(access_nanotrasen, access_nanotrasen)
+	//set_access(access_nanotrasen, access_nanotrasen)
 
 /datum/computer_file/report/recipient/nt/memo/external
 	form_name = "C-0005"
@@ -407,7 +407,7 @@
 
 /datum/computer_file/report/recipient/nt/memo/external/New()
 	..()
-	set_access(access_edit = access_nanotrasen)
+	//set_access(access_edit = access_nanotrasen)
 
 //No access restrictions for easier use.
 /datum/computer_file/report/recipient/nt/sales
@@ -443,11 +443,11 @@
 	add_field(/datum/report_field/pencode_text, "Reason for Request")
 	add_field(/datum/report_field/signature, "Applicant's Signature")
 	temp_field = add_field(/datum/report_field/signature, "Request Issuer's Signature")
-	temp_field.set_access(access_edit = access_nanotrasen)
+	//temp_field.set_access(access_edit = access_nanotrasen)
 	temp_field = add_field(/datum/report_field/options/yes_no, "Request Approved by Issuer")
-	temp_field.set_access(access_edit = access_nanotrasen)
+	//temp_field.set_access(access_edit = access_nanotrasen)
 	temp_field = add_field(/datum/report_field/signature, "Issuing Authority's Signature (acknowledging reciept)")
-	temp_field.set_access(access_edit = access_representative)
+	//temp_field.set_access(access_edit = access_representative)
 
 /datum/computer_file/report/recipient/nt/payout
 	form_name = "C-3310"
@@ -463,7 +463,7 @@
 	add_field(/datum/report_field/instruction, "To be shipped and delivered directly to the employee's next of kin without delay.")
 	add_field(/datum/report_field/signature, "Signature")
 	add_field(/datum/report_field/options/yes_no, "Approved")
-	set_access(access_edit = access_nanotrasen)
+	//set_access(access_edit = access_nanotrasen)
 
 //Solgov reports, mostly for the SGR
 /datum/computer_file/report/recipient/sol
@@ -484,7 +484,7 @@
 	add_field(/datum/report_field/pencode_text, "Other Notes")
 	add_field(/datum/report_field/signature, "Signature")
 	add_field(/datum/report_field/options/yes_no, "Approved")
-	set_access(access_edit = access_representative)
+	//set_access(access_edit = access_representative)
 
 /datum/computer_file/report/recipient/sol/audit
 	form_name = "SCG-REP-4"
@@ -499,7 +499,7 @@
 	add_field(/datum/report_field/pencode_text, "Description of incident")
 	add_field(/datum/report_field/signature, "Signature")
 	add_field(/datum/report_field/options/yes_no, "Approved")
-	set_access(access_edit = list(access_heads, access_solgov_crew))
+	//set_access(access_edit = list(access_heads, access_solgov_crew))
 
 /datum/computer_file/report/recipient/sol/audit
 	form_name = "SCG-REP-03b"
@@ -515,4 +515,4 @@
 	temp_field = add_field(/datum/report_field/signature, "Issuer of Work Visa Signature")
 	add_field(/datum/report_field/signature, "Recipient of Work Visa Signature")
 	add_field(/datum/report_field/options/yes_no, "Approved")
-	temp_field.set_access(access_edit = access_representative)
+	//temp_field.set_access(access_edit = access_representative)

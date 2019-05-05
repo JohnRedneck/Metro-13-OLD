@@ -252,6 +252,7 @@ proc/cmd_admin_mute(mob/M as mob, mute_type)
 	to_chat(M, "<span class = 'alert'>You have been [muteunmute] from [mute_string].</span>")
 	SSstatistics.add_field_details("admin_verb","MUTE") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
+/*
 /client/proc/cmd_admin_add_random_ai_law()
 	set category = "Fun"
 	set name = "Add Random AI Law"
@@ -269,7 +270,7 @@ proc/cmd_admin_mute(mob/M as mob, mute_type)
 
 	IonStorm(0)
 	SSstatistics.add_field_details("admin_verb","ION") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-
+*/
 /*
 Allow admins to set players to be able to respawn/bypass 30 min wait, without the admin having to edit variables directly
 Ccomp's first proc.
@@ -402,6 +403,7 @@ If a guy was gibbed and you want to revive him, this is a good way to do so.
 Works kind of like entering the game with a new character. Character receives a new mind if they didn't have one.
 Traitors and the like can also be revived with the previous role mostly intact.
 /N */
+
 /client/proc/respawn_character()
 	set category = "Special Verbs"
 	set name = "Respawn Character"
@@ -436,10 +438,10 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		new_character.b_type = record_found.get_bloodtype()
 	else
 		new_character.gender = pick(MALE,FEMALE)
-		var/datum/preferences/A = new()
-		A.setup()
-		A.randomize_appearance_and_body_for(new_character)
-		new_character.real_name = G_found.real_name
+	var/datum/preferences/A = new()
+	A.setup()
+	A.randomize_appearance_and_body_for(new_character)
+	new_character.real_name = G_found.real_name
 
 	if(!new_character.real_name)
 		if(new_character.gender == MALE)
@@ -457,8 +459,10 @@ Traitors and the like can also be revived with the previous role mostly intact.
 
 	//DNA
 	new_character.dna.ready_dna(new_character)
+	/*
 	if(record_found)//Pull up their name from database records if they did have a mind.
 		new_character.dna.unique_enzymes = record_found.get_dna()//Enzymes are based on real name but we'll use the record for conformity.
+	*/
 	new_character.key = G_found.key
 
 	/*
@@ -478,44 +482,16 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		SSjobs.equip_rank(new_character, new_character.mind.assigned_role, 1)
 
 	//Announces the character on all the systems, based on the record.
-	if(!issilicon(new_character))//If they are not a cyborg/AI.
-		if(!record_found && !player_is_antag(new_character.mind, only_offstation_roles = 1)) //If there are no records for them. If they have a record, this info is already in there. MODE people are not announced anyway.
-			if(alert(new_character,"Would you like an active AI to announce this character?",,"No","Yes")=="Yes")
-				call(/proc/AnnounceArrival)(new_character, new_character.mind.assigned_role)
+	//if(!issilicon(new_character))//If they are not a cyborg/AI.
+		//if(!record_found && !player_is_antag(new_character.mind, only_offstation_roles = 1)) //If there are no records for them. If they have a record, this info is already in there. MODE people are not announced anyway.
+			//if(alert(new_character,"Would you like an active AI to announce this character?",,"No","Yes")=="Yes")
+	//call(/proc/AnnounceArrival)(new_character, new_character.mind.assigned_role)
 
 	log_and_message_admins("has respawned [player_key] as [new_character.real_name].")
 
 	to_chat(new_character, "You have been fully respawned. Enjoy the game.")
 	SSstatistics.add_field_details("admin_verb","RSPCH") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 	return new_character
-
-/client/proc/cmd_admin_add_freeform_ai_law()
-	set category = "Fun"
-	set name = "Add Custom AI law"
-	if(!holder)
-		to_chat(src, "Only administrators may use this command.")
-		return
-	var/input = sanitize(input(usr, "Please enter anything you want the AI to do. Anything. Serious.", "What?", "") as text|null)
-	if(!input)
-		return
-	for(var/mob/living/silicon/ai/M in SSmobs.mob_list)
-		if (M.stat == 2)
-			to_chat(usr, "Upload failed. No signal is being detected from the AI.")
-		else if (M.see_in_dark == 0)
-			to_chat(usr, "Upload failed. Only a faint signal is being detected from the AI, and it is not responding to our requests. It may be low on power.")
-		else
-			M.add_ion_law(input)
-			for(var/mob/living/silicon/ai/O in SSmobs.mob_list)
-				to_chat(O, "<span class='warning'>" + input + "...LAWS UPDATED</span>")
-				O.show_laws()
-
-	log_admin("Admin [key_name(usr)] has added a new AI law - [input]")
-	message_admins("Admin [key_name_admin(usr)] has added a new AI law - [input]", 1)
-
-	var/show_log = alert(src, "Show ion message?", "Message", "Yes", "No")
-	if(show_log == "Yes")
-		command_announcement.Announce("Ion storm detected near the [station_name()]. Please check all AI-controlled equipment for errors.", "Anomaly Alert", new_sound = 'sound/AI/ionstorm.ogg')
-	SSstatistics.add_field_details("admin_verb","IONC") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/cmd_admin_rejuvenate(mob/living/M as mob in SSmobs.mob_list)
 	set category = "Special Verbs"
@@ -535,7 +511,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	else
 		alert("Admin revive disabled")
 	SSstatistics.add_field_details("admin_verb","REJU") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-
+/*
 /client/proc/cmd_admin_create_centcom_report()
 	set category = "Special Verbs"
 	set name = "Create Command Report"
@@ -561,6 +537,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	log_admin("[key_name(src)] has created a command report: [input]")
 	message_admins("[key_name_admin(src)] has created a command report", 1)
 	SSstatistics.add_field_details("admin_verb","CCR") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+*/
 
 /client/proc/cmd_admin_delete(atom/O as obj|mob|turf in range(world.view))
 	set category = "Admin"

@@ -143,6 +143,7 @@
 /*
 	Emitter remote control
 */
+/*
 /obj/machinery/button/remote/emitter
 	name = "remote emitter control"
 	desc = "It controls emitters, remotely."
@@ -153,10 +154,11 @@
 			spawn(0)
 				E.activate(user)
 				return
-
+*/
 /*
 	Mass driver remote control
 */
+/*
 /obj/machinery/button/remote/driver
 	name = "mass driver button"
 	desc = "A remote control switch for a mass driver."
@@ -198,3 +200,4 @@
 		icon_state = "launcherbtt"
 	else
 		icon_state = "launcheract"
+*/

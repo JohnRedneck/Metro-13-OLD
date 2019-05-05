@@ -112,10 +112,13 @@ var/global/floorIsLava = 0
 	body += "<b>Psionics:</b><br/>"
 	if(isliving(M))
 		var/mob/living/psyker = M
+		/*
 		if(psyker.psi)
 			body += "<a href='?src=\ref[psyker.psi];remove_psionics=1'>Remove psionics.</a><br/><br/>"
 			body += "<a href='?src=\ref[psyker.psi];trigger_psi_latencies=1'>Trigger latencies.</a><br/>"
+		*/
 		body += "<table width = '100%'>"
+		/*
 		for(var/faculty in list(PSI_COERCION, PSI_PSYCHOKINESIS, PSI_REDACTION, PSI_ENERGISTICS))
 			var/decl/psionic_faculty/faculty_decl = SSpsi.get_faculty(faculty)
 			var/faculty_rank = psyker.psi ? psyker.psi.get_rank(faculty) : 0
@@ -126,6 +129,7 @@ var/global/floorIsLava = 0
 					psi_title = "<b>[psi_title]</b>"
 				body += "<td><a href='?src=\ref[psyker.mind];set_psi_faculty_rank=[i];set_psi_faculty=[faculty]'>[psi_title]</a></td>"
 			body += "</tr>"
+		*/
 		body += "</table>"
 
 	if (M.client)
@@ -1015,11 +1019,12 @@ var/global/floorIsLava = 0
 					return 2
 		if(M.special_role)
 			return 1
-
+	/*
 	if(isrobot(character))
 		var/mob/living/silicon/robot/R = character
 		if(R.emagged)
 			return 1
+	*/
 
 	return 0
 
@@ -1029,7 +1034,7 @@ var/global/floorIsLava = 0
 	set desc = "Spawn every possible custom closet. Do not do this on live."
 	set category = "Debug"
 
-	if(!check_rights(R_SPAWN))	
+	if(!check_rights(R_SPAWN))
 		return
 
 	if((input(usr, "Are you sure you want to spawn all these closets?", "So Many Closets") as null|anything in list("No", "Yes")) == "Yes")
@@ -1258,7 +1263,7 @@ var/global/floorIsLava = 0
 	log_admin("[key_name(usr)] toggled guests game entering [config.guests_allowed?"":"dis"]allowed.")
 	log_and_message_admins("toggled guests game entering [config.guests_allowed?"":"dis"]allowed.")
 	SSstatistics.add_field_details("admin_verb","TGU") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-
+/*
 /datum/admins/proc/output_ai_laws()
 	var/ai_number = 0
 	for(var/mob/living/silicon/S in SSmobs.mob_list)
@@ -1279,7 +1284,7 @@ var/global/floorIsLava = 0
 			S.laws.show_laws(usr)
 	if(!ai_number)
 		to_chat(usr, "<b>No AIs located</b>")//Just so you know the thing is actually working and not just ignoring you.
-
+*/
 /datum/admins/proc/show_skills(mob/M)
 	set category = "Admin"
 	set name = "Skill Panel"

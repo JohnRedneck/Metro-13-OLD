@@ -344,7 +344,7 @@ obj/structure/cable/proc/cableColor(var/colorC)
 					merge_powernets(powernet, C.powernet)
 				else
 					powernet.add_cable(C) //the cable was powernetless, let's just add it to our powernet
-
+		/*
 		else if(istype(AM,/obj/machinery/power/apc))
 			var/obj/machinery/power/apc/N = AM
 			if(!N.terminal)	continue // APC are connected through their terminal
@@ -353,7 +353,7 @@ obj/structure/cable/proc/cableColor(var/colorC)
 				continue
 
 			to_connect += N.terminal //we'll connect the machines after all cables are merged
-
+		*/
 		else if(istype(AM,/obj/machinery/power)) //other power machines
 			var/obj/machinery/power/M = AM
 

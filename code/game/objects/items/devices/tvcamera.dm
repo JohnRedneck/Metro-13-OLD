@@ -116,11 +116,14 @@ Using robohead because of restricting to roboticist */
 /obj/item/weapon/TVAssembly/attackby(var/obj/item/W, var/mob/user)
 	switch(buildstep)
 		if(0)
+			/*
 			if(istype(W, /obj/item/robot_parts/robot_component/camera))
 				to_chat(user, "<span class='notice'>You add the camera module to [src]</span>")
 				qdel(W)
 				desc = "This TV camera assembly has a camera module."
 				buildstep++
+			*/
+			return
 		if(1)
 			if(istype(W, /obj/item/device/taperecorder))
 				qdel(W)

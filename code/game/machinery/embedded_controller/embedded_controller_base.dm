@@ -39,10 +39,10 @@
 		program.process()
 
 	update_icon()
-
+/*
 /obj/machinery/embedded_controller/attack_ai(mob/user as mob)
 	ui_interact(user)
-
+*/
 /obj/machinery/embedded_controller/attack_hand(mob/user as mob)
 	if(!user.IsAdvancedToolUser())
 		return 0
