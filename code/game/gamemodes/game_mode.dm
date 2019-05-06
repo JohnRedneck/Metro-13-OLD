@@ -64,9 +64,11 @@ var/global/list/additional_antag_types = list()
 		switch(href_list["toggle"])
 			if("respawn")
 				deny_respawn = !deny_respawn
+			/*
 			if("ert")
 				ert_disabled = !ert_disabled
 				announce_ert_disabled()
+			*/
 			if("shuttle_recall")
 				auto_recall_shuttle = !auto_recall_shuttle
 			if("autotraitor")
@@ -190,7 +192,7 @@ var/global/list/additional_antag_types = list()
 		return "Not enough antagonists, [required_enemies] required and [enemy_count] available."
 	else
 		return 0
-
+/*
 /datum/game_mode/proc/refresh_event_modifiers()
 	if(event_delay_mod_moderate || event_delay_mod_major)
 		SSevent.report_at_round_end = 1
@@ -201,6 +203,7 @@ var/global/list/additional_antag_types = list()
 			var/datum/event_container/EMajor = SSevent.event_containers[EVENT_LEVEL_MAJOR]
 			EMajor.delay_modifier = event_delay_mod_major
 
+*/
 /datum/game_mode/proc/pre_setup()
 	for(var/datum/antagonist/antag in antag_templates)
 		antag.update_current_antag_max(src)
@@ -223,7 +226,7 @@ var/global/list/additional_antag_types = list()
 	spawn (rand(waittime_l, waittime_h))
 		GLOB.using_map.send_welcome()
 		sleep(rand(100,150))
-		announce_ert_disabled()
+		//announce_ert_disabled()
 
 	//Assign all antag types for this game mode. Any players spawned as antags earlier should have been removed from the pending list, so no need to worry about those.
 	for(var/datum/antagonist/antag in antag_templates)
@@ -253,7 +256,7 @@ var/global/list/additional_antag_types = list()
 /datum/game_mode/proc/fail_setup()
 	for(var/datum/antagonist/antag in antag_templates)
 		antag.reset_antag_selection()
-
+/*
 /datum/game_mode/proc/announce_ert_disabled()
 	if(!ert_disabled)
 		return
@@ -291,7 +294,7 @@ var/global/list/additional_antag_types = list()
 		"a gargantuan glowing goat"
 		)
 	command_announcement.Announce("The presence of [pick(reasons)] in the region is tying up all available local emergency resources; emergency response teams cannot be called at this time, and post-evacuation recovery efforts will be substantially delayed.","Emergency Transmission")
-
+*/
 /datum/game_mode/proc/check_finished()
 	if(evacuation_controller.round_over() || station_was_nuked)
 		return 1
@@ -368,7 +371,7 @@ var/global/list/additional_antag_types = list()
 		text += "There were <b>no survivors</b> (<b>[ghosts] ghosts</b>)."
 
 	to_world(text)
-	
+
 	if(clients > 0)
 		SSstatistics.set_field("round_end_clients",clients)
 	if(ghosts > 0)
@@ -466,7 +469,7 @@ var/global/list/additional_antag_types = list()
 				antag_templates |= antag
 
 	shuffle(antag_templates) //In the case of multiple antag types
-	newscaster_announcements = pick(newscaster_standard_feeds)
+	//newscaster_announcements = pick(newscaster_standard_feeds)
 
 /datum/game_mode/proc/check_victory()
 	return

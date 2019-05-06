@@ -4,7 +4,7 @@
 		list("names" = list(), "header" = "Red Line Members", "flag" = RED),
 		list("names" = list(), "header" = "VDNKh Members", "flag" = VDNK),
 		list("names" = list(), "header" = "Fourth Reich Members", "flag" = REICH),
-		list("names" = list(), "header" = "Vagrants", "flag" = VAGRANT)
+		list("names" = list(), "header" = "Neutrals[", "flag" = NO_FACTION)
 	)
 
 	var/list/isactive = new()
@@ -86,11 +86,10 @@
 		"redline" = filtered_nano_crew_manifest(SSjobs.titles_by_department(RED)),
 		"vdnk" =   filtered_nano_crew_manifest(SSjobs.titles_by_department(VDNK)),
 		"reich" =   filtered_nano_crew_manifest(SSjobs.titles_by_department(REICH)),
-		"vagrant" =   filtered_nano_crew_manifest(SSjobs.titles_by_department(VAGRANT))
+		"neutrals" =   filtered_nano_crew_manifest(SSjobs.titles_by_department(NO_FACTION))
 	)
 
 
 /proc/flat_nano_crew_manifest()
 	. = list()
 	. += filtered_nano_crew_manifest(null, TRUE)
-	//. += silicon_nano_crew_manifest(SSjobs.titles_by_department(MSC))

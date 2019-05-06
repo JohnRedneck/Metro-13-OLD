@@ -1,7 +1,7 @@
-var/const/RED               =(1<<0)
-var/const/VDNK              =(1<<1)
-var/const/REICH               =(1<<2)
-var/const/VAGRANT               =(1<<3)
+var/const/LEAD               =(1<<0)
+var/const/MIL              =(1<<1)
+var/const/CIV               =(1<<2)
+var/const/VAG               =(1<<3)
 SUBSYSTEM_DEF(jobs)
 	name = "Jobs"
 	init_order = SS_INIT_JOBS
@@ -21,12 +21,11 @@ SUBSYSTEM_DEF(jobs)
 
 	// Create main map jobs.
 	primary_job_datums.Cut()
-	for(var/jobtype in (list(/datum/job/assistant) | GLOB.using_map.allowed_jobs))
+	for(var/jobtype in (list(/datum/job/neutral/vagrant) | GLOB.using_map.allowed_jobs))
 		var/datum/job/job = get_by_path(jobtype)
 		if(!job)
 			job = new jobtype
 		primary_job_datums += job
-
 	// Create abstract submap archetype jobs for use in prefs, etc.
 	archetype_job_datums.Cut()
 	for(var/atype in SSmapping.submap_archetypes)
@@ -219,8 +218,10 @@ SUBSYSTEM_DEF(jobs)
 			continue
 		if(job.minimum_character_age && (player.client.prefs.age < job.minimum_character_age))
 			continue
-		if(istype(job, get_by_title(GLOB.using_map.default_assistant_title))) // We don't want to give him assistant, that's boring!
+		/*
+		if(istype(job, get_by_title(GLOB.using_map.default_vagrant_title))) // We don't want to give him assistant, that's boring!
 			continue
+		*/
 		if(job.is_restricted(player.client.prefs))
 			continue
 		/*
@@ -237,6 +238,7 @@ SUBSYSTEM_DEF(jobs)
 			break
 
 ///This proc is called before the level loop of divide_occupations() and will try to select a head, ignoring ALL non-head preferences for every level until it locates a head or runs out of levels to check
+/*
 /datum/controller/subsystem/jobs/proc/fill_head_position()
 	for(var/level = 1 to 3)
 		for(var/command_position in titles_by_department(COM))
@@ -270,7 +272,7 @@ SUBSYSTEM_DEF(jobs)
 			if(assign_role(candidate, command_position))
 				return 1
 	return 0
-
+*/
 ///This proc is called at the start of the level loop of divide_occupations() and will cause head jobs to be checked before any other jobs of the same level
 /datum/controller/subsystem/jobs/proc/CheckHeadPositions(var/level)
 	for(var/command_position in titles_by_department(COM))
@@ -301,11 +303,11 @@ SUBSYSTEM_DEF(jobs)
 	//Shuffle players and jobs
 	unassigned_roundstart = shuffle(unassigned_roundstart)
 	//People who wants to be assistants, sure, go on.
-	var/datum/job/assist = new DEFAULT_JOB_TYPE ()
-	var/list/assistant_candidates = find_occupation_candidates(assist, 3)
-	for(var/mob/new_player/player in assistant_candidates)
-		assign_role(player, GLOB.using_map.default_assistant_title)
-		assistant_candidates -= player
+	var/datum/job/neutral/vagrant = new DEFAULT_JOB_TYPE ()
+	var/list/vagrant_candidates = find_occupation_candidates(vagrant, 3)
+	for(var/mob/new_player/player in vagrant_candidates)
+		assign_role(player, GLOB.using_map.default_vagrant_title)
+		vagrant_candidates -= player
 
 	//Select one head
 	fill_head_position()
@@ -348,8 +350,8 @@ SUBSYSTEM_DEF(jobs)
 			give_random_job(player)
 	// For those who wanted to be assistant if their preferences were filled, here you go.
 	for(var/mob/new_player/player in unassigned_roundstart)
-		if(player.client.prefs.alternate_option == BE_ASSISTANT)
-			var/datum/job/ass = /datum/job/assistant
+		if(player.client.prefs.alternate_option == BE_VAGRANT)
+			var/datum/job/vag = /datum/job/neutral/vagrant
 			if((GLOB.using_map.flags & MAP_HAS_BRANCH) && player.client.prefs.branches[initial(ass.title)])
 				var/datum/mil_branch/branch = mil_branches.get_branch(player.client.prefs.branches[initial(ass.title)])
 				ass = branch.assistant_job
@@ -509,11 +511,10 @@ SUBSYSTEM_DEF(jobs)
 				return H.Robotize(SSrobots.get_mob_type_by_title(alt_title ? alt_title : job.title))
 			if("AI")
 				return H
-			*/
 			if("Captain")
 				var/sound/announce_sound = (GAME_STATE <= RUNLEVEL_SETUP)? null : sound('sound/misc/boatswain.ogg', volume=20)
 				captain_announcement.Announce("All hands, Captain [H.real_name] on deck!", new_sound=announce_sound)
-
+			*/
 	if(spawn_in_storage)
 		for(var/datum/gear/G in spawn_in_storage)
 			G.spawn_in_storage_or_drop(H, H.client.prefs.Gear()[G.display_name])

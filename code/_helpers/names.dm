@@ -87,7 +87,6 @@ var/religion_name = null
 			var/i = findtext(Holiday," ",1,0)
 			name = copytext(Holiday,1,i)
 			GLOB.using_map.station_name += name + " "
-
 	// Suffix
 	name = pick(GLOB.station_suffixes)
 	GLOB.using_map.station_name += name + " "
