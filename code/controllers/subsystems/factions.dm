@@ -2,9 +2,9 @@ var/const/LEAD               =(1<<0)
 var/const/MIL              =(1<<1)
 var/const/CIV               =(1<<2)
 var/const/VAG               =(1<<3)
-SUBSYSTEM_DEF(jobs)
-	name = "Jobs"
-	init_order = SS_INIT_JOBS
+SUBSYSTEM_DEF(factions)
+	name = "Factions and Roles"
+	init_order = SS_INIT_FACTIONS
 	flags = SS_NO_FIRE
 
 	var/list/archetype_job_datums =    list()
@@ -13,15 +13,15 @@ SUBSYSTEM_DEF(jobs)
 	var/list/types_to_datums =         list()
 	var/list/primary_job_datums =      list()
 	var/list/unassigned_roundstart =   list()
-	var/list/positions_by_department = list()
+	var/list/positions_by_role = list()
 	var/list/job_icons =               list()
-	var/job_config_file = "config/jobs.txt"
+	var/job_config_file = "config/factions.txt"
 
-/datum/controller/subsystem/jobs/Initialize(timeofday)
+/datum/controller/subsystem/factions/Initialize(timeofday)
 
 	// Create main map jobs.
 	primary_job_datums.Cut()
-	for(var/jobtype in (list(/datum/job/neutral/vagrant) | GLOB.using_map.allowed_jobs))
+	for(var/jobtype in (list(/datum/faction/neutral/vagrant) | GLOB.using_map.allowed_jobs))
 		var/datum/job/job = get_by_path(jobtype)
 		if(!job)
 			job = new jobtype
@@ -88,10 +88,10 @@ SUBSYSTEM_DEF(jobs)
 	// Update valid job titles.
 	titles_to_datums = list()
 	types_to_datums = list()
-	positions_by_department = list()
-	for(var/map_name in job_lists_by_map_name)
-		var/list/map_data = job_lists_by_map_name[map_name]
-		for(var/datum/job/job in map_data["jobs"])
+	positions_by_role = list()
+	for(var/map_name in role_lists_by_map_name)
+		var/list/map_data = role_lists_by_map_name[map_name]
+		for(var/datum/faction/faction in map_data["factions"])
 			types_to_datums[job.type] = job
 			titles_to_datums[job.title] = job
 			for(var/alt_title in job.alt_titles)
@@ -99,16 +99,16 @@ SUBSYSTEM_DEF(jobs)
 			if(job.department_flag)
 				for (var/I in 1 to GLOB.bitflags.len)
 					if(job.department_flag & GLOB.bitflags[I])
-						LAZYDISTINCTADD(positions_by_department["[GLOB.bitflags[I]]"], job.title)
+						LAZYDISTINCTADD(positions_by_role["[GLOB.bitflags[I]]"], job.title)
 
 	. = ..()
-/*
+
 /datum/controller/subsystem/jobs/proc/guest_jobbans(var/job)
 	for(var/dept in list(COM, MSC, SEC))
-		if(job in titles_by_department(dept))
+		if(job in titles_by_role(dept))
 			return TRUE
 	return FALSE
-*/
+
 /datum/controller/subsystem/jobs/proc/reset_occupations()
 	for(var/mob/new_player/player in GLOB.player_list)
 		if((player) && (player.mind))
@@ -224,10 +224,8 @@ SUBSYSTEM_DEF(jobs)
 		*/
 		if(job.is_restricted(player.client.prefs))
 			continue
-		/*
-		if(job.title in titles_by_department(COM)) //If you want a command position, select it!
+		if(job.title in titles_by_role(COM)) //If you want a command position, select it!
 			continue
-		*/
 		if(jobban_isbanned(player, job.title))
 			continue
 		if(!job.player_old_enough(player.client))
@@ -238,8 +236,7 @@ SUBSYSTEM_DEF(jobs)
 			break
 
 ///This proc is called before the level loop of divide_occupations() and will try to select a head, ignoring ALL non-head preferences for every level until it locates a head or runs out of levels to check
-/*
-/datum/controller/subsystem/jobs/proc/fill_head_position()
+/datum/controller/subsystem/jobs/proc/fill_leader_position()
 	for(var/level = 1 to 3)
 		for(var/command_position in titles_by_department(COM))
 			var/datum/job/job = get_by_title(command_position)
@@ -272,9 +269,9 @@ SUBSYSTEM_DEF(jobs)
 			if(assign_role(candidate, command_position))
 				return 1
 	return 0
-*/
+
 ///This proc is called at the start of the level loop of divide_occupations() and will cause head jobs to be checked before any other jobs of the same level
-/datum/controller/subsystem/jobs/proc/CheckHeadPositions(var/level)
+/datum/controller/subsystem/jobs/proc/CheckLeaderPositions(var/level)
 	for(var/command_position in titles_by_department(COM))
 		var/datum/job/job = get_by_title(command_position)
 		if(!job)	continue
@@ -303,14 +300,14 @@ SUBSYSTEM_DEF(jobs)
 	//Shuffle players and jobs
 	unassigned_roundstart = shuffle(unassigned_roundstart)
 	//People who wants to be assistants, sure, go on.
-	var/datum/job/neutral/vagrant = new DEFAULT_JOB_TYPE ()
+	var/datum/faction/neutral/vagrant = new DEFAULT_ROLE_TYPE ()
 	var/list/vagrant_candidates = find_occupation_candidates(vagrant, 3)
 	for(var/mob/new_player/player in vagrant_candidates)
 		assign_role(player, GLOB.using_map.default_vagrant_title)
 		vagrant_candidates -= player
 
-	//Select one head
-	fill_head_position()
+	//Select one leader
+	fill_leader_position()
 
 	//Other jobs are now checked
 	// New job giving system by Donkie
@@ -321,7 +318,7 @@ SUBSYSTEM_DEF(jobs)
 	var/list/shuffledoccupations = shuffle(primary_job_datums)
 	for(var/level = 1 to 3)
 		//Check the head jobs first each level
-		CheckHeadPositions(level)
+		CheckLeaderPositions(level)
 
 		// Loop through all unassigned players
 		var/list/deferred_jobs = list()
@@ -351,7 +348,7 @@ SUBSYSTEM_DEF(jobs)
 	// For those who wanted to be assistant if their preferences were filled, here you go.
 	for(var/mob/new_player/player in unassigned_roundstart)
 		if(player.client.prefs.alternate_option == BE_VAGRANT)
-			var/datum/job/vag = /datum/job/neutral/vagrant
+			var/datum/job/vag = /datum/faction/neutral/vagrant
 			if((GLOB.using_map.flags & MAP_HAS_BRANCH) && player.client.prefs.branches[initial(ass.title)])
 				var/datum/mil_branch/branch = mil_branches.get_branch(player.client.prefs.branches[initial(ass.title)])
 				ass = branch.assistant_job
@@ -555,5 +552,5 @@ SUBSYSTEM_DEF(jobs)
 
 	return H
 
-/datum/controller/subsystem/jobs/proc/titles_by_department(var/dept)
-	return positions_by_department["[dept]"] || list()
+/datum/controller/subsystem/jobs/proc/titles_by_role(var/role)
+	return positions_by_role["[role]"] || list()

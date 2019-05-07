@@ -1,0 +1,1 @@
+#define OUTFIT_ROLE_NAME(role_name) ("Role - " + role_name)

@@ -1,0 +1,3 @@
+#define GET_RANDOM_ROLE 0
+#define BE_VAGRANT 1
+#define RETURN_TO_LOBBY 2

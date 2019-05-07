@@ -1,10 +1,10 @@
 // Generates a simple HTML crew manifest for use in various places
 /proc/html_crew_manifest(var/monochrome, var/OOC)
-	var/list/dept_data = list(
-		list("names" = list(), "header" = "Red Line Members", "flag" = RED),
+	var/list/role_data = list(
+		list("names" = list(), "header" = "Red Line Members", "flag" = REDLINE),
 		list("names" = list(), "header" = "VDNKh Members", "flag" = VDNK),
 		list("names" = list(), "header" = "Fourth Reich Members", "flag" = REICH),
-		list("names" = list(), "header" = "Neutrals[", "flag" = NO_FACTION)
+		list("names" = list(), "header" = "Neutrals", "flag" = NEUTRAL),
 	)
 
 	var/list/isactive = new()
@@ -83,10 +83,10 @@
 
 /proc/nano_crew_manifest()
 	return list(
-		"redline" = filtered_nano_crew_manifest(SSjobs.titles_by_department(RED)),
-		"vdnk" =   filtered_nano_crew_manifest(SSjobs.titles_by_department(VDNK)),
-		"reich" =   filtered_nano_crew_manifest(SSjobs.titles_by_department(REICH)),
-		"neutrals" =   filtered_nano_crew_manifest(SSjobs.titles_by_department(NO_FACTION))
+		"redline" = filtered_nano_crew_manifest(SSjobs.titles_by_role(REDLINE)),
+		"vdnk" =   filtered_nano_crew_manifest(SSjobs.titles_by_role(VDNK)),
+		"reich" =   filtered_nano_crew_manifest(SSjobs.titles_by_role(REICH)),
+		"neutrals" =   filtered_nano_crew_manifest(SSjobs.titles_by_role(NEUTRAL))
 	)
 
 

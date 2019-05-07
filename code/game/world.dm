@@ -452,7 +452,7 @@ var/world_topic_spam_protect_time = world.timeofday
 
 /world/Reboot(var/reason)
 	spawn(0)
-		sound_to(world, sound(pick('lift_heavy_start.ogg','cowboysting.ogg','sound/ambience/song_game.ogg','sound/voice/bfreeze.ogg','sound/misc/sadtrombone.ogg')))// random end sounds!! - LastyBatsy
+		sound_to(world, sound(pick('sound/effects/lift_heavy_start.ogg','sound/effects/cowboysting.ogg','sound/ambience/song_game.ogg','sound/voice/bfreeze.ogg','sound/misc/sadtrombone.ogg')))// random end sounds!! - LastyBatsy
 		//We should get some custom stuff eventually, but don't get rid of bfreeze or the lift - Ben
 	Master.Shutdown()
 

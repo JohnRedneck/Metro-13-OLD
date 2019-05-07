@@ -214,7 +214,7 @@ var/syndicate_code_response//Code response for traitors.
 							code_phrase += " "
 							code_phrase += pick(GLOB.last_names)
 					if(2)
-						code_phrase += pick(SSjobs.titles_to_datums) //Returns a job.
+						code_phrase += pick(SSfactions.titles_to_datums) //Returns a job.
 				safety -= 1
 			if(2)
 				switch(rand(1,2))//Places or things.
