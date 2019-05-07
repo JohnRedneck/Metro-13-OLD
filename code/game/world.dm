@@ -1,4 +1,4 @@
-/var/server_name = "Baystation 12"
+/var/server_name = "Metro 13"
 
 /var/game_id = null
 /hook/global_init/proc/generate_gameid()
@@ -131,7 +131,7 @@ var/world_topic_spam_protect_time = world.timeofday
 		s["respawn"] = config.abandon_allowed
 		s["enter"] = config.enter_allowed
 		s["vote"] = config.allow_vote_mode
-		s["ai"] = config.allow_ai
+		//s["ai"] = config.allow_ai
 		s["host"] = host ? host : null
 
 		// This is dumb, but spacestation13.com's banners break if player count isn't the 8th field of the reply, so... this has to go here.
@@ -163,7 +163,6 @@ var/world_topic_spam_protect_time = world.timeofday
 			s["active_players"] = active
 
 		return list2params(s)
-	/*
 	else if(T == "manifest")
 		var/list/positions = list()
 		var/list/nano_crew_manifest = nano_crew_manifest()
@@ -179,7 +178,6 @@ var/world_topic_spam_protect_time = world.timeofday
 			positions[k] = list2params(positions[k]) // converts positions["heads"] = list("Bob"="Captain", "Bill"="CMO") into positions["heads"] = "Bob=Captain&Bill=CMO"
 
 		return list2params(positions)
-	*/
 
 	else if(T == "revision")
 		var/list/L = list()
@@ -453,11 +451,9 @@ var/world_topic_spam_protect_time = world.timeofday
 
 
 /world/Reboot(var/reason)
-	/*spawn(0)
-		sound_to(world, sound(pick('sound/AI/newroundsexy.ogg','sound/misc/apcdestroyed.ogg','sound/misc/bangindonk.ogg')))// random end sounds!! - LastyBatsy
-
-		*/
-
+	spawn(0)
+		sound_to(world, sound(pick('lift_heavy_start.ogg','cowboysting.ogg','sound/ambience/song_game.ogg','sound/voice/bfreeze.ogg','sound/misc/sadtrombone.ogg')))// random end sounds!! - LastyBatsy
+		//We should get some custom stuff eventually, but don't get rid of bfreeze or the lift - Ben
 	Master.Shutdown()
 
 	if(config.server)	//if you set a server location in config.txt, it sends you there instead of trying to reconnect to the same world address. -- NeoFite
@@ -542,9 +538,9 @@ var/world_topic_spam_protect_time = world.timeofday
 
 	s += "<b>[station_name()]</b>";
 	s += " ("
-	s += "<a href=\"https://forums.baystation12.net/\">" //Change this to wherever you want the hub to link to.
-//	s += "[game_version]"
-	s += "Forums"  //Replace this with something else. Or ever better, delete it and uncomment the game version.
+	s += "<a href=\"https://github.com/JohnRedneck/Metro-13/\">" //Change this to wherever you want the hub to link to.
+	s += "[game_version]"
+//	s += "Github"  //Replace this with something else. Or ever better, delete it and uncomment the game version.
 	s += "</a>"
 	s += ")"
 

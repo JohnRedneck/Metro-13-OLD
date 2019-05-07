@@ -1,5 +1,4 @@
-<h1>Welcome to Space Station 13!</h1>
-
--<i>This server is running <a href="http://baystation12.net/">Baystation 12's</a> modification of the <a href="http://ss13.eu/">/tg/station13</a> SS13 code.</i>
-<br><br>
-<strong>Bugtracker:</strong> <a href="http://baystation12.net/forums/threads/issue-tracker-report-template.110/">for posting of bugs and issues.</a>
+<h1>Welcome to the metro!</h1>
+-<i>This server is running <a href="https://github.com/JohnRedneck/Metro-13/">Metro13's</a> modification of the <a href="http://baystation12.net">Baystation 12</a> SS13 code.</i>
+<br /><br />
+<strong>Open Issues:</strong> <a href="https://github.com/JohnRedneck/Metro-13/issues">for posting of bugs and issues.</a></p>

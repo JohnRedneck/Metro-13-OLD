@@ -1,3 +1,11 @@
+# metro13
+
+[Code](https://github.com/JohnRedneck/Metro-13/) - [Discord](https://discord.gg/suZ25wD)
+
+---
+
+### All of this below is old, please yell at someone to fix it up
+
 # baystation12
 
 [Website](http://baystation12.net/) - [Code](http://github.com/Baystation12/Baystation12/) - [Discord](https://discord.gg/DrtRFxs) - [IRC](irc://irc.sorcery.net/#codershuttle)
