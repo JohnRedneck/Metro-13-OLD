@@ -162,9 +162,9 @@
 		ViewManifest()
 
 	if(href_list["SelectedJob"])
-		var/datum/job/job = SSjobs.get_by_title(href_list["SelectedJob"])
+		var/datum/job/job = SSroles.get_by_title(href_list["SelectedJob"])
 
-		if(!SSjobs.check_general_join_blockers(src, job))
+		if(!SSroles.check_general_join_blockers(src, job))
 			return FALSE
 
 		var/datum/species/S = all_species[client.prefs.species]
@@ -300,21 +300,21 @@
 		var/obj/S = job.get_roundstart_spawnpoint()
 		spawn_turf = get_turf(S)
 
-	if(!SSjobs.check_unsafe_spawn(src, spawn_turf))
+	if(!SSroles.check_unsafe_spawn(src, spawn_turf))
 		return
 
 	// Just in case someone stole our position while we were waiting for input from alert() proc
-	if(!job || !job.is_available(client))
+	if(!role || !role.is_available(client))
 		to_chat(src, alert("[job.title] is not available. Please try another."))
 		return 0
 
-	SSjobs.assign_role(src, job.title, 1)
+	SSroles.assign_role(src, role.title, 1)
 
 	var/mob/living/character = create_character(spawn_turf)	//creates the human and transfers vars and mind
 	if(!character)
 		return 0
 
-	character = SSjobs.equip_rank(character, job.title, 1)					//equips the human
+	character = SSroles.equip_rank(character, role.title, 1)					//equips the human
 	equip_custom_items(character)
 
 	// AIs don't need a spawnpoint, they must spawn at an empty core
@@ -356,14 +356,6 @@
 
 	qdel(src)
 
-
-/mob/new_player/proc/AnnounceCyborg(var/mob/living/character, var/rank, var/join_message)
-	if (GAME_STATE == RUNLEVEL_GAME)
-		if(character.mind.role_alt_title)
-			rank = character.mind.role_alt_title
-		// can't use their name here, since cyborg namepicking is done post-spawn, so we'll just say "A new Cyborg has arrived"/"A new Android has arrived"/etc.
-		GLOB.global_announcer.autosay("A new[rank ? " [rank]" : " visitor" ] [join_message ? join_message : "has arrived"].", "Arrivals Announcement Computer")
-
 /mob/new_player/proc/LateChoices()
 	var/name = client.prefs.be_random_name ? "friend" : client.prefs.real_name
 
@@ -388,7 +380,7 @@
 	// TORCH JOBS
 	var/list/job_summaries
 	var/list/hidden_reasons = list()
-	for(var/datum/job/job in SSjobs.primary_job_datums)
+	for(var/datum/job/job in SSroles.primary_role_datums)
 		var/summary = job.get_join_link(client, "byond://?src=\ref[src];SelectedJob=[job.title]", show_invalid_jobs)
 		if(summary && summary != "")
 			LAZYADD(job_summaries, summary)
@@ -444,9 +436,9 @@
 		chosen_species = all_species[client.prefs.species]
 
 	if(!spawn_turf)
-		var/datum/job/job = SSjobs.get_by_title(mind.assigned_role)
-		if(!job)
-			job = SSjobs.get_by_title(GLOB.using_map.default_assistant_title)
+		var/datum/job/job = SSroles.get_by_title(mind.assigned_role)
+		if(!role)
+			role = SSroles.get_by_title(GLOB.using_map.default_vagrant_title)
 		var/datum/spawnpoint/spawnpoint = job.get_spawnpoint(client, client.prefs.ranks[job.title])
 		spawn_turf = pick(spawnpoint.turfs)
 

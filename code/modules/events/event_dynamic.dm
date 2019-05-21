@@ -182,16 +182,16 @@ var/list/event_last_fired = list()
 				else if(istype(R.module, /obj/item/weapon/robot_module/research))
 					active_with_role["Scientist"]++
 
-		if(M.mind.assigned_role in SSjobs.titles_by_department(ENG))
+		if(M.mind.assigned_role in SSroles.titles_by_department(ENG))
 			active_with_role["Engineer"]++
 
-		if(M.mind.assigned_role in SSjobs.titles_by_department(MED))
+		if(M.mind.assigned_role in SSroles.titles_by_department(MED))
 			active_with_role["Medical"]++
 
-		if(M.mind.assigned_role in SSjobs.titles_by_department(SEC))
+		if(M.mind.assigned_role in SSroles.titles_by_department(SEC))
 			active_with_role["Security"]++
 
-		if(M.mind.assigned_role in SSjobs.titles_by_department(SCI))
+		if(M.mind.assigned_role in SSroles.titles_by_department(SCI))
 			active_with_role["Scientist"]++
 
 		if(M.mind.assigned_role == "AI")

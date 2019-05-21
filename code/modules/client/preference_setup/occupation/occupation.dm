@@ -70,15 +70,15 @@
 
 	pref.skills_allocated = pref.sanitize_skills(pref.skills_allocated)		//this proc also automatically computes and updates points_by_job
 
-	for(var/job_type in SSjobs.types_to_datums)
-		var/datum/job/job = SSjobs.types_to_datums[job_type]
+	for(var/job_type in SSroles.types_to_datums)
+		var/datum/job/job = SSroles.types_to_datums[job_type]
 		var/alt_title = pref.player_alt_titles[job.title]
 		if(alt_title && !(alt_title in job.alt_titles))
 			pref.player_alt_titles -= job.title
 
 /datum/category_item/player_setup_item/occupation/content(mob/user, limit = 16, list/splitJobs, splitLimit = 1)
 
-	if(!SSmapping || !SSjobs.job_lists_by_map_name)
+	if(!SSmapping || !SSroles.job_lists_by_map_name)
 		return
 
 	var/datum/species/S = preference_species()
@@ -90,9 +90,9 @@
 	. += "<br>"
 
 	// Display everything.
-	for(var/job_map in SSjobs.job_lists_by_map_name)
+	for(var/job_map in SSroles.job_lists_by_map_name)
 
-		var/list/map_data = SSjobs.job_lists_by_map_name[job_map]
+		var/list/map_data = SSroles.job_lists_by_map_name[job_map]
 		if(isnull(pref.hiding_maps[job_map]))
 			pref.hiding_maps[job_map] = map_data["default_to_hidden"]
 
@@ -247,21 +247,21 @@
 
 	if(LAZYLEN(pref.branches))
 		for(var/job_name in pref.branches)
-			if(!(job_name in SSjobs.titles_to_datums))
+			if(!(job_name in SSroles.titles_to_datums))
 				pref.branches -= job_name
 
 	if(LAZYLEN(pref.ranks))
 		var/list/removing_ranks
 		for(var/job_name in pref.ranks)
-			var/datum/job/job = SSjobs.get_by_title(job_name, TRUE)
+			var/datum/job/job = SSroles.get_by_title(job_name, TRUE)
 			if(!job) LAZYADD(removing_ranks, job_name)
 		if(LAZYLEN(removing_ranks))
 			pref.ranks -= removing_ranks
 
 	var/datum/species/S = preference_species()
-	for(var/job_name in SSjobs.titles_to_datums)
+	for(var/job_name in SSroles.titles_to_datums)
 
-		var/datum/job/job = SSjobs.get_by_title(job_name)
+		var/datum/job/job = SSroles.get_by_title(job_name)
 
 		var/datum/mil_branch/player_branch = pref.branches[job.title] ? mil_branches.get_branch(pref.branches[job.title]) : null
 		var/branch_rank = job.allowed_branches ? job.get_branch_rank(S) : mil_branches.spawn_branches(S)
@@ -354,7 +354,7 @@
 			return TOPIC_REFRESH
 	else if(href_list["set_skills"])
 		var/rank = href_list["set_skills"]
-		var/datum/job/job = SSjobs.get_by_title(rank, TRUE)
+		var/datum/job/job = SSroles.get_by_title(rank, TRUE)
 		if(job)
 			open_skill_setup(user, job)
 
@@ -388,7 +388,7 @@
 	else if(href_list["job_info"])
 
 		var/rank = href_list["job_info"]
-		var/datum/job/job = SSjobs.get_by_title(rank)
+		var/datum/job/job = SSroles.get_by_title(rank)
 
 		var/dat = list()
 
@@ -436,7 +436,7 @@
 /datum/category_item/player_setup_item/occupation/proc/SetJob(mob/user, role, level)
 
 	level = Clamp(level, JOB_LEVEL_HIGH, JOB_LEVEL_NEVER)
-	var/datum/job/job = SSjobs.get_by_title(role, TRUE)
+	var/datum/job/job = SSroles.get_by_title(role, TRUE)
 	if(!job)
 		return 0
 
@@ -505,8 +505,8 @@
 /datum/category_item/player_setup_item/proc/prune_job_prefs()
 	var/allowed_titles = list()
 
-	for(var/job_type in SSjobs.types_to_datums)
-		var/datum/job/job = SSjobs.types_to_datums[job_type]
+	for(var/job_type in SSroles.types_to_datums)
+		var/datum/job/job = SSroles.types_to_datums[job_type]
 		allowed_titles += job.title
 
 		if(job.title == pref.job_high)

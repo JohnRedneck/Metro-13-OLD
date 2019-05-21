@@ -45,7 +45,7 @@
 		else
 			isactive[name] = CR.get_status()
 
-		var/datum/job/job = SSjobs.get_by_title(rank)
+		var/datum/job/job = SSroles.get_by_title(rank)
 		var/found_place = 0
 		if(job)
 			for(var/list/department in dept_data)
@@ -83,10 +83,10 @@
 
 /proc/nano_crew_manifest()
 	return list(
-		"redline" = filtered_nano_crew_manifest(SSjobs.titles_by_role(REDLINE)),
-		"vdnk" =   filtered_nano_crew_manifest(SSjobs.titles_by_role(VDNK)),
-		"reich" =   filtered_nano_crew_manifest(SSjobs.titles_by_role(REICH)),
-		"neutrals" =   filtered_nano_crew_manifest(SSjobs.titles_by_role(NEUTRAL))
+		"redline" = filtered_nano_crew_manifest(SSroles.titles_by_role(REDLINE)),
+		"vdnk" =   filtered_nano_crew_manifest(SSroles.titles_by_role(VDNK)),
+		"reich" =   filtered_nano_crew_manifest(SSroles.titles_by_role(REICH)),
+		"neutrals" =   filtered_nano_crew_manifest(SSroles.titles_by_role(NEUTRAL))
 	)
 
 

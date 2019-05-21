@@ -18,7 +18,7 @@
 		log_debug("Job assignment error for [name] - job does not exist or is of the incorrect type.")
 		return FALSE
 
-	if(!SSjobs.check_latejoin_blockers(joining, job))
+	if(!SSroles.check_latejoin_blockers(joining, job))
 		return FALSE
 
 	if(!available())
@@ -43,7 +43,7 @@
 		to_chat(joining, "<span class='warning'>There are no available spawn points for that job.</span>")
 
 	var/turf/spawn_turf = get_turf(pick(job.spawnpoints))
-	if(!SSjobs.check_unsafe_spawn(joining, spawn_turf))
+	if(!SSroles.check_unsafe_spawn(joining, spawn_turf))
 		return
 
 	// check_unsafe_spawn() has an input() call, check blockers again.
@@ -67,10 +67,10 @@
 				user_human.char_rank =   mil_branches.get_rank(job.branch, job.rank)
 
 			// We need to make sure to use the abstract instance here; it's not the same as the one we were passed.
-			character.skillset.obtain_from_client(SSjobs.get_by_path(job.type), character.client)
+			character.skillset.obtain_from_client(SSroles.get_by_path(job.type), character.client)
 			job.equip(character, "")
 			job.apply_fingerprints(character)
-			var/list/spawn_in_storage = SSjobs.equip_custom_loadout(character, job)
+			var/list/spawn_in_storage = SSroles.equip_custom_loadout(character, job)
 			if(spawn_in_storage)
 				for(var/datum/gear/G in spawn_in_storage)
 					G.spawn_in_storage_or_drop(user_human, user_human.client.prefs.Gear()[G.display_name])

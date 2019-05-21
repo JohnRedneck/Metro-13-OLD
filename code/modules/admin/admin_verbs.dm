@@ -52,9 +52,6 @@ var/list/admin_verbs_admin = list(
 	/client/proc/cmd_admin_local_narrate,
 	/client/proc/cmd_admin_world_narrate,	//sends text to all players with no padding,
 	/client/proc/cmd_admin_create_centcom_report,
-	/client/proc/check_ai_laws,			//shows AI and borg laws,
-	/client/proc/rename_silicon,		//properly renames silicons,
-	/client/proc/manage_silicon_laws,	// Allows viewing and editing silicon laws. ,
 	/client/proc/check_antagonists,
 	/client/proc/admin_memo,			//admin memo system. show/delete/write. +SERVER needed to delete admin memos of others,
 	/client/proc/dsay,					//talk in deadchat using our ckey
@@ -86,18 +83,12 @@ var/list/admin_verbs_admin = list(
 	/client/proc/toggle_antagHUD_restrictions,
 	/client/proc/allow_character_respawn,    // Allows a ghost to respawn ,
 	/client/proc/event_manager_panel,
-	/client/proc/empty_ai_core_toggle_latejoin,
-	/client/proc/empty_ai_core_toggle_latejoin,
 	/client/proc/aooc,
 	/client/proc/change_human_appearance_admin,	// Allows an admin to change the basic appearance of human-based mobs ,
 	/client/proc/change_human_appearance_self,	// Allows the human-based mob itself change its basic appearance ,
 	/client/proc/change_security_level,
 	/client/proc/view_chemical_reaction_logs,
-	/client/proc/makePAI,
 	/client/proc/fixatmos,
-	/client/proc/list_traders,
-	/client/proc/add_trader,
-	/client/proc/remove_trader,
 	/datum/admins/proc/sendFax,
 )
 var/list/admin_verbs_ban = list(
@@ -117,18 +108,12 @@ var/list/admin_verbs_fun = list(
 	/client/proc/drop_bomb,
 	/client/proc/everyone_random,
 	/client/proc/cinematic,
-	/datum/admins/proc/toggle_aliens,
-	/datum/admins/proc/toggle_alien_eggs,
-	/datum/admins/proc/toggle_space_ninja,
-	/client/proc/cmd_admin_add_freeform_ai_law,
-	/client/proc/cmd_admin_add_random_ai_law,
 	/client/proc/toggle_random_events,
 	/client/proc/editappear,
 	/client/proc/roll_dices,
 	/datum/admins/proc/call_supply_drop,
 	/datum/admins/proc/call_drop_pod,
-	/client/proc/create_dungeon,
-	/datum/admins/proc/ai_hologram_set
+	/client/proc/create_dungeon
 	)
 
 var/list/admin_verbs_spawn = list(
@@ -153,15 +138,11 @@ var/list/admin_verbs_server = list(
 	/client/proc/toggle_log_hrefs,
 	/datum/admins/proc/immreboot,
 	/client/proc/everyone_random,
-	/datum/admins/proc/toggleAI,
 	/client/proc/cmd_admin_delete,		// delete an instance/object/mob/etc,
 	/client/proc/cmd_debug_del_all,
 	/datum/admins/proc/adrev,
 	/datum/admins/proc/adspawn,
 	/datum/admins/proc/adjump,
-	/datum/admins/proc/toggle_aliens,
-	/datum/admins/proc/toggle_alien_eggs,
-	/datum/admins/proc/toggle_space_ninja,
 	/client/proc/toggle_random_events,
 	/client/proc/check_customitem_activity,
 	/client/proc/nanomapgen_DumpImage
@@ -259,14 +240,8 @@ var/list/admin_verbs_hideable = list(
 	/client/proc/cmd_admin_gib_self,
 	/client/proc/drop_bomb,
 	/client/proc/cinematic,
-	/datum/admins/proc/toggle_aliens,
-	/datum/admins/proc/toggle_alien_eggs,
-	/datum/admins/proc/toggle_space_ninja,
-	/client/proc/cmd_admin_add_freeform_ai_law,
-	/client/proc/cmd_admin_add_random_ai_law,
 	/client/proc/cmd_admin_create_centcom_report,
 	/client/proc/toggle_random_events,
-	/client/proc/cmd_admin_add_random_ai_law,
 	/client/proc/Set_Holiday,
 	/datum/admins/proc/startnow,
 	/datum/admins/proc/restart,
@@ -275,7 +250,6 @@ var/list/admin_verbs_hideable = list(
 	/client/proc/toggle_log_hrefs,
 	/datum/admins/proc/immreboot,
 	/client/proc/everyone_random,
-	/datum/admins/proc/toggleAI,
 	/datum/admins/proc/adrev,
 	/datum/admins/proc/adspawn,
 	/datum/admins/proc/adjump,
@@ -667,41 +641,6 @@ var/list/admin_verbs_mod = list(
 			config.log_hrefs = 1
 			to_chat(src, "<b>Started logging hrefs</b>")
 
-/client/proc/check_ai_laws()
-	set name = "Check AI Laws"
-	set category = "Admin"
-	if(holder)
-		src.holder.output_ai_laws()
-
-/client/proc/rename_silicon()
-	set name = "Rename Silicon"
-	set category = "Admin"
-
-	if(!check_rights(R_ADMIN)) return
-
-	var/mob/living/silicon/S = input("Select silicon.", "Rename Silicon.") as null|anything in GLOB.silicon_mob_list
-	if(!S) return
-
-	var/new_name = sanitizeSafe(input(src, "Enter new name. Leave blank or as is to cancel.", "[S.real_name] - Enter new silicon name", S.real_name))
-	if(new_name && new_name != S.real_name)
-		log_and_message_admins("has renamed the silicon '[S.real_name]' to '[new_name]'")
-		S.fully_replace_character_name(new_name)
-	SSstatistics.add_field_details("admin_verb","RAI") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-
-/client/proc/manage_silicon_laws()
-	set name = "Manage Silicon Laws"
-	set category = "Admin"
-
-	if(!check_rights(R_ADMIN)) return
-
-	var/mob/living/silicon/S = input("Select silicon.", "Manage Silicon Laws") as null|anything in GLOB.silicon_mob_list
-	if(!S) return
-
-	var/datum/nano_module/law_manager/L = new(S)
-	L.ui_interact(usr, state = GLOB.admin_state)
-	log_and_message_admins("has opened [S]'s law manager.")
-	SSstatistics.add_field_details("admin_verb","MSL") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-
 /client/proc/change_human_appearance_admin()
 	set name = "Change Mob Appearance - Admin"
 	set desc = "Allows you to change the mob appearance"
@@ -739,31 +678,14 @@ var/list/admin_verbs_mod = list(
 			H.change_appearance(APPEARANCE_ALL, H.loc, check_species_whitelist = 1)
 	SSstatistics.add_field_details("admin_verb","CMAS") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-/client/proc/change_security_level()
-	set name = "Set security level"
-	set desc = "Sets the security level"
-	set category = "Admin"
-
-	if(!check_rights(R_ADMIN))	return
-
-	var/decl/security_state/security_state = decls_repository.get_decl(GLOB.using_map.security_state)
-
-	var/decl/security_level/new_security_level = input(usr, "It's currently [security_state.current_security_level.name].", "Select Security Level")  as null|anything in (security_state.all_security_levels - security_state.current_security_level)
-	if(!new_security_level)
-		return
-
-	if(alert("Switch from [security_state.current_security_level.name] to [new_security_level.name]?","Change security level?","Yes","No") == "Yes")
-		security_state.set_security_level(new_security_level, TRUE)
-
-
 //---- bs12 verbs ----
 
 /client/proc/mod_panel()
 	set name = "Moderator Panel"
 	set category = "Admin"
-/*	if(holder)
-		holder.mod_panel()*/
-//	SSstatistics.add_field_details("admin_verb","MP") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	if(holder)
+		holder.mod_panel()
+	SSstatistics.add_field_details("admin_verb","MP") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 	return
 
 /client/proc/editappear()
@@ -840,7 +762,7 @@ var/list/admin_verbs_mod = list(
 	if(holder)
 		holder.PlayerNotes()
 	return
-
+/*
 /client/proc/free_slot_submap()
 	set name = "Free Job Slot (Submap)"
 	set category = "Admin"
@@ -865,12 +787,12 @@ var/list/admin_verbs_mod = list(
 			job.make_position_available()
 			message_admins("An offsite job slot for [job_name] has been opened by [key_name_admin(usr)]")
 
-/client/proc/free_slot_crew()
-	set name = "Free Job Slot (Crew)"
+/client/proc/free_slot()
+	set name = "Free Role Slot"
 	set category = "Admin"
 	if(holder)
 		var/list/jobs = list()
-		for (var/datum/job/J in SSjobs.primary_job_datums)
+		for (var/datum/job/J in SSroles.primary_job_datums)
 			if(!J.is_position_available())
 				jobs[J.title] = J
 		if (!jobs.len)
@@ -878,11 +800,11 @@ var/list/admin_verbs_mod = list(
 			return
 		var/job_title = input("Please select job slot to free", "Free job slot")  as null|anything in jobs
 		var/datum/job/job = jobs[job_title]
-		if(job && !job.is_position_available())
+		if(role && !role.is_position_available())
 			job.make_position_available()
 			message_admins("A job slot for [job_title] has been opened by [key_name_admin(usr)]")
 			return
-
+*/
 /client/proc/toggleghostwriters()
 	set name = "Toggle ghost writers"
 	set category = "Server"
@@ -896,20 +818,6 @@ var/list/admin_verbs_mod = list(
 			config.cult_ghostwriter = 1
 			to_chat(src, "<b>Enabled ghost writers.</b>")
 			message_admins("Admin [key_name_admin(usr)] has enabled ghost writers.", 1)
-
-/client/proc/toggledrones()
-	set name = "Toggle maintenance drones"
-	set category = "Server"
-	if(!holder)	return
-	if(config)
-		if(config.allow_drone_spawn)
-			config.allow_drone_spawn = 0
-			to_chat(src, "<b>Disallowed maint drones.</b>")
-			message_admins("Admin [key_name_admin(usr)] has disabled maint drones.", 1)
-		else
-			config.allow_drone_spawn = 1
-			to_chat(src, "<b>Enabled maint drones.</b>")
-			message_admins("Admin [key_name_admin(usr)] has enabled maint drones.", 1)
 
 /client/proc/man_up(mob/T as mob in SSmobs.mob_list)
 	set category = "Fun"

@@ -51,9 +51,9 @@
 	if(equip_preview_mob)
 		// Determine what job is marked as 'High' priority, and dress them up as such.
 		if(GLOB.using_map.default_assistant_title in job_low)
-			previewJob = SSjobs.get_by_title(GLOB.using_map.default_assistant_title)
+			previewJob = SSroles.get_by_title(GLOB.using_map.default_assistant_title)
 		else
-			previewJob = SSjobs.get_by_title(job_high)
+			previewJob = SSroles.get_by_title(job_high)
 	else
 		return
 

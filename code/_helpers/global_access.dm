@@ -59,8 +59,10 @@
 			return global.SSculture;
 		if("SSevac")
 			return global.SSevac;
+		/*
 		if("SSevent")
 			return global.SSevent;
+		*/
 		if("SSfastprocess")
 			return global.SSfastprocess;
 		if("SSfluids")
@@ -73,8 +75,8 @@
 			return global.SSicon_update;
 		if("SSinactivity")
 			return global.SSinactivity;
-		if("SSfactions")
-			return global.SSfactions;
+		if("SSroles")
+			return global.SSroles;
 		if("SSlighting")
 			return global.SSlighting;
 		if("SSmachines")
@@ -113,8 +115,10 @@
 		*/
 		if("SSshuttle")
 			return global.SSshuttle;
+		/*
 		if("SSskybox")
 			return global.SSskybox;
+		*/
 		if("SSstatistics")
 			return global.SSstatistics;
 		if("SSsun")
@@ -220,8 +224,10 @@
 			return global.airlock_overlays;
 		if("alien_whitelist")
 			return global.alien_whitelist;
+		/*
 		if("allCasters")
 			return global.allCasters;
+		*/
 		if("allConsoles")
 			return global.allConsoles;
 		if("all_grabobjects")
@@ -246,8 +252,10 @@
 			return global.all_unit_tests_passed;
 		if("all_virtual_listeners")
 			return global.all_virtual_listeners;
+		/*
 		if("announced_news_types")
 			return global.announced_news_types;
+		*/
 		if("antag_add_finished")
 			return global.antag_add_finished;
 		if("appearance_manager")
@@ -302,8 +310,6 @@
 			return global.camera_repository;
 		if("cameranet")
 			return global.cameranet;
-		if("captain_announcement")
-			return global.captain_announcement;
 		if("changelog_hash")
 			return global.changelog_hash;
 		if("channel_color_presets")
@@ -328,8 +334,6 @@
 			return global.combatlog;
 		if("comm_message_listeners")
 			return global.comm_message_listeners;
-		if("command_announcement")
-			return global.command_announcement;
 		if("command_name")
 			return global.command_name;
 		if("common_tools")
@@ -502,8 +506,10 @@
 			return global.href_logfile;
 		if("human_icon_cache")
 			return global.human_icon_cache;
+		/*
 		if("id_card_states")
 			return global.id_card_states;
+		*/
 		if("image_repository")
 			return global.image_repository;
 		if("inactive_keys")
@@ -530,8 +536,10 @@
 			return global.language_keys;
 		if("last_chew")
 			return global.last_chew;
+		/*
 		if("last_message_id")
 			return global.last_message_id;
+		*/
 		if("last_round_duration")
 			return global.last_round_duration;
 		if("light_overlay_cache")
@@ -784,14 +792,14 @@
 			return global.same_wires;
 		if("secret_force_mode")
 			return global.secret_force_mode;
-		if("sent_spiders_to_station")
-			return global.sent_spiders_to_station;
 		if("server_name")
 			return global.server_name;
 		if("severity_to_string")
 			return global.severity_to_string;
+		/*
 		if("ship_engines")
 			return global.ship_engines;
+		*/
 		if("side_effects")
 			return global.side_effects;
 		if("skin_styles_female_list")
@@ -810,8 +818,10 @@
 			return global.sortInstance;
 		if("sounds_cache")
 			return global.sounds_cache;
+		/*
 		if("spacevines_spawned")
 			return global.spacevines_spawned;
+		*/
 		if("sparring_attack_cache")
 			return global.sparring_attack_cache;
 		if("splatter_cache")
@@ -834,8 +844,10 @@
 			return global.sqlpass;
 		if("sqlport")
 			return global.sqlport;
+		/*
 		if("station_account")
 			return global.station_account;
+		*/
 		if("station_date")
 			return global.station_date;
 		if("stool_cache")
@@ -884,8 +896,10 @@
 			return global.tank_gauge_cache;
 		if("tape_roll_applications")
 			return global.tape_roll_applications;
+		/*
 		if("telecomms_list")
 			return global.telecomms_list;
+		*/
 		if("text_tag_icons")
 			return global.text_tag_icons;
 		if("tg_admin_state")
@@ -1071,8 +1085,8 @@
 			global.SSicon_update=newval;
 		if("SSinactivity")
 			global.SSinactivity=newval;
-		if("SSfactions")
-			global.SSfactions=newval;
+		if("SSroles")
+			global.SSroles=newval;
 		if("SSlighting")
 			global.SSlighting=newval;
 		if("SSmachines")
@@ -2053,7 +2067,7 @@
 	"SSgoals",
 	"SSicon_update",
 	"SSinactivity",
-	"SSfactions",
+	"SSroles",
 	"SSlighting",
 	"SSmachines",
 	"SSmapping",

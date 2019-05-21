@@ -157,7 +157,7 @@ var/list/gear_datums = list()
 	. += "<tr><td colspan=3><hr></td></tr>"
 	var/jobs = list()
 	for(var/job_title in (pref.job_medium|pref.job_low|pref.job_high))
-		var/datum/job/J = SSjobs.get_by_title(job_title)
+		var/datum/job/J = SSroles.get_by_title(job_title)
 		if(J)
 			dd_insertObjectList(jobs, J)
 	for(var/gear_name in LC.gear)

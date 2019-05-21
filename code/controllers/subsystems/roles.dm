@@ -4,41 +4,41 @@ var/const/CIV               =(1<<2)
 var/const/VAG               =(1<<3)
 SUBSYSTEM_DEF(factions)
 	name = "Factions and Roles"
-	init_order = SS_INIT_FACTIONS
+	init_order = SS_INIT_ROLES
 	flags = SS_NO_FIRE
 
-	var/list/archetype_job_datums =    list()
-	var/list/job_lists_by_map_name =   list()
-	var/list/titles_to_datums =        list()
-	var/list/types_to_datums =         list()
-	var/list/primary_job_datums =      list()
-	var/list/unassigned_roundstart =   list()
-	var/list/positions_by_role = list()
-	var/list/job_icons =               list()
-	var/job_config_file = "config/factions.txt"
+	var/list/archetype_role_datums =    list()
+	var/list/role_lists_by_map_name =   list()
+	var/list/titles_to_datums =         list()
+	var/list/types_to_datums =          list()
+	var/list/primary_role_datums =      list()
+	var/list/unassigned_roundstart =    list()
+	var/list/positions_by_role =        list()
+	var/list/role_icons =               list()
+	var/job_config_file = "config/roles.txt"
 
-/datum/controller/subsystem/factions/Initialize(timeofday)
+/datum/controller/subsystem/roles/Initialize(timeofday)
 
-	// Create main map jobs.
-	primary_job_datums.Cut()
-	for(var/jobtype in (list(/datum/faction/neutral/vagrant) | GLOB.using_map.allowed_jobs))
-		var/datum/job/job = get_by_path(jobtype)
-		if(!job)
-			job = new jobtype
-		primary_job_datums += job
+	// Create main map roles.
+	primary_role_datums.Cut()
+	for(var/roletype in (list(/datum/faction/neutral/vagrant) | GLOB.using_map.allowed_jobs))
+		var/datum/faction/role = get_by_path(roletype)
+		if(!role)
+			role = new roletype
+		primary_role_datums += role
 	// Create abstract submap archetype jobs for use in prefs, etc.
-	archetype_job_datums.Cut()
+	archetype_roles_datums.Cut()
 	for(var/atype in SSmapping.submap_archetypes)
 		var/decl/submap_archetype/arch = SSmapping.submap_archetypes[atype]
-		for(var/jobtype in arch.crew_jobs)
-			var/datum/job/job = get_by_path(jobtype)
+		for(var/roletype in arch.crew_roles)
+			var/datum/faction/role = get_by_path(roletype)
 			if(!job && ispath(jobtype, /datum/job/submap))
 				// Set this here so that we don't create multiples of the same title
 				// before getting to the cache updating proc below.
 				types_to_datums[jobtype] = new jobtype(abstract_job = TRUE)
-				job = get_by_path(jobtype)
+				role = get_by_path(roletype)
 			if(job)
-				archetype_job_datums |= job
+				archetype_job_datums |= role
 
 	// Load job configuration (is this even used anymore?)
 	if(job_config_file && config.load_jobs_from_txt)
@@ -112,8 +112,8 @@ SUBSYSTEM_DEF(factions)
 /datum/controller/subsystem/jobs/proc/reset_occupations()
 	for(var/mob/new_player/player in GLOB.player_list)
 		if((player) && (player.mind))
-			player.mind.assigned_job = null
 			player.mind.assigned_role = null
+			player.mind.assigned_rank = null
 			player.mind.special_role = null
 	for(var/datum/job/job in primary_job_datums)
 		job.current_positions = 0
@@ -188,12 +188,12 @@ SUBSYSTEM_DEF(factions)
 		var/position_limit = job.total_positions
 		if(!latejoin)
 			position_limit = job.spawn_positions
-		if((job.current_positions < position_limit) || position_limit == -1)
-			player.mind.assigned_job = job
-			player.mind.assigned_role = rank
+		if((role.current_positions < position_limit) || position_limit == -1)
+			player.mind.assigned_role = role
+			player.mind.assigned_rank = rank
 			player.mind.role_alt_title = job.get_alt_title_for(player.client)
 			unassigned_roundstart -= player
-			job.current_positions++
+			role.current_positions++
 			return 1
 	return 0
 
@@ -252,13 +252,13 @@ SUBSYSTEM_DEF(factions)
 				if(age < job.minimum_character_age) // Nope.
 					continue
 				switch(age)
-					if(job.minimum_character_age to (job.minimum_character_age+10))
+					if(job.minimum_character_age to (role.minimum_character_age+10))
 						weightedCandidates[V] = 3 // Still a bit young.
-					if((job.minimum_character_age+10) to (job.ideal_character_age-10))
+					if((job.minimum_character_age+10) to (role.ideal_character_age-10))
 						weightedCandidates[V] = 6 // Better.
-					if((job.ideal_character_age-10) to (job.ideal_character_age+10))
+					if((job.ideal_character_age-10) to (role.ideal_character_age+10))
 						weightedCandidates[V] = 10 // Great.
-					if((job.ideal_character_age+10) to (job.ideal_character_age+20))
+					if((job.ideal_character_age+10) to (role.ideal_character_age+20))
 						weightedCandidates[V] = 6 // Still good.
 					if((job.ideal_character_age+20) to INFINITY)
 						weightedCandidates[V] = 3 // Geezer.
@@ -315,7 +315,7 @@ SUBSYSTEM_DEF(factions)
 	// Hopefully this will add more randomness and fairness to job giving.
 
 	// Loop through all levels from high to low
-	var/list/shuffledoccupations = shuffle(primary_job_datums)
+	var/list/shuffledoccupations = shuffle(primary_role_datums)
 	for(var/level = 1 to 3)
 		//Check the head jobs first each level
 		CheckLeaderPositions(level)
@@ -343,16 +343,16 @@ SUBSYSTEM_DEF(factions)
 	// Hand out random jobs to the people who didn't get any in the last check
 	// Also makes sure that they got their preference correct
 	for(var/mob/new_player/player in unassigned_roundstart)
-		if(player.client.prefs.alternate_option == GET_RANDOM_JOB)
+		if(player.client.prefs.alternate_option == GET_RANDOM_ROLE)
 			give_random_job(player)
 	// For those who wanted to be assistant if their preferences were filled, here you go.
 	for(var/mob/new_player/player in unassigned_roundstart)
 		if(player.client.prefs.alternate_option == BE_VAGRANT)
-			var/datum/job/vag = /datum/faction/neutral/vagrant
-			if((GLOB.using_map.flags & MAP_HAS_BRANCH) && player.client.prefs.branches[initial(ass.title)])
-				var/datum/mil_branch/branch = mil_branches.get_branch(player.client.prefs.branches[initial(ass.title)])
-				ass = branch.assistant_job
-			assign_role(player, initial(ass.title))
+			var/datum/role/vag = /datum/faction/neutral/vagrant
+			if((GLOB.using_map.flags & MAP_HAS_BRANCH) && player.client.prefs.branches[initial(vag.title)])
+				var/datum/mil_branch/branch = mil_branches.get_branch(player.client.prefs.branches[initial(vag.title)])
+				vag = branch.vagrant_role
+			assign_role(player, initial(vag.title))
 	//For ones returning to lobby
 	for(var/mob/new_player/player in unassigned_roundstart)
 		if(player.client.prefs.alternate_option == RETURN_TO_LOBBY)
@@ -535,7 +535,7 @@ SUBSYSTEM_DEF(factions)
 	to_chat(H, "<b>To speak on your department's radio channel use :h. For the use of other channels, examine your headset.</b>")
 
 	if(job.req_admin_notify)
-		to_chat(H, "<b>You are playing a job that is important for Game Progression. If you have to disconnect, please notify the admins via adminhelp.</b>")
+		to_chat(H, "<b>You are playing a role that is important for Game Progression. If you have to disconnect, please notify the admins via adminhelp.</b>")
 
 	//Gives glasses to the vision impaired
 	if(H.disabilities & NEARSIGHTED)
@@ -548,9 +548,9 @@ SUBSYSTEM_DEF(factions)
 	BITSET(H.hud_updateflag, IMPLOYAL_HUD)
 	BITSET(H.hud_updateflag, SPECIALROLE_HUD)
 
-	job.post_equip_rank(H)
+	role.post_equip_rank(H)
 
 	return H
 
-/datum/controller/subsystem/jobs/proc/titles_by_role(var/role)
+/datum/controller/subsystem/roles/proc/titles_by_role(var/role)
 	return positions_by_role["[role]"] || list()

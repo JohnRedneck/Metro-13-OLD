@@ -55,27 +55,6 @@
 		if(has_access(access_pattern, access))
 			return 1
 
-/proc/get_centcom_access(job)
-	switch(job)
-		if("VIP Guest")
-			return list(access_cent_general)
-		if("Custodian")
-			return list(access_cent_general, access_cent_living, access_cent_storage)
-		if("Thunderdome Overseer")
-			return list(access_cent_general, access_cent_thunder)
-		if("Intel Officer")
-			return list(access_cent_general, access_cent_living)
-		if("Medical Officer")
-			return list(access_cent_general, access_cent_living, access_cent_medical)
-		if("Death Commando")
-			return list(access_cent_general, access_cent_specops, access_cent_living, access_cent_storage)
-		if("Research Officer")
-			return list(access_cent_general, access_cent_specops, access_cent_medical, access_cent_teleporter, access_cent_storage)
-		if("BlackOps Commander")
-			return list(access_cent_general, access_cent_thunder, access_cent_specops, access_cent_living, access_cent_storage, access_cent_creed)
-		if("Supreme Commander")
-			return get_all_centcom_access()
-
 /var/list/datum/access/priv_all_access_datums
 /proc/get_all_access_datums()
 	if(!priv_all_access_datums)
@@ -118,26 +97,12 @@
 
 	return priv_all_access.Copy()
 
-/var/list/priv_station_access
-/proc/get_all_station_access()
-	if(!priv_station_access)
-		priv_station_access = get_access_ids(ACCESS_TYPE_STATION)
+/var/list/priv_D6_access
+/proc/get_all_D6_access()
+	if(!priv_D6_access)
+		priv_D6_access = get_access_ids(ACCESS_TYPE_D6)
 
-	return priv_station_access.Copy()
-
-/var/list/priv_centcom_access
-/proc/get_all_centcom_access()
-	if(!priv_centcom_access)
-		priv_centcom_access = get_access_ids(ACCESS_TYPE_CENTCOM)
-
-	return priv_centcom_access.Copy()
-
-/var/list/priv_syndicate_access
-/proc/get_all_syndicate_access()
-	if(!priv_syndicate_access)
-		priv_syndicate_access = get_access_ids(ACCESS_TYPE_SYNDICATE)
-
-	return priv_syndicate_access.Copy()
+	return priv_vault_access.Copy()
 
 /var/list/priv_region_access
 /proc/get_region_accesses(var/code)
@@ -158,22 +123,8 @@
 	switch(code)
 		if(ACCESS_REGION_ALL)
 			return "All"
-		if(ACCESS_REGION_SECURITY) //security
-			return "Security"
-		if(ACCESS_REGION_MEDBAY) //medbay
-			return "Medbay"
-		if(ACCESS_REGION_RESEARCH) //research
-			return "Research"
-		if(ACCESS_REGION_ENGINEERING) //engineering and maintenance
-			return "Engineering"
-		if(ACCESS_REGION_COMMAND) //command
-			return "Command"
-		if(ACCESS_REGION_GENERAL) //station general
-			return "General"
-		if(ACCESS_REGION_SUPPLY) //supply
-			return "Supply"
-		if(ACCESS_REGION_NT) //nt
-			return "Corporate"
+		if(ACCESS_REGION_VAULT) //Just a throw in for D6 or something like that
+			return "D6"
 
 /proc/get_access_desc(id)
 	var/list/AS = priv_all_access_datums_id || get_all_access_datums_by_id()
@@ -187,19 +138,6 @@
 /proc/get_access_by_id(id)
 	var/list/AS = priv_all_access_datums_id || get_all_access_datums_by_id()
 	return AS[id]
-
-/proc/get_all_centcom_jobs()
-	return list("VIP Guest",
-		"Custodian",
-		"Thunderdome Overseer",
-		"Intel Officer",
-		"Medical Officer",
-		"Death Commando",
-		"Research Officer",
-		"BlackOps Commander",
-		"Supreme Commander",
-		"Emergency Response Team",
-		"Emergency Response Team Leader")
 
 /mob/observer/ghost
 	var/static/obj/item/weapon/card/id/all_access/ghost_all_access
@@ -231,12 +169,6 @@
 			. |= I.GetAccess()
 #undef HUMAN_ID_CARDS
 
-/*
-/mob/living/silicon/GetIdCard()
-	if(stat || (ckey && !client))
-		return // Unconscious, dead or once possessed but now client-less silicons are not considered to have id access.
-	return idcard
-*/
 /proc/FindNameFromID(var/mob/M, var/missing_id_name = "Unknown")
 	var/obj/item/weapon/card/id/C = M.GetIdCard()
 	if(C)
@@ -244,9 +176,9 @@
 	return missing_id_name
 
 /proc/get_all_job_icons() //For all existing HUD icons
-	return SSjobs.titles_to_datums + list("Prisoner")
+	return SSroles.titles_to_datums + list("Prisoner")
 
-/obj/proc/GetJobName() //Used in secHUD icon generation
+/obj/proc/GetRoleName() //Used in secHUD icon generation
 	var/obj/item/weapon/card/id/I = GetIdCard()
 
 	if(I)

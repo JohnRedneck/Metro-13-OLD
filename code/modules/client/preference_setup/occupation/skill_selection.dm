@@ -57,8 +57,8 @@
 		decls_repository.get_decl(/decl/hierarchy/skill)
 
 	pref.skills_allocated = list()
-	for(var/job_type in SSjobs.types_to_datums)
-		var/datum/job/job = SSjobs.get_by_path(job_type)
+	for(var/job_type in SSroles.types_to_datums)
+		var/datum/job/job = SSroles.get_by_path(job_type)
 		if("[job.type]" in pref.skills_saved)
 			var/S = pref.skills_saved["[job.type]"]
 			var/L = list()
@@ -82,8 +82,8 @@
 /datum/preferences/proc/sanitize_skills(var/list/input)
 	. = list()
 	var/datum/species/S = all_species[species]
-	for(var/job_name in SSjobs.titles_to_datums)
-		var/datum/job/job = SSjobs.get_by_title(job_name)
+	for(var/job_name in SSroles.titles_to_datums)
+		var/datum/job/job = SSroles.get_by_title(job_name)
 		var/input_skills = list()
 		if((job in input) && istype(input[job], /list))
 			input_skills = input[job]

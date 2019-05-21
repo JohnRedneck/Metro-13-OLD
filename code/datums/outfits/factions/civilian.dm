@@ -1,4 +1,4 @@
-//Maybe replace this with a randomized outfit system and allowing players to choose their own to an extent - Ben
+//Replace this with a randomized outfit system and allow players to choose their own to an extent - Ben
 
 /decl/hierarchy/outfit/faction/redline/civilian
 	name = OUTFIT_ROLE_NAME("Red Line Civilian")

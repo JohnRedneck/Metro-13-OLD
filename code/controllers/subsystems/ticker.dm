@@ -86,7 +86,7 @@ SUBSYSTEM_DEF(ticker)
 	equip_characters()
 	for(var/mob/living/carbon/human/H in GLOB.player_list)
 		if(H.mind && !player_is_antag(H.mind, only_offstation_roles = 1))
-			var/datum/job/job = SSjobs.get_by_title(H.mind.assigned_role)
+			var/datum/job/job = SSroles.get_by_title(H.mind.assigned_role)
 			if(job && job.create_record)
 				CreateModularRecord(H)
 	callHook("roundstart")
@@ -241,14 +241,14 @@ Helpers
 		return
 
 	//Deal with jobs and antags, check that we can actually run the mode.
-	SSjobs.reset_occupations() // Clears all players' role assignments. Clean slate.
+	SSroles.reset_occupations() // Clears all players' role assignments. Clean slate.
 	mode_datum.create_antagonists() // Init operation on the mode; sets up antag datums and such.
 	mode_datum.pre_setup() // Makes lists of viable candidates; performs candidate draft for job-override roles; stores the draft result both internally and on the draftee.
-	SSjobs.divide_occupations(mode_datum) // Gives out jobs to everyone who was not selected to antag.
+	SSroles.divide_occupations(mode_datum) // Gives out jobs to everyone who was not selected to antag.
 
 	if(mode_datum.startRequirements())
 		mode_datum.fail_setup()
-		SSjobs.reset_occupations()
+		SSroles.reset_occupations()
 		bad_modes += mode_datum.config_tag
 		return
 
@@ -288,7 +288,7 @@ Helpers
 			if(player.mind.assigned_role == "Captain")
 				captainless=0
 			if(!player_is_antag(player.mind, only_offstation_roles = 1))
-				SSjobs.equip_rank(player, player.mind.assigned_role, 0)
+				SSroles.equip_rank(player, player.mind.assigned_role, 0)
 				equip_custom_items(player)
 	if(captainless)
 		for(var/mob/M in GLOB.player_list)
@@ -381,11 +381,9 @@ Helpers
 					if(isNotAdminLevel(playerTurf.z))
 						to_chat(Player, "<font color='blue'><b>You managed to survive, but were marooned on [station_name()] as [Player.real_name]...</b></font>")
 					else
-						to_chat(Player, "<font color='green'><b>You managed to survive the events on [station_name()] as [Player.real_name].</b></font>")
+						to_chat(Player, "<font color='green'><b>You managed to survive the events of [station_name()] as [Player.real_name].</b></font>")
 				else if(isAdminLevel(playerTurf.z))
 					to_chat(Player, "<font color='green'><b>You successfully underwent crew transfer after events on [station_name()] as [Player.real_name].</b></font>")
-				else if(issilicon(Player))
-					to_chat(Player, "<font color='green'><b>You remain operational after the events on [station_name()] as [Player.real_name].</b></font>")
 				else
 					to_chat(Player, "<font color='blue'><b>You got through just another workday on [station_name()] as [Player.real_name].</b></font>")
 			else

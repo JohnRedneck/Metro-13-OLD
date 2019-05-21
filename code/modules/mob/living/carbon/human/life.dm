@@ -948,8 +948,6 @@
 		var/image/holder = hud_list[STATUS_HUD]
 		if(stat == DEAD)
 			holder.icon_state = "huddead"
-		else if(status_flags & XENO_HOST)
-			holder.icon_state = "hudxeno"
 		else if(foundVirus)
 			holder.icon_state = "hudill"
 		else if(has_brain_worms())
@@ -964,8 +962,6 @@
 		var/image/holder2 = hud_list[STATUS_HUD_OOC]
 		if(stat == DEAD)
 			holder2.icon_state = "huddead"
-		else if(status_flags & XENO_HOST)
-			holder2.icon_state = "hudxeno"
 		else if(has_brain_worms())
 			holder2.icon_state = "hudbrainworm"
 		else if(virus2.len)
@@ -982,9 +978,9 @@
 		if(wear_id)
 			var/obj/item/weapon/card/id/I = wear_id.GetIdCard()
 			if(I)
-				var/datum/job/J = SSjobs.get_by_title(I.GetJobName())
-				if(J)
-					holder.icon_state = J.hud_icon
+				var/datum/faction/role = SSroles.get_by_title(role.GetRoleName())
+				if(role)
+					holder.icon_state = role.hud_icon
 
 		hud_list[ID_HUD] = holder
 
@@ -1010,7 +1006,7 @@
 				if("Released")
 					holder.icon_state = "hudreleased"
 		hud_list[WANTED_HUD] = holder
-		*/
+
 
 	if (  BITTEST(hud_updateflag, IMPLOYAL_HUD) \
 	   || BITTEST(hud_updateflag,  IMPCHEM_HUD) \
@@ -1036,15 +1032,17 @@
 		hud_list[IMPTRACK_HUD] = holder1
 		hud_list[IMPLOYAL_HUD] = holder2
 		hud_list[IMPCHEM_HUD]  = holder3
-
+		*/
 	if (BITTEST(hud_updateflag, SPECIALROLE_HUD))
 		var/image/holder = hud_list[SPECIALROLE_HUD]
 		holder.icon_state = "hudblank"
 		if(mind && mind.special_role)
 			if(GLOB.hud_icon_reference[mind.special_role])
 				holder.icon_state = GLOB.hud_icon_reference[mind.special_role]
+			/*
 			else
 				holder.icon_state = "hudsyndicate"
+			*/
 			hud_list[SPECIALROLE_HUD] = holder
 	hud_updateflag = 0
 

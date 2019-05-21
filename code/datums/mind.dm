@@ -245,9 +245,9 @@
 		if(antag) antag.place_mob(src.current)
 
 	else if (href_list["role_edit"])
-		var/new_role = input("Select new role", "Assigned role", assigned_role) as null|anything in SSjobs.titles_to_datums
+		var/new_role = input("Select new role", "Assigned role", assigned_role) as null|anything in SSroles.titles_to_datums
 		if (!new_role) return
-		var/datum/job/job = SSjobs.get_by_title(new_role)
+		var/datum/job/job = SSroles.get_by_title(new_role)
 		if(job)
 			assigned_job = job
 			assigned_role = job.title

@@ -4,8 +4,8 @@
 /datum/unit_test/jobs_shall_have_a_valid_outfit_type/start_test()
 	var/failed_jobs = 0
 
-	for (var/occ in SSjobs.titles_to_datums)
-		var/datum/job/occupation = SSjobs.titles_to_datums[occ]
+	for (var/occ in SSroles.titles_to_datums)
+		var/datum/job/occupation = SSroles.titles_to_datums[occ]
 		var/decl/hierarchy/outfit/job/outfit = outfit_by_type(occupation.outfit_type)
 		if(!istype(outfit))
 			log_bad("[occupation.title] - [occupation.type]: Invalid outfit type [outfit ? outfit.type : "NULL"].")
@@ -38,8 +38,8 @@
 		log_bad("Sanity Check - Missing HUD icon: hudcentcom")
 		failed_sanity_checks++
 
-	for(var/job_name in SSjobs.titles_to_datums)
-		var/datum/job/J = SSjobs.titles_to_datums[job_name]
+	for(var/job_name in SSroles.titles_to_datums)
+		var/datum/job/J = SSroles.titles_to_datums[job_name]
 		var/hud_icon_state = J.hud_icon
 		if(!(hud_icon_state in job_huds))
 			log_bad("[J.title] - Missing HUD icon: [hud_icon_state]")
@@ -57,8 +57,8 @@
 /datum/unit_test/jobs_shall_have_a_unique_title/start_test()
 	var/list/checked_titles = list()
 	var/list/non_unique_titles = list()
-	for(var/job_type in SSjobs.types_to_datums)
-		var/datum/job/job = SSjobs.types_to_datums[job_type]
+	for(var/job_type in SSroles.types_to_datums)
+		var/datum/job/job = SSroles.types_to_datums[job_type]
 		var/list/titles_to_check = job.alt_titles ? job.alt_titles.Copy() : list()
 		titles_to_check += job.title
 		for(var/job_title in titles_to_check)
