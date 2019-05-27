@@ -553,7 +553,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		SSstatistics.add_field_details("admin_verb","DEL") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 		qdel(O)
 
-/client/proc/cmd_admin_list_open_jobs()
+/client/proc/cmd_admin_list_open_roles()
 	set category = "Admin"
 	set name = "List free slots"
 
@@ -561,7 +561,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		to_chat(src, "Only administrators may use this command.")
 		return
 	for(var/datum/role/role in SSroles.primary_role_datums)
-		to_chat(src, "[job.title]: [job.total_positions]")
+		to_chat(src, "[role.title]: [role.total_positions]")
 	SSstatistics.add_field_details("admin_verb","LFS") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/cmd_admin_explosion(atom/O as obj|mob|turf in range(world.view))

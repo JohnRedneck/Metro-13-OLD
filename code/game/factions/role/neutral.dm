@@ -5,5 +5,5 @@
 	team_flag = NEUTRAL
 	total_positions = -1
 	spawn_positions = -1
-	supervisors = "Darwin"
+	supervisors = "only to Darwinism"
 	outfit_type = /decl/hierarchy/outfit/faction/neutral/vagrant
