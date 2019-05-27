@@ -479,7 +479,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		antag_data.add_antagonist(new_character.mind)
 		antag_data.place_mob(new_character)
 	else
-		SSfactions.equip_rank(new_character, new_character.mind.assigned_role, 1)
+		SSroles.equip_rank(new_character, new_character.mind.assigned_role, 1)
 
 	//Announces the character on all the systems, based on the record.
 	//if(!issilicon(new_character))//If they are not a cyborg/AI.
@@ -560,7 +560,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	if (!holder)
 		to_chat(src, "Only administrators may use this command.")
 		return
-	for(var/datum/job/job in SSfactions.primary_role_datums)
+	for(var/datum/role/role in SSroles.primary_role_datums)
 		to_chat(src, "[job.title]: [job.total_positions]")
 	SSstatistics.add_field_details("admin_verb","LFS") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 

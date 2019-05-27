@@ -142,11 +142,11 @@ var/global/list/obj/machinery/message_server/message_servers = list()
 		if(!pda)
 			continue
 
-		var/datum/job/J = SSroles.get_by_title(H.get_authentification_rank())
-		if(!J)
+		var/datum/role/R= SSroles.get_by_title(H.get_authentification_rank())
+		if(!R)
 			continue
 
-		if(J.department_flag & department)
+		if(R.department_flag & department)
 			to_chat(H, "<span class='notice'>Your [pda.name] alerts you to the fact that somebody is requesting your presence at your department.</span>")
 			reached++
 

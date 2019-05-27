@@ -155,11 +155,11 @@ var/list/gear_datums = list()
 	. += "<tr><td colspan=3><hr></td></tr>"
 	. += "<tr><td colspan=3><b><center>[LC.category]</center></b></td></tr>"
 	. += "<tr><td colspan=3><hr></td></tr>"
-	var/jobs = list()
-	for(var/job_title in (pref.job_medium|pref.job_low|pref.job_high))
-		var/datum/job/J = SSroles.get_by_title(job_title)
-		if(J)
-			dd_insertObjectList(jobs, J)
+	var/roles = list()
+	for(var/role_title in (pref.role_medium|pref.role_low|pref.role_high))
+		var/datum/role/R = SSroles.get_by_title(role_title)
+		if(R)
+			dd_insertObjectList(roles, R)
 	for(var/gear_name in LC.gear)
 		if(!(gear_name in valid_gear_choices()))
 			continue
@@ -172,21 +172,21 @@ var/list/gear_datums = list()
 		var/allowed = 1
 
 		if(allowed && G.allowed_roles)
-			var/good_job = 0
-			var/bad_job = 0
+			var/good_role = 0
+			var/bad_role = 0
 			entry += "<br><i>"
 			var/ind = 0
-			for(var/datum/job/J in jobs)
+			for(var/datum/role/R in roles)
 				++ind
 				if(ind > 1)
 					entry += ", "
-				if(J.type in G.allowed_roles)
-					entry += "<font color=55cc55>[J.title]</font>"
-					good_job = 1
+				if(R.type in G.allowed_roles)
+					entry += "<font color=55cc55>[R.title]</font>"
+					good_role = 1
 				else
-					entry += "<font color=cc5555>[J.title]</font>"
-					bad_job = 1
-			allowed = good_job || !bad_job
+					entry += "<font color=cc5555>[R.title]</font>"
+					bad_role = 1
+			allowed = good_role || !bad_role
 			entry += "</i>"
 		entry += "</tr>"
 		if(ticked)

@@ -332,8 +332,10 @@
 			return global.client_repository;
 		if("combatlog")
 			return global.combatlog;
+		/*
 		if("comm_message_listeners")
 			return global.comm_message_listeners;
+		*/
 		if("command_name")
 			return global.command_name;
 		if("common_tools")
@@ -384,8 +386,10 @@
 			return global.defer_powernet_rebuild;
 		if("delta_index")
 			return global.delta_index;
+		/*
 		if("department_accounts")
 			return global.department_accounts;
+		*/
 		if("department_radio_keys")
 			return global.department_radio_keys;
 		if("diary")
@@ -416,8 +420,10 @@
 			return global.escape_pods_by_name;
 		if("evacuation_controller")
 			return global.evacuation_controller;
+		/*
 		if("event_last_fired")
 			return global.event_last_fired;
+		*/
 		if("eventchance")
 			return global.eventchance;
 		if("explosion_in_progress")
@@ -484,8 +490,10 @@
 			return global.ghost_sightless_images;
 		if("ghost_traps")
 			return global.ghost_traps;
+		/*
 		if("global_message_listener")
 			return global.global_message_listener;
+		*/
 		if("global_vars_")
 			return global.global_vars_;
 		if("gravity_is_on")
@@ -589,10 +597,8 @@
 		/*
 		if("merged")
 			return global.merged;
-		*/
 		if("message_delay")
 			return global.message_delay;
-		/*
 		if("message_servers")
 			return global.message_servers;
 		if("meteors_armageddon")
@@ -647,13 +653,13 @@
 			return global.narsie_list;
 		if("navbeacons")
 			return global.navbeacons;
-		*/
 		if("news_network")
 			return global.news_network;
 		if("newscaster_standard_feeds")
 			return global.newscaster_standard_feeds;
 		if("next_account_number")
 			return global.next_account_number;
+		*/
 		if("next_duration_update")
 			return global.next_duration_update;
 		if("next_station_date_change")
@@ -674,8 +680,10 @@
 		*/
 		if("nuke_disks")
 			return global.nuke_disks;
+		/*
 		if("num_financial_terminals")
 			return global.num_financial_terminals;
+		*/
 		if("organ_cache")
 			return global.organ_cache;
 		if("organ_rel_size")
@@ -717,9 +725,10 @@
 		/*
 		if("priority_air_alarms")
 			return global.priority_air_alarms;
-		*/
+		
 		if("priority_announcement")
 			return global.priority_announcement;
+		*/
 		if("priv_all_access")
 			return global.priv_all_access;
 		if("priv_all_access_datums")
@@ -728,21 +737,11 @@
 			return global.priv_all_access_datums_id;
 		if("priv_all_access_datums_region")
 			return global.priv_all_access_datums_region;
-		if("priv_centcom_access")
-			return global.priv_centcom_access;
 		if("priv_region_access")
 			return global.priv_region_access;
-		if("priv_station_access")
-			return global.priv_station_access;
-		if("priv_syndicate_access")
-			return global.priv_syndicate_access;
 		/*
-		if("prometheans")
-			return global.prometheans;
-		*/
 		if("protected_objects")
 			return global.protected_objects;
-		/*
 		if("rad_collectors")
 			return global.rad_collectors;
 		*/
@@ -756,8 +755,10 @@
 			return global.random_maps;
 		if("random_useful_")
 			return global.random_useful_;
+		/*
 		if("recentmessages")
 			return global.recentmessages;
+		*/
 		if("registered_macros_by_ckey_")
 			return global.registered_macros_by_ckey_;
 		if("religion_name")
@@ -794,9 +795,9 @@
 			return global.secret_force_mode;
 		if("server_name")
 			return global.server_name;
+		/*
 		if("severity_to_string")
 			return global.severity_to_string;
-		/*
 		if("ship_engines")
 			return global.ship_engines;
 		*/

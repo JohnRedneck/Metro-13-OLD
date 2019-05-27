@@ -84,7 +84,7 @@
 	qdel(skillset)
 	var/new_type = initial(skillset)
 	skillset = new new_type(src)
-	var/datum/faction/role = mind && SSroles.get_by_title(mind.assigned_role)
+	var/datum/role/role = mind && SSroles.get_by_title(mind.assigned_role)
 	skillset.obtain_from_client(role, client)
 
 // Use to perform skill checks

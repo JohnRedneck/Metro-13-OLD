@@ -978,7 +978,7 @@
 		if(wear_id)
 			var/obj/item/weapon/card/id/I = wear_id.GetIdCard()
 			if(I)
-				var/datum/faction/role = SSroles.get_by_title(role.GetRoleName())
+				var/datum/role/role = SSroles.get_by_title(role.GetRoleName())
 				if(role)
 					holder.icon_state = role.hud_icon
 

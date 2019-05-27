@@ -168,7 +168,7 @@ var/const/NO_EMAG_ACT = -50
 /obj/item/weapon/card/id/Initialize()
 	.=..()
 	if(job_access_type)
-		var/datum/job/j = SSroles.get_by_path(job_access_type)
+		var/datum/role/R= SSroles.get_by_path(job_access_type)
 		if(j)
 			rank = j.title
 			assignment = rank

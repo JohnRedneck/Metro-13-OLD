@@ -93,7 +93,7 @@ var/list/admin_verbs_admin = list(
 )
 var/list/admin_verbs_ban = list(
 	/client/proc/unban_panel,
-	/client/proc/jobbans
+	/client/proc/rolebans
 	)
 var/list/admin_verbs_sounds = list(
 	/client/proc/play_local_sound,
@@ -151,7 +151,7 @@ var/list/admin_verbs_debug = list(
 	/client/proc/getruntimelog, // allows us to access runtime logs to somebody,
 	/datum/admins/proc/jump_to_fluid_source,
 	/datum/admins/proc/jump_to_fluid_active,
-	/client/proc/cmd_admin_list_open_jobs,
+	/client/proc/cmd_admin_list_open_roles,
 	/client/proc/Debug2,
 	/client/proc/ZASSettings,
 	/client/proc/cmd_debug_make_powernets,
@@ -254,7 +254,7 @@ var/list/admin_verbs_hideable = list(
 	/datum/admins/proc/adspawn,
 	/datum/admins/proc/adjump,
 	/client/proc/restart_controller,
-	/client/proc/cmd_admin_list_open_jobs,
+	/client/proc/cmd_admin_list_open_roles,
 	/client/proc/callproc,
 	/client/proc/callproc_target,
 	/client/proc/Debug2,
@@ -430,12 +430,12 @@ var/list/admin_verbs_mod = list(
 	SSstatistics.add_field_details("admin_verb","CHA") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 	return
 
-/client/proc/jobbans()
-	set name = "Display Job bans"
+/client/proc/rolebans()
+	set name = "Display Role bans"
 	set category = "Admin"
 	if(holder)
 		if(config.ban_legacy_system)
-			holder.Jobbans()
+			holder.Rolebans()
 		else
 			holder.DB_ban_panel()
 	SSstatistics.add_field_details("admin_verb","VJB") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
@@ -764,45 +764,45 @@ var/list/admin_verbs_mod = list(
 	return
 /*
 /client/proc/free_slot_submap()
-	set name = "Free Job Slot (Submap)"
+	set name = "Free role Slot (Submap)"
 	set category = "Admin"
 	if(!holder) return
 
-	var/list/jobs = list()
+	var/list/roles = list()
 	for(var/thing in SSmapping.submaps)
 		var/datum/submap/submap = thing
-		for(var/otherthing in submap.jobs)
-			var/datum/job/submap/job = submap.jobs[otherthing]
-			if(!job.is_position_available())
-				jobs["[job.title] - [submap.name]"] = job
+		for(var/otherthing in submap.roles)
+			var/datum/role/submap/role = submap.roles[otherthing]
+			if(!role.is_position_available())
+				roles["[role.title] - [submap.name]"] = role
 
-	if(!LAZYLEN(jobs))
-		to_chat(usr, "There are no fully staffed offsite jobs.")
+	if(!LAZYLEN(roles))
+		to_chat(usr, "There are no fully staffed offsite roles.")
 		return
 
-	var/job_name = input("Please select job slot to free", "Free job slot")  as null|anything in jobs
-	if(job_name)
-		var/datum/job/submap/job = jobs[job_name]
-		if(istype(job) && !job.is_position_available())
-			job.make_position_available()
-			message_admins("An offsite job slot for [job_name] has been opened by [key_name_admin(usr)]")
+	var/role_name = input("Please select role slot to free", "Free role slot")  as null|anything in roles
+	if(role_name)
+		var/datum/role/submap/role = roles[role_name]
+		if(istype(role) && !role.is_position_available())
+			role.make_position_available()
+			message_admins("An offsite role slot for [role_name] has been opened by [key_name_admin(usr)]")
 
 /client/proc/free_slot()
 	set name = "Free Role Slot"
 	set category = "Admin"
 	if(holder)
-		var/list/jobs = list()
-		for (var/datum/job/J in SSroles.primary_job_datums)
+		var/list/roles = list()
+		for (var/datum/role/Rin SSroles.primary_role_datums)
 			if(!J.is_position_available())
-				jobs[J.title] = J
-		if (!jobs.len)
-			to_chat(usr, "There are no fully staffed jobs.")
+				roles[J.title] = J
+		if (!roles.len)
+			to_chat(usr, "There are no fully staffed roles.")
 			return
-		var/job_title = input("Please select job slot to free", "Free job slot")  as null|anything in jobs
-		var/datum/job/job = jobs[job_title]
+		var/role_title = input("Please select role slot to free", "Free role slot")  as null|anything in roles
+		var/datum/role/role = roles[role_title]
 		if(role && !role.is_position_available())
-			job.make_position_available()
-			message_admins("A job slot for [job_title] has been opened by [key_name_admin(usr)]")
+			role.make_position_available()
+			message_admins("A role slot for [role_title] has been opened by [key_name_admin(usr)]")
 			return
 */
 /client/proc/toggleghostwriters()

@@ -42,11 +42,11 @@ var/const/MAP_HAS_RANK = 2		//Rank system, also togglable
 	//This list contains the z-level numbers which can be accessed via space travel and the percentile chances to get there.
 	var/list/accessible_z_levels = list()
 
-	var/list/allowed_jobs	       //Job datums to use.
+	var/list/allowed_roles	       //Role datums to use.
 	                               //Works a lot better so if we get to a point where three-ish maps are used
 	                               //We don't have to C&P ones that are only common between two of them
-	                               //That doesn't mean we have to include them with the rest of the jobs though, especially for map specific ones.
-	                               //Also including them lets us override already created jobs, letting us keep the datums to a minimum mostly.
+	                               //That doesn't mean we have to include them with the rest of the roles though, especially for map specific ones.
+	                               //Also including them lets us override already created roles, letting us keep the datums to a minimum mostly.
 	                               //This is probably a lot longer explanation than it needs to be.
 
 	var/station_name  = "BAD Station"
@@ -107,7 +107,7 @@ var/const/MAP_HAS_RANK = 2		//Rank system, also togglable
 	var/starting_money = 75000		//Money in station account
 	var/department_money = 5000		//Money in department accounts
 	var/salary_modifier	= 1			//Multiplier to starting character money
-	var/station_departments = list()//Gets filled automatically depending on jobs allowed
+	var/station_departments = list()//Gets filled automatically depending on roles allowed
 
 	var/supply_currency_name = "Credits"
 	var/supply_currency_name_short = "Cr."
@@ -204,12 +204,12 @@ var/const/MAP_HAS_RANK = 2		//Rank system, also togglable
 /datum/map/New()
 	if(!map_levels)
 		map_levels = station_levels.Copy()
-	if(!allowed_jobs)
-		allowed_jobs = list()
-		for(var/jtype in subtypesof(/datum/job))
-			var/datum/job/job = jtype
-			if(initial(job.available_by_default))
-				allowed_jobs += jtype
+	if(!allowed_roles)
+		allowed_roles = list()
+		for(var/jtype in subtypesof(/datum/role))
+			var/datum/role/role = jtype
+			if(initial(role.available_by_default))
+				allowed_roles += jtype
 	if(!planet_size)
 		planet_size = list(world.maxx, world.maxy)
 
@@ -223,7 +223,7 @@ var/const/MAP_HAS_RANK = 2		//Rank system, also togglable
 	lobby_track = decls_repository.get_decl(lobby_track_type)
 	world.update_status()
 
-/datum/map/proc/setup_job_lists()
+/datum/map/proc/setup_role_lists()
 	return
 
 /datum/map/proc/send_welcome()
@@ -319,9 +319,9 @@ var/const/MAP_HAS_RANK = 2		//Rank system, also togglable
 	if(!station_account)
 		station_account = create_account("[station_name()] Primary Account", starting_money)
 
-	for(var/job in allowed_jobs)
-		var/datum/job/J = job
-		var/dept = initial(J.department)
+	for(var/role in allowed_roles)
+		var/datum/role/R= role
+		var/dept = initial(R.department)
 		if(dept)
 			station_departments |= dept
 
