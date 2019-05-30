@@ -225,53 +225,53 @@
 				color = "#f2f2f2"
 			var/is_antagonist = is_special_character(M)
 
-			var/M_job = ""
+			var/M_role = ""
 
 			if(isliving(M))
 
 				if(iscarbon(M)) //Carbon stuff
 					if(ishuman(M))
 						var/mob/living/carbon/human/H = M
-						M_job = H.job
+						M_role = H.role
 					else if(isslime(M))
-						M_job = "slime"
+						M_role = "slime"
 					else if(issmall(M))
-						M_job = "Monkey"
+						M_role = "Monkey"
 					else if(isalien(M))
-						M_job = "Alien"
+						M_role = "Alien"
 					else
-						M_job = "Carbon-based"
+						M_role = "Carbon-based"
 
 				else if(issilicon(M)) //silicon
 					if(isAI(M))
-						M_job = "AI"
+						M_role = "AI"
 					else if(ispAI(M))
-						M_job = "pAI"
+						M_role = "pAI"
 					else if(isrobot(M))
-						M_job = "Robot"
+						M_role = "Robot"
 					else
-						M_job = "Silicon-based"
+						M_role = "Silicon-based"
 
 				else if(isanimal(M)) //simple animals
 					if(iscorgi(M))
-						M_job = "Corgi"
+						M_role = "Corgi"
 					else
-						M_job = "Animal"
+						M_role = "Animal"
 
 				else
-					M_job = "Living"
+					M_role = "Living"
 
 			else if(istype(M,/mob/new_player))
-				M_job = "New player"
+				M_role = "New player"
 
 			else if(isghost(M))
-				M_job = "Ghost"
+				M_role = "Ghost"
 			else
-				M_job = "Unknown ([M.type])"
+				M_role = "Unknown ([M.type])"
 
-			M_job = replacetext(M_job, "'", "")
-			M_job = replacetext(M_job, "\"", "")
-			M_job = replacetext(M_job, "\\", "")
+			M_role = replacetext(M_role, "'", "")
+			M_role = replacetext(M_role, "\"", "")
+			M_role = replacetext(M_role, "\\", "")
 
 			var/M_name = M.name
 			M_name = replacetext(M_name, "'", "")
@@ -294,9 +294,9 @@
 					<td align='center' bgcolor='[color]'>
 						<span id='notice_span[i]'></span>
 						<a id='link[i]'
-						onmouseover='expand("item[i]","[M_job]","[M_name]","[M_rname]","--unused--","[M_key]","[M.lastKnownIP]",[is_antagonist],"\ref[M]")'
+						onmouseover='expand("item[i]","[M_role]","[M_name]","[M_rname]","--unused--","[M_key]","[M.lastKnownIP]",[is_antagonist],"\ref[M]")'
 						>
-						<span id='search[i]'><b>[M_name] - [M_rname] - [M_key] ([M_job])</b></span>
+						<span id='search[i]'><b>[M_name] - [M_rname] - [M_key] ([M_role])</b></span>
 						</a>
 						<br><span id='item[i]'></span>
 					</td>

@@ -86,13 +86,13 @@ SUBSYSTEM_DEF(ticker)
 	equip_characters()
 	for(var/mob/living/carbon/human/H in GLOB.player_list)
 		if(H.mind && !player_is_antag(H.mind, only_offstation_roles = 1))
-			var/datum/job/job = SSroles.get_by_title(H.mind.assigned_role)
-			if(job && job.create_record)
+			var/datum/role/role = SSroles.get_by_title(H.mind.assigned_role)
+			if(role && role.create_record)
 				CreateModularRecord(H)
 	callHook("roundstart")
 
 	spawn(0)//Forking here so we dont have to wait for this to finish
-		mode.post_setup() // Drafts antags who don't override jobs.
+		mode.post_setup() // Drafts antags who don't override roles.
 		to_world("<FONT color='blue'><B>Enjoy the game!</B></FONT>")
 		sound_to(world, sound(GLOB.using_map.welcome_sound))
 
@@ -240,11 +240,11 @@ Helpers
 		bad_modes += mode_to_try
 		return
 
-	//Deal with jobs and antags, check that we can actually run the mode.
+	//Deal with roles and antags, check that we can actually run the mode.
 	SSroles.reset_occupations() // Clears all players' role assignments. Clean slate.
 	mode_datum.create_antagonists() // Init operation on the mode; sets up antag datums and such.
-	mode_datum.pre_setup() // Makes lists of viable candidates; performs candidate draft for job-override roles; stores the draft result both internally and on the draftee.
-	SSroles.divide_occupations(mode_datum) // Gives out jobs to everyone who was not selected to antag.
+	mode_datum.pre_setup() // Makes lists of viable candidates; performs candidate draft for role-override roles; stores the draft result both internally and on the draftee.
+	SSroles.divide_occupations(mode_datum) // Gives out roles to everyone who was not selected to antag.
 
 	if(mode_datum.startRequirements())
 		mode_datum.fail_setup()

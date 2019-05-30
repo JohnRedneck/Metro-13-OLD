@@ -20,7 +20,7 @@ GLOBAL_DATUM_INIT(malf, /datum/antagonist/rogue_ai, new)
 
 /datum/antagonist/rogue_ai/can_become_antag(var/datum/mind/player, var/ignore_role)
 	. = ..(player, ignore_role)
-	if(jobban_isbanned(player.current, "AI"))
+	if(roleban_isbanned(player.current, "AI"))
 		return 0
 	return .
 

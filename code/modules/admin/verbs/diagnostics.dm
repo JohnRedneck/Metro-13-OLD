@@ -108,25 +108,25 @@
 	load_admins()
 	SSstatistics.add_field_details("admin_verb","RLDA") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-/client/proc/print_jobban_old()
-	set name = "Print Jobban Log"
-	set desc = "This spams all the active jobban entries for the current round to standard output."
+/client/proc/print_roleban_old()
+	set name = "Print Roleban Log"
+	set desc = "This spams all the active roleban entries for the current round to standard output."
 	set category = "Debug"
 
-	to_chat(usr, "<b>Jobbans active in this round.</b>")
-	for(var/t in jobban_keylist)
+	to_chat(usr, "<b>Rolebans active in this round.</b>")
+	for(var/t in roleban_keylist)
 		to_chat(usr, "[t]")
 
-/client/proc/print_jobban_old_filter()
-	set name = "Search Jobban Log"
-	set desc = "This searches all the active jobban entries for the current round and outputs the results to standard output."
+/client/proc/print_roleban_old_filter()
+	set name = "Search Roleban Log"
+	set desc = "This searches all the active roleban entries for the current round and outputs the results to standard output."
 	set category = "Debug"
 
-	var/job_filter = input("Contains what?","Filter") as text|null
-	if(!job_filter)
+	var/role_filter = input("Contains what?","Filter") as text|null
+	if(!role_filter)
 		return
 
-	to_chat(usr, "<b>Jobbans active in this round.</b>")
-	for(var/t in jobban_keylist)
-		if(findtext(t, job_filter))
+	to_chat(usr, "<b>Rolebans active in this round.</b>")
+	for(var/t in roleban_keylist)
+		if(findtext(t, role_filter))
 			to_chat(usr, "[t]")

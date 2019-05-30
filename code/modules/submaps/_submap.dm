@@ -2,7 +2,7 @@
 	var/name
 	var/pref_name
 	var/decl/submap_archetype/archetype
-	var/list/jobs
+	var/list/roles
 	var/associated_z
 
 /datum/submap/New(var/existing_z)
@@ -31,15 +31,15 @@
 
 	testing("Starting submap setup - '[name]', [archetype], [associated_z]z.")
 
-	// Instantiate our job list.
-	jobs = list()
-	for(var/crew_job in archetype.crew_jobs)
-		var/datum/job/submap/job = new crew_job(src, archetype.crew_jobs[crew_job])
-		if(!job.whitelisted_species)
-			job.whitelisted_species = archetype.whitelisted_species
-		if(!job.blacklisted_species)
-			job.blacklisted_species = archetype.blacklisted_species
-		jobs[job.title] = job
+	// Instantiate our role list.
+	roles = list()
+	for(var/crew_role in archetype.crew_roles)
+		var/datum/role/submap/role = new crew_role(src, archetype.crew_roles[crew_role])
+		if(!role.whitelisted_species)
+			role.whitelisted_species = archetype.whitelisted_species
+		if(!role.blacklisted_species)
+			role.blacklisted_species = archetype.blacklisted_species
+		roles[role.title] = role
 
 	// Either find or build our map.
 	if(!associated_z)
@@ -68,18 +68,18 @@
 	if(istype(cell))
 		sync_cell(cell)
 
-	// Add the spawn points to the appropriate job list.
+	// Add the spawn points to the appropriate role list.
 	var/added_spawnpoint
 	for(var/check_z in GetConnectedZlevels(associated_z))
 		for(var/thing in block(locate(1, 1, check_z), locate(world.maxx, world.maxy, check_z)))
 			for(var/obj/effect/submap_landmark/spawnpoint/landmark in thing)
-				var/datum/job/submap/job = jobs[landmark.name]
-				if(istype(job))
-					job.spawnpoints += landmark
+				var/datum/role/submap/role = roles[landmark.name]
+				if(istype(role))
+					role.spawnpoints += landmark
 					added_spawnpoint = TRUE
 
 	if(!added_spawnpoint)
-		testing( "Submap error - [name]/[archetype ? archetype.descriptor : "NO ARCHETYPE"] has no job spawn points.")
+		testing( "Submap error - [name]/[archetype ? archetype.descriptor : "NO ARCHETYPE"] has no role spawn points.")
 		qdel(src)
 		return
 

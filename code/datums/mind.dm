@@ -45,7 +45,7 @@
 
 	var/role_alt_title
 
-	var/datum/job/assigned_job
+	var/datum/role/assigned_role
 
 	var/list/datum/objective/objectives = list()
 	var/list/datum/objective/special_verbs = list()
@@ -174,7 +174,7 @@
 			if(is_admin)
 				log_admin("[key_name_admin(usr)] added a random goal to [key_name(current)].")
 			to_chat(current, SPAN_NOTICE("You have received a new goal. Use <b>Show Goals</b> to view it."))
-			generate_goals(assigned_job, TRUE, 1)
+			generate_goals(assigned_role, TRUE, 1)
 			return TRUE // To avoid 'you are not an admin' spam.
 
 	if(check_rights(R_ADMIN))
@@ -194,7 +194,7 @@
 			var/datum/goal/goal = get_goal_from_href(href_list["reroll_goal"])
 			if(goal && (goal in goals))
 				qdel(goal)
-				generate_goals(assigned_job, TRUE, 1)
+				generate_goals(assigned_role, TRUE, 1)
 				goal = goals[LAZYLEN(goals)]
 				if(usr == current)
 					to_chat(usr, SPAN_NOTICE("<b>You have re-rolled a goal. Your new goal is:</b> '[goal.summarize(FALSE, FALSE)]'."))
@@ -247,13 +247,13 @@
 	else if (href_list["role_edit"])
 		var/new_role = input("Select new role", "Assigned role", assigned_role) as null|anything in SSroles.titles_to_datums
 		if (!new_role) return
-		var/datum/job/job = SSroles.get_by_title(new_role)
-		if(job)
-			assigned_job = job
-			assigned_role = job.title
+		var/datum/role/role = SSroles.get_by_title(new_role)
+		if(role)
+			assigned_role = role
+			assigned_role = role.title
 			role_alt_title = new_role
 			if(current)
-				current.skillset.obtain_from_client(job, current.client)
+				current.skillset.obtain_from_client(role, current.client)
 
 	else if (href_list["memory_edit"])
 		var/new_memo = sanitize(input("Write new memory", "Memory", memory) as null|message)
@@ -549,9 +549,9 @@
 	assigned_role =   null
 	special_role =    null
 	role_alt_title =  null
-	assigned_job =    null
+	assigned_role =    null
 	//faction =       null //Uncommenting this causes a compile error due to 'undefined type', fucked if I know.
-	changeling =      null
+	//changeling =      null
 	//initial_account = null
 	objectives =      list()
 	special_verbs =   list()

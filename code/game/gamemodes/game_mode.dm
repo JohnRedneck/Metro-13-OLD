@@ -412,7 +412,7 @@ var/global/list/additional_antag_types = list()
 				log_debug("[player.key] had [antag_id] enabled, so we are drafting them.")
 				candidates += player.mind
 	else
-		// Assemble a list of active players without jobbans.
+		// Assemble a list of active players without rolebans.
 		for(var/mob/new_player/player in GLOB.player_list)
 			if( player.client && player.ready )
 				players += player

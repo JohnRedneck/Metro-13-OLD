@@ -59,22 +59,22 @@ GLOBAL_VAR_INIT(arrest_security_status, "Arrest")
 	set_species(H ? H.get_species() : SPECIES_HUMAN)
 	set_branch(H ? (H.char_branch && H.char_branch.name) : "None")
 	set_rank(H ? (H.char_rank && H.char_rank.name) : "None")
-	set_public_record(H && H.public_record && !jobban_isbanned(H, "Records") ? html_decode(H.public_record) : "No record supplied")
+	set_public_record(H && H.public_record && !roleban_isbanned(H, "Records") ? html_decode(H.public_record) : "No record supplied")
 
 	// Medical record
 	set_bloodtype(H ? H.b_type : "Unset")
-	set_medRecord((H && H.med_record && !jobban_isbanned(H, "Records") ? html_decode(H.med_record) : "No record supplied"))
+	set_medRecord((H && H.med_record && !roleban_isbanned(H, "Records") ? html_decode(H.med_record) : "No record supplied"))
 
 	// Security record
 	set_criminalStatus(GLOB.default_security_status)
 	set_dna(H ? H.dna.unique_enzymes : "")
 	set_fingerprint(H ? md5(H.dna.uni_identity) : "")
-	set_secRecord(H && H.sec_record && !jobban_isbanned(H, "Records") ? html_decode(H.sec_record) : "No record supplied")
+	set_secRecord(H && H.sec_record && !roleban_isbanned(H, "Records") ? html_decode(H.sec_record) : "No record supplied")
 
 	// Employment record
 	var/employment_record = "No record supplied"
 	if(H)
-		if(H.gen_record && !jobban_isbanned(H, "Records"))
+		if(H.gen_record && !roleban_isbanned(H, "Records"))
 			employment_record = html_decode(H.gen_record)
 		if(H.client && H.client.prefs)
 			var/list/qualifications
@@ -102,7 +102,7 @@ GLOBAL_VAR_INIT(arrest_security_status, "Arrest")
 		set_skillset(jointext(skills,"\n"))
 
 	// Antag record
-	set_antagRecord(H && H.exploit_record && !jobban_isbanned(H, "Records") ? html_decode(H.exploit_record) : "")
+	set_antagRecord(H && H.exploit_record && !roleban_isbanned(H, "Records") ? html_decode(H.exploit_record) : "")
 
 // Global methods
 // Used by character creation to create a record for new arrivals.
@@ -113,7 +113,7 @@ GLOBAL_VAR_INIT(arrest_security_status, "Arrest")
 	return CR
 
 // Gets crew records filtered by set of positions
-/proc/department_crew_manifest(var/list/filter_positions, var/blacklist = FALSE)
+/proc/faction_crew_manifest(var/list/filter_positions, var/blacklist = FALSE)
 	var/list/matches = list()
 	for(var/datum/computer_file/report/crew_record/CR in GLOB.all_crew_records)
 		var/rank = CR.get_job()
@@ -149,7 +149,7 @@ GLOBAL_VAR_INIT(arrest_security_status, "Arrest")
 	if(!H)
 		return "Unassigned"
 	if(!H.mind)
-		return H.job
+		return H.role
 	if(H.mind.role_alt_title)
 		return H.mind.role_alt_title
 	return H.mind.assigned_role
@@ -173,7 +173,7 @@ KEY.set_access(ACCESS, ACCESS_EDIT || ACCESS || access_bridge)}
 // GENERIC RECORDS
 FIELD_SHORT("Name", name, null, access_change_ids)
 FIELD_SHORT("Formal Name", formal_name, null, access_change_ids)
-FIELD_SHORT("Job", job, null, access_change_ids)
+FIELD_SHORT("Role", role, null, access_change_ids)
 FIELD_LIST("Sex", sex, record_genders(), null, access_change_ids)
 FIELD_NUM("Age", age, null, access_change_ids)
 FIELD_LIST_EDIT("Status", status, GLOB.physical_statuses, null, access_medical)

@@ -59,7 +59,7 @@ var/list/gamemode_cache = list()
 	var/allow_ai = 1					// allow ai job
 	var/hostedby = null
 	var/respawn_delay = 30
-	var/guest_jobban = 1
+	var/guest_roleban = 1
 	var/usewhitelist = 0
 	var/kick_inactive = 0				//force disconnect for inactive players after this many minutes, if non-0
 	var/mods_can_tempban = 0
@@ -434,8 +434,8 @@ var/list/gamemode_cache = list()
 				if ("ghosts_can_possess_animals")
 					config.ghosts_can_possess_animals = value
 
-				if ("guest_jobban")
-					config.guest_jobban = 1
+				if ("guest_roleban")
+					config.guest_roleban = 1
 
 				if ("guest_ban")
 					config.guests_allowed = 0

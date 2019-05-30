@@ -331,8 +331,8 @@
 
 /datum/job/proc/get_unavailable_reasons(var/client/caller)
 	var/list/reasons = list()
-	if(jobban_isbanned(caller, title))
-		reasons["You are jobbanned."] = TRUE
+	if(roleban_isbanned(caller, title))
+		reasons["You are rolebanned."] = TRUE
 	if(!player_old_enough(caller))
 		reasons["Your player age is too low."] = TRUE
 	if(!is_position_available())
@@ -357,7 +357,7 @@
 /datum/job/proc/is_available(var/client/caller)
 	if(!is_position_available())
 		return FALSE
-	if(jobban_isbanned(caller, title))
+	if(roleban_isbanned(caller, title))
 		return FALSE
 	if(!player_old_enough(caller))
 		return FALSE

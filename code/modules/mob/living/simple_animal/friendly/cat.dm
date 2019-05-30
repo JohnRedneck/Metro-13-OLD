@@ -132,7 +132,7 @@
 //Basic friend AI
 /mob/living/simple_animal/cat/fluff
 	var/mob/living/carbon/human/friend
-	var/befriend_job = null
+	var/befriend_role = null
 
 /mob/living/simple_animal/cat/fluff/handle_movement_target()
 	if (friend)
@@ -195,7 +195,7 @@
 
 	if(!friend)
 		var/mob/living/carbon/human/H = usr
-		if(istype(H) && (!befriend_job || H.job == befriend_job))
+		if(istype(H) && (!befriend_role || H.role == befriend_role))
 			friend = usr
 			. = 1
 	else if(usr == friend)

@@ -1,8 +1,8 @@
 /* General */
 /crew_sensor_modifier/general/process_crew_data(var/mob/living/carbon/human/H, var/obj/item/clothing/under/C, var/turf/pos, var/list/crew_data)
 	crew_data["name"] = H.get_authentification_name(if_no_id="Unknown")
-	crew_data["rank"] = H.get_authentification_rank(if_no_id="Unknown", if_no_job="No Job")
-	crew_data["assignment"] = H.get_assignment(if_no_id="Unknown", if_no_job="No Job")
+	crew_data["rank"] = H.get_authentification_rank(if_no_id="Unknown", if_no_role="No Role")
+	crew_data["assignment"] = H.get_assignment(if_no_id="Unknown", if_no_role="No Role")
 	return ..()
 
 /* Jamming */

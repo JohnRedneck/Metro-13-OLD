@@ -369,7 +369,7 @@ datum/admins/proc/DB_ban_unban_by_id(var/id)
 	output += "<br><input type='submit' value='search'><br>"
 	output += "<input type='checkbox' value='[match]' name='dbmatch' [match? "checked=\"1\"" : null]> Match(min. 3 characters to search by key or ip, and 7 to search by cid)<br>"
 	output += "</form>"
-	output += "Please note that all jobban bans or unbans are in-effect the following round.<br>"
+	output += "Please note that all roleban bans or unbans are in-effect the following round.<br>"
 	output += "This search shows only last 100 bans."
 
 	if(adminckey || playerckey || playerip || playercid || dbbantype)
@@ -476,9 +476,9 @@ datum/admins/proc/DB_ban_unban_by_id(var/id)
 					if("TEMPBAN")
 						typedesc = "<b>TEMPBAN</b><br><font size='2'>([duration] minutes) [(unbanned || auto) ? "" : "(<a href=\"byond://?src=\ref[src];dbbanedit=duration;dbbanid=[banid]\">Edit</a>)"]<br>Expires [expiration]</font>"
 					if("JOB_PERMABAN")
-						typedesc = "<b>JOBBAN</b><br><font size='2'>([job])</font>"
+						typedesc = "<b>roleban</b><br><font size='2'>([job])</font>"
 					if("JOB_TEMPBAN")
-						typedesc = "<b>TEMP JOBBAN</b><br><font size='2'>([job])<br>([duration] minutes<br>Expires [expiration]</font>"
+						typedesc = "<b>TEMP roleban</b><br><font size='2'>([job])<br>([duration] minutes<br>Expires [expiration]</font>"
 
 				output += "<tr bgcolor='[dcolor]'>"
 				output += "<td align='center'>[typedesc]</td>"

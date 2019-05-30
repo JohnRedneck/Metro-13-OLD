@@ -1,4 +1,4 @@
-/datum/job/submap
+/datum/role/submap
 	title = "Survivor"
 	supervisors = "your conscience"
 	account_allowed = FALSE
@@ -6,7 +6,7 @@
 	announced = FALSE
 	create_record = FALSE
 	total_positions = 4
-	outfit_type = /decl/hierarchy/outfit/job/assistant
+	outfit_type = /decl/hierarchy/outfit/role/assistant
 	hud_icon = "hudblank"
 	available_by_default = FALSE
 	allowed_ranks = null
@@ -43,13 +43,13 @@
 	var/list/blacklisted_species = RESTRICTED_SPECIES
 	var/list/whitelisted_species = STATION_SPECIES
 
-/datum/job/submap/New(var/datum/submap/_owner, var/abstract_job = FALSE)
-	if(!abstract_job)
+/datum/role/submap/New(var/datum/submap/_owner, var/abstract_role = FALSE)
+	if(!abstract_role)
 		spawnpoints = list()
 		owner = _owner
 		..()
 
-/datum/job/submap/is_species_allowed(var/datum/species/S)
+/datum/role/submap/is_species_allowed(var/datum/species/S)
 	if(LAZYLEN(whitelisted_species) && !(S.name in whitelisted_species))
 		return FALSE
 	if(S.name in blacklisted_species)
@@ -61,7 +61,7 @@
 			return FALSE
 	return TRUE
 
-/datum/job/submap/is_restricted(var/datum/preferences/prefs, var/feedback)
+/datum/role/submap/is_restricted(var/datum/preferences/prefs, var/feedback)
 	if(minimum_character_age && (prefs.age < minimum_character_age))
 		to_chat(feedback, "<span class='boldannounce'>Not old enough. Minimum character age is [minimum_character_age].</span>")
 		return TRUE
@@ -80,5 +80,5 @@
 			return TRUE
 	return FALSE
 
-/datum/job/submap/check_is_active(var/mob/M)
+/datum/role/submap/check_is_active(var/mob/M)
 	. = (..() && M.faction == owner.name)

@@ -6,7 +6,7 @@
 	var/totalPlayers = 0		 //Player counts for the Lobby tab
 	var/totalPlayersReady = 0
 	var/datum/browser/panel
-	var/show_invalid_jobs = 0
+	var/show_invalid_roles = 0
 	universal_speak = 1
 
 	invisibility = 101
@@ -85,10 +85,10 @@
 			totalPlayers = 0
 			totalPlayersReady = 0
 			for(var/mob/new_player/player in GLOB.player_list)
-				var/highjob
-				if(player.client && player.client.prefs && player.client.prefs.job_high)
-					highjob = " as [player.client.prefs.job_high]"
-				stat("[player.key]", (player.ready)?("(Playing[highjob])"):(null))
+				var/highrole
+				if(player.client && player.client.prefs && player.client.prefs.role_high)
+					highrole = " as [player.client.prefs.role_high]"
+				stat("[player.key]", (player.ready)?("(Playing[highrole])"):(null))
 				totalPlayers++
 				if(player.ready)totalPlayersReady++
 
@@ -156,22 +156,22 @@
 		if(GAME_STATE != RUNLEVEL_GAME)
 			to_chat(usr, "<span class='warning'>The round is either not ready, or has already finished...</span>")
 			return
-		LateChoices() //show the latejoin job selection menu
+		LateChoices() //show the latejoin role selection menu
 
 	if(href_list["manifest"])
 		ViewManifest()
 
-	if(href_list["SelectedJob"])
-		var/datum/job/job = SSroles.get_by_title(href_list["SelectedJob"])
+	if(href_list["SelectedRole"])
+		var/datum/role/role = SSroles.get_by_title(href_list["SelectedRole"])
 
-		if(!SSroles.check_general_join_blockers(src, job))
+		if(!SSroles.check_general_join_blockers(src, role))
 			return FALSE
 
 		var/datum/species/S = all_species[client.prefs.species]
 		if(!check_species_allowed(S))
 			return 0
 
-		AttemptLateSpawn(job, client.prefs.spawnpoint)
+		AttemptLateSpawn(role, client.prefs.spawnpoint)
 		return
 
 	if(href_list["privacy_poll"])
@@ -232,8 +232,8 @@
 			src.poll_player(pollid)
 		return
 
-	if(href_list["invalid_jobs"])
-		show_invalid_jobs = !show_invalid_jobs
+	if(href_list["invalid_roles"])
+		show_invalid_roles = !show_invalid_roles
 		LateChoices()
 
 	if(href_list["votepollid"] && href_list["votetype"])
@@ -277,7 +277,7 @@
 					if(!isnull(href_list["option_[optionid]"]))	//Test if this optionid was selected
 						vote_on_poll(pollid, optionid, 1)
 
-/mob/new_player/proc/AttemptLateSpawn(var/datum/job/job, var/spawning_at)
+/mob/new_player/proc/AttemptLateSpawn(var/datum/role/role, var/spawning_at)
 
 	if(src != usr)
 		return 0
@@ -288,16 +288,16 @@
 		to_chat(usr, "<span class='notice'>There is an administrative lock on entering the game!</span>")
 		return 0
 
-	if(!job || !job.is_available(client))
-		alert("[job.title] is not available. Please try another.")
+	if(!role || !role.is_available(client))
+		alert("[role.title] is not available. Please try another.")
 		return 0
-	if(job.is_restricted(client.prefs, src))
+	if(role.is_restricted(client.prefs, src))
 		return
 
-	var/datum/spawnpoint/spawnpoint = job.get_spawnpoint(client)
+	var/datum/spawnpoint/spawnpoint = role.get_spawnpoint(client)
 	var/turf/spawn_turf = pick(spawnpoint.turfs)
-	if(job.latejoin_at_spawnpoints)
-		var/obj/S = job.get_roundstart_spawnpoint()
+	if(role.latejoin_at_spawnpoints)
+		var/obj/S = role.get_roundstart_spawnpoint()
 		spawn_turf = get_turf(S)
 
 	if(!SSroles.check_unsafe_spawn(src, spawn_turf))
@@ -305,7 +305,7 @@
 
 	// Just in case someone stole our position while we were waiting for input from alert() proc
 	if(!role || !role.is_available(client))
-		to_chat(src, alert("[job.title] is not available. Please try another."))
+		to_chat(src, alert("[role.title] is not available. Please try another."))
 		return 0
 
 	SSroles.assign_role(src, role.title, 1)
@@ -331,7 +331,7 @@
 		var/mob/living/silicon/ai/A = character
 		A.on_mob_init()
 
-		AnnounceCyborg(character, job.title, "has been downloaded to the empty core in \the [character.loc.loc]")
+		AnnounceCyborg(character, role.title, "has been downloaded to the empty core in \the [character.loc.loc]")
 		SSticker.mode.handle_latejoin(character)
 
 		qdel(C)
@@ -343,10 +343,10 @@
 	GLOB.universe.OnPlayerLatejoin(character)
 	spawnpoint.after_join(character)
 
-	if(job.create_record)
+	if(role.create_record)
 		CreateModularRecord(character)
 		SSticker.minds += character.mind//Cyborgs and AIs handle this in the transform proc.	//TODO!!!!! ~Carn
-		//AnnounceArrival(character, job, spawnpoint.msg)
+		//AnnounceArrival(character, role, spawnpoint.msg)
 		matchmaker.do_matchmaking()
 	log_and_message_admins("has joined the round as [character.mind.assigned_role].", character)
 
@@ -373,47 +373,47 @@
 
 	var/list/dat = list()
 	dat += "Choose from the following open/valid positions:<br>"
-	dat += "<a href='byond://?src=\ref[src];invalid_jobs=1'>[show_invalid_jobs ? "Hide":"Show"] unavailable jobs.</a><br>"
+	dat += "<a href='byond://?src=\ref[src];invalid_roles=1'>[show_invalid_roles ? "Hide":"Show"] unavailable roles.</a><br>"
 	dat += "<table>"
 	dat += "<tr><td colspan = 3><b>[GLOB.using_map.station_name]:</b></td></tr>"
 
-	// TORCH JOBS
-	var/list/job_summaries
+	// TORCH ROLES
+	var/list/role_summaries
 	var/list/hidden_reasons = list()
-	for(var/datum/job/job in SSroles.primary_role_datums)
-		var/summary = job.get_join_link(client, "byond://?src=\ref[src];SelectedJob=[job.title]", show_invalid_jobs)
+	for(var/datum/role/role in SSroles.primary_role_datums)
+		var/summary = role.get_join_link(client, "byond://?src=\ref[src];SelectedRole=[role.title]", show_invalid_roles)
 		if(summary && summary != "")
-			LAZYADD(job_summaries, summary)
+			LAZYADD(role_summaries, summary)
 		else
-			for(var/raisin in job.get_unavailable_reasons(client))
+			for(var/raisin in role.get_unavailable_reasons(client))
 				hidden_reasons[raisin] = TRUE
 
-	if(LAZYLEN(job_summaries))
-		dat += job_summaries
+	if(LAZYLEN(role_summaries))
+		dat += role_summaries
 	else
 		dat += "<tr><td>No available positions.</td></tr>"
-	// END TORCH JOBS
+	// END TORCH ROLES
 
-	// SUBMAP JOBS
+	// SUBMAP ROLES
 	for(var/thing in SSmapping.submaps)
 		var/datum/submap/submap = thing
 		if(submap && submap.available())
 			dat += "<tr><td colspan = 3><b>[submap.name] ([submap.archetype.descriptor]):</b></td></tr>"
-			job_summaries = list()
-			for(var/otherthing in submap.jobs)
-				var/datum/job/job = submap.jobs[otherthing]
-				var/summary = job.get_join_link(client, "byond://?src=\ref[submap];joining=\ref[src];join_as=[otherthing]", show_invalid_jobs)
+			role_summaries = list()
+			for(var/otherthing in submap.roles)
+				var/datum/role/role = submap.roles[otherthing]
+				var/summary = role.get_join_link(client, "byond://?src=\ref[submap];joining=\ref[src];join_as=[otherthing]", show_invalid_roles)
 				if(summary && summary != "")
-					LAZYADD(job_summaries, summary)
+					LAZYADD(role_summaries, summary)
 				else
-					for(var/raisin in job.get_unavailable_reasons(client))
+					for(var/raisin in role.get_unavailable_reasons(client))
 						hidden_reasons[raisin] = TRUE
 
-			if(LAZYLEN(job_summaries))
-				dat += job_summaries
+			if(LAZYLEN(role_summaries))
+				dat += role_summaries
 			else
 				dat += "No available positions."
-	// END SUBMAP JOBS
+	// END SUBMAP ROLES
 
 	dat += "</table></center>"
 	if(LAZYLEN(hidden_reasons))
@@ -436,10 +436,10 @@
 		chosen_species = all_species[client.prefs.species]
 
 	if(!spawn_turf)
-		var/datum/job/job = SSroles.get_by_title(mind.assigned_role)
+		var/datum/role/role = SSroles.get_by_title(mind.assigned_role)
 		if(!role)
 			role = SSroles.get_by_title(GLOB.using_map.default_vagrant_title)
-		var/datum/spawnpoint/spawnpoint = job.get_spawnpoint(client, client.prefs.ranks[job.title])
+		var/datum/spawnpoint/spawnpoint = role.get_spawnpoint(client, client.prefs.ranks[role.title])
 		spawn_turf = pick(spawnpoint.turfs)
 
 	if(chosen_species)

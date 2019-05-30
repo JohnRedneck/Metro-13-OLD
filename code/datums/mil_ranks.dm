@@ -106,7 +106,7 @@ var/datum/mil_branches/mil_branches = new()
 	var/list/rank_types       // list of paths used to init the ranks list
 	var/list/spawn_rank_types // list of paths used to init the spawn_ranks list. Subset of rank_types
 
-	var/vagrant_job = /datum/faction/neutral/vagrant
+	var/vagrant_role = /datum/faction/neutral/vagrant
 
 	// Email addresses will be created under this domain name. Mostly for the looks.
 	var/email_domain = "mail.ru"
@@ -169,14 +169,14 @@ var/datum/mil_branches/mil_branches = new()
 /**
  *  A military rank
  *
- *  Note that in various places "rank" is used to refer to a character's job, and
+ *  Note that in various places "rank" is used to refer to a character's role, and
  *  so this is  "mil_rank" to distinguish it.
  */
 /datum/mil_rank
 	var/name = "Unknown"
 	var/name_short // Abbreviation of the name. Should be null if the
 	                       // rank doesn't usually serve as a prefix to the individual's name.
-	var/list/accessory		//type of accesory that will be equipped by job code with this rank
+	var/list/accessory		//type of accesory that will be equipped by role code with this rank
 	var/sort_order = 0 // A numerical equivalent of the rank used to indicate its order when compared to other datums: eg e-1 = 1, o-1 = 11
 
 //Returns short designation (yes shorter than name_short), like E1, O3 etc.

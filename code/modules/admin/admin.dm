@@ -67,7 +67,7 @@ var/global/floorIsLava = 0
 		<A href='?src=\ref[src];boot2=\ref[M]'>Kick</A> |
 		<A href='?_src_=holder;warn=[M.ckey]'>Warn</A> |
 		<A href='?src=\ref[src];newban=\ref[M]'>Ban</A> |
-		<A href='?src=\ref[src];jobban2=\ref[M]'>Jobban</A> |
+		<A href='?src=\ref[src];roleban2=\ref[M]'>roleban</A> |
 		<A href='?src=\ref[src];notes=show;mob=\ref[M]'>Notes</A>
 	"}
 
@@ -624,15 +624,15 @@ var/global/floorIsLava = 0
 
 
 
-/datum/admins/proc/Jobbans()
+/datum/admins/proc/rolebans()
 	if(!check_rights(R_BAN))	return
 
 	var/dat = "<B>Job Bans!</B><HR><table>"
-	for(var/t in jobban_keylist)
+	for(var/t in roleban_keylist)
 		var/r = t
 		if( findtext(r,"##") )
 			r = copytext( r, 1, findtext(r,"##") )//removes the description
-		dat += text("<tr><td>[t] (<A href='?src=\ref[src];removejobban=[r]'>unban</A>)</td></tr>")
+		dat += text("<tr><td>[t] (<A href='?src=\ref[src];removeroleban=[r]'>unban</A>)</td></tr>")
 	dat += "</table>"
 	usr << browse(dat, "window=ban;size=400x400")
 

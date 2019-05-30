@@ -51,7 +51,7 @@
 
 	var/client/C = communicator.get_client()
 
-	if(jobban_isbanned(C.mob, name))
+	if(roleban_isbanned(C.mob, name))
 		to_chat(communicator, "<span class='danger'>You cannot use [name] (banned).</span>")
 		return FALSE
 

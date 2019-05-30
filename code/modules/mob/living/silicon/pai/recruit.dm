@@ -349,7 +349,7 @@ var/datum/paiController/paiController			// Global handler for pAI candidates
 	for(var/mob/observer/ghost/O in GLOB.player_list)
 		if(!O.MayRespawn())
 			continue
-		if(jobban_isbanned(O, "pAI"))
+		if(roleban_isbanned(O, "pAI"))
 			continue
 		if(asked.Find(O.key))
 			if(world.time < asked[O.key] + askDelay)

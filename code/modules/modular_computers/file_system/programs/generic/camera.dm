@@ -7,6 +7,7 @@
 		return
 
 	switch(network)
+		/*
 		if(NETWORK_ENGINEERING, NETWORK_ALARM_ATMOS, NETWORK_ALARM_CAMERA, NETWORK_ALARM_FIRE, NETWORK_ALARM_POWER)
 			return access_engine
 		if(NETWORK_CRESCENT, NETWORK_ERT)
@@ -17,10 +18,11 @@
 			return access_mailsorting // Cargo office - all cargo staff should have access here.
 		if(NETWORK_RESEARCH)
 			return access_research
+		*/
 		if(NETWORK_THUNDER)
 			return 0
-
-	return access_security // Default for all other networks
+	return 0
+	//return access_security // Default for all other networks
 
 /datum/computer_file/program/camera_monitor
 	filename = "cammon"

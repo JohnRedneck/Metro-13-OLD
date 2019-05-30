@@ -2,7 +2,7 @@
 	var/id = ""
 	var/desc = ""
 	var/region = ACCESS_REGION_NONE
-	var/access_type = ACCESS_TYPE_STATION
+	var/access_type = ACCESS_TYPE_NONE
 
 /datum/access/dd_SortValue()
 	return "[access_type][desc]"

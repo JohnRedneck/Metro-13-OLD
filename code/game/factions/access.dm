@@ -102,13 +102,14 @@
 	if(!priv_D6_access)
 		priv_D6_access = get_access_ids(ACCESS_TYPE_D6)
 
-	return priv_vault_access.Copy()
+	//return priv_vault_access.Copy()
 
 /var/list/priv_region_access
 /proc/get_region_accesses(var/code)
+	/*
 	if(code == ACCESS_REGION_ALL)
 		return get_all_station_access()
-
+	*/
 	if(!priv_region_access)
 		priv_region_access = list()
 		for(var/datum/access/A in get_all_access_datums())
@@ -123,9 +124,10 @@
 	switch(code)
 		if(ACCESS_REGION_ALL)
 			return "All"
+		/*
 		if(ACCESS_REGION_VAULT) //Just a throw in for D6 or something like that
 			return "D6"
-
+		*/
 /proc/get_access_desc(id)
 	var/list/AS = priv_all_access_datums_id || get_all_access_datums_by_id()
 	var/datum/access/A = AS["[id]"]

@@ -53,8 +53,6 @@
 			return global.SSculture;
 		if("SSevac")
 			return global.SSevac;
-		if("SSroles")
-			return global.SSroles;
 		if("SSfastprocess")
 			return global.SSfastprocess;
 		if("SSfluids")
@@ -95,6 +93,8 @@
 			return global.SSprocessing;
 		if("SSradiation")
 			return global.SSradiation;
+		if("SSroles")
+			return global.SSroles;
 		if("SSshuttle")
 			return global.SSshuttle;
 		if("SSstatistics")
@@ -429,10 +429,10 @@
 			return global.invalid_zone;
 		if("jobMax")
 			return global.jobMax;
-		if("jobban_keylist")
-			return global.jobban_keylist;
-		if("jobban_runonce")
-			return global.jobban_runonce;
+		if("roleban_keylist")
+			return global.roleban_keylist;
+		if("roleban_runonce")
+			return global.roleban_runonce;
 		if("join_motd")
 			return global.join_motd;
 		if("landmarks_list")
@@ -816,8 +816,6 @@
 			global.SSculture=newval;
 		if("SSevac")
 			global.SSevac=newval;
-		if("SSroles")
-			global.SSroles=newval;
 		if("SSfastprocess")
 			global.SSfastprocess=newval;
 		if("SSfluids")
@@ -858,6 +856,8 @@
 			global.SSprocessing=newval;
 		if("SSradiation")
 			global.SSradiation=newval;
+		if("SSroles")
+			global.SSroles=newval;
 		if("SSshuttle")
 			global.SSshuttle=newval;
 		if("SSstatistics")
@@ -1192,10 +1192,10 @@
 			global.invalid_zone=newval;
 		if("jobMax")
 			global.jobMax=newval;
-		if("jobban_keylist")
-			global.jobban_keylist=newval;
-		if("jobban_runonce")
-			global.jobban_runonce=newval;
+		if("roleban_keylist")
+			global.roleban_keylist=newval;
+		if("roleban_runonce")
+			global.roleban_runonce=newval;
 		if("join_motd")
 			global.join_motd=newval;
 		if("landmarks_list")
@@ -1552,7 +1552,6 @@
 	"SScircuit_components",
 	"SSculture",
 	"SSevac",
-	"SSroles",
 	"SSfastprocess",
 	"SSfluids",
 	"SSgarbage",
@@ -1573,6 +1572,7 @@
 	"SSplants",
 	"SSprocessing",
 	"SSradiation",
+	"SSroles",
 	"SSshuttle",
 	"SSstatistics",
 	"SSsun",
@@ -1740,8 +1740,8 @@
 	"intercom_range_display_status",
 	"invalid_zone",
 	"jobMax",
-	"jobban_keylist",
-	"jobban_runonce",
+	"roleban_keylist",
+	"roleban_runonce",
 	"join_motd",
 	"landmarks_list",
 	"language_keys",

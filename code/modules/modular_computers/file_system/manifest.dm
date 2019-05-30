@@ -1,6 +1,6 @@
 // Generates a simple HTML crew manifest for use in various places
 /proc/html_crew_manifest(var/monochrome, var/OOC)
-	var/list/role_data = list(
+	var/list/faction_data = list(
 		list("names" = list(), "header" = "Red Line Members", "flag" = REDLINE),
 		list("names" = list(), "header" = "VDNKh Members", "flag" = VDNK),
 		list("names" = list(), "header" = "Fourth Reich Members", "flag" = REICH),
@@ -24,7 +24,7 @@
 	// sort mobs
 	for(var/datum/computer_file/report/crew_record/CR in GLOB.all_crew_records)
 		var/name = CR.get_formal_name()
-		var/rank = CR.get_job()
+		var/rank = CR.get_role()
 		mil_ranks[name] = ""
 
 		if(GLOB.using_map.flags & MAP_HAS_RANK)
@@ -45,22 +45,22 @@
 		else
 			isactive[name] = CR.get_status()
 
-		var/datum/job/job = SSroles.get_by_title(rank)
+		var/datum/role/role = SSroles.get_by_title(rank)
 		var/found_place = 0
-		if(job)
-			for(var/list/department in dept_data)
-				var/list/names = department["names"]
-				if(job.department_flag & department["flag"])
+		if(role)
+			for(var/list/faction in faction_data)
+				var/list/names = faction["names"]
+				if(role.faction_flag & faction["flag"])
 					names[name] = rank
 					found_place = 1
 		/*
 		if(!found_place)
 			misc[name] = rank
 		*/
-	for(var/list/department in dept_data)
-		var/list/names = department["names"]
+	for(var/list/faction in faction_data)
+		var/list/names = faction["names"]
 		if(names.len > 0)
-			dat += "<tr><th colspan=3>[department["header"]]</th></tr>"
+			dat += "<tr><th colspan=3>[faction["header"]]</th></tr>"
 			for(var/name in names)
 				dat += "<tr class='candystripe'><td>[mil_ranks[name]][name]</td><td>[names[name]]</td><td>[isactive[name]]</td></tr>"
 
@@ -71,10 +71,10 @@
 
 /proc/filtered_nano_crew_manifest(var/list/filter, var/blacklist = FALSE)
 	var/list/filtered_entries = list()
-	for(var/datum/computer_file/report/crew_record/CR in department_crew_manifest(filter, blacklist))
+	for(var/datum/computer_file/report/crew_record/CR in faction_crew_manifest(filter, blacklist))
 		filtered_entries.Add(list(list(
 			"name" = CR.get_name(),
-			"rank" = CR.get_job(),
+			"rank" = CR.get_role(),
 			"status" = CR.get_status(),
 			"branch" = CR.get_branch(),
 			"milrank" = CR.get_rank()

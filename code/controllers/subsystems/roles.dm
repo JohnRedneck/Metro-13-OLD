@@ -1,8 +1,22 @@
-var/const/LEAD               =(1<<0)
-var/const/MIL              =(1<<1)
+var/const/LEAD              =(1<<0)
+var/const/MIL               =(1<<1)
 var/const/CIV               =(1<<2)
 var/const/VAG               =(1<<3)
-SUBSYSTEM_DEF(factions)
+var/const/REDLINE           =(1<<4)
+var/const/VDNK              =(1<<5)
+var/const/REICH             =(1<<6)
+var/const/NEUTRAL           =(1<<7)
+
+var/list/archetype_role_datums =    list()
+var/list/role_lists_by_map_name =   list()
+var/list/titles_to_datums =         list()
+var/list/types_to_datums =          list()
+var/list/primary_role_datums =      list()
+var/list/unassigned_roundstart =    list()
+var/list/positions_by_role =        list()
+var/list/role_icons =               list()
+
+SUBSYSTEM_DEF(roles)
 	name = "Factions and Roles"
 	init_order = SS_INIT_ROLES
 	flags = SS_NO_FIRE
@@ -21,14 +35,14 @@ SUBSYSTEM_DEF(factions)
 
 	// Create main map roles.
 	primary_role_datums.Cut()
-	//If a role is present we'll add the faction it belongs to to the list of 
+	//If a role is present we'll add the faction it belongs to to the list of
 	for(var/roletype in (list(/datum/faction/neutral/vagrant) | GLOB.using_map.allowed_roles))
 		var/datum/role/role = get_by_path(roletype)
 		if(!role)
 			role = new roletype
 		primary_role_datums += role
-	// Create abstract submap archetype jobs for use in prefs, etc.
-	archetype_roles_datums.Cut()
+	// Create abstract submap archetype roles for use in prefs, etc.
+	archetype_role_datums.Cut()
 	for(var/atype in SSmapping.submap_archetypes)
 		var/decl/submap_archetype/arch = SSmapping.submap_archetypes[atype]
 		for(var/roletype in arch.crew_roles)
@@ -41,7 +55,7 @@ SUBSYSTEM_DEF(factions)
 			if(role)
 				archetype_role_datums |= role
 
-	// Load job configuration (is this even used anymore?)
+	// Load role configuration (is this even used anymore?)
 	if(role_config_file && config.load_roles_from_txt)
 		var/list/roleEntries = file2list(role_config_file)
 		for(var/role in roleEntries)
@@ -68,7 +82,7 @@ SUBSYSTEM_DEF(factions)
 		log_error("<span class='warning'>Error setting up role skill requirements, no skill datums found!</span>")
 
 	// Update title and path tracking, submap list, etc.
-	// Populate/set up map job lists.
+	// Populate/set up map role lists.
 	role_lists_by_map_name = list("[GLOB.using_map.full_name]" = list("roles" = primary_role_datums, "default_to_hidden" = FALSE))
 
 	for(var/atype in SSmapping.submap_archetypes)
@@ -79,14 +93,14 @@ SUBSYSTEM_DEF(factions)
 			if(role)
 				LAZYADD(submap_role_datums, role)
 		if(LAZYLEN(submap_role_datums))
-			role_lists_by_map_name[arch.descriptor] = list("roles" = submap_roles_datums, "default_to_hidden" = TRUE)
+			role_lists_by_map_name[arch.descriptor] = list("roles" = submap_role_datums, "default_to_hidden" = TRUE)
 
 	// Update global map blacklists and whitelists.
 	for(var/mappath in GLOB.all_maps)
 		var/datum/map/M = GLOB.all_maps[mappath]
 		M.setup_role_lists()
 
-	// Update valid job titles.
+	// Update valid role titles.
 	titles_to_datums = list()
 	types_to_datums = list()
 	positions_by_role = list()
@@ -96,9 +110,9 @@ SUBSYSTEM_DEF(factions)
 			types_to_datums[role.type] = role
 
 			titles_to_datums[role.title] = role
-			/*
+			/* //This likely will not have as much of a purpose due to the lack of ID cards - Bennett
 			for(var/alt_title in role.alt_titles)
-				titles_to_datums[alt_title] = job
+				titles_to_datums[alt_title] = role
 			*/
 			if(role.role_flag)
 				for (var/I in 1 to GLOB.bitflags.len)
@@ -108,11 +122,9 @@ SUBSYSTEM_DEF(factions)
 	. = ..()
 
 /datum/controller/subsystem/roles/proc/guest_rolebans(var/role)
-	/*
-	for(var/dept in list(COM, MSC, SEC))
-		if(job in titles_by_role(dept))
+	for(var/role_type in list(LEAD))
+		if(role in titles_by_role(role_type))
 			return TRUE
-	*/
 	return FALSE
 
 /datum/controller/subsystem/roles/proc/reset_occupations()
@@ -179,7 +191,7 @@ SUBSYSTEM_DEF(factions)
 	return TRUE
 
 
-/datum/controller/subsystem/roles/proc/assign_role(var/mob/new_player/player, var/rank, var/latejoin = 0)
+/datum/controller/subsystem/roles/proc/assign_rank(var/mob/new_player/player, var/rank, var/latejoin = 0)
 	if(player && player.mind && rank)
 		var/datum/role/role = get_by_title(rank)
 		if(!role)
@@ -209,7 +221,7 @@ SUBSYSTEM_DEF(factions)
 /datum/controller/subsystem/roles/proc/find_occupation_candidates(datum/role/role, level, flag)
 	var/list/candidates = list()
 	for(var/mob/new_player/player in unassigned_roundstart)
-		if(roleban_isbanned(player, job.title))
+		if(roleban_isbanned(player, role.title))
 			continue
 		//Add factionban check when that function is implemented
 		if(!role.player_old_enough(player.client))
@@ -222,17 +234,12 @@ SUBSYSTEM_DEF(factions)
 			candidates += player
 	return candidates
 
-/datum/controller/subsystem/role/proc/give_random_role(var/mob/new_player/player)
+/datum/controller/subsystem/roles/proc/give_random_role(var/mob/new_player/player)
 	for(var/datum/role/role in shuffle(primary_role_datums))
 		if(!role)
 			continue
 		if(role.minimum_character_age && (player.client.prefs.age < role.minimum_character_age))
 			continue
-		/*
-		if(istype(role, get_by_title(GLOB.using_map.default_vagrant_title))) // We don't want to give him assistant, that's boring!
-			continue
-		//Vagrants will hopefully be much more fun than assistants - Bennett
-		*/
 		if(role.is_restricted(player.client.prefs))
 			continue
 		if(role.title in titles_by_role(LEAD)) //If you want a command position, select it!
@@ -243,14 +250,14 @@ SUBSYSTEM_DEF(factions)
 		if(!role.player_old_enough(player.client))
 			continue
 		if((role.current_positions < role.spawn_positions) || role.spawn_positions == -1)
-			assign_role(player, role.title)
+			assign_rank(player, role.title)
 			unassigned_roundstart -= player
 			break
 
 ///This proc is called before the level loop of divide_occupations() and will try to select a head, ignoring ALL non-head preferences for every level until it locates a head or runs out of levels to check
 /datum/controller/subsystem/roles/proc/fill_leader_position()
 	for(var/level = 1 to 3)
-		for(var/leader_role in titles_by_department(LEAD))
+		for(var/leader_role in titles_by_role(LEAD))
 			var/datum/role/role = get_by_title(leader_role)
 			if(!role)	continue
 			var/list/candidates = find_occupation_candidates(role, level)
@@ -278,64 +285,57 @@ SUBSYSTEM_DEF(factions)
 						// If there's ABSOLUTELY NOBODY ELSE
 						if(candidates.len == 1) weightedCandidates[V] = 1
 			var/mob/new_player/candidate = pickweight(weightedCandidates)
-			if(assign_role(candidate, command_position))
+			if(assign_rank(candidate, leader_role))
 				return 1
 	return 0
 
-///This proc is called at the start of the level loop of divide_occupations() and will cause head jobs to be checked before any other jobs of the same level
+///This proc is called at the start of the level loop of divide_occupations() and will cause head roles to be checked before any other roles of the same level
 /datum/controller/subsystem/roles/proc/CheckLeaderPositions(var/level)
-	for(var/leader_role in titles_by_department(LEAD))
+	for(var/leader_role in titles_by_role(LEAD))
 		var/datum/role/role = get_by_title(leader_role)
 		if(!role)	continue
 		var/list/candidates = find_occupation_candidates(role, level)
 		if(!candidates.len)	continue
 		var/mob/new_player/candidate = pick(candidates)
-		assign_role(candidate, leader_role)
+		assign_rank(candidate, leader_role)
 
 /** Proc divide_occupations
  *  fills var "assigned_role" for all ready players.
  *  This proc must not have any side effect besides of modifying "assigned_role".
  **/
 /datum/controller/subsystem/roles/proc/divide_occupations(datum/game_mode/mode)
-	/*
-	if(GLOB.triai)
-		for(var/datum/job/A in primary_role	_datums)
-			if(A.title == "AI")
-				A.spawn_positions = 3
-				break
-	*/
 	//Get the players who are ready
 	for(var/mob/new_player/player in GLOB.player_list)
 		if(player.ready && player.mind && !player.mind.assigned_role)
 			unassigned_roundstart += player
 	if(unassigned_roundstart.len == 0)	return 0
-	//Shuffle players and jobs
+	//Shuffle players and roles
 	unassigned_roundstart = shuffle(unassigned_roundstart)
 	//People who wants to be assistants, sure, go on.
 	var/datum/faction/neutral/vagrant = new DEFAULT_ROLE_TYPE ()
 	var/list/vagrant_candidates = find_occupation_candidates(vagrant, 3)
 	for(var/mob/new_player/player in vagrant_candidates)
-		assign_role(player, GLOB.using_map.default_vagrant_title)
+		assign_rank(player, GLOB.using_map.default_vagrant_title)
 		vagrant_candidates -= player
 
 	//Select one leader
 	fill_leader_position()
 
-	//Other jobs are now checked
-	// New job giving system by Donkie
+	//Other roles are now checked
+	// New role giving system by Donkie
 	// This will cause lots of more loops, but since it's only done once it shouldn't really matter much at all.
-	// Hopefully this will add more randomness and fairness to job giving.
+	// Hopefully this will add more randomness and fairness to role giving.
 
 	// Loop through all levels from high to low
 	var/list/shuffledoccupations = shuffle(primary_role_datums)
 	for(var/level = 1 to 3)
-		//Check the head jobs first each level
+		//Check the head roles first each level
 		CheckLeaderPositions(level)
 
 		// Loop through all unassigned players
 		var/list/deferred_roles = list()
 		for(var/mob/new_player/player in unassigned_roundstart)
-			// Loop through all jobs
+			// Loop through all roles
 			for(var/datum/role/role in shuffledoccupations) // SHUFFLE ME BABY
 				if(role && !mode.disabled_roles.Find(role.title) )
 					if(role.defer_roundstart_spawn)
@@ -352,7 +352,7 @@ SUBSYSTEM_DEF(factions)
 						break
 			deferred_roles.Cut()
 
-	// Hand out random jobs to the people who didn't get any in the last check
+	// Hand out random roles to the people who didn't get any in the last check
 	// Also makes sure that they got their preference correct
 	for(var/mob/new_player/player in unassigned_roundstart)
 		if(player.client.prefs.alternate_option == GET_RANDOM_ROLE)
@@ -364,7 +364,7 @@ SUBSYSTEM_DEF(factions)
 			if((GLOB.using_map.flags & MAP_HAS_BRANCH) && player.client.prefs.branches[initial(vag.title)])
 				var/datum/mil_branch/branch = mil_branches.get_branch(player.client.prefs.branches[initial(vag.title)])
 				vag = branch.vagrant_role
-			assign_role(player, initial(vag.title))
+			assign_rank(player, initial(vag.title))
 	//For ones returning to lobby
 	for(var/mob/new_player/player in unassigned_roundstart)
 		if(player.client.prefs.alternate_option == RETURN_TO_LOBBY)
@@ -378,7 +378,7 @@ SUBSYSTEM_DEF(factions)
 	 role.player_old_enough(player.client) && \
 	 player.client.prefs.CorrectLevel(role, level) && \
 	 role.is_position_available())
-		assign_role(player, role.title)
+		assign_rank(player, role.title)
 		return TRUE
 	return FALSE
 
@@ -387,7 +387,7 @@ SUBSYSTEM_DEF(factions)
 	if(!H || !H.client)
 		return
 
-	// Equip custom gear loadout, replacing any job items
+	// Equip custom gear loadout, replacing any role items
 	var/list/spawn_in_storage = list()
 	var/list/loadout_taken_slots = list()
 	//Need to add a check here and corresponding code in loadout.dm to restrict loadout items based on faction.
@@ -453,25 +453,11 @@ SUBSYSTEM_DEF(factions)
 			if(GLOB.using_map.flags & MAP_HAS_RANK)
 				H.char_rank = mil_branches.get_rank(H.client.prefs.branches[rank], H.client.prefs.ranks[rank])
 
-		// Transfers the skill settings for the job to the mob
+		// Transfers the skill settings for the role to the mob
 		H.skillset.obtain_from_client(role, H.client)
 
-		//Equip job items.
+		//Equip role items.
 		role.setup_account(H)
-
-		// EMAIL GENERATION
-		/*
-		if(rank != "Robot" && rank != "AI")		//These guys get their emails later.
-			var/domain
-			if(H.char_branch)
-				if(H.char_branch.email_domain)
-					domain = H.char_branch.email_domain
-			else
-				domain = "freemail.net"
-			if(domain)
-				ntnet_global.create_email(H, H.real_name, domain)
-		*/
-		// END EMAIL GENERATION
 
 		role.equip(H, H.mind ? H.mind.role_alt_title : "", H.char_branch, H.char_rank)
 		role.apply_fingerprints(H)
@@ -498,9 +484,9 @@ SUBSYSTEM_DEF(factions)
 
 	// If they're head, give them the account info for their department
 	/*
-	if(H.mind && job.head_position)
+	if(H.mind && role.head_position)
 		var/remembered_info = ""
-		//var/datum/money_account/department_account = department_accounts[job.department]
+		//var/datum/money_account/department_account = department_accounts[role.department]
 
 		if(department_account)
 			remembered_info += "<b>Your department's account number is:</b> #[department_account.account_number]<br>"
@@ -516,9 +502,9 @@ SUBSYSTEM_DEF(factions)
 		alt_title = H.mind.role_alt_title
 		/*
 		switch(rank)
-			
+
 			if("Robot")
-				return H.Robotize(SSrobots.get_mob_type_by_title(alt_title ? alt_title : job.title))
+				return H.Robotize(SSrobots.get_mob_type_by_title(alt_title ? alt_title : role.title))
 			if("AI")
 				return H
 			if("Captain")
@@ -555,8 +541,8 @@ SUBSYSTEM_DEF(factions)
 		to_chat(H, "<b>You are playing a role that is important for Game Progression. If you have to disconnect, please notify the admins via adminhelp.</b>")
 
 	//Might remove the lower block when we get to trait changes, \
-	//as giving everyone with a visual impairment glasses that correct it at roundstart perfectly might make the trait meaningless - Bennett
-	
+	//as giving everyone with a visual impairment glasses that correct it at roundstart perfectly might make the trait less meaningfull - Bennett
+
 	//Gives glasses to the vision impaired
 	if(H.disabilities & NEARSIGHTED)
 		var/equipped = H.equip_to_slot_or_del(new /obj/item/clothing/glasses/regular(H), slot_glasses)

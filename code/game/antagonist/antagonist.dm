@@ -1,9 +1,9 @@
 /datum/antagonist
 
 	// Text shown when becoming this antagonist.
-	var/list/restricted_jobs = 		list()   // Jobs that cannot be this antagonist at roundstart (depending on config)
-	var/list/protected_jobs = 		list()   // As above.
-	var/list/blacklisted_jobs =		list(/datum/job/submap)   // Jobs that can NEVER be this antagonist
+	var/list/restricted_roles = 		list()   // Jobs that cannot be this antagonist at roundstart (depending on config)
+	var/list/protected_roles = 		list()   // As above.
+	var/list/blacklisted_roles =		list(/datum/role/submap)   // Jobs that can NEVER be this antagonist
 
 	// Strings.
 	var/welcome_text = "Cry havoc and let slip the dogs of war!"
@@ -92,7 +92,7 @@
 	if(!role_text_plural)
 		role_text_plural = role_text
 	if(config.protect_roles_from_antagonist)
-		restricted_jobs |= protected_jobs
+		restricted_roles |= protected_roles
 	if(antaghud_indicator)
 		if(!GLOB.hud_icon_reference)
 			GLOB.hud_icon_reference = list()
@@ -107,7 +107,7 @@
 	candidates = list() // Clear.
 
 	// Prune restricted status. Broke it up for readability.
-	// Note that this is done before jobs are handed out.
+	// Note that this is done before roles are handed out.
 	for(var/datum/mind/player in mode.get_players_for_role(id))
 		if(ghosts_only && !(isghostmind(player) || isnewplayer(player.current)))
 			log_debug("[key_name(player)] is not eligible to become a [role_text]: Only ghosts may join as this role!")
@@ -182,9 +182,9 @@
 
 //Selects players that will be spawned in the antagonist role from the potential candidates
 //Selected players are added to the pending_antagonists lists.
-//Attempting to spawn an antag role with ANTAG_OVERRIDE_JOB should be done before jobs are assigned,
-//so that they do not occupy regular job slots. All other antag roles should be spawned after jobs are
-//assigned, so that job restrictions can be respected.
+//Attempting to spawn an antag role with ANTAG_OVERRIDE_JOB should be done before roles are assigned,
+//so that they do not occupy regular role slots. All other antag roles should be spawned after roles are
+//assigned, so that role restrictions can be respected.
 /datum/antagonist/proc/attempt_spawn(var/spawn_target = null)
 	if(spawn_target == null)
 		spawn_target = initial_spawn_target
@@ -219,7 +219,7 @@
 	pending_antagonists |= player
 	log_debug("[player.key] has been selected for [role_text] by lottery.")
 
-	//Ensure that antags with ANTAG_OVERRIDE_JOB do not occupy job slots.
+	//Ensure that antags with ANTAG_OVERRIDE_JOB do not occupy role slots.
 	if(flags & ANTAG_OVERRIDE_JOB)
 		player.assigned_role = role_text
 		player.role_alt_title = null
@@ -250,8 +250,8 @@
 /datum/antagonist/proc/reset_antag_selection()
 	for(var/datum/mind/player in pending_antagonists)
 		if(flags & ANTAG_OVERRIDE_JOB)
-			player.assigned_job = null
 			player.assigned_role = null
+			player.assigned_rank = null
 		player.special_role = null
 	pending_antagonists.Cut()
 	candidates.Cut()
