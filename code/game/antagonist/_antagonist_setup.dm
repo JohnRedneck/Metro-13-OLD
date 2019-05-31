@@ -53,7 +53,7 @@
 	var/list/all_antag_types = GLOB.all_antag_types_
 	for(var/antag_type in all_antag_types)
 		var/datum/antagonist/antag = all_antag_types[antag_type]
-		if(only_offstation_roles && !(antag.flags & ANTAG_OVERRIDE_JOB))
+		if(only_offstation_roles && !(antag.flags & ANTAG_OVERRIDE_ROLE))
 			continue
 		if(player in antag.current_antagonists)
 			return antag

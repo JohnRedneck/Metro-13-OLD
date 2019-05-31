@@ -14,22 +14,22 @@ GLOBAL_LIST_INIT(crashed_pod_areas, new)
 
 /decl/submap_archetype/crashed_pod
 	descriptor = "crashed survival pod"
-	crew_jobs = list(/datum/job/submap/pod)
+	crew_roles = list(/datum/role/submap/pod)
 
 /datum/submap/crashed_pod/sync_cell(var/obj/effect/overmap/cell)
 	cell.has_distress_beacon = name
 
-/datum/job/submap/pod
+/datum/role/submap/pod
 	title = "Stranded Survivor"
 	info = "Your ship has been destroyed by a terrible disaster."
-	outfit_type = /decl/hierarchy/outfit/job/survivor
+	outfit_type = /decl/hierarchy/outfit/role/survivor
 
-/decl/hierarchy/outfit/job/survivor
-	name = OUTFIT_JOB_NAME("Survivor")
+/decl/hierarchy/outfit/role/survivor
+	name = OUTFIT_ROLE_NAME("Survivor")
 	id_type = null
 	pda_type = null
 
-/datum/job/submap/pod/New(var/datum/submap/_owner, var/abstract_job = FALSE)
+/datum/role/submap/pod/New(var/datum/submap/_owner, var/abstract_role = FALSE)
 	..()
 	if(_owner) // Might be called from admin tools, etc
 		info = "Your ship, the [_owner.name], has been destroyed by a terrible disaster, \

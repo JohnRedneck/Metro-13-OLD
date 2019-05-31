@@ -253,19 +253,19 @@
 		V.RunOver(src)
 
 // Get rank from ID, ID inside PDA, PDA, ID in wallet, etc.
-/mob/living/carbon/human/proc/get_authentification_rank(var/if_no_id = "No id", var/if_no_job = "No job")
+/mob/living/carbon/human/proc/get_authentification_rank(var/if_no_id = "No id", var/if_no_role = "No role")
 	var/obj/item/weapon/card/id/id = GetIdCard()
 	if(istype(id))
-		return id.rank ? id.rank : if_no_job
+		return id.rank ? id.rank : if_no_role
 	else
 		return if_no_id
 
 //gets assignment from ID or ID inside PDA or PDA itself
 //Useful when player do something with computers
-/mob/living/carbon/human/proc/get_assignment(var/if_no_id = "No id", var/if_no_job = "No job")
+/mob/living/carbon/human/proc/get_assignment(var/if_no_id = "No id", var/if_no_role = "No role")
 	var/obj/item/weapon/card/id/id = GetIdCard()
 	if(istype(id))
-		return id.assignment ? id.assignment : if_no_job
+		return id.assignment ? id.assignment : if_no_role
 	else
 		return if_no_id
 
@@ -1103,8 +1103,6 @@
 	full_prosthetic = null
 
 	var/update_lang
-	update_lang = TRUE //Remove this after the following block gets uncommented
-	/* //Commented out because a culture rework should be done - Bennett
 	for(var/token in ALL_CULTURAL_TAGS)
 		if(species.force_cultural_info && species.force_cultural_info[token])
 			update_lang = TRUE
@@ -1112,7 +1110,6 @@
 		else if(!cultural_info[token] || !(cultural_info[token] in species.available_cultural_info[token]))
 			update_lang = TRUE
 			set_cultural_value(token, species.default_cultural_info[token], defer_language_update = TRUE)
-	*/
 	if(update_lang)
 		languages.Cut()
 		default_language = null
@@ -1652,7 +1649,7 @@
 /mob/living/carbon/human/water_act(var/depth)
 	species.water_act(src, depth)
 	..(depth)
-/*
+
 /mob/living/carbon/human/proc/set_cultural_value(var/token, var/decl/cultural_info/_culture, var/defer_language_update)
 	if(!istype(_culture))
 		_culture = SSculture.get_culture(_culture)
@@ -1663,7 +1660,7 @@
 
 /mob/living/carbon/human/proc/get_cultural_value(var/token)
 	return cultural_info[token]
-*/
+
 /mob/living/carbon/human/needs_wheelchair()
 	var/stance_damage = 0
 	for(var/limb_tag in list(BP_L_LEG, BP_R_LEG, BP_L_FOOT, BP_R_FOOT))

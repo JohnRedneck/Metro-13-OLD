@@ -147,7 +147,7 @@
 	var/changed_voice
 	/*
 	if(istype(src, /mob/living/silicon/ai) && !hard_to_hear)
-		var/jobname // the mob's "job"
+		var/rolename // the mob's "role"
 		var/mob/living/carbon/human/impersonating //The crew member being impersonated, if any.
 
 		if (ishuman(speaker))
@@ -169,30 +169,30 @@
 				// as this would allow the AI to track I and realize the mismatch.
 				if(I && !(I.name != speaker_name && I.wear_id && istype(I.wear_id,/obj/item/weapon/card/id/syndicate)))
 					impersonating = I
-					jobname = impersonating.get_assignment()
+					rolename = impersonating.get_assignment()
 				else
-					jobname = "Unknown"
+					rolename = "Unknown"
 			else
-				jobname = H.get_assignment()
+				rolename = H.get_assignment()
 
 		else if (iscarbon(speaker)) // Nonhuman carbon mob
-			jobname = "No id"
+			rolename = "No id"
 		else if (isAI(speaker))
-			jobname = "AI"
+			rolename = "AI"
 		else if (isrobot(speaker))
-			jobname = "Robot"
+			rolename = "Robot"
 		else if (istype(speaker, /mob/living/silicon/pai))
-			jobname = "Personal AI"
+			rolename = "Personal AI"
 		else
-			jobname = "Unknown"
+			rolename = "Unknown"
 
 		if(changed_voice)
 			if(impersonating)
-				track = "<a href='byond://?src=\ref[src];trackname=[html_encode(speaker_name)];track=\ref[impersonating]'>[speaker_name] ([jobname])</a>"
+				track = "<a href='byond://?src=\ref[src];trackname=[html_encode(speaker_name)];track=\ref[impersonating]'>[speaker_name] ([rolename])</a>"
 			else
-				track = "[speaker_name] ([jobname])"
+				track = "[speaker_name] ([rolename])"
 		else
-			track = "<a href='byond://?src=\ref[src];trackname=[html_encode(speaker_name)];track=\ref[speaker]'>[speaker_name] ([jobname])</a>"
+			track = "<a href='byond://?src=\ref[src];trackname=[html_encode(speaker_name)];track=\ref[speaker]'>[speaker_name] ([rolename])</a>"
 	*/
 	if(isghost(src))
 		if(speaker_name != speaker.real_name && !isAI(speaker)) //Announce computer and various stuff that broadcasts doesn't use it's real name but AI's can't pretend to be other mobs.

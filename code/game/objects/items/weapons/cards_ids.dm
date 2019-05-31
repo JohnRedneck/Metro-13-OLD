@@ -150,11 +150,11 @@ var/const/NO_EMAG_ACT = -50
 	var/icon/side
 
 	//alt titles are handled a bit weirdly in order to unobtrusively integrate into existing ID system
-	var/assignment = null	//can be alt title or the actual job
-	var/rank = null			//actual job
+	var/assignment = null	//can be alt title or the actual role
+	var/rank = null			//actual role
 	var/dorm = 0			// determines if this ID has claimed a dorm already
 
-	var/job_access_type     // Job type to acquire access rights from, if any
+	var/role_access_type     // Job type to acquire access rights from, if any
 
 	var/datum/mil_branch/military_branch = null //Vars for tracking branches and ranks on multi-crewtype maps
 	var/datum/mil_rank/military_rank = null
@@ -167,8 +167,8 @@ var/const/NO_EMAG_ACT = -50
 
 /obj/item/weapon/card/id/Initialize()
 	.=..()
-	if(job_access_type)
-		var/datum/role/R= SSroles.get_by_path(job_access_type)
+	if(role_access_type)
+		var/datum/role/R= SSroles.get_by_path(role_access_type)
 		if(j)
 			rank = j.title
 			assignment = rank
@@ -312,12 +312,12 @@ var/const/NO_EMAG_ACT = -50
 	name = "identification card"
 	desc = "A silver card which shows honour and dedication."
 	item_state = "silver_id"
-	job_access_type = /datum/job/hop
+	role_access_type = /datum/role/hop
 
 /obj/item/weapon/card/id/gold
 	name = "identification card"
 	desc = "A golden card which shows power and might."
-	job_access_type = /datum/job/captain
+	role_access_type = /datum/role/captain
 	color = "#d4c780"
 	extra_details = list("goldstripe")
 
@@ -427,118 +427,118 @@ var/const/NO_EMAG_ACT = -50
 /obj/item/weapon/card/id/medical
 	name = "identification card"
 	desc = "A card issued to medical staff."
-	job_access_type = /datum/job/doctor
+	role_access_type = /datum/role/doctor
 	detail_color = COLOR_PALE_BLUE_GRAY
 
 /obj/item/weapon/card/id/medical/chemist
-	job_access_type = /datum/job/chemist
+	role_access_type = /datum/role/chemist
 
 /obj/item/weapon/card/id/medical/geneticist
-	job_access_type = /datum/job/geneticist
+	role_access_type = /datum/role/geneticist
 
 /obj/item/weapon/card/id/medical/psychiatrist
-	job_access_type = /datum/job/psychiatrist
+	role_access_type = /datum/role/psychiatrist
 
 /obj/item/weapon/card/id/medical/paramedic
-	job_access_type = /datum/job/Paramedic
+	role_access_type = /datum/role/Paramedic
 
 /obj/item/weapon/card/id/medical/head
 	name = "identification card"
 	desc = "A card which represents care and compassion."
-	job_access_type = /datum/job/cmo
+	role_access_type = /datum/role/cmo
 	extra_details = list("goldstripe")
 
 /obj/item/weapon/card/id/security
 	name = "identification card"
 	desc = "A card issued to security staff."
-	job_access_type = /datum/job/officer
+	role_access_type = /datum/role/officer
 	color = COLOR_OFF_WHITE
 	detail_color = COLOR_MAROON
 
 /obj/item/weapon/card/id/security/warden
-	job_access_type = /datum/job/warden
+	role_access_type = /datum/role/warden
 
 /obj/item/weapon/card/id/security/detective
-	job_access_type = /datum/job/detective
+	role_access_type = /datum/role/detective
 
 /obj/item/weapon/card/id/security/head
 	name = "identification card"
 	desc = "A card which represents honor and protection."
-	job_access_type = /datum/job/hos
+	role_access_type = /datum/role/hos
 	extra_details = list("goldstripe")
 
 /obj/item/weapon/card/id/engineering
 	name = "identification card"
 	desc = "A card issued to engineering staff."
-	job_access_type = /datum/job/engineer
+	role_access_type = /datum/role/engineer
 	detail_color = COLOR_SUN
 
 /obj/item/weapon/card/id/engineering/head
 	name = "identification card"
 	desc = "A card which represents creativity and ingenuity."
-	job_access_type = /datum/job/chief_engineer
+	role_access_type = /datum/role/chief_engineer
 	extra_details = list("goldstripe")
 
 /obj/item/weapon/card/id/science
 	name = "identification card"
 	desc = "A card issued to science staff."
-	job_access_type = /datum/job/scientist
+	role_access_type = /datum/role/scientist
 	detail_color = COLOR_PALE_PURPLE_GRAY
 
 /obj/item/weapon/card/id/science/xenobiologist
-	job_access_type = /datum/job/xenobiologist
+	role_access_type = /datum/role/xenobiologist
 
 /obj/item/weapon/card/id/science/roboticist
-	job_access_type = /datum/job/roboticist
+	role_access_type = /datum/role/roboticist
 
 /obj/item/weapon/card/id/science/head
 	name = "identification card"
 	desc = "A card which represents knowledge and reasoning."
-	job_access_type = /datum/job/rd
+	role_access_type = /datum/role/rd
 	extra_details = list("goldstripe")
 
 /obj/item/weapon/card/id/cargo
 	name = "identification card"
 	desc = "A card issued to cargo staff."
-	job_access_type = /datum/job/cargo_tech
+	role_access_type = /datum/role/cargo_tech
 	detail_color = COLOR_BROWN
 
 /obj/item/weapon/card/id/cargo/mining
-	job_access_type = /datum/job/mining
+	role_access_type = /datum/role/mining
 
 /obj/item/weapon/card/id/cargo/head
 	name = "identification card"
 	desc = "A card which represents service and planning."
-	job_access_type = /datum/job/qm
+	role_access_type = /datum/role/qm
 	extra_details = list("goldstripe")
 
 /obj/item/weapon/card/id/civilian
 	name = "identification card"
 	desc = "A card issued to civilian staff."
-	job_access_type = /datum/job/assistant
+	role_access_type = /datum/role/assistant
 	detail_color = COLOR_CIVIE_GREEN
 
 /obj/item/weapon/card/id/civilian/bartender
-	job_access_type = /datum/job/bartender
+	role_access_type = /datum/role/bartender
 
 /obj/item/weapon/card/id/civilian/chef
-	job_access_type = /datum/job/chef
+	role_access_type = /datum/role/chef
 
 /obj/item/weapon/card/id/civilian/botanist
-	job_access_type = /datum/job/hydro
+	role_access_type = /datum/role/hydro
 
 /obj/item/weapon/card/id/civilian/janitor
-	job_access_type = /datum/job/janitor
+	role_access_type = /datum/role/janitor
 
 /obj/item/weapon/card/id/civilian/librarian
-	job_access_type = /datum/job/librarian
+	role_access_type = /datum/role/librarian
 
 /obj/item/weapon/card/id/civilian/internal_affairs_agent
-	job_access_type = /datum/job/lawyer
+	role_access_type = /datum/role/lawyer
 	detail_color = COLOR_NAVY_BLUE
 
 /obj/item/weapon/card/id/civilian/chaplain
-	job_access_type = /datum/job/chaplain
+	role_access_type = /datum/role/chaplain
 
 /obj/item/weapon/card/id/civilian/head //This is not the HoP. There's no position that uses this right now.
 	name = "identification card"

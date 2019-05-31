@@ -8,7 +8,7 @@
 	var/list/species_to_rank_whitelist = list()   // List of ranks which are allowed, per branch and species. Checked before the blacklist.
 	var/list/species_to_rank_blacklist = list()   // Lists of ranks which are restricted, per species.
 
-// The white, and blacklist are type specific, any subtypes (of both species and jobs) have to be added explicitly
+// The white, and blacklist are type specific, any subtypes (of both species and roles) have to be added explicitly
 /datum/map/proc/is_species_branch_restricted(var/datum/species/S, var/datum/mil_branch/MB)
 	if(!istype(S) || !istype(MB))
 		return TRUE

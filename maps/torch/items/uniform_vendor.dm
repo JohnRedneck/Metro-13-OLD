@@ -30,9 +30,9 @@
 	if(!ID)
 		dat += "Insert your ID card to proceed."
 	else
-		var/datum/job/job = SSroles.get_by_path(ID.job_access_type)
-		if(job)
-			uniforms = find_uniforms(ID.military_rank, ID.military_branch, job.department_flag)
+		var/datum/role/role = SSroles.get_by_path(ID.role_access_type)
+		if(role)
+			uniforms = find_uniforms(ID.military_rank, ID.military_branch, role.department_flag)
 		for(var/T in uniforms)
 			dat += "<b>[T]</b> <a href='byond://?src=\ref[src];get_all=[T]'>Select All</a>"
 			var/list/uniform = uniforms[T]

@@ -67,11 +67,11 @@
 	var/list/best = list()
 	var/list/good = list()
 	for(var/datum/relation/R in rest)
-		if(!R.holder.assigned_job || !holder.assigned_job)
+		if(!R.holder.assigned_role || !holder.assigned_role)
 			continue
-		if(R.holder.assigned_job == holder.assigned_job)
+		if(R.holder.assigned_role == holder.assigned_role)
 			best += R
-		if(R.holder.assigned_job.department_flag & holder.assigned_job.department_flag)
+		if(R.holder.assigned_role.department_flag & holder.assigned_role.department_flag)
 			good += R
 	if(best.len)
 		return best

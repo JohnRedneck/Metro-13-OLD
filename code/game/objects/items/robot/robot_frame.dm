@@ -129,9 +129,9 @@
 		O.updatename("Default")
 		B.mind.transfer_to(O)
 		if(O.mind && O.mind.assigned_role)
-			O.job = O.mind.assigned_role
+			O.role = O.mind.assigned_role
 		else
-			O.job = "Robot"
+			O.role = "Robot"
 
 		var/obj/item/robot_parts/chest/chest = parts[BP_CHEST]
 		chest.cell.forceMove(O)

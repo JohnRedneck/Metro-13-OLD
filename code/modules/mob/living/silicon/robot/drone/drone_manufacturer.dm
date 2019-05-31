@@ -106,7 +106,7 @@
 		to_chat(user, "<span class='danger'>You are banned from playing synthetics and cannot spawn as a drone.</span>")
 		return
 
-	if(config.use_age_restriction_for_jobs && isnum(user.client.player_age))
+	if(config.use_age_restriction_for_roles && isnum(user.client.player_age))
 		if(user.client.player_age <= 3)
 			to_chat(user, "<span class='danger'> Your account is not old enough to play as a maintenance drone.</span>")
 			return

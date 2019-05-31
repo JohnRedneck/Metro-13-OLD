@@ -1,21 +1,21 @@
 //Makes sure we don't get any merchant antags as a balance concern. Can also be used for future Torch specific antag restrictions.
 /datum/antagonist/changeling
-	blacklisted_jobs = list(/datum/job/ai, /datum/job/cyborg, /datum/job/merchant, /datum/job/captain, /datum/job/hop, /datum/job/submap)
+	blacklisted_roles = list(/datum/role/ai, /datum/role/cyborg, /datum/role/merchant, /datum/role/captain, /datum/role/hop, /datum/role/submap)
 
 /datum/antagonist/godcultist
-	blacklisted_jobs = list(/datum/job/ai, /datum/job/cyborg, /datum/job/chaplain, /datum/job/merchant, /datum/job/captain, /datum/job/hop, /datum/job/hos, /datum/job/submap)
+	blacklisted_roles = list(/datum/role/ai, /datum/role/cyborg, /datum/role/chaplain, /datum/role/merchant, /datum/role/captain, /datum/role/hop, /datum/role/hos, /datum/role/submap)
 
 /datum/antagonist/cultist
-	blacklisted_jobs = list(/datum/job/ai, /datum/job/cyborg, /datum/job/chaplain, /datum/job/psychiatrist, /datum/job/merchant, /datum/job/captain, /datum/job/hop, /datum/job/hos, /datum/job/submap)
+	blacklisted_roles = list(/datum/role/ai, /datum/role/cyborg, /datum/role/chaplain, /datum/role/psychiatrist, /datum/role/merchant, /datum/role/captain, /datum/role/hop, /datum/role/hos, /datum/role/submap)
 
 /datum/antagonist/loyalists
-	blacklisted_jobs = list(/datum/job/ai, /datum/job/cyborg, /datum/job/merchant, /datum/job/submap)
+	blacklisted_roles = list(/datum/role/ai, /datum/role/cyborg, /datum/role/merchant, /datum/role/submap)
 
 /datum/antagonist/revolutionary
-	blacklisted_jobs = list(/datum/job/ai, /datum/job/cyborg, /datum/job/merchant, /datum/job/submap)
+	blacklisted_roles = list(/datum/role/ai, /datum/role/cyborg, /datum/role/merchant, /datum/role/submap)
 
 /datum/antagonist/traitor
-	blacklisted_jobs = list(/datum/job/merchant, /datum/job/captain, /datum/job/hop, /datum/job/ai, /datum/job/submap)
+	blacklisted_roles = list(/datum/role/merchant, /datum/role/captain, /datum/role/hop, /datum/role/ai, /datum/role/submap)
 
 /datum/antagonist/ert
 	var/sic //Second-In-Command
@@ -37,7 +37,7 @@
 	else
 		player.char_rank = mil_branches.get_rank("Fleet", "Petty Officer First Class")
 
-	var/decl/hierarchy/outfit/ert_outfit = outfit_by_type((player.mind == leader) ? /decl/hierarchy/outfit/job/torch/ert/leader : /decl/hierarchy/outfit/job/torch/ert)
+	var/decl/hierarchy/outfit/ert_outfit = outfit_by_type((player.mind == leader) ? /decl/hierarchy/outfit/role/torch/ert/leader : /decl/hierarchy/outfit/role/torch/ert)
 	ert_outfit.equip(player)
 
 	if(player.char_rank && player.char_rank.accessory)

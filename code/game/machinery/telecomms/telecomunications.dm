@@ -543,7 +543,7 @@ var/global/list/obj/machinery/telecomms/telecomms_list = list()
 
 				// Copy the signal.data entries we want
 				log.parameters["mobtype"] = signal.data["mobtype"]
-				log.parameters["job"] = signal.data["job"]
+				log.parameters["role"] = signal.data["role"]
 				log.parameters["key"] = signal.data["key"]
 				log.parameters["vmessage"] = signal.data["message"]
 				log.parameters["vname"] = signal.data["vname"]
@@ -576,7 +576,7 @@ var/global/list/obj/machinery/telecomms/telecomms_list = list()
 				// If the signal is still compressed, make the log entry gibberish
 				if(signal.data["compression"] > 0)
 					log.parameters["message"] = Gibberish(signal.data["message"], signal.data["compression"] + 50)
-					log.parameters["job"] = Gibberish(signal.data["job"], signal.data["compression"] + 50)
+					log.parameters["role"] = Gibberish(signal.data["role"], signal.data["compression"] + 50)
 					log.parameters["name"] = Gibberish(signal.data["name"], signal.data["compression"] + 50)
 					log.parameters["realname"] = Gibberish(signal.data["realname"], signal.data["compression"] + 50)
 					log.parameters["vname"] = Gibberish(signal.data["vname"], signal.data["compression"] + 50)

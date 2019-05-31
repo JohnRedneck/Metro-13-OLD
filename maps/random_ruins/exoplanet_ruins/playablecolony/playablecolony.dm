@@ -8,16 +8,16 @@
 
 /decl/submap_archetype/playablecolony
 	descriptor = "established colony"
-	crew_jobs = list(/datum/job/submap/colonist)
+	crew_roles = list(/datum/role/submap/colonist)
 
-/datum/job/submap/colonist
+/datum/role/submap/colonist
 	title = "Colonist"
 	info = "You are a Colonist, living on the rim of explored, let alone inhabited, space in a reconstructed shelter made from the very ship that took you here."
 	total_positions = 6
-	outfit_type = /decl/hierarchy/outfit/job/colonist
+	outfit_type = /decl/hierarchy/outfit/role/colonist
 
-/decl/hierarchy/outfit/job/colonist
-	name = OUTFIT_JOB_NAME("Colonist")
+/decl/hierarchy/outfit/role/colonist
+	name = OUTFIT_ROLE_NAME("Colonist")
 	id_type = null
 	pda_type = null
 

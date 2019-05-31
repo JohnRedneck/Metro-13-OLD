@@ -234,7 +234,7 @@
 	var/sexybits_location	//organ tag where they are located if they can be kicked for increased pain
 
 	var/list/prone_overlay_offset = list(0, 0) // amount to shift overlays when lying
-	var/job_skill_buffs = list()				// A list containing jobs (/datum/job), with values the extra points that job recieves.
+	var/role_skill_buffs = list()				// A list containing roles (/datum/role), with values the extra points that role recieves.
 
 	var/list/descriptors = list(
 		/datum/mob_descriptor/height = 0,
@@ -768,7 +768,7 @@ The slots that you can use are found in items_clothing.dm and are the inventory 
 
 	show_browser(src, species.get_description(), "window=species;size=700x400")
 
-/datum/species/proc/skills_from_age(age)	//Converts an age into a skill point allocation modifier. Can be used to give skill point bonuses/penalities not depending on job.
+/datum/species/proc/skills_from_age(age)	//Converts an age into a skill point allocation modifier. Can be used to give skill point bonuses/penalities not depending on role.
 	switch(age)
 		if(0 to 22) 	. = -4
 		if(23 to 30) 	. = 0

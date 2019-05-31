@@ -1,4 +1,4 @@
-/datum/job/senior_engineer
+/datum/role/senior_engineer
 	title = "Senior Engineer"
 	department = "Engineering"
 	department_flag = ENG
@@ -9,10 +9,10 @@
 	economic_power = 6
 	minimal_player_age = 3
 	ideal_character_age = 40
-	outfit_type = /decl/hierarchy/outfit/job/torch/crew/engineering/senior_engineer
+	outfit_type = /decl/hierarchy/outfit/role/torch/crew/engineering/senior_engineer
 	allowed_branches = list(
 		/datum/mil_branch/expeditionary_corps,
-		/datum/mil_branch/fleet = /decl/hierarchy/outfit/job/torch/crew/engineering/senior_engineer/fleet
+		/datum/mil_branch/fleet = /decl/hierarchy/outfit/role/torch/crew/engineering/senior_engineer/fleet
 	)
 	allowed_ranks = list(
 		/datum/mil_rank/fleet/e8,
@@ -45,10 +45,10 @@
 							 /datum/computer_file/program/camera_monitor,
 							 /datum/computer_file/program/shields_monitor)
 
-/datum/job/senior_engineer/get_description_blurb()
+/datum/role/senior_engineer/get_description_blurb()
 	return "You are the Senior Engineer. You are a veteran SNCO. You are subordinate to the Chief Engineer though you may have many years more experience than them and your subordinates are the rest of engineering. You should be an expert in practically every engineering area and familiar and possess leadership skills. Coordinate the team and ensure the smooth running of the department along with the Chief Engineer."
 
-/datum/job/engineer
+/datum/role/engineer
 	title = "Engineer"
 	total_positions = 6
 	spawn_positions = 6
@@ -64,11 +64,11 @@
 		"Electrician",
 		"Atmospheric Technician",
 		)
-	outfit_type = /decl/hierarchy/outfit/job/torch/crew/engineering/engineer
+	outfit_type = /decl/hierarchy/outfit/role/torch/crew/engineering/engineer
 	allowed_branches = list(
 		/datum/mil_branch/expeditionary_corps,
-		/datum/mil_branch/fleet = /decl/hierarchy/outfit/job/torch/crew/engineering/engineer/fleet,
-		/datum/mil_branch/civilian = /decl/hierarchy/outfit/job/torch/crew/engineering/contractor
+		/datum/mil_branch/fleet = /decl/hierarchy/outfit/role/torch/crew/engineering/engineer/fleet,
+		/datum/mil_branch/civilian = /decl/hierarchy/outfit/role/torch/crew/engineering/contractor
 	)
 	allowed_ranks = list(
 		/datum/mil_rank/fleet/e5,
@@ -105,10 +105,10 @@
 							 /datum/computer_file/program/camera_monitor,
 							 /datum/computer_file/program/shields_monitor)
 
-/datum/job/engineer/get_description_blurb()
+/datum/role/engineer/get_description_blurb()
 	return "You are an Engineer. You operate under one of many titles and may be highly specialised in a specific area of engineering. You probably have at least a general familiarity with most other areas though this is not expected. You are subordinate to the Senior Engineer and the Chief Engineer and are expected to follow them."
 
-/datum/job/engineer_trainee
+/datum/role/engineer_trainee
 	title = "Engineer Trainee"
 	department = "Engineering"
 	department_flag = ENG
@@ -118,10 +118,10 @@
 	selection_color = "#5b4d20"
 	ideal_character_age = 20
 
-	outfit_type = /decl/hierarchy/outfit/job/torch/crew/engineering/engineer
+	outfit_type = /decl/hierarchy/outfit/role/torch/crew/engineering/engineer
 	allowed_branches = list(
 		/datum/mil_branch/expeditionary_corps,
-		/datum/mil_branch/fleet = /decl/hierarchy/outfit/job/torch/crew/engineering/engineer/fleet
+		/datum/mil_branch/fleet = /decl/hierarchy/outfit/role/torch/crew/engineering/engineer/fleet
 	)
 	allowed_ranks = list(
 		/datum/mil_rank/ec/e3,
@@ -156,10 +156,10 @@
 							 /datum/computer_file/program/camera_monitor,
 							 /datum/computer_file/program/shields_monitor)
 
-/datum/job/engineer_trainee/get_description_blurb()
+/datum/role/engineer_trainee/get_description_blurb()
 	return "You are an Engineer Trainee. You are learning how to operate the various onboard engineering systems from senior engineering staff. You are subordinate to all of the other engineers aboard."
 
-/datum/job/roboticist
+/datum/role/roboticist
 	title = "Roboticist"
 	department = "Engineering"
 	department_flag = ENG
@@ -172,7 +172,7 @@
 	economic_power = 6
 	alt_titles = list(
 		"Mechsuit Technician")
-	outfit_type = /decl/hierarchy/outfit/job/torch/crew/engineering/roboticist
+	outfit_type = /decl/hierarchy/outfit/role/torch/crew/engineering/roboticist
 	allowed_branches = list(/datum/mil_branch/civilian)
 	allowed_ranks = list(/datum/mil_rank/civ/contractor)
 	min_skill = list(   SKILL_COMPUTER		= SKILL_ADEPT,
@@ -190,5 +190,5 @@
 	access = list(access_robotics, access_robotics_engineering, access_tech_storage, access_morgue, access_medical, access_robotics_engineering, access_solgov_crew)
 	minimal_access = list()
 
-/datum/job/roboticist/get_description_blurb()
+/datum/role/roboticist/get_description_blurb()
 	return "You are the Roboticist. You are responsible for repairing, upgrading and handling ship synthetics (like robots). You are also responsible for the production of exosuits(mechs) and bots for various departments. You answer to the Corporate Liaison and the Chief Engineer."

@@ -1,5 +1,5 @@
 #include "bearcat_areas.dm"
-#include "bearcat_jobs.dm"
+#include "bearcat_roles.dm"
 #include "bearcat_access.dm"
 
 /obj/effect/submap_landmark/joinable_submap/bearcat
@@ -9,9 +9,9 @@
 /decl/submap_archetype/derelict/bearcat
 	descriptor = "derelict cargo vessel"
 	map = "Bearcat Wreck"
-	crew_jobs = list(
-		/datum/job/submap/bearcat_captain,
-		/datum/job/submap/bearcat_crewman
+	crew_roles = list(
+		/datum/role/submap/bearcat_captain,
+		/datum/role/submap/bearcat_crewman
 	)
 
 /obj/effect/overmap/ship/bearcat

@@ -44,7 +44,7 @@
 	icon_state = "securityhud"
 	hud_type = HUD_SECURITY
 	body_parts_covered = 0
-	var/global/list/jobs[0]
+	var/global/list/roles[0]
 
 /obj/item/clothing/glasses/hud/security/prescription
 	name = "prescription security HUD"

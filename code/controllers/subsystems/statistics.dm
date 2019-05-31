@@ -1,7 +1,7 @@
 /datum/death
 	var/name
 	var/key
-	var/job
+	var/role
 	var/special_role
 	var/place_of_death
 	var/time_of_death
@@ -40,7 +40,7 @@ SUBSYSTEM_DEF(statistics)
 		game_id TEXT NOT NULL, \
 		name TEXT, \
 		key TEXT, \
-		job TEXT, \
+		role TEXT, \
 		special_role TEXT, \
 		place_of_death TEXT, \
 		time_of_death TEXT, \
@@ -77,7 +77,7 @@ SUBSYSTEM_DEF(statistics)
 				game_id,
 				death.name,
 				death.key,
-				death.job,
+				death.role,
 				death.special_role,
 				death.place_of_death,
 				death.time_of_death,
@@ -149,7 +149,7 @@ SUBSYSTEM_DEF(statistics)
 		death.name = sanitizeSQL(dead.real_name)
 		death.key = sanitizeSQL(dead.key)
 		death.special_role = sanitizeSQL(dead.mind.special_role)
-		death.job = sanitizeSQL(dead.mind.assigned_role)
+		death.role = sanitizeSQL(dead.mind.assigned_role)
 		if(dead.last_attacker_)
 			death.last_attacker_name = sanitizeSQL(dead.last_attacker_.name)
 			death.last_attacker_key =  sanitizeSQL(dead.last_attacker_.client.key)
@@ -165,5 +165,5 @@ SUBSYSTEM_DEF(statistics)
 		death.overmap_location_name = cell ? cell.name : "Unknown"
 		LAZYADD(deaths, death)
 
-		if(!player_is_antag(dead.mind) && dead.mind.assigned_job && dead.mind.assigned_job.department_flag)
+		if(!player_is_antag(dead.mind) && dead.mind.assigned_role && dead.mind.assigned_role.department_flag)
 			crew_death_count++

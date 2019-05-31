@@ -21853,7 +21853,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/tiled/techfloor/grid,
 /area/command/armoury)
-"job" = (
+"role" = (
 /obj/machinery/alarm{
 	dir = 1;
 	pixel_y = -22
@@ -56586,7 +56586,7 @@ aqU
 awA
 axD
 ayC
-job
+role
 aAP
 oAb
 oDb

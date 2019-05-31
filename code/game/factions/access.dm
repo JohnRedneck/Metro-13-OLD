@@ -177,21 +177,21 @@
 		return C.registered_name
 	return missing_id_name
 
-/proc/get_all_job_icons() //For all existing HUD icons
+/proc/get_all_role_icons() //For all existing HUD icons
 	return SSroles.titles_to_datums + list("Prisoner")
 
 /obj/proc/GetRoleName() //Used in secHUD icon generation
 	var/obj/item/weapon/card/id/I = GetIdCard()
 
 	if(I)
-		var/job_icons = get_all_job_icons()
-		if(I.assignment	in job_icons) //Check if the job has a hud icon
+		var/role_icons = get_all_role_icons()
+		if(I.assignment	in role_icons) //Check if the role has a hud icon
 			return I.assignment
-		if(I.rank in job_icons)
+		if(I.rank in role_icons)
 			return I.rank
 
-		var/centcom = get_all_centcom_jobs()
-		if(I.assignment	in centcom) //Return with the NT logo if it is a Centcom job
+		var/centcom = get_all_centcom_roles()
+		if(I.assignment	in centcom) //Return with the NT logo if it is a Centcom role
 			return "Centcom"
 		if(I.rank in centcom)
 			return "Centcom"

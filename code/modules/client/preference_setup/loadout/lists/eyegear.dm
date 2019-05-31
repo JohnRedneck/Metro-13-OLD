@@ -73,7 +73,7 @@
 /datum/gear/eyes/meson
 	display_name = "Meson Goggles"
 	path = /obj/item/clothing/glasses/meson
-	allowed_roles = list(/datum/job/chief_engineer, /datum/job/engineer, /datum/job/mining, /datum/job/scientist, /datum/job/rd)
+	allowed_roles = list(/datum/role/chief_engineer, /datum/role/engineer, /datum/role/mining, /datum/role/scientist, /datum/role/rd)
 
 /datum/gear/eyes/meson/prescription
 	display_name = "Meson Goggles, prescription"
@@ -87,7 +87,7 @@
 /datum/gear/eyes/material
 	display_name = "Material Goggles"
 	path = /obj/item/clothing/glasses/material
-	allowed_roles = list(/datum/job/chief_engineer, /datum/job/engineer, /datum/job/mining)
+	allowed_roles = list(/datum/role/chief_engineer, /datum/role/engineer, /datum/role/mining)
 
 /datum/gear/eyes/shades/
 	display_name = "sunglasses"
@@ -117,7 +117,7 @@
 	display_name = "JaniHUD"
 	path = /obj/item/clothing/glasses/hud/janitor
 	cost = 2
-	allowed_roles = list(/datum/job/janitor)
+	allowed_roles = list(/datum/role/janitor)
 
 /datum/gear/eyes/janitor/prescription
 	display_name = "JaniHUD, prescription"

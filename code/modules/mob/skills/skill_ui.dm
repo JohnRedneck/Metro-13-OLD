@@ -37,7 +37,7 @@
 /datum/skillset/proc/get_nano_data()
 	. = list()
 	.["name"] = owner.real_name
-	.["job"] = owner.mind && owner.mind.assigned_role
+	.["role"] = owner.mind && owner.mind.assigned_role
 
 	var/list/skill_data = list()
 	var/decl/hierarchy/skill/skill = decls_repository.get_decl(/decl/hierarchy/skill)
@@ -209,12 +209,12 @@ The generic antag version.
 /datum/skill_buff/antag
 	limit = 1
 /*
-Similar, but for station antags that have jobs.
+Similar, but for station antags that have roles.
 */
 /datum/nano_module/skill_ui/antag/station
 	max_choices = list(0, 0, 3, 1, 0)
 /*
-Similar, but for off-station jobs (Bearcat, Verne, survivor etc.).
+Similar, but for off-station roles (Bearcat, Verne, survivor etc.).
 */
 /datum/nano_module/skill_ui/antag/station/offstation
 	max_choices = list(0, 2, 2, 1, 1)
@@ -260,12 +260,12 @@ Admin version, with debugging options.
 		if(!my_client)
 			to_chat(usr, "Mob client not found.")
 			return 1
-		var/datum/job/job = skillset.owner.mind && SSroles.get_by_title(skillset.owner.mind.assigned_role)
-		if(!job)
-			to_chat(usr, "Valid job not found.")
+		var/datum/role/role = skillset.owner.mind && SSroles.get_by_title(skillset.owner.mind.assigned_role)
+		if(!role)
+			to_chat(usr, "Valid role not found.")
 			return 1
-		skillset.obtain_from_client(job, my_client)
-		log_and_message_admins("SKILLS: The job skills for [key_name_admin(skillset.owner)] have been imported.")
+		skillset.obtain_from_client(role, my_client)
+		log_and_message_admins("SKILLS: The role skills for [key_name_admin(skillset.owner)] have been imported.")
 		return 1
 	if(href_list["antag"])
 		var/datum/antagonist/antag = skillset.owner.mind && player_is_antag(skillset.owner.mind)

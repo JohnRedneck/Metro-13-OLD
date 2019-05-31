@@ -3,19 +3,19 @@
 /obj/item/weapon/card/id/torch
 	name = "identification card"
 	desc = "An identification card issued to personnel aboard the SEV Torch."
-	job_access_type = /datum/job/assistant
+	role_access_type = /datum/role/assistant
 
 /obj/item/weapon/card/id/torch/silver
 	desc = "A silver identification card belonging to heads of staff."
 	item_state = "silver_id"
-	job_access_type = /datum/job/hop
+	role_access_type = /datum/role/hop
 	extra_details = list("goldstripe")
 	color = "#ccecff"
 
 /obj/item/weapon/card/id/torch/gold
 	desc = "A golden identification card belonging to the Commanding Officer."
 	item_state = "gold_id"
-	job_access_type = /datum/job/captain
+	role_access_type = /datum/role/captain
 	color = "#d4c780"
 	extra_details = list("goldstripe")
 
@@ -23,202 +23,202 @@
 /obj/item/weapon/card/id/torch/crew
 	desc = "An identification card issued to SolGov crewmembers aboard the SEV Torch."
 	color = "#d3e3e1"
-	job_access_type = /datum/job/crew
+	role_access_type = /datum/role/crew
 	color = "#ccecff"
 
 
 /obj/item/weapon/card/id/torch/contractor
 	desc = "An identification card issued to private contractors aboard the SEV Torch."
-	job_access_type = /datum/job/assistant
+	role_access_type = /datum/role/assistant
 	color = COLOR_GRAY80
 
 
 /obj/item/weapon/card/id/torch/silver/medical
-	job_access_type = /datum/job/cmo
+	role_access_type = /datum/role/cmo
 	detail_color = COLOR_PALE_BLUE_GRAY
 
 /obj/item/weapon/card/id/torch/crew/medical
-	job_access_type = /datum/job/doctor
+	role_access_type = /datum/role/doctor
 	detail_color = COLOR_PALE_BLUE_GRAY
 
 /obj/item/weapon/card/id/torch/crew/medical/senior
-	job_access_type = /datum/job/senior_doctor
+	role_access_type = /datum/role/senior_doctor
 
 /obj/item/weapon/card/id/torch/contractor/medical
-	job_access_type = /datum/job/doctor
+	role_access_type = /datum/role/doctor
 	detail_color = COLOR_PALE_BLUE_GRAY
 
 /obj/item/weapon/card/id/torch/contractor/medical/senior
-	job_access_type = /datum/job/senior_doctor
+	role_access_type = /datum/role/senior_doctor
 
 /obj/item/weapon/card/id/torch/contractor/chemist
-	job_access_type = /datum/job/chemist
+	role_access_type = /datum/role/chemist
 	detail_color = COLOR_PALE_BLUE_GRAY
 
 /obj/item/weapon/card/id/torch/contractor/biomech
-	job_access_type = /datum/job/biomech
+	role_access_type = /datum/role/biomech
 	detail_color = COLOR_PALE_BLUE_GRAY
 
 /obj/item/weapon/card/id/torch/contractor/medical/counselor
-	job_access_type = /datum/job/psychiatrist
+	role_access_type = /datum/role/psychiatrist
 
 
 /obj/item/weapon/card/id/torch/silver/security
-	job_access_type = /datum/job/hos
+	role_access_type = /datum/role/hos
 	detail_color = "#e00000"
 
 /obj/item/weapon/card/id/torch/crew/security
-	job_access_type = /datum/job/officer
+	role_access_type = /datum/role/officer
 	detail_color = "#e00000"
 
 /obj/item/weapon/card/id/torch/crew/security/brigofficer
-	job_access_type = /datum/job/warden
+	role_access_type = /datum/role/warden
 	extra_details = list("onegoldstripe")
 
 /obj/item/weapon/card/id/torch/crew/security/forensic
-	job_access_type = /datum/job/detective
+	role_access_type = /datum/role/detective
 
 
 /obj/item/weapon/card/id/torch/silver/engineering
-	job_access_type = /datum/job/chief_engineer
+	role_access_type = /datum/role/chief_engineer
 	detail_color = COLOR_SUN
 
 /obj/item/weapon/card/id/torch/crew/engineering
-	job_access_type = /datum/job/engineer
+	role_access_type = /datum/role/engineer
 	detail_color = COLOR_SUN
 
 /obj/item/weapon/card/id/torch/crew/engineering/senior
-	job_access_type = /datum/job/senior_engineer
+	role_access_type = /datum/role/senior_engineer
 	extra_details = list("onegoldstripe")
 
 /obj/item/weapon/card/id/torch/contractor/engineering
-	job_access_type = /datum/job/engineer
+	role_access_type = /datum/role/engineer
 	detail_color = COLOR_SUN
 
 /obj/item/weapon/card/id/torch/contractor/engineering/roboticist
-	job_access_type = /datum/job/roboticist
+	role_access_type = /datum/role/roboticist
 
 
 /obj/item/weapon/card/id/torch/crew/supply/deckofficer
-	job_access_type = /datum/job/qm
+	role_access_type = /datum/role/qm
 	detail_color = COLOR_BROWN
 	extra_details = list("onegoldstripe")
 
 /obj/item/weapon/card/id/torch/crew/supply
-	job_access_type = /datum/job/cargo_tech
+	role_access_type = /datum/role/cargo_tech
 	detail_color = COLOR_BROWN
 
 /obj/item/weapon/card/id/torch/contractor/supply
-	job_access_type = /datum/job/cargo_tech
+	role_access_type = /datum/role/cargo_tech
 	detail_color = COLOR_BROWN
 
 /obj/item/weapon/card/id/torch/crew/service //unused
-	job_access_type = /datum/job/assistant
+	role_access_type = /datum/role/assistant
 	detail_color = COLOR_CIVIE_GREEN
 
 /obj/item/weapon/card/id/torch/crew/service/janitor
-	job_access_type = /datum/job/janitor
+	role_access_type = /datum/role/janitor
 
 /obj/item/weapon/card/id/torch/crew/service/chef
-	job_access_type = /datum/job/chef
+	role_access_type = /datum/role/chef
 
 /obj/item/weapon/card/id/torch/contractor/service //unused
-	job_access_type = /datum/job/assistant
+	role_access_type = /datum/role/assistant
 	detail_color = COLOR_CIVIE_GREEN
 
 /obj/item/weapon/card/id/torch/contractor/service/bartender
-	job_access_type = /datum/job/bartender
+	role_access_type = /datum/role/bartender
 
 
 /obj/item/weapon/card/id/torch/crew/representative
-	job_access_type = /datum/job/representative
+	role_access_type = /datum/role/representative
 	detail_color = COLOR_COMMAND_BLUE
 
 /obj/item/weapon/card/id/torch/crew/sea
-	job_access_type = /datum/job/sea
+	role_access_type = /datum/role/sea
 	detail_color = COLOR_COMMAND_BLUE
 	extra_details = list("onegoldstripe")
 
 /obj/item/weapon/card/id/torch/crew/bridgeofficer
-	job_access_type = /datum/job/bridgeofficer
+	role_access_type = /datum/role/bridgeofficer
 	detail_color = COLOR_COMMAND_BLUE
 
 /obj/item/weapon/card/id/torch/crew/pathfinder
-	job_access_type = /datum/job/pathfinder
+	role_access_type = /datum/role/pathfinder
 	detail_color = COLOR_PURPLE
 	extra_details = list("onegoldstripe")
 
 /obj/item/weapon/card/id/torch/crew/explorer
-	job_access_type = /datum/job/explorer
+	role_access_type = /datum/role/explorer
 	detail_color = COLOR_PURPLE
 
 /obj/item/weapon/card/id/torch/crew/pilot
-	job_access_type = /datum/job/nt_pilot
+	role_access_type = /datum/role/nt_pilot
 	detail_color = COLOR_PURPLE
 
 // EC Science
 /obj/item/weapon/card/id/torch/silver/research
-	job_access_type = /datum/job/rd
+	role_access_type = /datum/role/rd
 	detail_color = COLOR_RESEARCH
 	color = COLOR_WHITE
 
 /obj/item/weapon/card/id/torch/crew/research
 	desc = "A card issued to science personnel aboard the SEV Torch."
-	job_access_type = /datum/job/scientist_assistant
+	role_access_type = /datum/role/scientist_assistant
 	detail_color = COLOR_RESEARCH
 
 /obj/item/weapon/card/id/torch/crew/research/senior_scientist
-	job_access_type = /datum/job/senior_scientist
+	role_access_type = /datum/role/senior_scientist
 	extra_details = list("onegoldstripe")
 
 /obj/item/weapon/card/id/torch/crew/research/scientist
-	job_access_type = /datum/job/scientist
+	role_access_type = /datum/role/scientist
 
 //NanoTrasen and Passengers
 
 /obj/item/weapon/card/id/torch/passenger
 	desc = "A card issued to passengers aboard the SEV Torch."
-	job_access_type = /datum/job/assistant
+	role_access_type = /datum/role/assistant
 	detail_color = COLOR_PAKISTAN_GREEN
 
 /obj/item/weapon/card/id/torch/passenger/research
 	desc = "A card issued to corporate personnel aboard the SEV Torch."
-	job_access_type = /datum/job/scientist_assistant
+	role_access_type = /datum/role/scientist_assistant
 	detail_color = COLOR_BOTTLE_GREEN
 
 /obj/item/weapon/card/id/torch/passenger/research/senior_scientist
-	job_access_type = /datum/job/senior_scientist
+	role_access_type = /datum/role/senior_scientist
 	extra_details = list("onegoldstripe")
 
 /obj/item/weapon/card/id/torch/passenger/research/nt_pilot
-	job_access_type = /datum/job/nt_pilot
+	role_access_type = /datum/role/nt_pilot
 
 /obj/item/weapon/card/id/torch/passenger/research/scientist
-	job_access_type = /datum/job/scientist
+	role_access_type = /datum/role/scientist
 
 /obj/item/weapon/card/id/torch/passenger/research/mining
-	job_access_type = /datum/job/mining
+	role_access_type = /datum/role/mining
 
 /obj/item/weapon/card/id/torch/passenger/corporate
 	color = COLOR_BOTTLE_GREEN
 	detail_color = COLOR_OFF_WHITE
-	job_access_type = /datum/job/bodyguard
+	role_access_type = /datum/role/bodyguard
 
 /obj/item/weapon/card/id/torch/passenger/corporate/liaison
-	job_access_type = /datum/job/liaison
+	role_access_type = /datum/role/liaison
 	extra_details = list("onegoldstripe")
 
 //Merchant
 /obj/item/weapon/card/id/torch/merchant
 	desc = "An identification card issued to Merchants, indicating their right to sell and buy goods."
-	job_access_type = /datum/job/merchant
+	role_access_type = /datum/role/merchant
 	color = COLOR_OFF_WHITE
 	detail_color = COLOR_BEIGE
 
 //Stowaway
 /obj/item/weapon/card/id/torch/stowaway
 	desc = "An identification card issued to personnel aboard the SEV Torch. Looks like the photo fell off this one."
-	job_access_type = /datum/job/crew
+	role_access_type = /datum/role/crew
 	color = "#b4cbd7"
 
 /obj/item/weapon/card/id/torch/stowaway/New()

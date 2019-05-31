@@ -103,42 +103,42 @@ datum/announcement/proc/NewsCast(message as text, message_title as text)
 /proc/ion_storm_announcement(list/affecting_z)
 	command_announcement.Announce("It has come to our attention that the [station_name()] passed through an ion storm.  Please monitor all electronic equipment for malfunctions.", "Anomaly Alert", zlevels = affecting_z)
 
-/proc/AnnounceArrival(var/mob/living/carbon/human/character, var/datum/job/job, var/join_message)
-	if(!istype(job) || !job.announced)
+/proc/AnnounceArrival(var/mob/living/carbon/human/character, var/datum/role/role, var/join_message)
+	if(!istype(role) || !role.announced)
 		return
 	if (GAME_STATE != RUNLEVEL_GAME)
 		return
-	var/rank = job.title
+	var/rank = role.title
 	if(character.mind.role_alt_title)
 		rank = character.mind.role_alt_title
 
-	AnnounceArrivalSimple(character.real_name, rank, join_message, get_announcement_frequency(job))
+	AnnounceArrivalSimple(character.real_name, rank, join_message, get_announcement_frequency(role))
 
 /proc/AnnounceArrivalSimple(var/name, var/rank = "visitor", var/join_message = "has arrived on the [station_name()]", var/frequency)
 	GLOB.global_announcer.autosay("[name], [rank], [join_message].", "Arrivals Announcement Computer", frequency)
 
-/proc/get_announcement_frequency(var/datum/job/job)
-	// During red alert all jobs are announced on main frequency.
+/proc/get_announcement_frequency(var/datum/role/role)
+	// During red alert all roles are announced on main frequency.
 	var/decl/security_state/security_state = decls_repository.get_decl(GLOB.using_map.security_state)
 	if (security_state.current_security_level_is_same_or_higher_than(security_state.high_security_level))
 		return "Common"
 
-	if(job.department_flag & (COM | CIV | MSC))
+	if(role.department_flag & (COM | CIV | MSC))
 		return "Common"
-	if(job.department_flag & SUP)
+	if(role.department_flag & SUP)
 		return "Supply"
-	if(job.department_flag & SPT)
+	if(role.department_flag & SPT)
 		return "Command"
-	if(job.department_flag & SEC)
+	if(role.department_flag & SEC)
 		return "Security"
-	if(job.department_flag & ENG)
+	if(role.department_flag & ENG)
 		return "Engineering"
-	if(job.department_flag & MED)
+	if(role.department_flag & MED)
 		return "Medical"
-	if(job.department_flag & SCI)
+	if(role.department_flag & SCI)
 		return "Science"
-	if(job.department_flag & SRV)
+	if(role.department_flag & SRV)
 		return "Service"
-	if(job.department_flag & EXP)
+	if(role.department_flag & EXP)
 		return "Exploration"
 	return "Common"

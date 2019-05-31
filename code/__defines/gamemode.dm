@@ -19,7 +19,7 @@
 #define BE_PAI   "BE_PAI"
 
 // Antagonist datum flags.
-#define ANTAG_OVERRIDE_JOB        0x1 // Assigned job is set to MODE when spawning.
+#define ANTAG_OVERRIDE_ROLE        0x1 // Assigned role is set to MODE when spawning.
 #define ANTAG_OVERRIDE_MOB        0x2 // Mob is recreated from datum mob_type var when spawning.
 #define ANTAG_CLEAR_EQUIPMENT     0x4 // All preexisting equipment is purged.
 #define ANTAG_CHOOSE_NAME         0x8 // Antagonists are prompted to enter a name.

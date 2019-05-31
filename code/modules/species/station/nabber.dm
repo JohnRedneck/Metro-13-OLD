@@ -5,7 +5,7 @@
 	research company, were taught how to live and work with humans. Standing \
 	upwards of nine feet tall, these people have a tendency to terrify \
 	those who have not met them before and are rarely trusted by the \
-	average person. Even so, they do their jobs well and are thriving in this \
+	average person. Even so, they do their roles well and are thriving in this \
 	new environment."
 	hidden_from_codex = FALSE
 	silent_steps = TRUE
@@ -387,6 +387,6 @@
 			H.visible_message("<span class='warning'>[H] tenses as \he brings \his smaller arms in close to \his body. \His two massive spiked arms reach \
 			out. \He looks ready to attack.</span>")
 
-/datum/species/nabber/check_background(var/datum/job/job, var/datum/preferences/prefs)
+/datum/species/nabber/check_background(var/datum/role/role, var/datum/preferences/prefs)
 	var/decl/cultural_info/culture/nabber/grade = SSculture.get_culture(prefs.cultural_info[TAG_CULTURE])
-	. = istype(grade) ? (job.type in grade.valid_jobs) : ..()
+	. = istype(grade) ? (role.type in grade.valid_roles) : ..()

@@ -2,8 +2,8 @@
 Research and Development System. (Designed specifically for the /tg/station 13 (Space Station 13) open source project)
 
 ///////////////Overview///////////////////
-This system is a "tech tree" research and development system designed for SS13. It allows a "researcher" job (this document assumes
-the "scientist" job is given this role) the tools necessary to research new and better technologies. In general, the system works
+This system is a "tech tree" research and development system designed for SS13. It allows a "researcher" role (this document assumes
+the "scientist" role is given this role) the tools necessary to research new and better technologies. In general, the system works
 by breaking existing technology and using what you learn from to advance your knowledge of SCIENCE! As your knowledge progresses,
 you can build newer (and better?) devices (which you can also, eventually, deconstruct to advance your knowledge).
 

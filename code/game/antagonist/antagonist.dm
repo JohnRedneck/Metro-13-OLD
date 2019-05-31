@@ -145,7 +145,7 @@
 
 /datum/antagonist/proc/attempt_random_spawn()
 	update_current_antag_max(SSticker.mode)
-	build_candidate_list(SSticker.mode, flags & (ANTAG_OVERRIDE_MOB|ANTAG_OVERRIDE_JOB))
+	build_candidate_list(SSticker.mode, flags & (ANTAG_OVERRIDE_MOB|ANTAG_OVERRIDE_ROLE))
 	attempt_spawn()
 	finalize_spawn()
 
@@ -161,7 +161,7 @@
 		log_debug("Could not auto-spawn a [role_text], active antag limit reached.")
 		return 0
 
-	build_candidate_list(SSticker.mode, flags & (ANTAG_OVERRIDE_MOB|ANTAG_OVERRIDE_JOB))
+	build_candidate_list(SSticker.mode, flags & (ANTAG_OVERRIDE_MOB|ANTAG_OVERRIDE_ROLE))
 	if(!candidates.len)
 		log_debug("Could not auto-spawn a [role_text], no candidates found.")
 		return 0
@@ -182,7 +182,7 @@
 
 //Selects players that will be spawned in the antagonist role from the potential candidates
 //Selected players are added to the pending_antagonists lists.
-//Attempting to spawn an antag role with ANTAG_OVERRIDE_JOB should be done before roles are assigned,
+//Attempting to spawn an antag role with ANTAG_OVERRIDE_ROLE should be done before roles are assigned,
 //so that they do not occupy regular role slots. All other antag roles should be spawned after roles are
 //assigned, so that role restrictions can be respected.
 /datum/antagonist/proc/attempt_spawn(var/spawn_target = null)
@@ -209,7 +209,7 @@
 	if(player.special_role)
 		log_debug("[player.key] was selected for [role_text] by lottery, but they already have a special role.")
 		return 0
-	if(!(flags & ANTAG_OVERRIDE_JOB) && (!player.current || istype(player.current, /mob/new_player)))
+	if(!(flags & ANTAG_OVERRIDE_ROLE) && (!player.current || istype(player.current, /mob/new_player)))
 		log_debug("[player.key] was selected for [role_text] by lottery, but they have not joined the game.")
 		return 0
 	if(GAME_STATE >= RUNLEVEL_GAME && (isghostmind(player) || isnewplayer(player.current)) && !(player in SSticker.antag_pool))
@@ -219,8 +219,8 @@
 	pending_antagonists |= player
 	log_debug("[player.key] has been selected for [role_text] by lottery.")
 
-	//Ensure that antags with ANTAG_OVERRIDE_JOB do not occupy role slots.
-	if(flags & ANTAG_OVERRIDE_JOB)
+	//Ensure that antags with ANTAG_OVERRIDE_ROLE do not occupy role slots.
+	if(flags & ANTAG_OVERRIDE_ROLE)
 		player.assigned_role = role_text
 		player.role_alt_title = null
 
@@ -245,11 +245,11 @@
 	return
 
 //Resets the antag selection, clearing all pending_antagonists and their special_role
-//(and assigned_role if ANTAG_OVERRIDE_JOB is set) as well as clearing the candidate list.
+//(and assigned_role if ANTAG_OVERRIDE_ROLE is set) as well as clearing the candidate list.
 //Existing antagonists are left untouched.
 /datum/antagonist/proc/reset_antag_selection()
 	for(var/datum/mind/player in pending_antagonists)
-		if(flags & ANTAG_OVERRIDE_JOB)
+		if(flags & ANTAG_OVERRIDE_ROLE)
 			player.assigned_role = null
 			player.assigned_rank = null
 		player.special_role = null

@@ -107,11 +107,11 @@ If decrypted the password is cleared, so you can keep using your favorite passwo
 Emagged laptops will have option to enable "Safe Encryption". If safely encrypted laptop is decrypted it loses it's emag status and 50% of files is deleted (randomly selected).
 
 7. System Administrator
-System Administrator will be new job under Research. It's main specifics will be maintaining of computer systems on station, espicially from software side.
+System Administrator will be new role under Research. It's main specifics will be maintaining of computer systems on station, espicially from software side.
 From IC perspective they'd probably know how to build a console or something given they work with computers, but they are mostly programmers/network experts.
 They will have office in research, which will probably replace (and contain) the server room and part of the toxins storage which is currently oversized.
 They will have access to DOWNLOAD (not run) all programs that exist on NTNet. They'll have fairly good amount of available programs, most of them being
-administrative consoles and other very useful things. They'll also be able to monitor NTNet. There will probably be one or two job slots.
+administrative consoles and other very useful things. They'll also be able to monitor NTNet. There will probably be one or two role slots.
 
 8. IDS
 With addition of various antag programs, IDS(Intrusion Detection System) will be added to NTNet. This system can be turned on/off via administration console.

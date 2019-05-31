@@ -218,7 +218,7 @@
 			if(!(istype(current_id) && (citem.req_access in current_id.access)))
 				continue
 
-		// Check for required job title.
+		// Check for required role title.
 		if(citem.req_titles && citem.req_titles.len > 0)
 			var/has_title
 			var/current_title = M.mind.role_alt_title ? M.mind.role_alt_title : M.mind.assigned_role

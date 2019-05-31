@@ -1,7 +1,7 @@
 var/global/list/empty_playable_ai_cores = list()
 
 /hook/roundstart/proc/spawn_empty_ai()
-	if("AI" in SSticker.mode.disabled_jobs)
+	if("AI" in SSticker.mode.disabled_roles)
 		return 1	// Don't make empty AI's if you can't have them (also applies to Malf)
 	for(var/obj/effect/landmark/start/S in landmarks_list)
 		if(S.name != "AI")
@@ -15,7 +15,7 @@ var/global/list/empty_playable_ai_cores = list()
 /mob/living/silicon/ai/verb/wipe_core()
 	set name = "Wipe Core"
 	set category = "OOC"
-	set desc = "Wipe your core. This is functionally equivalent to cryo or robotic storage, freeing up your job slot."
+	set desc = "Wipe your core. This is functionally equivalent to cryo or robotic storage, freeing up your role slot."
 
 	if(istype(loc, /obj/item))
 		to_chat(src, "You cannot wipe your core when you are on a portable storage device.")
@@ -37,5 +37,5 @@ var/global/list/empty_playable_ai_cores = list()
 	empty_playable_ai_cores += new /obj/structure/AIcore/deactivated(loc)
 	GLOB.global_announcer.autosay("[src] has been moved to intelligence storage.", "Artificial Intelligence Oversight")
 
-	//Handle job slot/tater cleanup.
+	//Handle role slot/tater cleanup.
 	clear_client()

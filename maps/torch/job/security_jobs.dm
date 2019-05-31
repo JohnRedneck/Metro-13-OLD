@@ -1,4 +1,4 @@
-/datum/job/warden
+/datum/role/warden
 	title = "Brig Officer"
 	total_positions = 1
 	spawn_positions = 1
@@ -6,10 +6,10 @@
 	economic_power = 5
 	minimal_player_age = 7
 	ideal_character_age = 35
-	outfit_type = /decl/hierarchy/outfit/job/torch/crew/security/brig_officer
+	outfit_type = /decl/hierarchy/outfit/role/torch/crew/security/brig_officer
 	allowed_branches = list(
 		/datum/mil_branch/expeditionary_corps,
-		/datum/mil_branch/fleet = /decl/hierarchy/outfit/job/torch/crew/security/brig_officer/fleet
+		/datum/mil_branch/fleet = /decl/hierarchy/outfit/role/torch/crew/security/brig_officer/fleet
 	)
 	allowed_ranks = list(
 		/datum/mil_rank/fleet/e8,
@@ -36,7 +36,7 @@
 	software_on_spawn = list(/datum/computer_file/program/digitalwarrant,
 							 /datum/computer_file/program/camera_monitor)
 
-/datum/job/detective
+/datum/role/detective
 	title = "Forensic Technician"
 	total_positions = 1
 	spawn_positions = 1
@@ -48,12 +48,12 @@
 	alt_titles = list(
 		"Criminal Investigator"
 	)
-	outfit_type = /decl/hierarchy/outfit/job/torch/crew/security/forensic_tech
+	outfit_type = /decl/hierarchy/outfit/role/torch/crew/security/forensic_tech
 	allowed_branches = list(
 		/datum/mil_branch/expeditionary_corps,
-		/datum/mil_branch/civilian = /decl/hierarchy/outfit/job/torch/crew/security/forensic_tech/contractor,
-		/datum/mil_branch/fleet = /decl/hierarchy/outfit/job/torch/crew/security/forensic_tech/fleet,
-		/datum/mil_branch/solgov = /decl/hierarchy/outfit/job/torch/crew/security/forensic_tech/agent
+		/datum/mil_branch/civilian = /decl/hierarchy/outfit/role/torch/crew/security/forensic_tech/contractor,
+		/datum/mil_branch/fleet = /decl/hierarchy/outfit/role/torch/crew/security/forensic_tech/fleet,
+		/datum/mil_branch/solgov = /decl/hierarchy/outfit/role/torch/crew/security/forensic_tech/agent
 	)
 	allowed_ranks = list(
 		/datum/mil_rank/fleet/e3,
@@ -84,7 +84,7 @@
 	software_on_spawn = list(/datum/computer_file/program/digitalwarrant,
 							 /datum/computer_file/program/camera_monitor)
 
-/datum/job/officer
+/datum/role/officer
 	title = "Master at Arms"
 	total_positions = 4
 	spawn_positions = 4
@@ -93,10 +93,10 @@
 	minimal_player_age = 7
 	ideal_character_age = 25
 	alt_titles = list() // This is a hack. Overriding a list var with null does not actually override it due to the particulars of dm list init. Do not "clean up" without testing.
-	outfit_type = /decl/hierarchy/outfit/job/torch/crew/security/maa
+	outfit_type = /decl/hierarchy/outfit/role/torch/crew/security/maa
 	allowed_branches = list(
 		/datum/mil_branch/expeditionary_corps,
-		/datum/mil_branch/fleet = /decl/hierarchy/outfit/job/torch/crew/security/maa/fleet,
+		/datum/mil_branch/fleet = /decl/hierarchy/outfit/role/torch/crew/security/maa/fleet,
 	)
 	allowed_ranks = list(
 		/datum/mil_rank/ec/e3,

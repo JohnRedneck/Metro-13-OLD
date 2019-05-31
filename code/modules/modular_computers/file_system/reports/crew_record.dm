@@ -1,3 +1,4 @@
+
 GLOBAL_LIST_EMPTY(all_crew_records)
 GLOBAL_LIST_INIT(blood_types, list("A-", "A+", "B-", "B+", "AB-", "AB+", "O-", "O+"))
 GLOBAL_LIST_INIT(physical_statuses, list("Active", "Disabled", "SSD", "Deceased", "MIA"))
@@ -47,7 +48,7 @@ GLOBAL_VAR_INIT(arrest_security_status, "Arrest")
 	// Generic record
 	set_name(H ? H.real_name : "Unset")
 	set_formal_name(formal_name)
-	set_job(H ? GetAssignment(H) : "Unset")
+	set_role(H ? GetAssignment(H) : "Unset")
 	var/gender_term = "Unset"
 	if(H)
 		var/datum/gender/G = gender_datums[H.get_sex()]
@@ -116,7 +117,7 @@ GLOBAL_VAR_INIT(arrest_security_status, "Arrest")
 /proc/faction_crew_manifest(var/list/filter_positions, var/blacklist = FALSE)
 	var/list/matches = list()
 	for(var/datum/computer_file/report/crew_record/CR in GLOB.all_crew_records)
-		var/rank = CR.get_job()
+		var/rank = CR.get_role()
 		if(blacklist)
 			if(!(rank in filter_positions))
 				matches.Add(CR)

@@ -1,4 +1,4 @@
-/datum/job/liaison
+/datum/role/liaison
 	title = "Workplace Liaison"
 	department = "Support"
 	department_flag = SPT
@@ -10,11 +10,11 @@
 	minimal_player_age = 0
 	alt_titles = list(
 		"Corporate Liaison",
-		"Union Representative" = /decl/hierarchy/outfit/job/torch/passenger/workplace_liaison/union_rep,
+		"Union Representative" = /decl/hierarchy/outfit/role/torch/passenger/workplace_liaison/union_rep,
 		"Corporate Representative",
 		"Corporate Executive"
 		)
-	outfit_type = /decl/hierarchy/outfit/job/torch/passenger/workplace_liaison
+	outfit_type = /decl/hierarchy/outfit/role/torch/passenger/workplace_liaison
 	allowed_branches = list(/datum/mil_branch/civilian)
 	allowed_ranks = list(/datum/mil_rank/civ/contractor)
 	min_skill = list(   SKILL_BUREAUCRACY	= SKILL_EXPERT,
@@ -26,17 +26,17 @@
 						access_nanotrasen, access_commissary, access_petrov)
 	software_on_spawn = list(/datum/computer_file/program/reports)
 
-/datum/job/liaison/get_description_blurb()
+/datum/role/liaison/get_description_blurb()
 	return "You are the Workplace Liaison. You are a civilian employee of EXO, the Expeditionary Corps Organisation, the government-owned corporate conglomerate that partially funds the Torch. You are on board the vessel to promote corporate interests and protect the rights of the contractors on board as their union leader. You are not internal affairs. You advise command on corporate and union matters and contractors on their rights and obligations. Maximise profit. Be the shady corporate shill you always wanted to be."
 
-/datum/job/liaison/post_equip_rank(var/mob/person)
+/datum/role/liaison/post_equip_rank(var/mob/person)
 	var/my_title = "\a ["\improper [(person.mind ? (person.mind.role_alt_title ? person.mind.role_alt_title : person.mind.assigned_role) : "Loss Prevention Associate")]"]"
 	for(var/mob/M in GLOB.player_list)
 		if(M.client && M.mind)
 			if(M.mind.assigned_role == "Loss Prevention Associate")
 				to_chat(M, SPAN_NOTICE("<b>One of your employers, [my_title] named [person.real_name], is present on [GLOB.using_map.full_name].</b>"))
 
-/datum/job/bodyguard
+/datum/role/bodyguard
 	title = "Loss Prevention Associate"
 	department = "Support"
 	department_flag = SPT
@@ -46,7 +46,7 @@
 	selection_color = "#3d3d7f"
 	economic_power = 12
 	minimal_player_age = 7
-	outfit_type = /decl/hierarchy/outfit/job/torch/passenger/corporate_bodyguard
+	outfit_type = /decl/hierarchy/outfit/role/torch/passenger/corporate_bodyguard
 	allowed_branches = list(/datum/mil_branch/civilian)
 	allowed_ranks = list(/datum/mil_rank/civ/contractor)
 	min_skill = list(   SKILL_BUREAUCRACY = SKILL_BASIC,
@@ -58,7 +58,7 @@
 	                    SKILL_WEAPONS     = SKILL_MAX,
 	                    SKILL_FORENSICS   = SKILL_MAX)
 	alt_titles = list(
-		"Union Enforcer" = /decl/hierarchy/outfit/job/torch/passenger/corporate_bodyguard/union,
+		"Union Enforcer" = /decl/hierarchy/outfit/role/torch/passenger/corporate_bodyguard/union,
 		"Executive Assistant",
 		"Asset Protection Agent"
 	)
@@ -70,17 +70,17 @@
 						access_sec_guard)
 	defer_roundstart_spawn = TRUE
 
-/datum/job/bodyguard/is_position_available()
+/datum/role/bodyguard/is_position_available()
 	if(..())
 		for(var/mob/M in GLOB.player_list)
 			if(M.client && M.mind && M.mind.assigned_role == "Workplace Liaison")
 				return TRUE
 	return FALSE
 
-/datum/job/bodyguard/get_description_blurb()
-	return "You are the Loss Prevention Associate. You are an employee of one of the corporations that make up the Expeditionary Corps Organisation, and your job is to prevent the loss of the Liason's life - even at the cost of your own. Good luck."
+/datum/role/bodyguard/get_description_blurb()
+	return "You are the Loss Prevention Associate. You are an employee of one of the corporations that make up the Expeditionary Corps Organisation, and your role is to prevent the loss of the Liason's life - even at the cost of your own. Good luck."
 
-/datum/job/bodyguard/post_equip_rank(var/mob/person)
+/datum/role/bodyguard/post_equip_rank(var/mob/person)
 	var/my_title = "\a ["\improper [(person.mind ? (person.mind.role_alt_title ? person.mind.role_alt_title : person.mind.assigned_role) : "Loss Prevention Associate")]"]"
 	for(var/mob/M in GLOB.player_list)
 		if(M.client && M.mind)

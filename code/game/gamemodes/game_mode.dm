@@ -16,7 +16,7 @@ var/global/list/additional_antag_types = list()
 	var/ert_disabled = FALSE                 // ERT cannot be called.
 	var/deny_respawn = FALSE	             // Disable respawn during this round.
 
-	var/list/disabled_jobs = list()          // Mostly used for Malf.  This check is performed in job_controller so it doesn't spawn a regular AI.
+	var/list/disabled_roles = list()          // Mostly used for Malf.  This check is performed in role_controller so it doesn't spawn a regular AI.
 
 	var/shuttle_delay = 1                    // Shuttle transit time is multiplied by this.
 	var/auto_recall_shuttle = FALSE          // Will the shuttle automatically be recalled?
@@ -177,7 +177,7 @@ var/global/list/additional_antag_types = list()
 				continue
 			var/list/potential = list()
 			if(antag_templates && antag_templates.len)
-				if(antag.flags & ANTAG_OVERRIDE_JOB)
+				if(antag.flags & ANTAG_OVERRIDE_ROLE)
 					potential = antag.pending_antagonists
 				else
 					potential = antag.candidates
@@ -209,8 +209,8 @@ var/global/list/additional_antag_types = list()
 		antag.update_current_antag_max(src)
 		antag.build_candidate_list(src) //compile a list of all eligible candidates
 
-		//antag roles that replace jobs need to be assigned before the job controller hands out jobs.
-		if(antag.flags & ANTAG_OVERRIDE_JOB)
+		//antag roles that replace roles need to be assigned before the role controller hands out roles.
+		if(antag.flags & ANTAG_OVERRIDE_ROLE)
 			antag.attempt_spawn() //select antags to be spawned
 
 ///post_setup()
@@ -230,7 +230,7 @@ var/global/list/additional_antag_types = list()
 
 	//Assign all antag types for this game mode. Any players spawned as antags earlier should have been removed from the pending list, so no need to worry about those.
 	for(var/datum/antagonist/antag in antag_templates)
-		if(!(antag.flags & ANTAG_OVERRIDE_JOB))
+		if(!(antag.flags & ANTAG_OVERRIDE_ROLE))
 			antag.attempt_spawn() //select antags to be spawned
 		antag.finalize_spawn() //actually spawn antags
 
@@ -238,10 +238,10 @@ var/global/list/additional_antag_types = list()
 	for(var/datum/antagonist/antag in antag_templates)
 		antag.post_spawn()
 
-	// Update goals, now that antag status and jobs are both resolved.
+	// Update goals, now that antag status and roles are both resolved.
 	for(var/thing in SSticker.minds)
 		var/datum/mind/mind = thing
-		mind.generate_goals(mind.assigned_job)
+		mind.generate_goals(mind.assigned_role)
 		mind.current.show_goals()
 
 	if(evacuation_controller && auto_recall_shuttle)
@@ -513,32 +513,32 @@ proc/display_roundstart_logout_report()
 					found = 1
 					break
 			if(!found)
-				msg += "<b>[L.name]</b> ([L.ckey]), the [L.job] (<font color='#ffcc00'><b>Disconnected</b></font>)\n"
+				msg += "<b>[L.name]</b> ([L.ckey]), the [L.role] (<font color='#ffcc00'><b>Disconnected</b></font>)\n"
 
 		if(L.ckey && L.client)
 			if(L.client.inactivity >= (ROUNDSTART_LOGOUT_REPORT_TIME / 2))	//Connected, but inactive (alt+tabbed or something)
-				msg += "<b>[L.name]</b> ([L.ckey]), the [L.job] (<font color='#ffcc00'><b>Connected, Inactive</b></font>)\n"
+				msg += "<b>[L.name]</b> ([L.ckey]), the [L.role] (<font color='#ffcc00'><b>Connected, Inactive</b></font>)\n"
 				continue //AFK client
 			if(L.stat)
 				if(L.stat == UNCONSCIOUS)
-					msg += "<b>[L.name]</b> ([L.ckey]), the [L.job] (Dying)\n"
+					msg += "<b>[L.name]</b> ([L.ckey]), the [L.role] (Dying)\n"
 					continue //Unconscious
 				if(L.stat == DEAD)
-					msg += "<b>[L.name]</b> ([L.ckey]), the [L.job] (Dead)\n"
+					msg += "<b>[L.name]</b> ([L.ckey]), the [L.role] (Dead)\n"
 					continue //Dead
 
 			continue //Happy connected client
 		for(var/mob/observer/ghost/D in SSmobs.mob_list)
 			if(D.mind && (D.mind.original == L || D.mind.current == L))
 				if(L.stat == DEAD)
-					msg += "<b>[L.name]</b> ([ckey(D.mind.key)]), the [L.job] (Dead)\n"
+					msg += "<b>[L.name]</b> ([ckey(D.mind.key)]), the [L.role] (Dead)\n"
 					continue //Dead mob, ghost abandoned
 				else
 					if(D.can_reenter_corpse)
-						msg += "<b>[L.name]</b> ([ckey(D.mind.key)]), the [L.job] (<font color='red'><b>Adminghosted</b></font>)\n"
+						msg += "<b>[L.name]</b> ([ckey(D.mind.key)]), the [L.role] (<font color='red'><b>Adminghosted</b></font>)\n"
 						continue //Lolwhat
 					else
-						msg += "<b>[L.name]</b> ([ckey(D.mind.key)]), the [L.job] (<font color='red'><b>Ghosted</b></font>)\n"
+						msg += "<b>[L.name]</b> ([ckey(D.mind.key)]), the [L.role] (<font color='red'><b>Ghosted</b></font>)\n"
 						continue //Ghosted while alive
 
 	msg += "</span>" // close the span from right at the top

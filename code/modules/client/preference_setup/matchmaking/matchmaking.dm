@@ -70,7 +70,7 @@ var/global/datum/matchmaker/matchmaker = new()
 		return FALSE
 
 	var/datum/antagonist/special_role_data = get_antag_data(M.special_role)
-	if(special_role_data && (special_role_data.flags & ANTAG_OVERRIDE_JOB))
+	if(special_role_data && (special_role_data.flags & ANTAG_OVERRIDE_ROLE))
 		return FALSE
 
 	return TRUE
@@ -126,9 +126,9 @@ var/global/datum/matchmaker/matchmaker = new()
 			if(!M.mind || M.stat == DEAD || !valid_candidate(M.mind))
 				candidates -= M
 				continue
-			var/datum/job/coworker = SSroles.get_by_title(M.job)
-			if(coworker && holder.assigned_job && other.holder.assigned_job)
-				if((coworker.department_flag & holder.assigned_job.department_flag) || (coworker.department_flag & other.holder.assigned_job.department_flag))
+			var/datum/role/coworker = SSroles.get_by_title(M.role)
+			if(coworker && holder.assigned_role && other.holder.assigned_role)
+				if((coworker.department_flag & holder.assigned_role.department_flag) || (coworker.department_flag & other.holder.assigned_role.department_flag))
 					candidates[M] = 5	//coworkers are 5 times as likely to know about your relations
 
 		for(var/i=1 to 5)

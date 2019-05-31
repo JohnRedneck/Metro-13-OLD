@@ -47,25 +47,25 @@
 	var/update_icon = FALSE
 	copy_to(mannequin, TRUE)
 
-	var/datum/job/previewJob
+	var/datum/role/previewJob
 	if(equip_preview_mob)
-		// Determine what job is marked as 'High' priority, and dress them up as such.
-		if(GLOB.using_map.default_assistant_title in job_low)
+		// Determine what role is marked as 'High' priority, and dress them up as such.
+		if(GLOB.using_map.default_assistant_title in role_low)
 			previewJob = SSroles.get_by_title(GLOB.using_map.default_assistant_title)
 		else
-			previewJob = SSroles.get_by_title(job_high)
+			previewJob = SSroles.get_by_title(role_high)
 	else
 		return
 
-	if((equip_preview_mob & EQUIP_PREVIEW_JOB) && previewJob)
-		mannequin.job = previewJob.title
+	if((equip_preview_mob & EQUIP_PREVIEW_ROLE) && previewJob)
+		mannequin.role = previewJob.title
 		var/datum/mil_branch/branch = mil_branches.get_branch(branches[previewJob.title])
 		var/datum/mil_rank/rank = mil_branches.get_rank(branches[previewJob.title], ranks[previewJob.title])
 		previewJob.equip_preview(mannequin, player_alt_titles[previewJob.title], branch, rank)
 		update_icon = TRUE
 
-	if((equip_preview_mob & EQUIP_PREVIEW_LOADOUT) && !(previewJob && (equip_preview_mob & EQUIP_PREVIEW_JOB))) //&& (previewJob.type == /datum/job/ai || previewJob.type == /datum/job/cyborg)))
-		// Equip custom gear loadout, replacing any job items
+	if((equip_preview_mob & EQUIP_PREVIEW_LOADOUT) && !(previewJob && (equip_preview_mob & EQUIP_PREVIEW_ROLE))) //&& (previewJob.type == /datum/role/ai || previewJob.type == /datum/role/cyborg)))
+		// Equip custom gear loadout, replacing any role items
 		var/list/loadout_taken_slots = list()
 		for(var/thing in Gear())
 			var/datum/gear/G = gear_datums[thing]
@@ -73,8 +73,8 @@
 				var/permitted = 0
 				if(G.allowed_roles && G.allowed_roles.len)
 					if(previewJob)
-						for(var/job_type in G.allowed_roles)
-							if(previewJob.type == job_type)
+						for(var/role_type in G.allowed_roles)
+							if(previewJob.type == role_type)
 								permitted = 1
 				else
 					permitted = 1

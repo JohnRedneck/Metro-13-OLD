@@ -10,7 +10,7 @@ User's Guide to Skills
 
 2. Where do skills come from?
 	Most mobs (i.e. not player-controlled ones) will respond SKILL_DEFAULT when checked for skills.
-	Players set up their skill preferences on a per-job basis in the player setup screen, under occupations. See below for more.
+	Players set up their skill preferences on a per-role basis in the player setup screen, under occupations. See below for more.
 	At round start, these preferences are transferred over to the relevant mob. This is handled in the skillset.obtain_from_client proc.
 	If a player is an antag, this is bypassed. Modify the skillset.set_antag_skills proc to change the antag behavior.
 	When minds are transferred between mobs, the skillset is generally copied over to the new mob.
@@ -28,24 +28,24 @@ User's Guide to Skills
 		skill_fail_chance(SKILL_PATH, fail_chance, no_more_fail, factor) modifies fail probabilities according to skill.
 
 4. What determines what skill options are available in player setup? How can you change them?
-	Skill setup works largely on a per-job basis, with some per-species and branch modifiers.
-	For each job, a minimum value can be assigned to any skill. To do this, add an entry of /decl/hierarchy/skill/skill_category/skill_name = min_value to that job datums's min_skill variable (this is a list).
+	Skill setup works largely on a per-role basis, with some per-species and branch modifiers.
+	For each role, a minimum value can be assigned to any skill. To do this, add an entry of /decl/hierarchy/skill/skill_category/skill_name = min_value to that role datums's min_skill variable (this is a list).
 	This minimum value is given for free to the player, and does not use up allocation points.
-	For each job, a maximum value can also be assigned. Add a similar entry to the max_skills list.
-	For each job, a base number of free points can be assigned. This is given in the job datum's skill_points variable (should be a number).
+	For each role, a maximum value can also be assigned. Add a similar entry to the max_skills list.
+	For each role, a base number of free points can be assigned. This is given in the role datum's skill_points variable (should be a number).
 	Free point bonuses/penalties can be specified, for each species, as a function of a player's selected age. 
-	This can be done by overwriting species datum's skills_from_age proc, which takes in the age and returns an integer (positive or negative) which will be added to all jobs' available skill points.
-	Free point bonuses/penalties can be specified, for each species, as a function of the job.
-	To do this, add the entry /datum/job/my_job = points_to_add to the species datum's job_skill_buffs variable (this is a list). Then points_to_add (positive or negative) will be added to that job's available skill points.
+	This can be done by overwriting species datum's skills_from_age proc, which takes in the age and returns an integer (positive or negative) which will be added to all roles' available skill points.
+	Free point bonuses/penalties can be specified, for each species, as a function of the role.
+	To do this, add the entry /datum/role/my_role = points_to_add to the species datum's role_skill_buffs variable (this is a list). Then points_to_add (positive or negative) will be added to that role's available skill points.
 	Generally, if the free point allocations or min/max values turn out to be negative or otherwise contradictory, this will not result in runtime errors, so make sure to test whether your changes work as intended.
 
 5. You want to make skill-related changes but are worried about whether they will break savefiles.
-	Savefiles are on a per-job basis. Only affected jobs will have their savefiles reset.
+	Savefiles are on a per-role basis. Only affected roles will have their savefiles reset.
 	If a savefile represents a plausable skill point allocation, it will be imported; if not, a default skill allocation is used.
 	In particular, changes which increase the number of free skill points, decrease minimum allocations, or increase maximum allocations, will not break savefiles.
 	Changes which increase minimum allocations or decrease maximum allocations will not reset the entire allocation, but may leave extra unassigned points if the skill cap is reached.
-	Changes which decrease the number of free points (including from species/age buffs) may reset the entire job's allocation.
-	The size of the savefile roughly corresponds to the number of skills with nondefault allocations; this is only significant if many jobs have nondefault skill selections.
+	Changes which decrease the number of free points (including from species/age buffs) may reset the entire role's allocation.
+	The size of the savefile roughly corresponds to the number of skills with nondefault allocations; this is only significant if many roles have nondefault skill selections.
 
 6. You are an admin and need to bus skill stuff.
 	If you are antaging/unantaging someone via the traitor panel, this will usually change their skills.

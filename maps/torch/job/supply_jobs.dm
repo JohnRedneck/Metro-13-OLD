@@ -1,4 +1,4 @@
-/datum/job/qm
+/datum/role/qm
 	title = "Deck Chief"
 	department = "Supply"
 	department_flag = SUP
@@ -8,10 +8,10 @@
 	economic_power = 5
 	minimal_player_age = 0
 	ideal_character_age = 35
-	outfit_type = /decl/hierarchy/outfit/job/torch/crew/supply/deckofficer
+	outfit_type = /decl/hierarchy/outfit/role/torch/crew/supply/deckofficer
 	allowed_branches = list(
 		/datum/mil_branch/expeditionary_corps,
-		/datum/mil_branch/fleet = /decl/hierarchy/outfit/job/torch/crew/supply/deckofficer/fleet
+		/datum/mil_branch/fleet = /decl/hierarchy/outfit/role/torch/crew/supply/deckofficer/fleet
 	)
 	allowed_ranks = list(
 		/datum/mil_rank/fleet/e6,
@@ -36,7 +36,7 @@
 							 /datum/computer_file/program/deck_management,
 							 /datum/computer_file/program/reports)
 
-/datum/job/cargo_tech
+/datum/role/cargo_tech
 	title = "Deck Technician"
 	department = "Supply"
 	department_flag = SUP
@@ -44,11 +44,11 @@
 	spawn_positions = 3
 	supervisors = "the Deck Chief and Executive Officer"
 	ideal_character_age = 24
-	outfit_type = /decl/hierarchy/outfit/job/torch/crew/supply/tech
+	outfit_type = /decl/hierarchy/outfit/role/torch/crew/supply/tech
 	allowed_branches = list(
 		/datum/mil_branch/expeditionary_corps,
-		/datum/mil_branch/fleet = /decl/hierarchy/outfit/job/torch/crew/supply/tech/fleet,
-		/datum/mil_branch/civilian = /decl/hierarchy/outfit/job/torch/crew/supply/contractor
+		/datum/mil_branch/fleet = /decl/hierarchy/outfit/role/torch/crew/supply/tech/fleet,
+		/datum/mil_branch/civilian = /decl/hierarchy/outfit/role/torch/crew/supply/contractor
 	)
 	allowed_ranks = list(
 		/datum/mil_rank/fleet/e2,
@@ -71,7 +71,7 @@
 							 /datum/computer_file/program/deck_management,
 							 /datum/computer_file/program/reports)
 
-/datum/job/mining
+/datum/role/mining
 	title = "Prospector"
 	department = "Supply"
 	department_flag = SUP
@@ -89,7 +89,7 @@
 
 	max_skill = list(   SKILL_PILOT       = SKILL_MAX)
 
-	outfit_type = /decl/hierarchy/outfit/job/torch/passenger/research/prospector
+	outfit_type = /decl/hierarchy/outfit/role/torch/passenger/research/prospector
 	allowed_branches = list(/datum/mil_branch/civilian)
 	allowed_ranks = list(/datum/mil_rank/civ/contractor)
 

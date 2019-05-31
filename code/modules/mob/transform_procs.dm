@@ -136,7 +136,7 @@
 		O.key = key
 
 	O.dropInto(loc)
-	O.job = "Robot"
+	O.role = "Robot"
 	callHook("borgify", list(O))
 	O.Namepick()
 

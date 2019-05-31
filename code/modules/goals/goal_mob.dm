@@ -21,8 +21,8 @@
 		return
 
 	var/datum/department/dept
-	if(mind.assigned_job && mind.assigned_job.department_flag && SSgoals.departments["[mind.assigned_job.department_flag]"])
-		dept = SSgoals.departments["[mind.assigned_job.department_flag]"]
+	if(mind.assigned_role && mind.assigned_role.department_flag && SSgoals.departments["[mind.assigned_role.department_flag]"])
+		dept = SSgoals.departments["[mind.assigned_role.department_flag]"]
 
 	//No goals to display
 	if(!(allow_modification || LAZYLEN(mind.goals)) && !(dept && LAZYLEN(dept.goals)))

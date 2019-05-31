@@ -48,12 +48,12 @@
 /datum/gear/accessory/torch_patch
 	display_name = "Torch mission patch"
 	path = /obj/item/clothing/accessory/solgov/torch_patch
-	description = "A shoulder patch representing the SEV Torch and its mission. Given to all the oddjobs pulled from various branches to work on the Torch."
+	description = "A shoulder patch representing the SEV Torch and its mission. Given to all the oddroles pulled from various branches to work on the Torch."
 
 /datum/gear/accessory/pilot_pin
 	display_name = "pilot's qualification pin"
 	path = /obj/item/clothing/accessory/solgov/specialty/pilot
-	allowed_roles = list(/datum/job/captain, /datum/job/hop, /datum/job/bridgeofficer, /datum/job/pathfinder, /datum/job/nt_pilot)
+	allowed_roles = list(/datum/role/captain, /datum/role/hop, /datum/role/bridgeofficer, /datum/role/pathfinder, /datum/role/nt_pilot)
 
 /datum/gear/accessory/fleetpatch
 	display_name = "fleet patch"
@@ -76,18 +76,18 @@
 	allowed_roles = MEDICAL_ROLES
 
 /datum/gear/accessory/armband_emt
-	allowed_roles = list(/datum/job/doctor)
+	allowed_roles = list(/datum/role/doctor)
 
 /datum/gear/accessory/armband_corpsman
 	display_name = "medical armband"
 	path = /obj/item/clothing/accessory/armband/medblue
-	allowed_roles = list(/datum/job/cmo, /datum/job/senior_doctor, /datum/job/doctor)
+	allowed_roles = list(/datum/role/cmo, /datum/role/senior_doctor, /datum/role/doctor)
 
 /datum/gear/accessory/armband_engineering
 	allowed_roles = ENGINEERING_ROLES
 
 /datum/gear/accessory/armband_hydro
-	allowed_roles = list(/datum/job/rd, /datum/job/scientist, /datum/job/scientist_assistant, /datum/job/assistant)
+	allowed_roles = list(/datum/role/rd, /datum/role/scientist, /datum/role/scientist_assistant, /datum/role/assistant)
 
 /datum/gear/accessory/armband_nt
 	allowed_branches = CIVILIAN_BRANCHES
@@ -105,24 +105,24 @@
 	allowed_roles = STERILE_ROLES
 
 /datum/gear/storage/brown_vest
-	allowed_roles = list(/datum/job/chief_engineer, /datum/job/senior_engineer, /datum/job/engineer, /datum/job/roboticist, /datum/job/qm, /datum/job/cargo_tech,
-						/datum/job/mining, /datum/job/janitor, /datum/job/scientist_assistant, /datum/job/merchant, /datum/job/nt_pilot)
+	allowed_roles = list(/datum/role/chief_engineer, /datum/role/senior_engineer, /datum/role/engineer, /datum/role/roboticist, /datum/role/qm, /datum/role/cargo_tech,
+						/datum/role/mining, /datum/role/janitor, /datum/role/scientist_assistant, /datum/role/merchant, /datum/role/nt_pilot)
 
 /datum/gear/storage/black_vest
-	allowed_roles = list(/datum/job/hos, /datum/job/warden, /datum/job/detective, /datum/job/officer, /datum/job/merchant)
+	allowed_roles = list(/datum/role/hos, /datum/role/warden, /datum/role/detective, /datum/role/officer, /datum/role/merchant)
 
 /datum/gear/storage/white_vest
-	allowed_roles = list(/datum/job/cmo, /datum/job/senior_doctor, /datum/job/doctor, /datum/job/roboticist, /datum/job/merchant)
+	allowed_roles = list(/datum/role/cmo, /datum/role/senior_doctor, /datum/role/doctor, /datum/role/roboticist, /datum/role/merchant)
 
 /datum/gear/storage/brown_drop_pouches
-	allowed_roles = list(/datum/job/chief_engineer, /datum/job/senior_engineer, /datum/job/engineer, /datum/job/roboticist, /datum/job/qm, /datum/job/cargo_tech,
-						/datum/job/mining, /datum/job/janitor, /datum/job/scientist_assistant, /datum/job/merchant)
+	allowed_roles = list(/datum/role/chief_engineer, /datum/role/senior_engineer, /datum/role/engineer, /datum/role/roboticist, /datum/role/qm, /datum/role/cargo_tech,
+						/datum/role/mining, /datum/role/janitor, /datum/role/scientist_assistant, /datum/role/merchant)
 
 /datum/gear/storage/black_drop_pouches
-	allowed_roles = list(/datum/job/hos, /datum/job/warden, /datum/job/detective, /datum/job/officer, /datum/job/merchant)
+	allowed_roles = list(/datum/role/hos, /datum/role/warden, /datum/role/detective, /datum/role/officer, /datum/role/merchant)
 
 /datum/gear/storage/white_drop_pouches
-	allowed_roles = list(/datum/job/cmo, /datum/job/senior_doctor, /datum/job/doctor, /datum/job/roboticist, /datum/job/merchant)
+	allowed_roles = list(/datum/role/cmo, /datum/role/senior_doctor, /datum/role/doctor, /datum/role/roboticist, /datum/role/merchant)
 
 /datum/gear/tactical/holster
 	allowed_roles = ARMED_ROLES
@@ -133,7 +133,7 @@
 /datum/gear/tactical/press_tag
 	display_name = "Press tag"
 	path = /obj/item/clothing/accessory/armor/tag/press
-	allowed_roles = list(/datum/job/assistant)
+	allowed_roles = list(/datum/role/assistant)
 
 /datum/gear/tactical/helm_covers
 	allowed_roles = ARMORED_ROLES

@@ -4,8 +4,8 @@
 		return
 
 	//do this again, just in case
-	if(flags & ANTAG_OVERRIDE_JOB)
-		player.assigned_job = null
+	if(flags & ANTAG_OVERRIDE_ROLE)
+		player.assigned_role = null
 		player.assigned_role = role_text
 		player.role_alt_title = null
 	player.special_role = role_text
@@ -74,7 +74,7 @@
 
 		if(player.current)
 			BITSET(player.current.hud_updateflag, SPECIALROLE_HUD)
-			player.current.reset_skillset() //Reset their skills to be job-appropriate.
+			player.current.reset_skillset() //Reset their skills to be role-appropriate.
 
 		if(!is_special_character(player))
 			if(player.current)

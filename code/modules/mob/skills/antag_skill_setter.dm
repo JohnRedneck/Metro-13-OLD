@@ -23,7 +23,7 @@
 	..()
 	skillset.open_ui()
 
-//This will obtain skills from the job selection before giving additional buffs.
+//This will obtain skills from the role selection before giving additional buffs.
 /datum/antag_skill_setter/station
 	nm_type = /datum/nano_module/skill_ui/antag/station
 
@@ -32,11 +32,11 @@
 	if(skillset.owner)
 		var/client/my_client = skillset.owner.client
 		if(my_client && skillset.owner.mind)
-			var/datum/job/job = SSroles.get_by_title(skillset.owner.mind.assigned_role)
-			skillset.obtain_from_client(job, my_client, 1)
+			var/datum/role/role = SSroles.get_by_title(skillset.owner.mind.assigned_role)
+			skillset.obtain_from_client(role, my_client, 1)
 	skillset.open_ui()
 
-//This will obtain skills from the job selection before giving additional buffs.
+//This will obtain skills from the role selection before giving additional buffs.
 /datum/antag_skill_setter/station/offstation
 	nm_type = /datum/nano_module/skill_ui/antag/station/offstation
 

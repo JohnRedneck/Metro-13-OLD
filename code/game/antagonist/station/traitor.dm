@@ -3,8 +3,8 @@ GLOBAL_DATUM_INIT(traitors, /datum/antagonist/traitor, new)
 // Inherits most of its vars from the base datum.
 /datum/antagonist/traitor
 	id = MODE_TRAITOR
-	blacklisted_jobs = list(/datum/job/submap)
-	protected_jobs = list(/datum/job/officer, /datum/job/warden, /datum/job/detective, /datum/job/captain, /datum/job/lawyer, /datum/job/hos)
+	blacklisted_roles = list(/datum/role/submap)
+	protected_roles = list(/datum/role/officer, /datum/role/warden, /datum/role/detective, /datum/role/captain, /datum/role/lawyer, /datum/role/hos)
 	flags = ANTAG_SUSPICIOUS | ANTAG_RANDSPAWN | ANTAG_VOTABLE
 	skill_setter = /datum/antag_skill_setter/station
 

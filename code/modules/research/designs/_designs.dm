@@ -12,7 +12,7 @@ Don't add new keyword/IDs if they are made from an existing one (such as rods wh
 
 Design Guidlines
 - When adding new designs, check rdreadme.dm to see what kind of things have already been made and where new stuff is needed.
-- A single sheet of anything is 2000 units of material. Materials besides metal/glass require help from other jobs (mining for
+- A single sheet of anything is 2000 units of material. Materials besides metal/glass require help from other roles (mining for
 other types of metals and chemistry for reagents).
 
 */

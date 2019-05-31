@@ -1,5 +1,5 @@
 #include "unishi_areas.dm"
-#include "unishi_jobs.dm"
+#include "unishi_roles.dm"
 
 /obj/effect/submap_landmark/joinable_submap/unishi
 	name = "SRV Verne"
@@ -8,9 +8,9 @@
 /decl/submap_archetype/derelict/unishi
 	descriptor = "derelict research vessel"
 	map = "SRV Verne"
-	crew_jobs = list(
-		/datum/job/submap/unishi_crew,
-		/datum/job/submap/unishi_researcher
+	crew_roles = list(
+		/datum/role/submap/unishi_crew,
+		/datum/role/submap/unishi_researcher
 	)
 
 /obj/effect/overmap/ship/unishi
@@ -88,7 +88,7 @@
 
 obj/item/weapon/paper/prof1
 	name = "Error log"
-	info = "<large> COMPUTER ID: 15231 <br> Attempting recovery of document directory. <br> Three files recovered <br> Printing file (1/2) <br> </large> ... about your concerns. I told you that the shielding is strong enough to avoid ANY leaks of radiation or hazardous materials. The entire lab is 100% isolated from the ship in terms of even the air supply. Leave me and my students the fuck alone. Your job is to maintain the fucking reactor an !#@!dqma211.<br> <large> File (2/3) Tested SM </large> This thing has a lot of potential. It doesn't produce any measurable levels of gas, or even significant thermal signature. The potential is nearly limitless. We've had to fine tune our activation procedures as even a short beam of the emitter seems to activate this thing. CTI Engineering dept still won't fucking answer where they got this thing, but it's simply amazing. I've sent an ema #@^%da12k"
+	info = "<large> COMPUTER ID: 15231 <br> Attempting recovery of document directory. <br> Three files recovered <br> Printing file (1/2) <br> </large> ... about your concerns. I told you that the shielding is strong enough to avoid ANY leaks of radiation or hazardous materials. The entire lab is 100% isolated from the ship in terms of even the air supply. Leave me and my students the fuck alone. Your role is to maintain the fucking reactor an !#@!dqma211.<br> <large> File (2/3) Tested SM </large> This thing has a lot of potential. It doesn't produce any measurable levels of gas, or even significant thermal signature. The potential is nearly limitless. We've had to fine tune our activation procedures as even a short beam of the emitter seems to activate this thing. CTI Engineering dept still won't fucking answer where they got this thing, but it's simply amazing. I've sent an ema #@^%da12k"
 
 obj/item/weapon/paper/prof2
 	name = "Error log"

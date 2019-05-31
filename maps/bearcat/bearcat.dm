@@ -5,7 +5,7 @@
 	#include "../../code/datums/music_tracks/salutjohn.dm"
 
 	#include "bearcat_areas.dm"
-	#include "bearcat_jobs.dm"
+	#include "bearcat_roles.dm"
 	#include "bearcat_lobby.dm"
 	#include "bearcat_shuttles.dm"
 	#include "bearcat_overmap.dm"

@@ -210,7 +210,7 @@
 		new_record.set_formal_name("[I.formal_name_prefix][I.registered_name][I.formal_name_suffix]")
 		new_record.set_sex(I.sex)
 		new_record.set_age(I.age)
-		new_record.set_job(I.assignment)
+		new_record.set_role(I.assignment)
 		new_record.set_fingerprint(I.fingerprint_hash)
 		new_record.set_bloodtype(I.blood_type)
 		new_record.set_dna(I.dna_hash)
@@ -226,19 +226,19 @@
 		COPY_VALUE(fingerprint)
 		COPY_VALUE(dna)
 		COPY_VALUE(bloodtype)
-	var/datum/job/job = SSroles.get_by_title(new_record.get_job())
-	if(job)
+	var/datum/role/role = SSroles.get_by_title(new_record.get_role())
+	if(role)
 		var/skills = list()
 		for(var/decl/hierarchy/skill/S in GLOB.skills)
-			var/level = job.min_skill[S.type]
+			var/level = role.min_skill[S.type]
 			if(prob(10))
-				level = min(rand(1,3), job.max_skill[S.type])
+				level = min(rand(1,3), role.max_skill[S.type])
 			if(level > SKILL_NONE)
 				skills += "[S.name], [S.levels[level]]"
 		new_record.set_skillset(jointext(skills,"\n"))
 
-	if(istype(job) && job.announced)
-		AnnounceArrivalSimple(new_record.get_name(), new_record.get_job(), "has completed cryogenic revival", get_announcement_frequency(job))
+	if(istype(role) && role.announced)
+		AnnounceArrivalSimple(new_record.get_name(), new_record.get_role(), "has completed cryogenic revival", get_announcement_frequency(role))
 	. = ..()
 
 #undef COPY_VALUE

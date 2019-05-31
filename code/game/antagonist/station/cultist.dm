@@ -24,9 +24,9 @@ GLOBAL_DATUM_INIT(cult, /datum/antagonist/cultist, new)
 	id = MODE_CULTIST
 	role_text = "Cultist"
 	role_text_plural = "Cultists"
-	restricted_jobs = list(/datum/job/lawyer, /datum/job/captain, /datum/job/hos)
-	protected_jobs = list(/datum/job/officer, /datum/job/warden, /datum/job/detective)
-	blacklisted_jobs = list(/datum/job/ai, /datum/job/cyborg, /datum/job/chaplain, /datum/job/psychiatrist, /datum/job/submap)
+	restricted_roles = list(/datum/role/lawyer, /datum/role/captain, /datum/role/hos)
+	protected_roles = list(/datum/role/officer, /datum/role/warden, /datum/role/detective)
+	blacklisted_roles = list(/datum/role/ai, /datum/role/cyborg, /datum/role/chaplain, /datum/role/psychiatrist, /datum/role/submap)
 	feedback_tag = "cult_objective"
 	antag_indicator = "hudcultist"
 	welcome_text = "You have a tome in your possession; one that will help you start the cult. Use it well and remember - there are others."

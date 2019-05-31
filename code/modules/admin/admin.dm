@@ -872,9 +872,9 @@ var/global/floorIsLava = 0
 	set name="Toggle AI"
 	config.allow_ai = !( config.allow_ai )
 	if (!( config.allow_ai ))
-		to_world("<B>The AI job is no longer chooseable.</B>")
+		to_world("<B>The AI role is no longer chooseable.</B>")
 	else
-		to_world("<B>The AI job is chooseable now.</B>")
+		to_world("<B>The AI role is chooseable now.</B>")
 	log_admin("[key_name(usr)] toggled AI allowed.")
 	world.update_status()
 	SSstatistics.add_field_details("admin_verb","TAI") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!

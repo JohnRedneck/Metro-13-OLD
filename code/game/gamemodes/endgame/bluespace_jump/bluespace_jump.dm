@@ -125,9 +125,9 @@
 	H.sync_organ_dna()
 	H.flavor_text = daddy.flavor_text
 	H.UpdateAppearance()
-	var/datum/job/job = SSroles.get_by_title(daddy.job)
-	if(job)
-		job.equip(H)
+	var/datum/role/role = SSroles.get_by_title(daddy.role)
+	if(role)
+		role.equip(H)
 	daddy.dust()
 	qdel(src)
 

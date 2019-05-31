@@ -4,7 +4,7 @@ var/list/OOClog    = list()
 var/list/adminlog  = list()
 
 var/datum/configuration/config      = null
-var/list/jobMax        = list()
+var/list/roleMax        = list()
 
 var/diary               = null
 

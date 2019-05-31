@@ -1,4 +1,4 @@
-/datum/job/submap/voxship_vox
+/datum/role/submap/voxship_vox
 	rank =   /datum/mil_rank/alien
 	branch = /datum/mil_branch/alien
 	allowed_branches = list(/datum/mil_branch/alien)

@@ -60,7 +60,7 @@ var/message_delay = 0 // To make sure restarting the recentmessages list is kept
 			Broadcast_Message(signal.data["connection"], signal.data["mob"],
 							  signal.data["vmask"], signal.data["vmessage"],
 							  signal.data["radio"], signal.data["message"],
-							  signal.data["name"], signal.data["job"],
+							  signal.data["name"], signal.data["role"],
 							  signal.data["realname"], signal.data["vname"],,
 							  signal.data["compression"], signal.data["level"], signal.frequency,
 							  signal.data["verb"], signal.data["language"], signal.data["channel_tag"], signal.data["channel_color"])
@@ -87,7 +87,7 @@ var/message_delay = 0 // To make sure restarting the recentmessages list is kept
 			Broadcast_Message(signal.data["connection"], signal.data["mob"],
 							  signal.data["vmask"], signal.data["vmessage"],
 							  signal.data["radio"], signal.data["message"],
-							  signal.data["name"], signal.data["job"],
+							  signal.data["name"], signal.data["role"],
 							  signal.data["realname"], signal.data["vname"], 4, signal.data["compression"], signal.data["level"], signal.frequency,
 							  signal.data["verb"], signal.data["language"], signal.data["channel_tag"], signal.data["channel_color"])
 
@@ -109,7 +109,7 @@ var/message_delay = 0 // To make sure restarting the recentmessages list is kept
 
 /*
 	Basically just an empty shell for receiving and broadcasting radio messages. Not
-	very flexible, but it gets the job done.
+	very flexible, but it gets the role done.
 */
 
 /obj/machinery/telecomms/allinone
@@ -160,7 +160,7 @@ var/message_delay = 0 // To make sure restarting the recentmessages list is kept
 			Broadcast_Message(signal.data["connection"], signal.data["mob"],
 							  signal.data["vmask"], signal.data["vmessage"],
 							  signal.data["radio"], signal.data["message"],
-							  signal.data["name"], signal.data["job"],
+							  signal.data["name"], signal.data["role"],
 							  signal.data["realname"], signal.data["vname"],, signal.data["compression"], list(0), connection.frequency,
 							  signal.data["verb"], signal.data["language"], channel_name ? channel_name : signal.data["channel_tag"], channel_color ? channel_color : signal.data["channel_color"])
 		else
@@ -168,7 +168,7 @@ var/message_delay = 0 // To make sure restarting the recentmessages list is kept
 				Broadcast_Message(signal.data["connection"], signal.data["mob"],
 							  signal.data["vmask"], signal.data["vmessage"],
 							  signal.data["radio"], signal.data["message"],
-							  signal.data["name"], signal.data["job"],
+							  signal.data["name"], signal.data["role"],
 							  signal.data["realname"], signal.data["vname"], 3, signal.data["compression"], list(0), connection.frequency,
 							  signal.data["verb"], signal.data["language"], signal.data["channel_tag"], signal.data["channel_color"])
 
@@ -203,8 +203,8 @@ var/message_delay = 0 // To make sure restarting the recentmessages list is kept
 	@param name:
 		The name to display when a mob receives the message. signal.data["name"]
 
-	@param job:
-		The name job to display for the AI when it receives the message. signal.data["job"]
+	@param role:
+		The name role to display for the AI when it receives the message. signal.data["role"]
 
 	@param realname:
 		The "real" name associated with the mob. signal.data["realname"]
@@ -239,7 +239,7 @@ var/message_delay = 0 // To make sure restarting the recentmessages list is kept
 
 /proc/Broadcast_Message(var/datum/radio_frequency/connection, var/mob/M,
 						var/vmask, var/vmessage, var/obj/item/device/radio/radio,
-						var/message, var/name, var/job, var/realname, var/vname,
+						var/message, var/name, var/role, var/realname, var/vname,
 						var/data, var/compression, var/list/level, var/freq, var/verbage = "says", var/datum/language/speaking = null,
 						var/channel_tag, var/channel_color)
 

@@ -56,18 +56,18 @@ var/list/gamemode_cache = list()
 	var/list/probabilities = list()		// relative probability of each mode
 	var/humans_need_surnames = 0
 	var/allow_random_events = 0			// enables random events mid-round when set to 1
-	var/allow_ai = 1					// allow ai job
+	var/allow_ai = 1					// allow ai role
 	var/hostedby = null
 	var/respawn_delay = 30
 	var/guest_roleban = 1
 	var/usewhitelist = 0
 	var/kick_inactive = 0				//force disconnect for inactive players after this many minutes, if non-0
 	var/mods_can_tempban = 0
-	var/mods_can_job_tempban = 0
+	var/mods_can_role_tempban = 0
 	var/mod_tempban_max = 1440
-	var/mod_job_tempban_max = 1440
-	var/load_jobs_from_txt = 0
-	var/jobs_have_minimal_access = 0	//determines whether jobs use minimal access or expanded access.
+	var/mod_role_tempban_max = 1440
+	var/load_roles_from_txt = 0
+	var/roles_have_minimal_access = 0	//determines whether roles use minimal access or expanded access.
 	var/use_cortical_stacks = 0
 
 	var/cult_ghostwriter = 1               //Allows ghosts to write in blood in cult rounds...
@@ -143,7 +143,7 @@ var/list/gamemode_cache = list()
 
 	var/admin_legacy_system = 0	//Defines whether the server uses the legacy admin system with admins.txt or the SQL system. Config option in config.txt
 	var/ban_legacy_system = 0	//Defines whether the server uses the legacy banning system with the files in /data or the SQL system. Config option in config.txt
-	var/use_age_restriction_for_jobs = 0   //Do jobs use account age restrictions?   --requires database
+	var/use_age_restriction_for_roles = 0   //Do roles use account age restrictions?   --requires database
 	var/use_age_restriction_for_antags = 0 //Do antags use account age restrictions? --requires database
 
 	var/simultaneous_pm_warning_timeout = 100
@@ -277,14 +277,14 @@ var/list/gamemode_cache = list()
 				if ("ban_legacy_system")
 					config.ban_legacy_system = 1
 
-				if ("use_age_restriction_for_jobs")
-					config.use_age_restriction_for_jobs = 1
+				if ("use_age_restriction_for_roles")
+					config.use_age_restriction_for_roles = 1
 
 				if ("use_age_restriction_for_antags")
 					config.use_age_restriction_for_antags = 1
 
-				if ("jobs_have_minimal_access")
-					config.jobs_have_minimal_access = 1
+				if ("roles_have_minimal_access")
+					config.roles_have_minimal_access = 1
 
 				if ("use_recursive_explosions")
 					use_recursive_explosions = 1
@@ -527,17 +527,17 @@ var/list/gamemode_cache = list()
 				if("mods_can_tempban")
 					config.mods_can_tempban = 1
 
-				if("mods_can_job_tempban")
-					config.mods_can_job_tempban = 1
+				if("mods_can_role_tempban")
+					config.mods_can_role_tempban = 1
 
 				if("mod_tempban_max")
 					config.mod_tempban_max = text2num(value)
 
-				if("mod_job_tempban_max")
-					config.mod_job_tempban_max = text2num(value)
+				if("mod_role_tempban_max")
+					config.mod_role_tempban_max = text2num(value)
 
-				if("load_jobs_from_txt")
-					load_jobs_from_txt = 1
+				if("load_roles_from_txt")
+					load_roles_from_txt = 1
 
 				if("forbid_singulo_possession")
 					forbid_singulo_possession = 1

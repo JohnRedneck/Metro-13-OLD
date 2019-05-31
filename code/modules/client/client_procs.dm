@@ -35,9 +35,9 @@
 
 	// asset_cache
 	if(href_list["asset_cache_confirm_arrival"])
-//		to_chat(src, "ASSET JOB [href_list["asset_cache_confirm_arrival"]] ARRIVED.")
-		var/job = text2num(href_list["asset_cache_confirm_arrival"])
-		completed_asset_jobs += job
+//		to_chat(src, "ASSET ROLE [href_list["asset_cache_confirm_arrival"]] ARRIVED.")
+		var/role = text2num(href_list["asset_cache_confirm_arrival"])
+		completed_asset_roles += role
 		return
 
 	//search the href for script injection

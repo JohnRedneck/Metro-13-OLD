@@ -207,7 +207,7 @@ var/list/ai_verbs_default = list(
 		show_laws()
 		to_chat(src, "<b>These laws may be changed by other players, or by you being the traitor.</b>")
 
-	job = "AI"
+	role = "AI"
 	setup_icon()
 	eyeobj.possess(src)
 

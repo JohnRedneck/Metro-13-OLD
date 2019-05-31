@@ -385,10 +385,10 @@
 				to_chat(O.owner.current, "<span class='warning'>You get the feeling your target is no longer within your reach...</span>")
 			qdel(O)
 
-	//Handle job slot/tater cleanup.
+	//Handle role slot/tater cleanup.
 	if(occupant.mind)
-		if(occupant.mind.assigned_job)
-			occupant.mind.assigned_job.clear_slot()
+		if(occupant.mind.assigned_role)
+			occupant.mind.assigned_role.clear_slot()
 
 		if(occupant.mind.objectives.len)
 			occupant.mind.objectives = null

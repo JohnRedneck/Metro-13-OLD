@@ -4,9 +4,9 @@ GLOBAL_DATUM_INIT(godcult, /datum/antagonist/godcultist, new)
 	id = MODE_GODCULTIST
 	role_text = "God Cultist"
 	role_text_plural = "God Cultists"
-	restricted_jobs = list(/datum/job/lawyer, /datum/job/captain, /datum/job/hos)
-	protected_jobs = list(/datum/job/officer, /datum/job/warden, /datum/job/detective)
-	blacklisted_jobs = list(/datum/job/ai, /datum/job/cyborg, /datum/job/chaplain, /datum/job/submap)
+	restricted_roles = list(/datum/role/lawyer, /datum/role/captain, /datum/role/hos)
+	protected_roles = list(/datum/role/officer, /datum/role/warden, /datum/role/detective)
+	blacklisted_roles = list(/datum/role/ai, /datum/role/cyborg, /datum/role/chaplain, /datum/role/submap)
 	feedback_tag = "godcult_objective"
 	antag_indicator = "hudcultist"
 	faction_verb = /mob/living/proc/dpray

@@ -19,9 +19,9 @@ You can set verify to TRUE if you want send() to sleep until the client has the 
 
 /client
 	var/list/cache = list() // List of all assets sent to this client by the asset cache.
-	var/list/completed_asset_jobs = list() // List of all completed jobs, awaiting acknowledgement.
+	var/list/completed_asset_roles = list() // List of all completed roles, awaiting acknowledgement.
 	var/list/sending = list()
-	var/last_asset_job = 0 // Last job done.
+	var/last_asset_role = 0 // Last role done.
 
 //This proc sends the asset to the client, but only if it needs it.
 //This proc blocks(sleeps) unless verify is set to false
@@ -51,24 +51,24 @@ You can set verify to TRUE if you want send() to sleep until the client has the 
 		return 0
 
 	client.sending |= asset_name
-	var/job = ++client.last_asset_job
+	var/role = ++client.last_asset_role
 
 	client << browse({"
 	<script>
-		window.location.href="?asset_cache_confirm_arrival=[job]"
+		window.location.href="?asset_cache_confirm_arrival=[role]"
 	</script>
 	"}, "window=asset_cache_browser")
 
 	var/t = 0
 	var/timeout_time = (ASSET_CACHE_SEND_TIMEOUT * client.sending.len) + ASSET_CACHE_SEND_TIMEOUT
-	while(client && !client.completed_asset_jobs.Find(job) && t < timeout_time) // Reception is handled in Topic()
+	while(client && !client.completed_asset_roles.Find(role) && t < timeout_time) // Reception is handled in Topic()
 		sleep(1) // Lock up the caller until this is received.
 		t++
 
 	if(client)
 		client.sending -= asset_name
 		client.cache |= asset_name
-		client.completed_asset_jobs -= job
+		client.completed_asset_roles -= role
 
 	return 1
 
@@ -103,24 +103,24 @@ You can set verify to TRUE if you want send() to sleep until the client has the 
 	if (!client)
 		return 0
 	client.sending |= unreceived
-	var/job = ++client.last_asset_job
+	var/role = ++client.last_asset_role
 
 	client << browse({"
 	<script>
-		window.location.href="?asset_cache_confirm_arrival=[job]"
+		window.location.href="?asset_cache_confirm_arrival=[role]"
 	</script>
 	"}, "window=asset_cache_browser")
 
 	var/t = 0
 	var/timeout_time = ASSET_CACHE_SEND_TIMEOUT * client.sending.len
-	while(client && !client.completed_asset_jobs.Find(job) && t < timeout_time) // Reception is handled in Topic()
+	while(client && !client.completed_asset_roles.Find(role) && t < timeout_time) // Reception is handled in Topic()
 		sleep(1) // Lock up the caller until this is received.
 		t++
 
 	if(client)
 		client.sending -= unreceived
 		client.cache |= unreceived
-		client.completed_asset_jobs -= job
+		client.completed_asset_roles -= role
 
 	return 1
 

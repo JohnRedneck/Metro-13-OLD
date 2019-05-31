@@ -1,4 +1,4 @@
-/datum/job/pathfinder
+/datum/role/pathfinder
 	title = "Pathfinder"
 	department = "Exploration"
 	department_flag = EXP
@@ -9,7 +9,7 @@
 	minimal_player_age = 1
 	economic_power = 7
 	ideal_character_age = 35
-	outfit_type = /decl/hierarchy/outfit/job/torch/crew/exploration/pathfinder
+	outfit_type = /decl/hierarchy/outfit/role/torch/crew/exploration/pathfinder
 	allowed_branches = list(/datum/mil_branch/expeditionary_corps)
 	allowed_ranks = list(
 		/datum/mil_rank/ec/o1
@@ -36,10 +36,10 @@
 	software_on_spawn = list(/datum/computer_file/program/deck_management,
 							 /datum/computer_file/program/reports)
 
-/datum/job/pathfinder/get_description_blurb()
+/datum/role/pathfinder/get_description_blurb()
 	return "You are the Pathfinder. Your duty is to organize and lead the expeditions to away sites, carrying out the EC’s Primary Mission. You command Explorers. You make sure that expedition has the supplies and personnel it needs. You can pilot Charon if nobody else provides a pilot. Once on the away mission, your duty is to ensure that anything of scientific interest is brought back to the ship and passed to the relevant research lab."
 
-/datum/job/nt_pilot
+/datum/role/nt_pilot
 	title = "Shuttle Pilot"
 	supervisors = "the Pathfinder"
 	department = "Exploration"
@@ -50,14 +50,14 @@
 	economic_power = 10
 	minimal_player_age = 0
 	ideal_character_age = 25
-	outfit_type = /decl/hierarchy/outfit/job/torch/passenger/pilot
+	outfit_type = /decl/hierarchy/outfit/role/torch/passenger/pilot
 	allowed_branches = list(
 		/datum/mil_branch/civilian,
-		/datum/mil_branch/expeditionary_corps = /decl/hierarchy/outfit/job/torch/crew/exploration/pilot,
-		/datum/mil_branch/fleet = /decl/hierarchy/outfit/job/torch/crew/exploration/pilot/fleet
+		/datum/mil_branch/expeditionary_corps = /decl/hierarchy/outfit/role/torch/crew/exploration/pilot,
+		/datum/mil_branch/fleet = /decl/hierarchy/outfit/role/torch/crew/exploration/pilot/fleet
 	)
 	allowed_ranks = list(
-		/datum/mil_rank/civ/contractor = /decl/hierarchy/outfit/job/torch/passenger/research/nt_pilot,
+		/datum/mil_rank/civ/contractor = /decl/hierarchy/outfit/role/torch/passenger/research/nt_pilot,
 		/datum/mil_rank/ec/e7,
 		/datum/mil_rank/fleet/e6,
 		/datum/mil_rank/fleet/e7
@@ -76,7 +76,7 @@
 	max_skill = list(   SKILL_PILOT       = SKILL_MAX,
 	                    SKILL_SCIENCE     = SKILL_MAX)
 
-/datum/job/explorer
+/datum/role/explorer
 	title = "Explorer"
 	department = "Exploration"
 	department_flag = EXP
@@ -85,7 +85,7 @@
 	supervisors = "the Commanding Officer, Executive Officer, and Pathfinder"
 	selection_color = "#68099e"
 	ideal_character_age = 20
-	outfit_type = /decl/hierarchy/outfit/job/torch/crew/exploration/explorer
+	outfit_type = /decl/hierarchy/outfit/role/torch/crew/exploration/explorer
 	allowed_branches = list(/datum/mil_branch/expeditionary_corps)
 
 	allowed_ranks = list(
@@ -108,5 +108,5 @@
 
 	software_on_spawn = list(/datum/computer_file/program/deck_management)
 
-/datum/job/explorer/get_description_blurb()
+/datum/role/explorer/get_description_blurb()
 	return "You are an Explorer. Your duty is to go on expeditions to away sites. The Pathfinder is your team leader. You are to look for anything of economic or scientific interest to the SCG - mineral deposits, alien flora/fauna, artifacts. You will also likely encounter hazardous environments, aggressive wildlife or malfunctioning defense systems, so tread carefully."

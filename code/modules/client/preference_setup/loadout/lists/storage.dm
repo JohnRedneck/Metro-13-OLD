@@ -7,39 +7,39 @@
 	display_name = "webbing, engineering"
 	path = /obj/item/clothing/accessory/storage/brown_vest
 	cost = 3
-	allowed_roles = list(/datum/job/chief_engineer, /datum/job/engineer, /datum/job/roboticist, /datum/job/qm, /datum/job/cargo_tech,
-						/datum/job/mining, /datum/job/janitor)
+	allowed_roles = list(/datum/role/chief_engineer, /datum/role/engineer, /datum/role/roboticist, /datum/role/qm, /datum/role/cargo_tech,
+						/datum/role/mining, /datum/role/janitor)
 
 /datum/gear/storage/black_vest
 	display_name = "webbing, security"
 	path = /obj/item/clothing/accessory/storage/black_vest
 	cost = 3
-	allowed_roles = list(/datum/job/hos, /datum/job/warden, /datum/job/detective, /datum/job/officer)
+	allowed_roles = list(/datum/role/hos, /datum/role/warden, /datum/role/detective, /datum/role/officer)
 
 /datum/gear/storage/white_vest
 	display_name = "webbing, medical"
 	path = /obj/item/clothing/accessory/storage/white_vest
 	cost = 3
-	allowed_roles = list(/datum/job/cmo, /datum/job/doctor)
+	allowed_roles = list(/datum/role/cmo, /datum/role/doctor)
 
 /datum/gear/storage/brown_drop_pouches
 	display_name = "drop pouches, engineering"
 	path = /obj/item/clothing/accessory/storage/drop_pouches/brown
 	cost = 3
-	allowed_roles = list(/datum/job/chief_engineer, /datum/job/engineer, /datum/job/roboticist, /datum/job/qm, /datum/job/cargo_tech,
-						/datum/job/mining, /datum/job/janitor)
+	allowed_roles = list(/datum/role/chief_engineer, /datum/role/engineer, /datum/role/roboticist, /datum/role/qm, /datum/role/cargo_tech,
+						/datum/role/mining, /datum/role/janitor)
 
 /datum/gear/storage/black_drop_pouches
 	display_name = "drop pouches, security"
 	path = /obj/item/clothing/accessory/storage/drop_pouches/black
 	cost = 3
-	allowed_roles = list(/datum/job/hos, /datum/job/warden, /datum/job/detective, /datum/job/officer)
+	allowed_roles = list(/datum/role/hos, /datum/role/warden, /datum/role/detective, /datum/role/officer)
 
 /datum/gear/storage/white_drop_pouches
 	display_name = "drop pouches, medical"
 	path = /obj/item/clothing/accessory/storage/drop_pouches/white
 	cost = 3
-	allowed_roles = list(/datum/job/cmo, , /datum/job/doctor)
+	allowed_roles = list(/datum/role/cmo, , /datum/role/doctor)
 
 /datum/gear/storage/webbing
 	display_name = "webbing, simple"

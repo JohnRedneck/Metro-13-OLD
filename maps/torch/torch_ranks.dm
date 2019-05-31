@@ -1,4 +1,4 @@
-/datum/job/submap
+/datum/role/submap
 	branch = /datum/mil_branch/civilian
 	rank =   /datum/mil_rank/civ/civ
 	allowed_branches = list(/datum/mil_branch/civilian)
@@ -118,7 +118,7 @@
 		/datum/mil_rank/ec/o6
 	)
 
-	assistant_job = /datum/job/crew
+	assistant_role = /datum/role/crew
 
 	min_skill = list(	SKILL_SCIENCE = SKILL_BASIC,
 						SKILL_EVA     = SKILL_BASIC)
@@ -172,7 +172,7 @@
 		/datum/mil_rank/fleet/o5
 	)
 
-	assistant_job = /datum/job/crew
+	assistant_role = /datum/role/crew
 	min_skill = list(	SKILL_HAULING = SKILL_BASIC,
 						SKILL_WEAPONS = SKILL_BASIC,
 						SKILL_EVA     = SKILL_BASIC)
@@ -208,7 +208,7 @@
 		/datum/mil_rank/army/o10_alt
 	)
 
-	assistant_job = /datum/job/crew
+	assistant_role = /datum/role/crew
 	min_skill = list(	SKILL_HAULING = SKILL_ADEPT,
 	                    SKILL_WEAPONS = SKILL_BASIC,
 	                    SKILL_COMBAT  = SKILL_BASIC)

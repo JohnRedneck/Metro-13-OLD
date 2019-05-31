@@ -869,7 +869,7 @@
 		to_chat(user, "<span class='danger'>The cycler has already been subverted.</span>")
 		return
 
-	//Clear the access reqs, disable the safeties, and open up all paintjobs.
+	//Clear the access reqs, disable the safeties, and open up all paintroles.
 	to_chat(user, "<span class='danger'>You run the sequencer across the interface, corrupting the operating protocols.</span>")
 
 	var/additional_modifications = list_values(decls_repository.get_decls(emagged_modifications))
@@ -920,7 +920,7 @@
 
 		dat += "<h2>Customisation</h2>"
 		dat += "<b>Target product:</b> <A href='?src=\ref[src];select_department=1'>[target_modification.name]</a>, <A href='?src=\ref[src];select_species=1'>[target_species]</a>."
-		dat += "<A href='?src=\ref[src];apply_paintjob=1'><br>\[apply customisation routine\]</a><br><hr>"
+		dat += "<A href='?src=\ref[src];apply_paintrole=1'><br>\[apply customisation routine\]</a><br><hr>"
 
 	if(panel_open)
 		wires.Interact(user)
@@ -942,7 +942,7 @@
 		helmet.dropInto(loc)
 		helmet = null
 	else if(href_list["select_department"])
-		var/choice = input("Please select the target department paintjob.", "Suit cycler", target_modification) as null|anything in available_modifications
+		var/choice = input("Please select the target department paintrole.", "Suit cycler", target_modification) as null|anything in available_modifications
 		if(choice && CanPhysicallyInteract(usr))
 			target_modification = choice
 	else if(href_list["select_species"])
@@ -960,15 +960,15 @@
 		active = 1
 		spawn(100)
 			repair_suit()
-			finished_job()
+			finished_role()
 
-	else if(href_list["apply_paintjob"])
+	else if(href_list["apply_paintrole"])
 
 		if(!suit && !helmet) return
 		active = 1
 		spawn(100)
-			apply_paintjob()
-			finished_job()
+			apply_paintrole()
+			finished_role()
 
 	else if(href_list["toggle_safties"])
 		safeties = !safeties
@@ -1022,7 +1022,7 @@
 		return
 
 	if(irradiating == 1)
-		finished_job()
+		finished_role()
 		irradiating = 0
 		return
 
@@ -1036,7 +1036,7 @@
 			occupant.take_organ_damage(0,radiation_level + rand(1,3))
 		occupant.apply_damage(radiation_level*10, IRRADIATE, damage_flags = DAM_DISPERSED)
 
-/obj/machinery/suit_cycler/proc/finished_job()
+/obj/machinery/suit_cycler/proc/finished_role()
 	var/turf/T = get_turf(src)
 	T.visible_message("\icon[src]<span class='notice'>The [src] pings loudly.</span>")
 	icon_state = initial(icon_state)
@@ -1084,7 +1084,7 @@
 
 	return
 
-/obj/machinery/suit_cycler/proc/apply_paintjob()
+/obj/machinery/suit_cycler/proc/apply_paintrole()
 	if(!target_species || !target_modification)
 		return
 

@@ -133,10 +133,10 @@
 					to_chat(usr, "<span class='notice'>Appearance changed to [choice].</span>")
 					. = 1
 			if("Assignment")
-				var/new_job = sanitize(input(user,"What assignment would you like to put on this card?\nChanging assignment will not grant or remove any access levels.","Agent Card Assignment", assignment) as null|text)
-				if(!isnull(new_job) && CanUseTopic(user, state))
-					src.assignment = new_job
-					to_chat(user, "<span class='notice'>Occupation changed to '[new_job]'.</span>")
+				var/new_role = sanitize(input(user,"What assignment would you like to put on this card?\nChanging assignment will not grant or remove any access levels.","Agent Card Assignment", assignment) as null|text)
+				if(!isnull(new_role) && CanUseTopic(user, state))
+					src.assignment = new_role
+					to_chat(user, "<span class='notice'>Occupation changed to '[new_role]'.</span>")
 					. = 1
 			if("Blood Type")
 				var/default = blood_type

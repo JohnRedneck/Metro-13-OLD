@@ -56,7 +56,7 @@ var/list/stored_shock_by_ref = list()
 					return FALSE
 	return TRUE
 
-/datum/species/proc/check_background(var/datum/job/job, var/datum/preferences/prefs)
+/datum/species/proc/check_background(var/datum/role/role, var/datum/preferences/prefs)
 	. = TRUE
 
 /datum/species/proc/get_digestion_product()

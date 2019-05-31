@@ -16,7 +16,7 @@
 			. += "[i]. [goal.summarize(show_success, allow_modification, admin, position = i)]"
 
 // Create and display personal goals for this round.
-/datum/mind/proc/generate_goals(var/datum/job/job, var/adding_goals = FALSE, var/add_amount)
+/datum/mind/proc/generate_goals(var/datum/role/role, var/adding_goals = FALSE, var/add_amount)
 
 	if(!adding_goals)
 		goals = null
@@ -28,17 +28,17 @@
 			var/mob/living/carbon/human/H = current
 			for(var/token in H.cultural_info)
 				var/decl/cultural_info/culture = H.get_cultural_value(token)
-				var/list/new_goals = culture.get_possible_personal_goals(job ? job.department_flag : null)
+				var/list/new_goals = culture.get_possible_personal_goals(role ? role.department_flag : null)
 				if(LAZYLEN(new_goals))
 					available_goals |= new_goals
 
 		if(isnull(add_amount))
 			var/min_goals = 1
 			var/max_goals = 3
-			if(job && LAZYLEN(job.possible_goals))
-				available_goals |= job.possible_goals
-				min_goals = job.min_goals
-				max_goals = job.max_goals
+			if(role && LAZYLEN(role.possible_goals))
+				available_goals |= role.possible_goals
+				min_goals = role.min_goals
+				max_goals = role.max_goals
 			add_amount = rand(min_goals, max_goals)
 
 		for(var/i = 1 to min(LAZYLEN(available_goals), add_amount))

@@ -85,13 +85,13 @@
 	</div>
 		{{:helper.link(data.assignments ? "Hide assignments" : "Show assignments", 'gear', {'action' : 'togglea'})}}
 	<div class='item'>
-	  <span id='allvalue.jobsslot'>
+	  <span id='allvalue.rolesslot'>
 		
 	  </span>
 	</div>
 	<div class='item'>
 	  {{if data.assignments}}
-	  <div id="all-value.jobs">
+	  <div id="all-value.roles">
 		<table>
 		  <tr>
 			<th></th><th>Command</th>
@@ -105,64 +105,64 @@
 		  <tr>
 			<th style="color: '#800080';">Command</th>
 			<td>
-			  {{for data.command_jobs}}
-				{{:helper.link(value.display_name, '', {'action' : 'assign', 'assign_target' : value.job}, data.id_rank == value.job ? 'disabled' : null)}}
+			  {{for data.command_roles}}
+				{{:helper.link(value.display_name, '', {'action' : 'assign', 'assign_target' : value.role}, data.id_rank == value.role ? 'disabled' : null)}}
 			  {{/for}}
 			</td>
 		  </tr>
 		  <tr>
 			<th style="color: '#800080';">Support</th>
 			<td>
-			  {{for data.support_jobs}}
-				{{:helper.link(value.display_name, '', {'action' : 'assign', 'assign_target' : value.job}, data.id_rank == value.job ? 'disabled' : null)}}
+			  {{for data.support_roles}}
+				{{:helper.link(value.display_name, '', {'action' : 'assign', 'assign_target' : value.role}, data.id_rank == value.role ? 'disabled' : null)}}
 			  {{/for}}
 			</td>
 		  </tr>	  
 		  <tr>
 			<th style="color: '#FFA500';">Engineering</th>
 			<td>
-			  {{for data.engineering_jobs}}
-				{{:helper.link(value.display_name, '', {'action' : 'assign', 'assign_target' : value.job}, data.id_rank == value.job ? 'disabled' : null)}}
+			  {{for data.engineering_roles}}
+				{{:helper.link(value.display_name, '', {'action' : 'assign', 'assign_target' : value.role}, data.id_rank == value.role ? 'disabled' : null)}}
 			  {{/for}}
 			</td>
 		  </tr>
 		  <tr>
 			<th style="color: '#008000';">Medical</th>
 			<td>
-			  {{for data.medical_jobs}}
-				{{:helper.link(value.display_name, '', {'action' : 'assign', 'assign_target' : value.job}, data.id_rank == value.job ? 'disabled' : null)}}
+			  {{for data.medical_roles}}
+				{{:helper.link(value.display_name, '', {'action' : 'assign', 'assign_target' : value.role}, data.id_rank == value.role ? 'disabled' : null)}}
 			  {{/for}}
 			</td>
 		  </tr>
 		  <tr>
 			<th style="color: '#a65ba6';">Science</th>
 			<td>
-			  {{for data.science_jobs}}
-				{{:helper.link(value.display_name, '', {'action' : 'assign', 'assign_target' : value.job}, data.id_rank == value.job ? 'disabled' : null)}}
+			  {{for data.science_roles}}
+				{{:helper.link(value.display_name, '', {'action' : 'assign', 'assign_target' : value.role}, data.id_rank == value.role ? 'disabled' : null)}}
 			  {{/for}}
 			</td>
 		  </tr>
 		  <tr>
 			<th style="color: '#DD0000';">Security</th>
 			<td>
-			  {{for data.security_jobs}}
-			{{:helper.link(value.display_name, '', {'action' : 'assign', 'assign_target' : value.job}, data.id_rank == value.job ? 'disabled' : null)}}
+			  {{for data.security_roles}}
+			{{:helper.link(value.display_name, '', {'action' : 'assign', 'assign_target' : value.role}, data.id_rank == value.role ? 'disabled' : null)}}
 			  {{/for}}
 			</td>
 		  </tr>
 		  <tr>
 			<th style="color: '#bb9040';">Supply</th>
 			<td>
-			  {{for data.supply_jobs}}
-				{{:helper.link(value.display_name, '', {'action' : 'assign', 'assign_target' : value.job}, data.id_rank == value.job ? 'disabled' : null)}}
+			  {{for data.supply_roles}}
+				{{:helper.link(value.display_name, '', {'action' : 'assign', 'assign_target' : value.role}, data.id_rank == value.role ? 'disabled' : null)}}
 			  {{/for}}
 			</td>
 		  </tr>
 		  <tr>
 			<th style="color: '#68099e';">Exploration</th>
 			<td>
-			  {{for data.exploration_jobs}}
-				{{:helper.link(value.display_name, '', {'action' : 'assign', 'assign_target' : value.job}, data.id_rank == value.job ? 'disabled' : null)}}
+			  {{for data.exploration_roles}}
+				{{:helper.link(value.display_name, '', {'action' : 'assign', 'assign_target' : value.role}, data.id_rank == value.role ? 'disabled' : null)}}
 			  {{/for}}
 			</td>
 		  </tr>
@@ -170,18 +170,18 @@
 		  <tr>
 			<th style="color: '#88b764';">Service</th>
 			<td>
-			  {{for data.service_jobs}}
-				{{:helper.link(value.display_name, '', {'action' : 'assign', 'assign_target' : value.job}, data.id_rank == value.job ? 'disabled' : null)}}
+			  {{for data.service_roles}}
+				{{:helper.link(value.display_name, '', {'action' : 'assign', 'assign_target' : value.role}, data.id_rank == value.role ? 'disabled' : null)}}
 			  {{/for}}
 			</td>
 		  </tr>
 		  <tr>
 			<th style="color: '#808080';">Civilian</th>
 			<td>
-			  {{for data.civilian_jobs}}
+			  {{for data.civilian_roles}}
 				{{if index && index % 6 === 0}}
 				{{/if}}
-				{{:helper.link(value.display_name, '', {'action' : 'assign', 'assign_target' : value.job}, data.id_rank == value.job ? 'disabled' : null)}}
+				{{:helper.link(value.display_name, '', {'action' : 'assign', 'assign_target' : value.role}, data.id_rank == value.role ? 'disabled' : null)}}
 			  {{/for}}
 			</td>
 		  </tr>
@@ -189,12 +189,12 @@
 			<tr>
 			  <th style="color: '#A52A2A';">CentCom</th>
 			  <td>
-				{{for data.centcom_jobs}}
+				{{for data.centcom_roles}}
 				  {{if index % 6 === 0}}
 					</td></tr><tr><th></th><td>
 				  {{/if}}
 
-				  {{:helper.link(value.display_name, '', {'action' : 'assign', 'assign_target' : value.job}, data.id_rank == value.job ? 'disabled' : null)}}
+				  {{:helper.link(value.display_name, '', {'action' : 'assign', 'assign_target' : value.role}, data.id_rank == value.role ? 'disabled' : null)}}
 				{{/for}}
 			  </td>
 			</tr>

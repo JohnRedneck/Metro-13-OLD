@@ -3,13 +3,13 @@ GLOBAL_DATUM_INIT(renegades, /datum/antagonist/renegade, new)
 /datum/antagonist/renegade
 	role_text = "Renegade"
 	role_text_plural = "Renegades"
-	blacklisted_jobs = list(/*/datum/job/ai,*/ /datum/job/submap)
-	restricted_jobs = list(/datum/job/officer, /datum/job/warden, /datum/job/hos, /datum/job/captain)
+	blacklisted_roles = list(/*/datum/role/ai,*/ /datum/role/submap)
+	restricted_roles = list(/datum/role/officer, /datum/role/warden, /datum/role/hos, /datum/role/captain)
 	welcome_text = "Something's going to go wrong today, you can just feel it. You're paranoid, you've got a gun, and you're going to survive."
 	antag_text = "You are a <b>minor</b> antagonist! Within the rules, \
 		try to protect yourself and what's important to you. You aren't here to <i>cause</i> trouble, \
 		you're just willing (and equipped) to go to extremes to <b>stop</b> it. \
-		Your job is to oppose the other antagonists, should they threaten you, in ways that aren't quite legal. \
+		Your role is to oppose the other antagonists, should they threaten you, in ways that aren't quite legal. \
 		Try to make sure other players have <i>fun</i>! If you are confused or at a loss, always adminhelp, \
 		and before taking extreme actions, please try to also contact the administration! \
 		Think through your actions and make the roleplay immersive! <b>Please remember all \

@@ -598,7 +598,7 @@
 
 /obj/item/weapon/reagent_containers/food/snacks/human
 	var/hname = ""
-	var/job = null
+	var/role = null
 	filling_color = "#d63c3c"
 
 /obj/item/weapon/reagent_containers/food/snacks/human/burger

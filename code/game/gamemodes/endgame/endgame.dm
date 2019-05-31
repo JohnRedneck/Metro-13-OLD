@@ -10,7 +10,7 @@
  // Default shit.
 /datum/universal_state
 	// Just for reference, for now.
-	// Might eventually add an observatory job.
+	// Might eventually add an observatory role.
  	var/name = "Normal"
  	var/desc = "Nothing seems awry."
 

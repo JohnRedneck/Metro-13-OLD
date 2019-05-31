@@ -51,8 +51,8 @@
 /obj/item/modular_computer/proc/install_default_programs()
 	return 1
 
-/obj/item/modular_computer/proc/install_default_programs_by_job(var/mob/living/carbon/human/H)
-	var/datum/job/jb = SSroles.get_by_title(H.role)
+/obj/item/modular_computer/proc/install_default_programs_by_role(var/mob/living/carbon/human/H)
+	var/datum/role/jb = SSroles.get_by_title(H.role)
 	if(!jb) return
 	for(var/prog_type in jb.software_on_spawn)
 		var/datum/computer_file/program/prog_file = prog_type

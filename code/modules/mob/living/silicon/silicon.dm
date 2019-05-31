@@ -351,10 +351,10 @@
 		cameraFollow = null
 
 /mob/living/silicon/proc/clear_client()
-	//Handle job slot/tater cleanup.
+	//Handle role slot/tater cleanup.
 	if(mind)
-		if(mind.assigned_job)
-			mind.assigned_job.clear_slot()
+		if(mind.assigned_role)
+			mind.assigned_role.clear_slot()
 		if(mind.objectives.len)
 			qdel(mind.objectives)
 			mind.special_role = null

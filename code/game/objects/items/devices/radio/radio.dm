@@ -309,32 +309,32 @@
 		mobkey = M.key // assign the mob's key
 
 
-	var/jobname // the mob's "job"
+	var/rolename // the mob's "role"
 
-	// --- Human: use their actual job ---
+	// --- Human: use their actual role ---
 	if (ishuman(M))
 		var/mob/living/carbon/human/H = M
-		jobname = H.get_assignment()
+		rolename = H.get_assignment()
 
 	// --- Carbon Nonhuman ---
 	else if (iscarbon(M)) // Nonhuman carbon mob
-		jobname = "No id"
+		rolename = "No id"
 
 	// --- AI ---
 	else if (isAI(M))
-		jobname = "AI"
+		rolename = "AI"
 
 	// --- Cyborg ---
 	else if (isrobot(M))
-		jobname = "Robot"
+		rolename = "Robot"
 
 	// --- Personal AI (pAI) ---
 	else if (istype(M, /mob/living/silicon/pai))
-		jobname = "Personal AI"
+		rolename = "Personal AI"
 
 	// --- Unidentifiable mob ---
 	else
-		jobname = "Unknown"
+		rolename = "Unknown"
 
 
 	// --- Modifications to the mob's identity ---
@@ -342,7 +342,7 @@
 	// The mob is disguising their identity:
 	if (ishuman(M) && M.GetVoice() != real_name)
 		displayname = M.GetVoice()
-		jobname = "Unknown"
+		rolename = "Unknown"
 		voicemask = 1
 
 
@@ -361,7 +361,7 @@
 			"mobtype" = M.type, 	// the mob's type
 			"realname" = real_name, // the mob's real name
 			"name" = displayname,	// the mob's display name
-			"job" = jobname,		// the mob's job
+			"role" = rolename,		// the mob's role
 			"key" = mobkey,			// the mob's key
 			"vmessage" = pick(M.speak_emote), // the message to display if the voice wasn't understood
 			"vname" = M.voice_name, // the name to display if the voice wasn't understood
@@ -428,7 +428,7 @@
 		"mobtype" = M.type, 	// the mob's type
 		"realname" = real_name, // the mob's real name
 		"name" = displayname,	// the mob's display name
-		"job" = jobname,		// the mob's job
+		"role" = rolename,		// the mob's role
 		"key" = mobkey,			// the mob's key
 		"vmessage" = pick(M.speak_emote), // the message to display if the voice wasn't understood
 		"vname" = M.voice_name, // the name to display if the voice wasn't understood
@@ -469,7 +469,7 @@
 	if(!connection)	return 0	//~Carn
 	/*
 	return Broadcast_Message(connection, M, voicemask, pick(M.speak_emote),
-					  src, message, displayname, jobname, real_name, M.voice_name,
+					  src, message, displayname, rolename, real_name, M.voice_name,
 					  filter_type, signal.data["compression"], GetConnectedZlevels(position.z), connection.frequency, verb, speaking,
 					  "[connection.frequency]", channel_color_presets["Menacing Maroon"])
 	*/

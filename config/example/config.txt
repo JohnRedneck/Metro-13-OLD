@@ -10,18 +10,18 @@ ADMIN_LEGACY_SYSTEM
 ## Add a # infront of this if you want to use the SQL based banning system. The legacy systems use the files in the data folder. You need to set up your database to use the SQL based system.
 BAN_LEGACY_SYSTEM
 
-## Add a # here if you wish to use the setup where jobs have more access. This is intended for servers with low populations - where there are not enough players to fill all roles, so players need to do more than just one job. Also for servers where they don't want people to hide in their own departments.
-JOBS_HAVE_MINIMAL_ACCESS
+## Add a # here if you wish to use the setup where roles have more access. This is intended for servers with low populations - where there are not enough players to fill all roles, so players need to do more than just one role. Also for servers where they don't want people to hide in their own departments.
+ROLES_HAVE_MINIMAL_ACCESS
 
-## Unhash this entry to have certain jobs require your account to be at least a certain number of days old to select. You can configure the exact age requirement for different jobs by editing
-## the minimal_player_age variable in the files in folder /code/game/jobs/job/.. for the job you want to edit. Set minimal_player_age to 0 to disable age requirement for that job.
+## Unhash this entry to have certain roles require your account to be at least a certain number of days old to select. You can configure the exact age requirement for different roles by editing
+## the minimal_player_age variable in the files in folder /code/game/roles/role/.. for the role you want to edit. Set minimal_player_age to 0 to disable age requirement for that role.
 ## REQUIRES the database set up to work. Keep it hashed if you don't have a database set up.
 ## NOTE: If you have just set-up the database keep this DISABLED, as player age is determined from the first time they connect to the server with the database up. If you just set it up, it means
 ## you have noone older than 0 days, since noone has been logged yet. Only turn this on once you have had the database up for 30 days.
-#USE_AGE_RESTRICTION_FOR_JOBS
+#USE_AGE_RESTRICTION_FOR_ROLES
 
 ## Unhash this entry to have certain antag roles require your account to be at least a certain number of days old for round start and auto-spawn selection.
-## Non-automatic antagonist recruitment, such as being converted to cultism is not affected. Has the same database requirements and notes as USE_AGE_RESTRICTION_FOR_JOBS.
+## Non-automatic antagonist recruitment, such as being converted to cultism is not affected. Has the same database requirements and notes as USE_AGE_RESTRICTION_FOR_ROLES.
 #USE_AGE_RESTRICTION_FOR_ANTAGS
 
 ## Unhash this to use recursive explosions, keep it hashed to use circle explosions. Recursive explosions react to walls, airlocks and blast doors, making them look a lot cooler than the boring old circular explosions. They require more CPU and are (as of january 2013) experimental
@@ -81,14 +81,14 @@ LOG_PDA
 ## Chooses whether mods have the ability to tempban or not
 MODS_CAN_TEMPBAN
 
-## Chooses whether mods have the ability to issue tempbans for jobs or not
-MODS_CAN_JOB_TEMPBAN
+## Chooses whether mods have the ability to issue tempbans for roles or not
+MODS_CAN_ROLE_TEMPBAN
 
 ## Maximum mod tempban duration (in minutes)
 MOD_TEMPBAN_MAX 1440
 
-## Maximum mod job tempban duration (in minutes)
-MOD_JOB_TEMPBAN_MAX 1440
+## Maximum mod role tempban duration (in minutes)
+MOD_ROLE_TEMPBAN_MAX 1440
 
 
 ## probablities for game modes chosen in "secret" and "random" modes
@@ -166,7 +166,7 @@ ALLOW_ANTAG_HUD
 ## If ghosts use antagHUD they are no longer allowed to join the round.
 ANTAG_HUD_RESTRICTED
 
-## allow AI job
+## allow AI role
 ALLOW_AI
 
 
@@ -215,8 +215,8 @@ GUEST_BAN
 ## spawns a spellbook which gives object-type spells instead of verb-type spells for the wizard
 # FEATURE_OBJECT_SPELL_SYSTEM
 
-##Toggle for having jobs load up from the .txt
-# LOAD_JOBS_FROM_TXT
+##Toggle for having roles load up from the .txt
+# LOAD_ROLES_FROM_TXT
 
 ##Remove the # mark infront of this to forbid admins from posssessing the singularity.
 #FORBID_SINGULO_POSSESSION

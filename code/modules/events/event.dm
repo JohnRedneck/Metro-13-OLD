@@ -10,7 +10,7 @@
 	var/list/role_weights = list()
 	var/datum/event/event_type
 
-/datum/event_meta/New(var/event_severity, var/event_name, var/datum/event/type, var/event_weight, var/list/job_weights, var/is_one_shot = 0, var/min_event_weight = 0, var/max_event_weight = 0, var/add_to_queue = 1)
+/datum/event_meta/New(var/event_severity, var/event_name, var/datum/event/type, var/event_weight, var/list/role_weights, var/is_one_shot = 0, var/min_event_weight = 0, var/max_event_weight = 0, var/add_to_queue = 1)
 	name = event_name
 	severity = event_severity
 	event_type = type
@@ -19,19 +19,19 @@
 	min_weight = min_event_weight
 	max_weight = max_event_weight
 	src.add_to_queue = add_to_queue
-	if(job_weights)
-		role_weights = job_weights
+	if(role_weights)
+		role_weights = role_weights
 
 /datum/event_meta/proc/get_weight(var/list/active_with_role)
 	if(!enabled)
 		return 0
 
-	var/job_weight = 0
+	var/role_weight = 0
 	for(var/role in role_weights)
 		if(role in active_with_role)
-			job_weight += active_with_role[role] * role_weights[role]
+			role_weight += active_with_role[role] * role_weights[role]
 
-	var/total_weight = weight + job_weight
+	var/total_weight = weight + role_weight
 
 	// Only min/max the weight if the values are non-zero
 	if(min_weight && total_weight < min_weight) total_weight = min_weight

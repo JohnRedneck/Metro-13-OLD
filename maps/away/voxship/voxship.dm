@@ -1,5 +1,5 @@
 #include "voxship_areas.dm"
-#include "voxship_jobs.dm"
+#include "voxship_roles.dm"
 
 /datum/map_template/ruin/away_site/voxship
 	name = "Vox Base"
@@ -63,8 +63,8 @@
 /decl/submap_archetype/derelict/voxship
 	descriptor = "Shoal forward base"
 	map = "Vox Base"
-	crew_jobs = list(
-		/datum/job/submap/voxship_vox
+	crew_roles = list(
+		/datum/role/submap/voxship_vox
 	)
 	whitelisted_species = list(SPECIES_VOX)
 	blacklisted_species = null

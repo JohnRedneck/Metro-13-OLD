@@ -15,14 +15,14 @@ GLOBAL_VAR(spawntypes)
 	var/list/turfs   //List of turfs to spawn on.
 	var/display_name //Name used in preference setup.
 	var/always_visible = FALSE	// Whether this spawn point is always visible in selection, ignoring map-specific settings.
-	var/list/restrict_job = null
-	var/list/disallow_job = null
+	var/list/restrict_role = null
+	var/list/disallow_role = null
 
-/datum/spawnpoint/proc/check_job_spawning(job)
-	if(restrict_job && !(job in restrict_job))
+/datum/spawnpoint/proc/check_role_spawning(role)
+	if(restrict_role && !(role in restrict_role))
 		return 0
 
-	if(disallow_job && (job in disallow_job))
+	if(disallow_role && (role in disallow_role))
 		return 0
 
 	return 1
@@ -60,7 +60,7 @@ GLOBAL_VAR(spawntypes)
 /datum/spawnpoint/cryo
 	display_name = "Cryogenic Storage"
 	msg = "has completed cryogenic revival"
-	disallow_job = list("Robot")
+	disallow_role = list("Robot")
 
 /datum/spawnpoint/cryo/New()
 	..()
@@ -80,7 +80,7 @@ GLOBAL_VAR(spawntypes)
 /datum/spawnpoint/cyborg
 	display_name = "Cyborg Storage"
 	msg = "has been activated from storage"
-	restrict_job = list("Robot")
+	restrict_role = list("Robot")
 
 /datum/spawnpoint/cyborg/New()
 	..()

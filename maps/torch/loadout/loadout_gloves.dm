@@ -16,7 +16,7 @@
 	allowed_branches = CIVILIAN_BRANCHES
 
 /datum/gear/gloves/botany
-	allowed_roles = list(/datum/job/rd, /datum/job/scientist, /datum/job/scientist_assistant, /datum/job/chef, /datum/job/bartender, /datum/job/assistant, /datum/job/merchant)
+	allowed_roles = list(/datum/role/rd, /datum/role/scientist, /datum/role/scientist_assistant, /datum/role/chef, /datum/role/bartender, /datum/role/assistant, /datum/role/merchant)
 
 /datum/gear/gloves/dress
 	display_name = "gloves, dress"

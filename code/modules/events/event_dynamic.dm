@@ -1,6 +1,6 @@
 var/list/event_last_fired = list()
 
-//Always triggers an event when called, dynamically chooses events based on job population
+//Always triggers an event when called, dynamically chooses events based on role population
 /proc/spawn_dynamic_event()
 	if(!config.allow_random_events)
 		return
@@ -155,6 +155,7 @@ var/list/event_last_fired = list()
 // Note that this isn't sorted by department, because e.g. having a roboticist shouldn't make meteors spawn.
 /proc/number_active_with_role()
 	var/list/active_with_role = list()
+	/*
 	active_with_role["Engineer"] = 0
 	active_with_role["Medical"] = 0
 	active_with_role["Security"] = 0
@@ -163,7 +164,7 @@ var/list/event_last_fired = list()
 	active_with_role["Robot"] = 0
 	active_with_role["Janitor"] = 0
 	active_with_role["Gardener"] = 0
-
+	*/
 	for(var/mob/M in GLOB.player_list)
 		if(!M.mind || !M.client || M.client.is_afk(10 MINUTES)) // longer than 10 minutes AFK counts them as inactive
 			continue

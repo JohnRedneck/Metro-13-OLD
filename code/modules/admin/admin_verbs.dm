@@ -69,7 +69,7 @@ var/list/admin_verbs_admin = list(
 	/client/proc/cmd_mod_say,
 	/datum/admins/proc/show_player_info,
 	/client/proc/free_slot_submap,
-	/client/proc/free_slot_crew,			//frees slot for chosen job,
+	/client/proc/free_slot_crew,			//frees slot for chosen role,
 	/client/proc/cmd_admin_change_custom_event,
 	/client/proc/cmd_admin_rejuvenate,
 	/client/proc/toggleghostwriters,

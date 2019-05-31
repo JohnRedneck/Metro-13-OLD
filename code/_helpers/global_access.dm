@@ -53,6 +53,8 @@
 			return global.SSculture;
 		if("SSevac")
 			return global.SSevac;
+		if("SSevent")
+			return global.SSevent;
 		if("SSfastprocess")
 			return global.SSfastprocess;
 		if("SSfluids")
@@ -205,6 +207,8 @@
 			return global.antag_add_finished;
 		if("appearance_manager")
 			return global.appearance_manager;
+		if("archetype_role_datums")
+			return global.archetype_role_datums;
 		if("area_repository")
 			return global.area_repository;
 		if("ascii_esc")
@@ -427,12 +431,6 @@
 			return global.intercom_range_display_status;
 		if("invalid_zone")
 			return global.invalid_zone;
-		if("jobMax")
-			return global.jobMax;
-		if("roleban_keylist")
-			return global.roleban_keylist;
-		if("roleban_runonce")
-			return global.roleban_runonce;
 		if("join_motd")
 			return global.join_motd;
 		if("landmarks_list")
@@ -533,6 +531,8 @@
 			return global.plant_seed_sprites;
 		if("playable_species")
 			return global.playable_species;
+		if("positions_by_role")
+			return global.positions_by_role;
 		if("possible_changeling_IDs")
 			return global.possible_changeling_IDs;
 		if("power_alarm")
@@ -541,6 +541,8 @@
 			return global.powerinstances;
 		if("powers")
 			return global.powers;
+		if("primary_role_datums")
+			return global.primary_role_datums;
 		if("priv_D6_access")
 			return global.priv_D6_access;
 		if("priv_all_access")
@@ -581,6 +583,16 @@
 			return global.revdata;
 		if("robot_hud_colours")
 			return global.robot_hud_colours;
+		if("roleMax")
+			return global.roleMax;
+		if("role_icons")
+			return global.role_icons;
+		if("role_lists_by_map_name")
+			return global.role_lists_by_map_name;
+		if("roleban_keylist")
+			return global.roleban_keylist;
+		if("roleban_runonce")
+			return global.roleban_runonce;
 		if("round_start_time")
 			return global.round_start_time;
 		if("roundstart_hour")
@@ -593,6 +605,8 @@
 			return global.secret_force_mode;
 		if("server_name")
 			return global.server_name;
+		if("severity_to_string")
+			return global.severity_to_string;
 		if("side_effects")
 			return global.side_effects;
 		if("skin_styles_female_list")
@@ -709,6 +723,8 @@
 			return global.ticket_panels;
 		if("tickets")
 			return global.tickets;
+		if("titles_to_datums")
+			return global.titles_to_datums;
 		if("total_lighting_corners")
 			return global.total_lighting_corners;
 		if("total_lighting_overlays")
@@ -721,6 +737,10 @@
 			return global.transfer_controller;
 		if("turbolifts")
 			return global.turbolifts;
+		if("types_to_datums")
+			return global.types_to_datums;
+		if("unassigned_roundstart")
+			return global.unassigned_roundstart;
 		if("uniqueness_repository")
 			return global.uniqueness_repository;
 		if("universe_has_ended")
@@ -816,6 +836,8 @@
 			global.SSculture=newval;
 		if("SSevac")
 			global.SSevac=newval;
+		if("SSevent")
+			global.SSevent=newval;
 		if("SSfastprocess")
 			global.SSfastprocess=newval;
 		if("SSfluids")
@@ -968,6 +990,8 @@
 			global.antag_add_finished=newval;
 		if("appearance_manager")
 			global.appearance_manager=newval;
+		if("archetype_role_datums")
+			global.archetype_role_datums=newval;
 		if("area_repository")
 			global.area_repository=newval;
 		if("ascii_esc")
@@ -1190,12 +1214,6 @@
 			global.intercom_range_display_status=newval;
 		if("invalid_zone")
 			global.invalid_zone=newval;
-		if("jobMax")
-			global.jobMax=newval;
-		if("roleban_keylist")
-			global.roleban_keylist=newval;
-		if("roleban_runonce")
-			global.roleban_runonce=newval;
 		if("join_motd")
 			global.join_motd=newval;
 		if("landmarks_list")
@@ -1296,6 +1314,8 @@
 			global.plant_seed_sprites=newval;
 		if("playable_species")
 			global.playable_species=newval;
+		if("positions_by_role")
+			global.positions_by_role=newval;
 		if("possible_changeling_IDs")
 			global.possible_changeling_IDs=newval;
 		if("power_alarm")
@@ -1304,6 +1324,8 @@
 			global.powerinstances=newval;
 		if("powers")
 			global.powers=newval;
+		if("primary_role_datums")
+			global.primary_role_datums=newval;
 		if("priv_D6_access")
 			global.priv_D6_access=newval;
 		if("priv_all_access")
@@ -1344,6 +1366,16 @@
 			global.revdata=newval;
 		if("robot_hud_colours")
 			global.robot_hud_colours=newval;
+		if("roleMax")
+			global.roleMax=newval;
+		if("role_icons")
+			global.role_icons=newval;
+		if("role_lists_by_map_name")
+			global.role_lists_by_map_name=newval;
+		if("roleban_keylist")
+			global.roleban_keylist=newval;
+		if("roleban_runonce")
+			global.roleban_runonce=newval;
 		if("round_start_time")
 			global.round_start_time=newval;
 		if("roundstart_hour")
@@ -1356,6 +1388,8 @@
 			global.secret_force_mode=newval;
 		if("server_name")
 			global.server_name=newval;
+		if("severity_to_string")
+			global.severity_to_string=newval;
 		if("side_effects")
 			global.side_effects=newval;
 		if("skin_styles_female_list")
@@ -1472,6 +1506,8 @@
 			global.ticket_panels=newval;
 		if("tickets")
 			global.tickets=newval;
+		if("titles_to_datums")
+			global.titles_to_datums=newval;
 		if("total_lighting_corners")
 			global.total_lighting_corners=newval;
 		if("total_lighting_overlays")
@@ -1484,6 +1520,10 @@
 			global.transfer_controller=newval;
 		if("turbolifts")
 			global.turbolifts=newval;
+		if("types_to_datums")
+			global.types_to_datums=newval;
+		if("unassigned_roundstart")
+			global.unassigned_roundstart=newval;
 		if("uniqueness_repository")
 			global.uniqueness_repository=newval;
 		if("universe_has_ended")
@@ -1552,6 +1592,7 @@
 	"SScircuit_components",
 	"SSculture",
 	"SSevac",
+	"SSevent",
 	"SSfastprocess",
 	"SSfluids",
 	"SSgarbage",
@@ -1628,6 +1669,7 @@
 	"all_virtual_listeners",
 	"antag_add_finished",
 	"appearance_manager",
+	"archetype_role_datums",
 	"area_repository",
 	"ascii_esc",
 	"ascii_green",
@@ -1739,9 +1781,6 @@
 	"intents",
 	"intercom_range_display_status",
 	"invalid_zone",
-	"jobMax",
-	"roleban_keylist",
-	"roleban_runonce",
 	"join_motd",
 	"landmarks_list",
 	"language_keys",
@@ -1792,10 +1831,12 @@
 	"pipe_colors",
 	"plant_seed_sprites",
 	"playable_species",
+	"positions_by_role",
 	"possible_changeling_IDs",
 	"power_alarm",
 	"powerinstances",
 	"powers",
+	"primary_role_datums",
 	"priv_D6_access",
 	"priv_all_access",
 	"priv_all_access_datums",
@@ -1816,12 +1857,18 @@
 	"restricted_camera_networks",
 	"revdata",
 	"robot_hud_colours",
+	"roleMax",
+	"role_icons",
+	"role_lists_by_map_name",
+	"roleban_keylist",
+	"roleban_runonce",
 	"round_start_time",
 	"roundstart_hour",
 	"rune_list",
 	"same_wires",
 	"secret_force_mode",
 	"server_name",
+	"severity_to_string",
 	"side_effects",
 	"skin_styles_female_list",
 	"skipped_unit_tests",
@@ -1880,12 +1927,15 @@
 	"tg_z_state",
 	"ticket_panels",
 	"tickets",
+	"titles_to_datums",
 	"total_lighting_corners",
 	"total_lighting_overlays",
 	"total_lighting_sources",
 	"total_unit_tests",
 	"transfer_controller",
 	"turbolifts",
+	"types_to_datums",
+	"unassigned_roundstart",
 	"uniqueness_repository",
 	"universe_has_ended",
 	"uplink_purchase_repository",

@@ -349,7 +349,7 @@
 /mob/living/silicon/pai/verb/wipe_software()
 	set name = "Wipe Software"
 	set category = "OOC"
-	set desc = "Wipe your software. This is functionally equivalent to cryo or robotic storage, freeing up your job slot."
+	set desc = "Wipe your software. This is functionally equivalent to cryo or robotic storage, freeing up your role slot."
 
 	// Make sure people don't kill themselves accidentally
 	if(alert("WARNING: This will immediately wipe your software and ghost you, removing your character from the round permanently (similar to cryo and robotic storage). Are you entirely sure you want to do this?",

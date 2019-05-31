@@ -31,7 +31,7 @@
 		for(var/datum/computer_file/report/crew_record/R in GLOB.all_crew_records)
 			all_records.Add(list(list(
 				"name" = R.get_name(),
-				"rank" = R.get_job(),
+				"rank" = R.get_role(),
 				"milrank" = R.get_rank(),
 				"id" = R.uid
 			)))

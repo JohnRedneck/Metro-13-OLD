@@ -922,7 +922,7 @@ obj/item/weapon/newspaper/attackby(obj/item/weapon/W as obj, mob/user as mob)
 			src.scanned_user = "Unknown"
 	else
 		var/mob/living/silicon/ai_user = user
-		src.scanned_user = "[ai_user.name] ([ai_user.job])"
+		src.scanned_user = "[ai_user.name] ([ai_user.role])"
 
 
 /obj/machinery/newscaster/proc/print_paper()

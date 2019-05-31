@@ -2,7 +2,7 @@
 Synthetic
 ********/
 
-/datum/job/cyborg
+/datum/role/cyborg
 	total_positions = 3
 	spawn_positions = 3
 	supervisors = "your laws"
@@ -11,7 +11,7 @@ Synthetic
 		/datum/mil_rank/civ/synthetic
 	)
 
-/datum/job/ai
+/datum/role/ai
 	minimal_player_age = 7
 	allowed_ranks = list(
 		/datum/mil_rank/civ/synthetic
@@ -21,7 +21,7 @@ Synthetic
 Civilian
 *******/
 
-/datum/job/assistant
+/datum/role/assistant
 	title = "Passenger"
 	total_positions = 12
 	spawn_positions = 12
@@ -29,24 +29,24 @@ Civilian
 	economic_power = 6
 	announced = FALSE
 	alt_titles = list(
-		"Journalist" = /decl/hierarchy/outfit/job/torch/passenger/passenger/journalist,
+		"Journalist" = /decl/hierarchy/outfit/role/torch/passenger/passenger/journalist,
 		"Historian",
 		"Botanist",
-		"Investor" = /decl/hierarchy/outfit/job/torch/passenger/passenger/investor,
+		"Investor" = /decl/hierarchy/outfit/role/torch/passenger/passenger/investor,
 		"Naturalist",
 		"Ecologist",
 		"Entertainer",
 		"Independent Observer",
 		"Sociologist",
 		"Trainer")
-	outfit_type = /decl/hierarchy/outfit/job/torch/passenger/passenger
+	outfit_type = /decl/hierarchy/outfit/role/torch/passenger/passenger
 	allowed_branches = list(/datum/mil_branch/civilian)
 	allowed_ranks = list(
 		/datum/mil_rank/civ/civ,
 		/datum/mil_rank/civ/contractor
 	)
 
-/datum/job/merchant
+/datum/role/merchant
 	title = "Merchant"
 	department = "Civilian"
 	department_flag = CIV
@@ -57,7 +57,7 @@ Civilian
 	ideal_character_age = 30
 	minimal_player_age = 0
 	create_record = 0
-	outfit_type = /decl/hierarchy/outfit/job/torch/merchant
+	outfit_type = /decl/hierarchy/outfit/role/torch/merchant
 	allowed_branches = list(
 		/datum/mil_branch/civilian,
 		/datum/mil_branch/alien
@@ -75,7 +75,7 @@ Civilian
 	max_skill = list(   SKILL_PILOT       = SKILL_MAX)
 	skill_points = 24
 
-/datum/job/stowaway
+/datum/role/stowaway
 	title = "Stowaway"
 	department = "Civilian"
 	department_flag = CIV
@@ -87,7 +87,7 @@ Civilian
 	minimal_player_age = 0
 	create_record = 0
 	account_allowed = 0
-	outfit_type = /decl/hierarchy/outfit/job/torch/stowaway
+	outfit_type = /decl/hierarchy/outfit/role/torch/stowaway
 	allowed_branches = list(
 		/datum/mil_branch/civilian,
 		/datum/mil_branch/alien

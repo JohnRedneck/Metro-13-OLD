@@ -45,17 +45,17 @@
 		data["id_owner"] = id_card && id_card.registered_name ? id_card.registered_name : "-----"
 		data["id_name"] = id_card ? id_card.name : "-----"
 
-	data["command_jobs"] = format_jobs(SSroles.titles_by_department(COM))
-	data["support_jobs"] = format_jobs(SSroles.titles_by_department(SPT))
-	data["engineering_jobs"] = format_jobs(SSroles.titles_by_department(ENG))
-	data["medical_jobs"] = format_jobs(SSroles.titles_by_department(MED))
-	data["science_jobs"] = format_jobs(SSroles.titles_by_department(SCI))
-	data["security_jobs"] = format_jobs(SSroles.titles_by_department(SEC))
-	data["exploration_jobs"] = format_jobs(SSroles.titles_by_department(EXP))
-	data["service_jobs"] = format_jobs(SSroles.titles_by_department(SRV))
-	data["supply_jobs"] = format_jobs(SSroles.titles_by_department(SUP))
-	data["civilian_jobs"] = format_jobs(SSroles.titles_by_department(CIV))
-	data["centcom_jobs"] = format_jobs(get_all_centcom_jobs())
+	data["command_roles"] = format_roles(SSroles.titles_by_department(COM))
+	data["support_roles"] = format_roles(SSroles.titles_by_department(SPT))
+	data["engineering_roles"] = format_roles(SSroles.titles_by_department(ENG))
+	data["medical_roles"] = format_roles(SSroles.titles_by_department(MED))
+	data["science_roles"] = format_roles(SSroles.titles_by_department(SCI))
+	data["security_roles"] = format_roles(SSroles.titles_by_department(SEC))
+	data["exploration_roles"] = format_roles(SSroles.titles_by_department(EXP))
+	data["service_roles"] = format_roles(SSroles.titles_by_department(SRV))
+	data["supply_roles"] = format_roles(SSroles.titles_by_department(SUP))
+	data["civilian_roles"] = format_roles(SSroles.titles_by_department(CIV))
+	data["centcom_roles"] = format_roles(get_all_centcom_roles())
 
 	data["all_centcom_access"] = is_centcom ? get_accesses(1) : null
 	data["regions"] = get_accesses()
@@ -93,14 +93,14 @@
 		ui.set_initial_data(data)
 		ui.open()
 
-/datum/nano_module/program/card_mod/proc/format_jobs(list/jobs)
+/datum/nano_module/program/card_mod/proc/format_roles(list/roles)
 	var/obj/item/weapon/card/id/id_card = program.computer.card_slot ? program.computer.card_slot.stored_card : null
 	var/list/formatted = list()
-	for(var/job in jobs)
+	for(var/role in roles)
 		formatted.Add(list(list(
-			"display_name" = replacetext(job, " ", "&nbsp"),
+			"display_name" = replacetext(role, " ", "&nbsp"),
 			"target_rank" = id_card && id_card.assignment ? id_card.assignment : "Unassigned",
-			"job" = job)))
+			"role" = role)))
 
 	return formatted
 
@@ -212,8 +212,8 @@
 			if(computer && can_run(user, 1) && id_card)
 				var/t1 = href_list["assign_target"]
 				if(t1 == "Custom")
-					var/temp_t = sanitize(input("Enter a custom job assignment.","Assignment", id_card.assignment), 45)
-					//let custom jobs function as an impromptu alt title, mainly for sechuds
+					var/temp_t = sanitize(input("Enter a custom role assignment.","Assignment", id_card.assignment), 45)
+					//let custom roles function as an impromptu alt title, mainly for sechuds
 					if(temp_t)
 						id_card.assignment = temp_t
 				else
@@ -221,12 +221,12 @@
 					if(module.is_centcom)
 						access = get_centcom_access(t1)
 					else
-						var/datum/job/jobdatum = SSroles.get_by_title(t1)
-						if(!jobdatum)
-							to_chat(usr, "<span class='warning'>No log exists for this job: [t1]</span>")
+						var/datum/role/roledatum = SSroles.get_by_title(t1)
+						if(!roledatum)
+							to_chat(usr, "<span class='warning'>No log exists for this role: [t1]</span>")
 							return
 
-						access = jobdatum.get_access()
+						access = roledatum.get_access()
 
 					remove_nt_access(id_card)
 					apply_access(id_card, access)

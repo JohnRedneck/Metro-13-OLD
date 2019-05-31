@@ -1,4 +1,4 @@
-/* Closets for specific jobs
+/* Closets for specific roles
  * Contains:
  *		Bartender
  *		Janitor

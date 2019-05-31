@@ -84,7 +84,7 @@
 
 
 // Loads component parameters from a list
-// Doesn't verify any of the parameters it loads, this is the job of verify_save()
+// Doesn't verify any of the parameters it loads, this is the role of verify_save()
 /obj/item/integrated_circuit/proc/load(list/component_params)
 	// Load name
 	if(component_params["name"])
@@ -147,7 +147,7 @@
 		return "Bad assembly color."
 
 // Loads assembly parameters from a list
-// Doesn't verify any of the parameters it loads, this is the job of verify_save()
+// Doesn't verify any of the parameters it loads, this is the role of verify_save()
 /obj/item/device/electronic_assembly/proc/load(list/assembly_params)
 	// Load modified name, if any.
 	if(assembly_params["name"])

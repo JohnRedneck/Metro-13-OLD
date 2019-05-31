@@ -6,9 +6,9 @@
 		to_chat(usr, "This option is currently only usable during pregame. This may change at a later date.")
 		return
 
-	var/datum/job/job = SSroles.get_by_title("AI")
-	if(!job)
-		to_chat(usr, "Unable to locate the AI job")
+	var/datum/role/role = SSroles.get_by_title("AI")
+	if(!role)
+		to_chat(usr, "Unable to locate the AI role")
 		return
 	if(GLOB.triai)
 		GLOB.triai = 0

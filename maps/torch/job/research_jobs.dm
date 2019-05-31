@@ -1,4 +1,4 @@
-/datum/job/senior_scientist
+/datum/role/senior_scientist
 	title = "Senior Researcher"
 	department = "Science"
 	department_flag = SCI
@@ -12,7 +12,7 @@
 	ideal_character_age = 50
 	alt_titles = list(
 		"Research Supervisor")
-	outfit_type = /decl/hierarchy/outfit/job/torch/crew/research/senior_scientist
+	outfit_type = /decl/hierarchy/outfit/role/torch/crew/research/senior_scientist
 	allowed_branches = list(
 		/datum/mil_branch/expeditionary_corps
 	)
@@ -38,7 +38,7 @@
 	                    SKILL_SCIENCE     = SKILL_MAX)
 	skill_points = 20
 
-/datum/job/scientist
+/datum/role/scientist
 	title = "Scientist"
 	total_positions = 6
 	spawn_positions = 6
@@ -52,7 +52,7 @@
 		"Researcher",
 		"Xenobiologist",
 		"Xenobotanist",
-		"Psychologist" = /decl/hierarchy/outfit/job/torch/passenger/research/scientist/psych)
+		"Psychologist" = /decl/hierarchy/outfit/role/torch/passenger/research/scientist/psych)
 	min_skill = list(   SKILL_BUREAUCRACY = SKILL_BASIC,
 	                    SKILL_COMPUTER    = SKILL_BASIC,
 	                    SKILL_DEVICES     = SKILL_BASIC,
@@ -62,7 +62,7 @@
 	                    SKILL_DEVICES     = SKILL_MAX,
 	                    SKILL_SCIENCE     = SKILL_MAX)
 
-	outfit_type = /decl/hierarchy/outfit/job/torch/crew/research/scientist
+	outfit_type = /decl/hierarchy/outfit/role/torch/crew/research/scientist
 	allowed_branches = list(
 		/datum/mil_branch/expeditionary_corps,
 		/datum/mil_branch/civilian,
@@ -70,8 +70,8 @@
 	)
 	allowed_ranks = list(,
 		/datum/mil_rank/ec/o1,
-		/datum/mil_rank/civ/contractor = /decl/hierarchy/outfit/job/torch/passenger/research/scientist,
-		/datum/mil_rank/sol/scientist = /decl/hierarchy/outfit/job/torch/passenger/research/scientist/solgov
+		/datum/mil_rank/civ/contractor = /decl/hierarchy/outfit/role/torch/passenger/research/scientist,
+		/datum/mil_rank/sol/scientist = /decl/hierarchy/outfit/role/torch/passenger/research/scientist/solgov
 	)
 
 	access = list(access_tox, access_tox_storage, access_research, access_petrov, access_petrov_helm,
@@ -81,7 +81,7 @@
 	minimal_access = list()
 	skill_points = 20
 
-/datum/job/scientist_assistant
+/datum/role/scientist_assistant
 	title = "Research Assistant"
 	department = "Science"
 	department_flag = SCI
@@ -92,14 +92,14 @@
 	economic_power = 3
 	ideal_character_age = 30
 	alt_titles = list(
-		"Custodian" = /decl/hierarchy/outfit/job/torch/passenger/research/assist/janitor,
-		"Testing Assistant" = /decl/hierarchy/outfit/job/torch/passenger/research/assist/testsubject,
+		"Custodian" = /decl/hierarchy/outfit/role/torch/passenger/research/assist/janitor,
+		"Testing Assistant" = /decl/hierarchy/outfit/role/torch/passenger/research/assist/testsubject,
 		"Laboratory Technician",
 		"Intern",
 		"Clerk",
 		"Field Assistant")
 
-	outfit_type = /decl/hierarchy/outfit/job/torch/crew/research
+	outfit_type = /decl/hierarchy/outfit/role/torch/crew/research
 	allowed_branches = list(
 		/datum/mil_branch/expeditionary_corps,
 		/datum/mil_branch/civilian,
@@ -108,8 +108,8 @@
 	allowed_ranks = list(
 		/datum/mil_rank/ec/e3,
 		/datum/mil_rank/ec/e5,
-		/datum/mil_rank/civ/contractor = /decl/hierarchy/outfit/job/torch/passenger/research/assist,
-		/datum/mil_rank/sol/scientist = /decl/hierarchy/outfit/job/torch/passenger/research/assist/solgov
+		/datum/mil_rank/civ/contractor = /decl/hierarchy/outfit/role/torch/passenger/research/assist,
+		/datum/mil_rank/sol/scientist = /decl/hierarchy/outfit/role/torch/passenger/research/assist/solgov
 	)
 	max_skill = list(   SKILL_ANATOMY     = SKILL_MAX,
 	                    SKILL_DEVICES     = SKILL_MAX,
