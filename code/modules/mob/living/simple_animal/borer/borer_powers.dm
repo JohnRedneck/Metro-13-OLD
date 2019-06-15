@@ -117,7 +117,7 @@ GLOBAL_LIST_INIT(borer_reagent_types_by_name, setup_borer_reagents())
 
 		//Update their traitor status.
 		if(host.mind)
-			GLOB.borers.add_antagonist_mind(host.mind, 1, GLOB.borers.faction_role_text, GLOB.borers.faction_welcome)
+			GLOB.borers.add_antagonist_mind(host.mind, 1, GLOB.borers.faction_rank_text, GLOB.borers.faction_welcome)
 
 		if(istype(M,/mob/living/carbon/human))
 			var/mob/living/carbon/human/H = M
@@ -184,7 +184,7 @@ GLOBAL_LIST_INIT(borer_reagent_types_by_name, setup_borer_reagents())
 		H.ghostize(0)
 
 	if(src.mind)
-		src.mind.special_role = "Borer Husk"
+		src.mind.special_rank = "Borer Husk"
 		src.mind.transfer_to(host)
 
 	H.ChangeToHusk()

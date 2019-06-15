@@ -1,8 +1,8 @@
 GLOBAL_DATUM_INIT(thralls, /datum/antagonist/thrall, new)
 
 /datum/antagonist/thrall
-	role_text = "Thrall"
-	role_text_plural = "Thralls"
+	rank_text = "Thrall"
+	rank_text_plural = "Thralls"
 	welcome_text = "Your mind is no longer solely your own..."
 	id = MODE_THRALL
 	flags = ANTAG_IMPLANT_IMMUNE

@@ -1,4 +1,4 @@
-/datum/faction/redline/leader
+/datum/role/redline/leader
 	title = "General Secretary of the Red Line"
 	team = "The Red Line"
 	role_flag = LEAD
@@ -9,7 +9,7 @@
 	supervisors = "only to God"
 	outfit_type = /decl/hierarchy/outfit/faction/redline/leader
 
-/datum/faction/reich/leader
+/datum/role/reich/leader
 	title = "Leader of the Fourth Reich"
 	team = "The Fourth Reich"
 	role_flag = LEAD
@@ -20,7 +20,7 @@
 	supervisors = "only to God"
 	outfit_type = /decl/hierarchy/outfit/faction/reich/leader
 
-/datum/faction/vdnkh/leader
+/datum/role/vdnkh/leader
 	title = "Leader of the VDNKh"
 	team = "The VDNKh"
 	role_flag = LEAD

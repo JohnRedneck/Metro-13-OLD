@@ -10,7 +10,7 @@
 	mask = /obj/item/clothing/mask/rubber/species/cat
 	suit = /obj/item/clothing/suit/rubber/cat
 
-/decl/hierarchy/outfit/faction/vdnk/civilian
+/decl/hierarchy/outfit/faction/vdnkh/civilian
 	name = OUTFIT_ROLE_NAME("VDNKh Civilian")
 	suit = /obj/item/clothing/suit/storage/toggle/brown_jacket
 	uniform = /obj/item/clothing/under/lawyer/oldman

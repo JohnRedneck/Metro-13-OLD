@@ -210,8 +210,8 @@
 		src.disconnect_from_ai()
 		if(src.mind)
 			// TODO: Update to new antagonist system.
-			if(!src.mind.special_role)
-				src.mind.special_role = "traitor"
+			if(!src.mind.special_rank)
+				src.mind.special_rank = "traitor"
 				GLOB.traitors.current_antagonists |= src.mind
 
 	if (src.cells)

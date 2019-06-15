@@ -40,12 +40,13 @@
 	var/list/known_connections //list of known (RNG) relations between people
 	var/gen_relations_info
 
-	var/assigned_role
-	var/special_role
+	var/assigned_rank
+	var/special_rank
 
-	var/role_alt_title
+	var/rank_alt_title
 
 	var/datum/role/assigned_role
+	var/datum/role/assigned_team
 
 	var/list/datum/objective/objectives = list()
 	var/list/datum/objective/special_verbs = list()
@@ -120,9 +121,9 @@
 
 	var/out = "<B>[name]</B>[(current&&(current.real_name!=name))?" (as [current.real_name])":""]<br>"
 	out += "Mind currently owned by key: [key] [active?"(synced)":"(not synced)"]<br>"
-	out += "Assigned role: [assigned_role]. <a href='?src=\ref[src];role_edit=1'>Edit</a><br>"
+	out += "Assigned rank: [assigned_rank]. <a href='?src=\ref[src];rank_edit=1'>Edit</a><br>"
 	out += "<hr>"
-	out += "Factions and special roles:<br><table>"
+	out += "Factions and special ranks:<br><table>"
 	var/list/all_antag_types = GLOB.all_antag_types_
 	for(var/antag_type in all_antag_types)
 		var/datum/antagonist/antag = all_antag_types[antag_type]
@@ -224,9 +225,9 @@
 		var/datum/antagonist/antag = GLOB.all_antag_types_[href_list["add_antagonist"]]
 		if(antag)
 			if(antag.add_antagonist(src, 1, 1, 0, 1, 1)) // Ignore equipment and role type for this.
-				log_admin("[key_name_admin(usr)] made [key_name(src)] into a [antag.role_text].")
+				log_admin("[key_name_admin(usr)] made [key_name(src)] into a [antag.rank_text].")
 			else
-				to_chat(usr, "<span class='warning'>[src] could not be made into a [antag.role_text]!</span>")
+				to_chat(usr, "<span class='warning'>[src] could not be made into a [antag.rank_text]!</span>")
 
 	else if(href_list["remove_antagonist"])
 		var/datum/antagonist/antag = GLOB.all_antag_types_[href_list["remove_antagonist"]]
@@ -243,18 +244,18 @@
 	else if(href_list["move_antag_to_spawn"])
 		var/datum/antagonist/antag = GLOB.all_antag_types_[href_list["move_antag_to_spawn"]]
 		if(antag) antag.place_mob(src.current)
-
-	else if (href_list["role_edit"])
-		var/new_role = input("Select new role", "Assigned role", assigned_role) as null|anything in SSroles.titles_to_datums
-		if (!new_role) return
-		var/datum/role/role = SSroles.get_by_title(new_role)
+	/*	
+	else if (href_list["rank_edit"])
+		var/new_rank = input("Select new rank", "Assigned rank", assigned_rank) as null|anything in SSroles.titles_to_datums
+		if (!new_rank) return
+		var/datum/role/role = SSroles.get_by_title(new_rank)
 		if(role)
 			assigned_role = role
-			assigned_role = role.title
-			role_alt_title = new_role
+			assigned_rank = role.title
+			rank_alt_title = new_rank
 			if(current)
 				current.skillset.obtain_from_client(role, current.client)
-
+	*/
 	else if (href_list["memory_edit"])
 		var/new_memo = sanitize(input("Write new memory", "Memory", memory) as null|message)
 		if (isnull(new_memo)) return
@@ -337,7 +338,7 @@
 					new_objective = new objective_path
 					new_objective.owner = src
 					new_objective:target = M.mind
-					new_objective.explanation_text = "[objective_type] [M.real_name], the [M.mind.special_role ? M.mind:special_role : M.mind:assigned_role]."
+					new_objective.explanation_text = "[objective_type] [M.real_name], the [M.mind.special_rank ? M.mind:special_rank : M.mind:assigned_rank]."
 
 			if ("prevent")
 				new_objective = new /datum/objective/block
@@ -437,7 +438,7 @@
 			else
 			/*
 	else if (href_list["silicon"])
-		BITSET(current.hud_updateflag, SPECIALROLE_HUD)
+		BITSET(current.hud_updateflag, SPECIALRANK_HUD)
 		switch(href_list["silicon"])
 
 			if("unemag")
@@ -546,9 +547,9 @@
 	return (duration <= world.time - brigged_since)
 
 /datum/mind/proc/reset()
-	assigned_role =   null
-	special_role =    null
-	role_alt_title =  null
+	assigned_rank =   null
+	special_rank =    null
+	rank_alt_title =  null
 	assigned_role =    null
 	//faction =       null //Uncommenting this causes a compile error due to 'undefined type', fucked if I know.
 	//changeling =      null
@@ -559,13 +560,13 @@
 	rev_cooldown =    0
 	brigged_since =   -1
 
-//Antagonist role check
-/mob/living/proc/check_special_role(role)
+//Antagonist rank check
+/mob/living/proc/check_special_rank(rank)
 	if(mind)
-		if(!role)
-			return mind.special_role
+		if(!rank)
+			return mind.special_rank
 		else
-			return (mind.special_role == role) ? 1 : 0
+			return (mind.special_rank == rank) ? 1 : 0
 	else
 		return 0
 
@@ -585,58 +586,58 @@
 //HUMAN
 /mob/living/carbon/human/mind_initialize()
 	..()
-	if(!mind.assigned_role)
-		mind.assigned_role = GLOB.using_map.default_assistant_title
+	if(!mind.assigned_rank)
+		mind.assigned_rank = GLOB.using_map.default_assistant_title
 
 //slime
 /mob/living/carbon/slime/mind_initialize()
 	..()
-	mind.assigned_role = "slime"
+	mind.assigned_rank = "slime"
 
 /mob/living/carbon/alien/larva/mind_initialize()
 	..()
-	mind.special_role = "Larva"
+	mind.special_rank = "Larva"
 
 //AI
 /mob/living/silicon/ai/mind_initialize()
 	..()
-	mind.assigned_role = "AI"
+	mind.assigned_rank = "AI"
 
 //BORG
 /mob/living/silicon/robot/mind_initialize()
 	..()
-	mind.assigned_role = "Robot"
+	mind.assigned_rank = "Robot"
 
 //PAI
 /mob/living/silicon/pai/mind_initialize()
 	..()
-	mind.assigned_role = "pAI"
-	mind.special_role = ""
+	mind.assigned_rank = "pAI"
+	mind.special_rank = ""
 
 //Animals
 /mob/living/simple_animal/mind_initialize()
 	..()
-	mind.assigned_role = "Animal"
+	mind.assigned_rank = "Animal"
 
 /mob/living/simple_animal/corgi/mind_initialize()
 	..()
-	mind.assigned_role = "Corgi"
+	mind.assigned_rank = "Corgi"
 
 /mob/living/simple_animal/shade/mind_initialize()
 	..()
-	mind.assigned_role = "Shade"
+	mind.assigned_rank = "Shade"
 
 /mob/living/simple_animal/construct/builder/mind_initialize()
 	..()
-	mind.assigned_role = "Artificer"
-	mind.special_role = "Cultist"
+	mind.assigned_rank = "Artificer"
+	mind.special_rank = "Cultist"
 
 /mob/living/simple_animal/construct/wraith/mind_initialize()
 	..()
-	mind.assigned_role = "Wraith"
-	mind.special_role = "Cultist"
+	mind.assigned_rank = "Wraith"
+	mind.special_rank = "Cultist"
 
 /mob/living/simple_animal/construct/armoured/mind_initialize()
 	..()
-	mind.assigned_role = "Juggernaut"
-	mind.special_role = "Cultist"
+	mind.assigned_rank = "Juggernaut"
+	mind.special_rank = "Cultist"

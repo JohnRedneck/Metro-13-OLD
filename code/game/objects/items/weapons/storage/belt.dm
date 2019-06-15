@@ -171,7 +171,7 @@
 		/obj/item/stack/medical,
 		/obj/item/device/flashlight/pen,
 		/obj/item/clothing/mask/surgical,
-		/obj/item/clothing/head/surgery,
+		///obj/item/clothing/head/surgery,
 		/obj/item/clothing/gloves/latex,
 		/obj/item/weapon/reagent_containers/hypospray,
 		/obj/item/clothing/glasses/hud/health,

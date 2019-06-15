@@ -5,10 +5,10 @@
 	var/failed_roles = 0
 
 	for (var/occ in SSroles.titles_to_datums)
-		var/datum/role/occupation = SSroles.titles_to_datums[occ]
-		var/decl/hierarchy/outfit/role/outfit = outfit_by_type(occupation.outfit_type)
+		var/datum/role/role = SSroles.titles_to_datums[occ]
+		var/decl/hierarchy/outfit/role/outfit = outfit_by_type(role.outfit_type)
 		if(!istype(outfit))
-			log_bad("[occupation.title] - [occupation.type]: Invalid outfit type [outfit ? outfit.type : "NULL"].")
+			log_bad("[role.title] - [role.type]: Invalid outfit type [outfit ? outfit.type : "NULL"].")
 			failed_roles++
 
 	if(failed_roles)
@@ -40,9 +40,9 @@
 
 	for(var/role_name in SSroles.titles_to_datums)
 		var/datum/role/R= SSroles.titles_to_datums[role_name]
-		var/hud_icon_state = J.hud_icon
+		var/hud_icon_state = R.hud_icon
 		if(!(hud_icon_state in role_huds))
-			log_bad("[J.title] - Missing HUD icon: [hud_icon_state]")
+			log_bad("[R.title] - Missing HUD icon: [hud_icon_state]")
 			failed_roles++
 
 	if(failed_sanity_checks || failed_roles)

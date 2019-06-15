@@ -42,7 +42,7 @@ var/list/obj/machinery/requests_console/allConsoles = list()
 		// 1 = hacked
 	var/announcementConsole = 0
 		// 0 = This console cannot be used to send department announcements
-		// 1 = This console can send department announcementsf
+		// 1 = This console can send department announcements
 	var/open = 0 // 1 if open
 	var/announceAuth = 0 //Will be set to 1 when you authenticate yourself for announcements
 	var/msgVerified = "" //Will contain the name of the person who varified it
@@ -51,7 +51,7 @@ var/list/obj/machinery/requests_console/allConsoles = list()
 	var/recipient = ""; //the department which will be receiving the message
 	var/priority = -1 ; //Priority of the message being sent
 	light_outer_range = 0
-	var/datum/announcement/announcement = new
+	//var/datum/announcement/announcement = new
 
 /obj/machinery/requests_console/on_update_icon()
 	if(stat & NOPOWER)
@@ -64,7 +64,7 @@ var/list/obj/machinery/requests_console/allConsoles = list()
 /obj/machinery/requests_console/New()
 	..()
 
-	announcement.title = "[department] announcement"
+	//announcement.title = "[department] announcement"
 	announcement.newscast = 1
 
 	name = "[department] Requests Console"
@@ -143,7 +143,7 @@ var/list/obj/machinery/requests_console/allConsoles = list()
 				else	priority = 0
 		else
 			reset_message(1)
-
+	
 	if(href_list["writeAnnouncement"])
 		var/new_message = sanitize(input("Write your message:", "Awaiting Input", ""))
 		if(new_message)

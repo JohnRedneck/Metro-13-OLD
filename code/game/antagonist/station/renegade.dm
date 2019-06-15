@@ -1,8 +1,8 @@
 GLOBAL_DATUM_INIT(renegades, /datum/antagonist/renegade, new)
 
 /datum/antagonist/renegade
-	role_text = "Renegade"
-	role_text_plural = "Renegades"
+	rank_text = "Renegade"
+	rank_text_plural = "Renegades"
 	blacklisted_roles = list(/*/datum/role/ai,*/ /datum/role/submap)
 	restricted_roles = list(/datum/role/officer, /datum/role/warden, /datum/role/hos, /datum/role/captain)
 	welcome_text = "Something's going to go wrong today, you can just feel it. You're paranoid, you've got a gun, and you're going to survive."

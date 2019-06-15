@@ -1,3 +1,4 @@
+
 #define TOPIC_UPDATE_PREVIEW 4
 #define TOPIC_REFRESH_UPDATE_PREVIEW (TOPIC_REFRESH|TOPIC_UPDATE_PREVIEW)
 
@@ -18,13 +19,13 @@ var/const/CHARACTER_PREFERENCE_INPUT_TITLE = "Character Preference"
 	for(var/datum/category_item/player_setup_item/PI in items)
 		. += "[PI.content(user)]<br>"
 
-/datum/category_group/player_setup_category/occupation_preferences
-	name = "Occupation"
+/datum/category_group/player_setup_category/role_preferences
+	name = "Role"
 	sort_order = 3
-	category_item_type = /datum/category_item/player_setup_item/occupation
+	category_item_type = /datum/category_item/player_setup_item/role
 
 /datum/category_group/player_setup_category/appearance_preferences
-	name = "Roles"
+	name = "Antagonists"
 	sort_order = 4
 	category_item_type = /datum/category_item/player_setup_item/antagonism
 

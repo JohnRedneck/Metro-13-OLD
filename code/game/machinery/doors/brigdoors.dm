@@ -18,7 +18,7 @@
 	icon = 'icons/obj/status_display.dmi'
 	icon_state = "frame"
 	desc = "A remote control for a door."
-	req_access = list(access_brig)
+	req_access = list(/*access_brig*/)
 	anchored = 1.0    		// can't pick it up
 	density = 0       		// can walk through it.
 	var/id = null     		// id of door it controls.
@@ -39,11 +39,11 @@
 	for(var/obj/machinery/door/window/brigdoor/M in SSmachines.machinery)
 		if (M.id == src.id)
 			targets += M
-
+	/*
 	for(var/obj/machinery/flasher/F in SSmachines.machinery)
 		if(F.id == src.id)
 			targets += F
-
+	*/
 	for(var/obj/structure/closet/secure_closet/brig/C in world)
 		if(C.id == src.id)
 			targets += C
@@ -163,8 +163,8 @@
 	data["timetoset"] = timetoset
 	data["timeleft"] = timeleft()
 
+	/*
 	var/list/flashes = list()
-
 	for(var/obj/machinery/flasher/flash  in targets)
 		var/list/flashdata = list()
 		if(flash.last_flash && (flash.last_flash + 150) > world.time)
@@ -175,7 +175,7 @@
 
 	data["flashes"] = flashes
 	return data
-
+	*/
 
 /obj/machinery/door_timer/ui_act(action, params)
 	if(..())
@@ -191,9 +191,11 @@
 			timer_start()
 		if("stop")
 			timer_end()
+		/*
 		if("flash")
 			for(var/obj/machinery/flasher/F in targets)
 				F.flash()
+		*/
 		if("time")
 			timetoset += text2num(params["adjust"])
 			timetoset = Clamp(timetoset, 0, 36000)

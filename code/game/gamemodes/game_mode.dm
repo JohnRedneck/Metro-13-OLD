@@ -107,7 +107,7 @@ var/global/list/additional_antag_types = list()
 		var/datum/antagonist/antag = GLOB.all_antag_types_[href_list["debug_antag"]]
 		if(antag)
 			usr.client.debug_variables(antag)
-			message_admins("Admin [key_name_admin(usr)] is debugging the [antag.role_text] template.")
+			message_admins("Admin [key_name_admin(usr)] is debugging the [antag.rank_text] template.")
 	else if(href_list["remove_antag_type"])
 		if(antag_tags && (href_list["remove_antag_type"] in antag_tags))
 			to_chat(usr, "Cannot remove core mode antag type.")
@@ -116,7 +116,7 @@ var/global/list/additional_antag_types = list()
 		if(antag_templates && antag_templates.len && antag && (antag in antag_templates) && (antag.id in additional_antag_types))
 			antag_templates -= antag
 			additional_antag_types -= antag.id
-			message_admins("Admin [key_name_admin(usr)] removed [antag.role_text] template from game mode.")
+			message_admins("Admin [key_name_admin(usr)] removed [antag.rank_text] template from game mode.")
 	else if(href_list["add_antag_type"])
 		var/choice = input("Which type do you wish to add?") as null|anything in GLOB.all_antag_types_
 		if(!choice)
@@ -126,7 +126,7 @@ var/global/list/additional_antag_types = list()
 			if(!islist(SSticker.mode.antag_templates))
 				SSticker.mode.antag_templates = list()
 			SSticker.mode.antag_templates |= antag
-			message_admins("Admin [key_name_admin(usr)] added [antag.role_text] template to game mode.")
+			message_admins("Admin [key_name_admin(usr)] added [antag.rank_text] template to game mode.")
 
 	// I am very sure there's a better way to do this, but I'm not sure what it might be. ~Z
 	spawn(1)
@@ -148,7 +148,7 @@ var/global/list/additional_antag_types = list()
 					antag_summary += " and "
 				else
 					antag_summary += ", "
-			antag_summary += "[antag.role_text_plural]"
+			antag_summary += "[antag.rank_text_plural]"
 			i++
 		antag_summary += "."
 		if(antag_templates.len > 1 && SSticker.master_mode != "secret")
@@ -185,14 +185,14 @@ var/global/list/additional_antag_types = list()
 				potential = antag.get_potential_candidates(src)
 			if(islist(potential))
 				if(require_all_templates && potential.len < antag.initial_spawn_req)
-					return "Not enough antagonists ([antag.role_text]), [antag.initial_spawn_req] required and [potential.len] available."
+					return "Not enough antagonists ([antag.rank_text]), [antag.initial_spawn_req] required and [potential.len] available."
 				enemy_count += potential.len
 				if(enemy_count >= required_enemies)
 					return 0
 		return "Not enough antagonists, [required_enemies] required and [enemy_count] available."
 	else
 		return 0
-/*
+
 /datum/game_mode/proc/refresh_event_modifiers()
 	if(event_delay_mod_moderate || event_delay_mod_major)
 		SSevent.report_at_round_end = 1
@@ -203,7 +203,7 @@ var/global/list/additional_antag_types = list()
 			var/datum/event_container/EMajor = SSevent.event_containers[EVENT_LEVEL_MAJOR]
 			EMajor.delay_modifier = event_delay_mod_major
 
-*/
+
 /datum/game_mode/proc/pre_setup()
 	for(var/datum/antagonist/antag in antag_templates)
 		antag.update_current_antag_max(src)
@@ -408,7 +408,7 @@ var/global/list/additional_antag_types = list()
 				continue
 			if(istype(player, /mob/new_player))
 				continue
-			if(!antag_id || (antag_id in player.client.prefs.be_special_role))
+			if(!antag_id || (antag_id in player.client.prefs.be_special_rank))
 				log_debug("[player.key] had [antag_id] enabled, so we are drafting them.")
 				candidates += player.mind
 	else
@@ -419,7 +419,7 @@ var/global/list/additional_antag_types = list()
 
 		// Get a list of all the people who want to be the antagonist for this round
 		for(var/mob/new_player/player in players)
-			if(!antag_id || (antag_id in player.client.prefs.be_special_role))
+			if(!antag_id || (antag_id in player.client.prefs.be_special_rank))
 				log_debug("[player.key] had [antag_id] enabled, so we are drafting them.")
 				candidates += player.mind
 				players -= player
@@ -427,7 +427,7 @@ var/global/list/additional_antag_types = list()
 		// If we don't have enough antags, draft people who voted for the round.
 		if(candidates.len < required_enemies)
 			for(var/mob/new_player/player in players)
-				if(!antag_id || !(antag_id in player.client.prefs.never_be_special_role))
+				if(!antag_id || !(antag_id in player.client.prefs.never_be_special_rank))
 					log_debug("[player.key] has not selected never for this role, so we are drafting them.")
 					candidates += player.mind
 					players -= player

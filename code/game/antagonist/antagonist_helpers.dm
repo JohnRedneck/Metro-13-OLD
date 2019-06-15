@@ -50,7 +50,7 @@
 		return 1
 
 /datum/antagonist/proc/is_type(var/antag_type)
-	if(antag_type == id || antag_type == role_text)
+	if(antag_type == id || antag_type == rank_text)
 		return 1
 	return 0
 

@@ -27,7 +27,7 @@ var/list/ghost_traps
 	var/ghost_trap_message = "They are inhabiting the ghosttrap default type now."
 	var/ghost_trap_role = "ghosttrap default type"
 	var/can_set_own_name = FALSE
-	var/list_as_special_role = FALSE	// If true, this entry will be listed as a special role in the character setup
+	var/list_as_special_rank = FALSE	// If true, this entry will be listed as a special role in the character setup
 
 	var/list/request_timeouts
 
@@ -79,7 +79,7 @@ var/list/ghost_traps
 		if(candidate != usr)
 			return
 		if(request_timeouts[target] && world.time > request_timeouts[target])
-			to_chat(candidate, "This occupation request is no longer valid.")
+			to_chat(candidate, "This role request is no longer valid.")
 			return
 		if(target.key)
 			to_chat(candidate, "The target is already occupied.")
@@ -149,7 +149,7 @@ var/list/ghost_traps
 	ghost_trap_message = "They are occupying a borer now."
 	ghost_trap_role = "Cortical Borer"
 	can_set_own_name = FALSE
-	list_as_special_role = FALSE
+	list_as_special_rank = FALSE
 
 /datum/ghosttrap/borer/welcome_candidate(var/mob/target)
 	to_chat(target, "<span class='notice'>You are a cortical borer!</span> You are a brain slug that worms its way \
@@ -165,7 +165,7 @@ var/list/ghost_traps
 	ghost_trap_message = "They are occupying a maintenance drone now."
 	ghost_trap_role = "Maintenance Drone"
 	can_set_own_name = FALSE
-	list_as_special_role = FALSE
+	list_as_special_rank = FALSE
 
 /datum/ghosttrap/drone/New()
 	minutes_since_death = DRONE_SPAWN_DELAY

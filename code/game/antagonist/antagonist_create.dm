@@ -1,4 +1,4 @@
-/datum/antagonist/proc/create_antagonist(var/datum/mind/target, var/move, var/gag_announcement, var/preserve_appearance)
+/datum/antagonist/proc/create_antagonist(var/datum/mind/target, var/move, /*var/gag_announcement, */var/preserve_appearance)
 
 	if(!target)
 		return
@@ -16,9 +16,10 @@
 	create_objectives(target)
 	update_icons_added(target)
 	greet(target)
+	/*	
 	if(!gag_announcement)
 		announce_antagonist_spawn()
-
+	*/
 /datum/antagonist/proc/create_default(var/mob/source)
 	var/mob/living/M
 	if(mob_path)
@@ -96,7 +97,7 @@
 /datum/antagonist/proc/greet(var/datum/mind/player)
 
 	// Basic intro text.
-	to_chat(player.current, "<span class='danger'><font size=3>You are a [role_text]!</font></span>")
+	to_chat(player.current, "<span class='danger'><font size=3>You are a [rank_text]!</font></span>")
 	if(leader_welcome_text && player == leader)
 		to_chat(player.current, "<span class='notice'>[leader_welcome_text]</span>")
 	else
@@ -112,7 +113,7 @@
 
 /datum/antagonist/proc/set_antag_name(var/mob/living/player)
 	// Choose a name, if any.
-	var/newname = sanitize(input(player, "You are a [role_text]. Would you like to change your name to something else?", "Name change") as null|text, MAX_NAME_LEN)
+	var/newname = sanitize(input(player, "You are a [rank_text]. Would you like to change your name to something else?", "Name change") as null|text, MAX_NAME_LEN)
 	if (newname)
 		player.real_name = newname
 		player.SetName(player.real_name)
@@ -120,4 +121,4 @@
 			player.dna.real_name = newname
 	if(player.mind) player.mind.name = player.name
 	// Update any ID cards.
-	update_access(player)
+	//update_access(player)

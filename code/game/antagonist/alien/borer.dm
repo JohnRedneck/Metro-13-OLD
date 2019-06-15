@@ -2,14 +2,14 @@ GLOBAL_DATUM_INIT(borers, /datum/antagonist/xenos/borer, new)
 
 /datum/antagonist/xenos/borer
 	id = MODE_BORER
-	role_text = "Cortical Borer"
-	role_text_plural = "Cortical Borers"
+	rank_text = "Cortical Borer"
+	rank_text_plural = "Cortical Borers"
 	mob_path = /mob/living/simple_animal/borer
 	welcome_text = "Use your Infest power to crawl into the ear of a host and fuse with their brain. You can only take control temporarily, and at risk of hurting your host, so be clever and careful; your host is encouraged to help you however they can. Talk to your fellow borers with :x."
 	antag_indicator = "hudborer"
 	antaghud_indicator = "hudborer"
 
-	faction_role_text = "Borer Thrall"
+	faction_rank_text = "Borer Thrall"
 	faction_descriptor = "Unity"
 	faction_welcome = "You are now a thrall to a cortical borer. Please listen to what they have to say; they're in your head."
 	faction = "borer"

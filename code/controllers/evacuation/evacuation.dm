@@ -34,11 +34,11 @@ var/datum/evacuation_controller/evacuation_controller
 	var/list/evacuation_predicates = list()
 
 	var/list/evacuation_options = list()
-
+	/*
 	var/datum/announcement/priority/evac_waiting =  new(0)
 	var/datum/announcement/priority/evac_called =   new(0)
 	var/datum/announcement/priority/evac_recalled = new(0)
-
+	*/
 /datum/evacuation_controller/proc/auto_recall(var/_recall)
 	recall = _recall
 
@@ -87,7 +87,7 @@ var/datum/evacuation_controller/evacuation_controller
 	auto_recall_time =  rand(evac_called_at + evac_range, evac_launch_time - evac_range)
 
 	state = EVAC_PREPPING
-
+	/*
 	if(emergency_evacuation)
 		for(var/area/A in world)
 			if(istype(A, /area/hallway))
@@ -97,7 +97,7 @@ var/datum/evacuation_controller/evacuation_controller
 	else
 		if(!skip_announce)
 			priority_announcement.Announce(replacetext(replacetext(GLOB.using_map.shuttle_called_message, "%dock_name%", "[GLOB.using_map.dock_name]"),  "%ETA%", "[round(get_eta()/60)] minute\s"))
-
+	*/
 	return 1
 
 /datum/evacuation_controller/proc/cancel_evacuation()
@@ -116,24 +116,27 @@ var/datum/evacuation_controller/evacuation_controller
 	auto_recall_time =  null
 
 	if(emergency_evacuation)
-		evac_recalled.Announce(GLOB.using_map.emergency_shuttle_recall_message)
+		//evac_recalled.Announce(GLOB.using_map.emergency_shuttle_recall_message)
 		for(var/area/A in world)
 			if(istype(A, /area/hallway))
 				A.readyreset()
 		emergency_evacuation = 0
+	/*
 	else
 		priority_announcement.Announce(GLOB.using_map.shuttle_recall_message)
-
+	*/
 	return 1
 
 /datum/evacuation_controller/proc/finish_preparing_evac()
 	state = EVAC_LAUNCHING
 
 	var/estimated_time = round(get_eta()/60,1)
+	/*
 	if (emergency_evacuation)
 		evac_waiting.Announce(replacetext(GLOB.using_map.emergency_shuttle_docked_message, "%ETD%", "[estimated_time] minute\s"), new_sound = sound('sound/effects/Evacuation.ogg', volume = 35))
 	else
 		priority_announcement.Announce(replacetext(replacetext(GLOB.using_map.shuttle_docked_message, "%dock_name%", "[GLOB.using_map.dock_name]"),  "%ETD%", "[estimated_time] minute\s"))
+	*/
 	if(config.announce_shuttle_dock_to_irc)
 		send2mainirc("The shuttle has docked with the station. It will depart in approximately [estimated_time] minute\s.")
 
@@ -143,12 +146,12 @@ var/datum/evacuation_controller/evacuation_controller
 		return
 
 	state = EVAC_IN_TRANSIT
-
+	/*
 	if (emergency_evacuation)
 		priority_announcement.Announce(replacetext(replacetext(GLOB.using_map.emergency_shuttle_leaving_dock, "%dock_name%", "[GLOB.using_map.dock_name]"),  "%ETA%", "[round(get_eta()/60,1)] minute\s"))
 	else
 		priority_announcement.Announce(replacetext(replacetext(GLOB.using_map.shuttle_leaving_dock, "%dock_name%", "[GLOB.using_map.dock_name]"),  "%ETA%", "[round(get_eta()/60,1)] minute\s"))
-
+	*/
 	return 1
 
 /datum/evacuation_controller/proc/finish_evacuation()

@@ -69,7 +69,7 @@ var/list/admin_verbs_admin = list(
 	/client/proc/cmd_mod_say,
 	/datum/admins/proc/show_player_info,
 	/client/proc/free_slot_submap,
-	/client/proc/free_slot_crew,			//frees slot for chosen role,
+	/client/proc/free_slot,			//frees slot for chosen role,
 	/client/proc/cmd_admin_change_custom_event,
 	/client/proc/cmd_admin_rejuvenate,
 	/client/proc/toggleghostwriters,
@@ -762,7 +762,7 @@ var/list/admin_verbs_mod = list(
 	if(holder)
 		holder.PlayerNotes()
 	return
-/*
+
 /client/proc/free_slot_submap()
 	set name = "Free role Slot (Submap)"
 	set category = "Admin"
@@ -792,9 +792,9 @@ var/list/admin_verbs_mod = list(
 	set category = "Admin"
 	if(holder)
 		var/list/roles = list()
-		for (var/datum/role/Rin SSroles.primary_role_datums)
-			if(!J.is_position_available())
-				roles[J.title] = J
+		for (var/datum/role/R in SSroles.primary_role_datums)
+			if(!R.is_position_available())
+				roles[R.title] = R
 		if (!roles.len)
 			to_chat(usr, "There are no fully staffed roles.")
 			return
@@ -804,7 +804,7 @@ var/list/admin_verbs_mod = list(
 			role.make_position_available()
 			message_admins("A role slot for [role_title] has been opened by [key_name_admin(usr)]")
 			return
-*/
+
 /client/proc/toggleghostwriters()
 	set name = "Toggle ghost writers"
 	set category = "Server"

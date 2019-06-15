@@ -14,7 +14,7 @@
 	shoes = /obj/item/clothing/shoes/combat
 	belt = /obj/item/weapon/gun/projectile/pistol/holdout //Hans, get ze luger
 
-/decl/hierarchy/outfit/faction/vdnk/leader
+/decl/hierarchy/outfit/faction/vdnkh/leader
 	name = OUTFIT_ROLE_NAME("VDNKh Leader")
 	uniform = /obj/item/clothing/under/rank/head_of_personnel_whimsy
 	shoes = /obj/item/clothing/shoes/brown

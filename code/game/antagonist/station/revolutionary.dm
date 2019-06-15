@@ -2,8 +2,8 @@ GLOBAL_DATUM_INIT(revs, /datum/antagonist/revolutionary, new)
 
 /datum/antagonist/revolutionary
 	id = MODE_REVOLUTIONARY
-	role_text = "Head Revolutionary"
-	role_text_plural = "Revolutionaries"
+	rank_text = "Head Revolutionary"
+	rank_text_plural = "Revolutionaries"
 	feedback_tag = "rev_objective"
 	antag_indicator = "hudheadrevolutionary"
 	welcome_text = "Down with the capitalists! Down with the Bourgeoise!"
@@ -21,7 +21,7 @@ GLOBAL_DATUM_INIT(revs, /datum/antagonist/revolutionary, new)
 	initial_spawn_target = 4
 
 	//Inround revs.
-	faction_role_text = "Revolutionary"
+	faction_rank_text = "Revolutionary"
 	faction_descriptor = "Revolution"
 	faction_verb = /mob/living/proc/convert_to_rev
 	faction_welcome = "Help the cause overturn the ruling class. Do not harm your fellow freedom fighters."

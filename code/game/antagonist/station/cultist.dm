@@ -22,8 +22,8 @@ GLOBAL_DATUM_INIT(cult, /datum/antagonist/cultist, new)
 
 /datum/antagonist/cultist
 	id = MODE_CULTIST
-	role_text = "Cultist"
-	role_text_plural = "Cultists"
+	rank_text = "Cultist"
+	rank_text_plural = "Cultists"
 	restricted_roles = list(/datum/role/lawyer, /datum/role/captain, /datum/role/hos)
 	protected_roles = list(/datum/role/officer, /datum/role/warden, /datum/role/detective)
 	blacklisted_roles = list(/datum/role/ai, /datum/role/cyborg, /datum/role/chaplain, /datum/role/psychiatrist, /datum/role/submap)

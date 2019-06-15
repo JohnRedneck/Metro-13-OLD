@@ -302,7 +302,7 @@ Helpers
 		if (needs_ghost)
 			looking_for_antags = 1
 			antag_pool.Cut()
-			to_world("<b>A ghost is needed to spawn \a [antag.role_text].</b>\nGhosts may enter the antag pool by making sure their [antag.role_text] preference is set to high, then using the toggle-add-antag-candidacy verb. You have 3 minutes to enter the pool.")
+			to_world("<b>A ghost is needed to spawn \a [antag.rank_text].</b>\nGhosts may enter the antag pool by making sure their [antag.rank_text] preference is set to high, then using the toggle-add-antag-candidacy verb. You have 3 minutes to enter the pool.")
 
 			sleep(3 MINUTES)
 			looking_for_antags = 0
@@ -326,16 +326,16 @@ Helpers
 			return 1
 		else
 			if(antag.initial_spawn_req > 1)
-				to_world("Failed to find enough [antag.role_text_plural].")
+				to_world("Failed to find enough [antag.rank_text_plural].")
 
 			else
-				to_world("Failed to find a [antag.role_text].")
+				to_world("Failed to find a [antag.rank_text].")
 
 			antag_choices -= antag
 			if(length(antag_choices))
 				antag = antag_choices[1]
 				if(antag)
-					to_world("Attempting to spawn [antag.role_text_plural].")
+					to_world("Attempting to spawn [antag.rank_text_plural].")
 	return 0
 
 /datum/controller/subsystem/ticker/proc/game_finished()
@@ -457,7 +457,7 @@ Helpers
 	var/list/total_antagonists = list()
 	//Look into all mobs in world, dead or alive
 	for(var/datum/mind/Mind in minds)
-		var/temprole = Mind.special_role
+		var/temprole = Mind.special_rank
 		if(temprole)							//if they are an antagonist of some sort.
 			if(temprole in total_antagonists)	//If the role exists already, add the name to it
 				total_antagonists[temprole] += ", [Mind.name]([Mind.key])"

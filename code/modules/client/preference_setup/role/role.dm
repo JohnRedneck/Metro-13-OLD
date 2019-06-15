@@ -76,7 +76,7 @@
 		if(alt_title && !(alt_title in role.alt_titles))
 			pref.player_alt_titles -= role.title
 
-/datum/category_item/player_setup_item/occupation/content(mob/user, limit = 16, list/splitRoles, splitLimit = 1)
+/datum/category_item/player_setup_item/role/content(mob/user, limit = 16, list/splitRoles, splitLimit = 1)
 
 	if(!SSmapping || !SSroles.role_lists_by_map_name)
 		return
@@ -86,7 +86,7 @@
 	. += "<style>.Points,a.Points{background: #cc5555;}</style>"
 	. += "<style>a.Points:hover{background: #55cc55;}</style>"
 	. += "<tt><center>"
-	. += "<font size=3><b>Select and configure your occupation preferences. Unavailable occupations are crossed out.</b></font>"
+	. += "<font size=3><b>Select and configure your role preferences. Unavailable occupations are crossed out.</b></font>"
 	. += "<br>"
 
 	// Display everything.
@@ -196,14 +196,14 @@
 				if(bad_message)
 					. += "<del>[title_link]</del>[help_link][skill_link]<td>[bad_message]</td></tr>"
 					continue
-				else if((GLOB.using_map.default_assistant_title in pref.role_low) && (title != GLOB.using_map.default_assistant_title))
+				else if((GLOB.using_map.default_vagrant_title in pref.role_low) && (title != GLOB.using_map.default_vagrant_title))
 					. += "<font color=grey>[title_link]</font>[help_link][skill_link]<td></td></tr>"
 					continue
 				else
 					. += "[title_link][help_link][skill_link]"
 
 				. += "<td>"
-				if(title == GLOB.using_map.default_assistant_title)//Assistant is special
+				if(title == GLOB.using_map.default_vagrant_title)//Assistant is special
 					var/yes_link = "Yes"
 					var/no_link = "No"
 					if(title in pref.role_low)
@@ -234,8 +234,8 @@
 	switch(pref.alternate_option)
 		if(GET_RANDOM_ROLE)
 			. += "<u><a href='?src=\ref[src];role_alternative=1'>Get random role if preferences unavailable</a></u>"
-		if(BE_ASSISTANT)
-			. += "<u><a href='?src=\ref[src];role_alternative=1'>Be assistant if preference unavailable</a></u>"
+		if(BE_VAGRANT)
+			. += "<u><a href='?src=\ref[src];role_alternative=1'>Be vagrant if preference unavailable</a></u>"
 		if(RETURN_TO_LOBBY)
 			. += "<u><a href='?src=\ref[src];role_alternative=1'>Return to lobby if preference unavailable</a></u>"
 	. += "<a href='?src=\ref[src];reset_roles=1'>\[Reset\]</a></center>"
@@ -284,7 +284,7 @@
 			pref.branches -= role.title
 			pref.ranks -= role.title
 
-/datum/category_item/player_setup_item/occupation/OnTopic(href, href_list, user)
+/datum/category_item/player_setup_item/role/OnTopic(href, href_list, user)
 	if(href_list["reset_roles"])
 		ResetRoles()
 		return TOPIC_REFRESH
@@ -295,7 +295,7 @@
 		return TOPIC_REFRESH
 
 	else if(href_list["role_alternative"])
-		if(pref.alternate_option == GET_RANDOM_ROLE || pref.alternate_option == BE_ASSISTANT)
+		if(pref.alternate_option == GET_RANDOM_ROLE || pref.alternate_option == BE_VAGRANT)
 			pref.alternate_option += 1
 		else if(pref.alternate_option == RETURN_TO_LOBBY)
 			pref.alternate_option = 0
@@ -363,12 +363,12 @@
 	else if(href_list["hit_skill_button"])
 		var/decl/hierarchy/skill/S = locate(href_list["hit_skill_button"])
 		var/datum/role/R= locate(href_list["at_role"])
-		if(!istype(S) || !istype(J))
+		if(!istype(S) || !istype(R))
 			return
 		var/value = text2num(href_list["newvalue"])
-		update_skill_value(J, S, value)
+		update_skill_value(R, S, value)
 		pref.ShowChoices(user) //Manual refresh to allow us to focus the panel, not the main window.
-		panel.set_content(generate_skill_content(J))
+		panel.set_content(generate_skill_content(R))
 		panel.open()
 		winset(user, panel.window_id, "focus=1") //Focuses the panel.
 
@@ -426,21 +426,21 @@
 
 	return ..()
 
-/datum/category_item/player_setup_item/occupation/proc/SetPlayerAltTitle(datum/role/role, new_title)
+/datum/category_item/player_setup_item/role/proc/SetPlayerAltTitle(datum/role/role, new_title)
 	// remove existing entry
 	pref.player_alt_titles -= role.title
 	// add one if it's not default
 	if(role.title != new_title)
 		pref.player_alt_titles[role.title] = new_title
 
-/datum/category_item/player_setup_item/occupation/proc/SetRole(mob/user, role, level)
+/datum/category_item/player_setup_item/role/proc/SetRole(mob/user, role, level)
 
 	level = Clamp(level, ROLE_LEVEL_HIGH, ROLE_LEVEL_NEVER)
 	var/datum/role/role = SSroles.get_by_title(role, TRUE)
 	if(!role)
 		return 0
 
-	if(role == GLOB.using_map.default_assistant_title)
+	if(role == GLOB.using_map.default_vagrant_title)
 		if(level == ROLE_LEVEL_NEVER)
 			pref.role_low -= role.title
 		else
@@ -451,7 +451,7 @@
 
 	return 1
 
-/datum/category_item/player_setup_item/occupation/proc/GetCurrentRoleLevel(var/role_title)
+/datum/category_item/player_setup_item/role/proc/GetCurrentRoleLevel(var/role_title)
 	if(pref.role_high == role_title)
 		. = ROLE_LEVEL_HIGH
 	else if(role_title in pref.role_medium)
@@ -461,7 +461,7 @@
 	else
 		. = ROLE_LEVEL_NEVER
 
-/datum/category_item/player_setup_item/occupation/proc/SetRoleDepartment(var/datum/role/role, var/level)
+/datum/category_item/player_setup_item/role/proc/SetRoleDepartment(var/datum/role/role, var/level)
 	if(!role || !level)	return 0
 
 	var/current_level = GetCurrentRoleLevel(role.title)
@@ -536,7 +536,7 @@ datum/category_item/player_setup_item/proc/prune_occupation_prefs()
 	prune_role_prefs()
 	validate_branch_and_rank()
 
-/datum/category_item/player_setup_item/occupation/proc/ResetRoles()
+/datum/category_item/player_setup_item/role/proc/ResetRoles()
 	pref.role_high = null
 	pref.role_medium = list()
 	pref.role_low = list()

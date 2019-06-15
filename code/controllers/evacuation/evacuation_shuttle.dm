@@ -3,10 +3,11 @@
 
 /datum/evacuation_controller/shuttle
 	name = "escape shuttle controller"
+	/*
 	evac_waiting =  new(0, new_sound = sound('sound/AI/shuttledock.ogg'))
 	evac_called =   new(0, new_sound = sound('sound/AI/shuttlecalled.ogg'))
 	evac_recalled = new(0, new_sound = sound('sound/AI/shuttlerecalled.ogg'))
-
+	*/
 	emergency_prep_additional_delay = 0 MINUTES
 	transfer_prep_additional_delay = 0 MINUTES
 
@@ -120,19 +121,19 @@
 	option_target = EVAC_OPT_CALL_SHUTTLE
 	needs_syscontrol = TRUE
 	silicon_allowed = TRUE
-
+/*
 /datum/evacuation_option/call_shuttle/execute(mob/user)
 	call_shuttle_proc(user)
-
+*/
 /datum/evacuation_option/recall_shuttle
 	option_text = "Cancel shuttle call"
 	option_desc = "recall the emergency shuttle"
 	option_target = EVAC_OPT_RECALL_SHUTTLE
 	needs_syscontrol = TRUE
 	silicon_allowed = FALSE
-
+/*
 /datum/evacuation_option/recall_shuttle/execute(mob/user)
 	cancel_call_proc(user)
-
+*/
 #undef EVAC_OPT_CALL_SHUTTLE
 #undef EVAC_OPT_RECALL_SHUTTLE

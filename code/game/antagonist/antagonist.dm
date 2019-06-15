@@ -15,8 +15,8 @@
 
 	// Role data.
 	var/id = "traitor"                      // Unique datum identifier. Also preferences option for this role.
-	var/role_text = "Traitor"               // special_role text.
-	var/role_text_plural = "Traitors"       // As above but plural.
+	var/rank_text = "Traitor"               // special_rank text.
+	var/rank_text_plural = "Traitors"       // As above but plural.
 
 	// Visual references.
 	var/antaghud_indicator = "hudsyndicate" // Used by the ghost antagHUD.
@@ -25,7 +25,7 @@
 	var/faction_invisible                   // Can members of the faction identify other antagonists?
 
 	// Faction data.
-	var/faction_role_text                   // Role for sub-antags. Mandatory for faction role.
+	var/faction_rank_text                   // Role for sub-antags. Mandatory for faction role.
 	var/faction_descriptor                  // Description of the cause. Mandatory for faction role.
 	var/faction_verb                        // Verb added when becoming a member of the faction, if any.
 	var/faction_welcome                     // Message shown to faction members.
@@ -82,22 +82,22 @@
 /datum/antagonist/New()
 	GLOB.all_antag_types_[id] = src
 	GLOB.all_antag_spawnpoints_[landmark_id] = list()
-	GLOB.antag_names_to_ids_[role_text] = id
+	GLOB.antag_names_to_ids_[rank_text] = id
 	skill_setter = new skill_setter
 	..()
 
 /datum/antagonist/proc/Initialize()
 	cur_max = hard_cap
 	get_starting_locations()
-	if(!role_text_plural)
-		role_text_plural = role_text
+	if(!rank_text_plural)
+		rank_text_plural = rank_text
 	if(config.protect_roles_from_antagonist)
 		restricted_roles |= protected_roles
 	if(antaghud_indicator)
 		if(!GLOB.hud_icon_reference)
 			GLOB.hud_icon_reference = list()
-		if(role_text) GLOB.hud_icon_reference[role_text] = antaghud_indicator
-		if(faction_role_text) GLOB.hud_icon_reference[faction_role_text] = antaghud_indicator
+		if(rank_text) GLOB.hud_icon_reference[rank_text] = antaghud_indicator
+		if(faction_rank_text) GLOB.hud_icon_reference[faction_rank_text] = antaghud_indicator
 
 /datum/antagonist/proc/tick()
 	return 1
@@ -110,17 +110,17 @@
 	// Note that this is done before roles are handed out.
 	for(var/datum/mind/player in mode.get_players_for_role(id))
 		if(ghosts_only && !(isghostmind(player) || isnewplayer(player.current)))
-			log_debug("[key_name(player)] is not eligible to become a [role_text]: Only ghosts may join as this role!")
+			log_debug("[key_name(player)] is not eligible to become a [rank_text]: Only ghosts may join as this role!")
 		else if(config.use_age_restriction_for_antags && player.current.client.player_age < minimum_player_age)
-			log_debug("[key_name(player)] is not eligible to become a [role_text]: Is only [player.current.client.player_age] day\s old, has to be [minimum_player_age] day\s!")
-		else if(player.special_role)
-			log_debug("[key_name(player)] is not eligible to become a [role_text]: They already have a special role ([player.special_role])!")
+			log_debug("[key_name(player)] is not eligible to become a [rank_text]: Is only [player.current.client.player_age] day\s old, has to be [minimum_player_age] day\s!")
+		else if(player.special_rank)
+			log_debug("[key_name(player)] is not eligible to become a [rank_text]: They already have a special role ([player.special_rank])!")
 		else if (player in pending_antagonists)
-			log_debug("[key_name(player)] is not eligible to become a [role_text]: They have already been selected for this role!")
+			log_debug("[key_name(player)] is not eligible to become a [rank_text]: They have already been selected for this role!")
 		else if(!can_become_antag(player))
-			log_debug("[key_name(player)] is not eligible to become a [role_text]: They are blacklisted for this role!")
+			log_debug("[key_name(player)] is not eligible to become a [rank_text]: They are blacklisted for this role!")
 		else if(player_is_antag(player))
-			log_debug("[key_name(player)] is not eligible to become a [role_text]: They are already an antagonist!")
+			log_debug("[key_name(player)] is not eligible to become a [rank_text]: They are already an antagonist!")
 		else
 			candidates |= player
 
@@ -134,7 +134,7 @@
 	for(var/datum/mind/player in mode.get_players_for_role(id))
 		if(ghosts_only && !(isghostmind(player) || isnewplayer(player.current)))
 		else if(config.use_age_restriction_for_antags && player.current.client.player_age < minimum_player_age)
-		else if(player.special_role)
+		else if(player.special_rank)
 		else if (player in pending_antagonists)
 		else if(!can_become_antag(player))
 		else if(player_is_antag(player))
@@ -155,25 +155,25 @@
 
 	update_current_antag_max(SSticker.mode)
 	var/active_antags = get_active_antag_count()
-	log_debug("[uppertext(id)]: Found [active_antags]/[cur_max] active [role_text_plural].")
+	log_debug("[uppertext(id)]: Found [active_antags]/[cur_max] active [rank_text_plural].")
 
 	if(active_antags >= cur_max)
-		log_debug("Could not auto-spawn a [role_text], active antag limit reached.")
+		log_debug("Could not auto-spawn a [rank_text], active antag limit reached.")
 		return 0
 
 	build_candidate_list(SSticker.mode, flags & (ANTAG_OVERRIDE_MOB|ANTAG_OVERRIDE_ROLE))
 	if(!candidates.len)
-		log_debug("Could not auto-spawn a [role_text], no candidates found.")
+		log_debug("Could not auto-spawn a [rank_text], no candidates found.")
 		return 0
 
 	attempt_spawn(1) //auto-spawn antags one at a time
 	if(!pending_antagonists.len)
-		log_debug("Could not auto-spawn a [role_text], none of the available candidates could be selected.")
+		log_debug("Could not auto-spawn a [rank_text], none of the available candidates could be selected.")
 		return 0
 
 	var/datum/mind/player = pending_antagonists[1]
 	if(!add_antagonist(player,0,0,0,1,1))
-		log_debug("Could not auto-spawn a [role_text], failed to add antagonist.")
+		log_debug("Could not auto-spawn a [rank_text], failed to add antagonist.")
 		return 0
 
 	reset_antag_selection()
@@ -204,28 +204,28 @@
 /datum/antagonist/proc/draft_antagonist(var/datum/mind/player)
 	//Check if the player can join in this antag role, or if the player has already been given an antag role.
 	if(!can_become_antag(player))
-		log_debug("[player.key] was selected for [role_text] by lottery, but is not allowed to be that role.")
+		log_debug("[player.key] was selected for [rank_text] by lottery, but is not allowed to be that role.")
 		return 0
-	if(player.special_role)
-		log_debug("[player.key] was selected for [role_text] by lottery, but they already have a special role.")
+	if(player.special_rank)
+		log_debug("[player.key] was selected for [rank_text] by lottery, but they already have a special role.")
 		return 0
 	if(!(flags & ANTAG_OVERRIDE_ROLE) && (!player.current || istype(player.current, /mob/new_player)))
-		log_debug("[player.key] was selected for [role_text] by lottery, but they have not joined the game.")
+		log_debug("[player.key] was selected for [rank_text] by lottery, but they have not joined the game.")
 		return 0
 	if(GAME_STATE >= RUNLEVEL_GAME && (isghostmind(player) || isnewplayer(player.current)) && !(player in SSticker.antag_pool))
-		log_debug("[player.key] was selected for [role_text] by lottery, but they are a ghost not in the antag pool.")
+		log_debug("[player.key] was selected for [rank_text] by lottery, but they are a ghost not in the antag pool.")
 		return 0
 
 	pending_antagonists |= player
-	log_debug("[player.key] has been selected for [role_text] by lottery.")
+	log_debug("[player.key] has been selected for [rank_text] by lottery.")
 
 	//Ensure that antags with ANTAG_OVERRIDE_ROLE do not occupy role slots.
 	if(flags & ANTAG_OVERRIDE_ROLE)
-		player.assigned_role = role_text
-		player.role_alt_title = null
+		player.assigned_rank = rank_text
+		player.rank_alt_title = null
 
 	//Ensure that a player cannot be drafted for multiple antag roles, taking up slots for antag roles that they will not fill.
-	player.special_role = role_text
+	player.special_rank = rank_text
 
 	return 1
 
@@ -244,7 +244,7 @@
 /datum/antagonist/proc/post_spawn()
 	return
 
-//Resets the antag selection, clearing all pending_antagonists and their special_role
+//Resets the antag selection, clearing all pending_antagonists and their special_rank
 //(and assigned_role if ANTAG_OVERRIDE_ROLE is set) as well as clearing the candidate list.
 //Existing antagonists are left untouched.
 /datum/antagonist/proc/reset_antag_selection()
@@ -252,6 +252,6 @@
 		if(flags & ANTAG_OVERRIDE_ROLE)
 			player.assigned_role = null
 			player.assigned_rank = null
-		player.special_role = null
+		player.special_rank = null
 	pending_antagonists.Cut()
 	candidates.Cut()

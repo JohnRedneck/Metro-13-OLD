@@ -2,14 +2,14 @@ GLOBAL_DATUM_INIT(xenomorphs, /datum/antagonist/xenos, new)
 
 /datum/antagonist/xenos
 	id = MODE_XENOMORPH
-	role_text = "Xenophage"
-	role_text_plural = "Xenophages"
+	rank_text = "Xenophage"
+	rank_text_plural = "Xenophages"
 	mob_path = /mob/living/carbon/alien/larva
 	flags = ANTAG_OVERRIDE_MOB | ANTAG_RANDSPAWN | ANTAG_OVERRIDE_ROLE
 	welcome_text = "Hiss! You are a larval alien. Hide and bide your time until you are ready to evolve."
 	antaghud_indicator = "hudalien"
 	antag_indicator = "hudalien"
-	faction_role_text = "Xenophage Thrall"
+	faction_rank_text = "Xenophage Thrall"
 	faction_descriptor = "Hive"
 	faction_welcome = "Your will is ripped away as your humanity merges with the xenomorph overmind. You are now \
 		a thrall to the queen and her brood. Obey their instructions without question. Serve the hive."

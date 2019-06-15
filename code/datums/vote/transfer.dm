@@ -46,8 +46,10 @@
 /datum/vote/transfer/report_result()
 	if(..())
 		return 1
+	/*
 	if(result[1] == "Initiate Crew Transfer")
 		init_autotransfer()
+	*/
 	else if(result[1] == "Add Antagonist")
 		SSvote.queued_auto_vote = /datum/vote/add_antagonist
 

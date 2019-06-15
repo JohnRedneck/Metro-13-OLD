@@ -183,8 +183,10 @@
 			return global.airlock_overlays;
 		if("alien_whitelist")
 			return global.alien_whitelist;
+		/*
 		if("allConsoles")
 			return global.allConsoles;
+		*/
 		if("all_grabobjects")
 			return global.all_grabobjects;
 		if("all_grabstates")
@@ -569,12 +571,14 @@
 			return global.registered_macros_by_ckey_;
 		if("religion_name")
 			return global.religion_name;
+		/*
 		if("req_console_assistance")
 			return global.req_console_assistance;
 		if("req_console_information")
 			return global.req_console_information;
 		if("req_console_supplies")
 			return global.req_console_supplies;
+		*/
 		if("responsive_carriers")
 			return global.responsive_carriers;
 		if("restricted_camera_networks")
@@ -966,8 +970,10 @@
 			global.airlock_overlays=newval;
 		if("alien_whitelist")
 			global.alien_whitelist=newval;
+		/*
 		if("allConsoles")
 			global.allConsoles=newval;
+		*/
 		if("all_grabobjects")
 			global.all_grabobjects=newval;
 		if("all_grabstates")
@@ -1352,12 +1358,14 @@
 			global.registered_macros_by_ckey_=newval;
 		if("religion_name")
 			global.religion_name=newval;
+		/*
 		if("req_console_assistance")
 			global.req_console_assistance=newval;
 		if("req_console_information")
 			global.req_console_information=newval;
 		if("req_console_supplies")
 			global.req_console_supplies=newval;
+		*/
 		if("responsive_carriers")
 			global.responsive_carriers=newval;
 		if("restricted_camera_networks")

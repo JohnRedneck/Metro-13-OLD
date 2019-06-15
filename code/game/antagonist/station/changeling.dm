@@ -2,8 +2,8 @@ GLOBAL_DATUM_INIT(changelings, /datum/antagonist/changeling, new)
 
 /datum/antagonist/changeling
 	id = MODE_CHANGELING
-	role_text = "Changeling"
-	role_text_plural = "Changelings"
+	rank_text = "Changeling"
+	rank_text_plural = "Changelings"
 	feedback_tag = "changeling_objective"
 	blacklisted_roles = list(/datum/role/submap)
 	protected_roles = list(/datum/role/officer, /datum/role/warden, /datum/role/detective, /datum/role/captain, /datum/role/hos)

@@ -83,7 +83,7 @@
 	if(!network_access)
 		return 1
 
-	return check_access(user, access_security) || check_access(user, network_access)
+	return 1//check_access(user, access_security) || check_access(user, network_access)
 
 /datum/nano_module/camera_monitor/Topic(href, href_list)
 	if(..())

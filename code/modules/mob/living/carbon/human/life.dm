@@ -1036,9 +1036,9 @@
 	if (BITTEST(hud_updateflag, SPECIALROLE_HUD))
 		var/image/holder = hud_list[SPECIALROLE_HUD]
 		holder.icon_state = "hudblank"
-		if(mind && mind.special_role)
-			if(GLOB.hud_icon_reference[mind.special_role])
-				holder.icon_state = GLOB.hud_icon_reference[mind.special_role]
+		if(mind && mind.special_rank)
+			if(GLOB.hud_icon_reference[mind.special_rank])
+				holder.icon_state = GLOB.hud_icon_reference[mind.special_rank]
 			/*
 			else
 				holder.icon_state = "hudsyndicate"

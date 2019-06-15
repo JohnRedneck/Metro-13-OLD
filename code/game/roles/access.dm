@@ -189,12 +189,13 @@
 			return I.assignment
 		if(I.rank in role_icons)
 			return I.rank
-
+		/*
 		var/centcom = get_all_centcom_roles()
 		if(I.assignment	in centcom) //Return with the NT logo if it is a Centcom role
 			return "Centcom"
 		if(I.rank in centcom)
 			return "Centcom"
+		*/
 	else
 		return
 

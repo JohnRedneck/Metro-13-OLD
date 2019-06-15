@@ -2,8 +2,8 @@ GLOBAL_DATUM_INIT(ert, /datum/antagonist/ert, new)
 
 /datum/antagonist/ert
 	id = MODE_ERT
-	role_text = "Emergency Responder"
-	role_text_plural = "Emergency Responders"
+	rank_text = "Emergency Responder"
+	rank_text_plural = "Emergency Responders"
 	antag_text = "You are an <b>anti</b> antagonist! Within the rules, \
 		try to save the installation and its inhabitants from the ongoing crisis. \
 		Try to make sure other players have <i>fun</i>! If you are confused or at a loss, always adminhelp, \

@@ -27,7 +27,7 @@
 	var/check_synth = 0 	//if active, will shoot at anything not an AI or cyborg
 	var/ailock = 0 	//Silicons cannot use this
 
-	req_access = list(access_ai_upload)
+	req_access = list(/*access_ai_upload*/)
 
 /obj/machinery/turretid/stun
 	enabled = 1
@@ -183,6 +183,7 @@
 		return 1
 
 /obj/machinery/turretid/proc/updateTurrets()
+	/*
 	var/datum/turret_checks/TC = new
 	TC.enabled = enabled
 	TC.lethal = lethal
@@ -193,11 +194,11 @@
 	TC.check_weapons = check_weapons
 	TC.check_anomalies = check_anomalies
 	TC.ailock = ailock
-
+	
 	if(istype(control_area))
 		for (var/obj/machinery/porta_turret/aTurret in control_area)
 			aTurret.setState(TC)
-
+	*/
 	queue_icon_update()
 
 /obj/machinery/turretid/power_change()

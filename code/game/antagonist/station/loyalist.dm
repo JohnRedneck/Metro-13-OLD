@@ -2,8 +2,8 @@ GLOBAL_DATUM_INIT(loyalists, /datum/antagonist/loyalists, new)
 
 /datum/antagonist/loyalists
 	id = MODE_LOYALIST
-	role_text = "Head Loyalist"
-	role_text_plural = "Loyalists"
+	rank_text = "Head Loyalist"
+	rank_text_plural = "Loyalists"
 	feedback_tag = "loyalist_objective"
 	antag_indicator = "hudheadloyalist"
 	victory_text = "The heads of staff remained at their posts! The loyalists win!"
@@ -19,7 +19,7 @@ GLOBAL_DATUM_INIT(loyalists, /datum/antagonist/loyalists, new)
 	initial_spawn_target = 4
 
 	// Inround loyalists.
-	faction_role_text = "Loyalist"
+	faction_rank_text = "Loyalist"
 	faction_descriptor = "COMPANY"
 	faction_verb = /mob/living/proc/convert_to_loyalist
 	faction_indicator = "hudloyalist"

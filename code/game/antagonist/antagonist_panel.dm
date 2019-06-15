@@ -1,6 +1,6 @@
 /datum/antagonist/proc/get_panel_entry(var/datum/mind/player)
 
-	var/dat = "<tr><td><b>[role_text]:</b>"
+	var/dat = "<tr><td><b>[rank_text]:</b>"
 	var/extra = get_extra_panel_options(player)
 	if(is_antagonist(player))
 		dat += "<a href='?src=\ref[player];remove_antagonist=[id]'>\[-\]</a>"
@@ -22,7 +22,7 @@
 	if(!current_antagonists || !current_antagonists.len)
 		return ""
 
-	var/dat = "<br><table cellspacing=5><tr><td><B>[role_text_plural]</B></td><td></td></tr>"
+	var/dat = "<br><table cellspacing=5><tr><td><B>[rank_text_plural]</B></td><td></td></tr>"
 	for(var/datum/mind/player in current_antagonists)
 		var/mob/M = player.current
 		dat += "<tr>"

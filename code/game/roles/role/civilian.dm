@@ -1,4 +1,4 @@
-/datum/faction/redline/civilian
+/datum/role/redline/civilian
 	title = "A Red Line Shtatskiy"
 	team = "The Red Line"
 	role_flag = CIV
@@ -8,7 +8,7 @@
 	supervisors = "to the leader of the Red Line"
 	outfit_type = /decl/hierarchy/outfit/faction/redline/civilian
 
-/datum/faction/reich/civilian
+/datum/role/reich/civilian
 	title = "A Fourth Reich Zivilist"
 	team = "The Fourth Reich"
 	role_flag = CIV
@@ -18,7 +18,7 @@
 	supervisors = "to the leader of the Fourth Reich"
 	outfit_type = /decl/hierarchy/outfit/faction/reich/civilian
 
-/datum/faction/vdnk/civilian
+/datum/role/vdnkh/civilian
 	title = "A Citizen of the VDNKh"
 	team = "The VDNKh"
 	role_flag = CIV

@@ -392,7 +392,7 @@
 
 		if(occupant.mind.objectives.len)
 			occupant.mind.objectives = null
-			occupant.mind.special_role = null
+			occupant.mind.special_rank = null
 
 	// Delete them from datacore.
 	var/sanitized_name = occupant.real_name
@@ -410,14 +410,14 @@
 
 	// Titles should really be fetched from data records
 	//  and records should not be fetched by name as there is no guarantee names are unique
-	var/role_alt_title = occupant.mind ? occupant.mind.role_alt_title : "Unknown"
+	var/rank_alt_title = occupant.mind ? occupant.mind.rank_alt_title : "Unknown"
 
 	if(control_computer)
-		control_computer.frozen_crew += "[occupant.real_name], [role_alt_title] - [stationtime2text()]"
-		control_computer._admin_logs += "[key_name(occupant)] ([role_alt_title]) at [stationtime2text()]"
-	log_and_message_admins("[key_name(occupant)] ([role_alt_title]) entered cryostorage.")
+		control_computer.frozen_crew += "[occupant.real_name], [rank_alt_title] - [stationtime2text()]"
+		control_computer._admin_logs += "[key_name(occupant)] ([rank_alt_title]) at [stationtime2text()]"
+	log_and_message_admins("[key_name(occupant)] ([rank_alt_title]) entered cryostorage.")
 
-	announce.autosay("[occupant.real_name], [role_alt_title], [on_store_message]", "[on_store_name]")
+	announce.autosay("[occupant.real_name], [rank_alt_title], [on_store_message]", "[on_store_name]")
 	visible_message("<span class='notice'>\The [initial(name)] hums and hisses as it moves [occupant.real_name] into storage.</span>", 3)
 
 	//This should guarantee that ghosts don't spawn.

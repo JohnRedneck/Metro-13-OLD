@@ -12,7 +12,7 @@
 	var/datum/antagonist/antag = GLOB.all_antag_types_[antag_type]
 	if(antag)
 		usr.client.debug_variables(antag)
-		message_admins("Admin [key_name_admin(usr)] is debugging the [antag.role_text] template.")
+		message_admins("Admin [key_name_admin(usr)] is debugging the [antag.rank_text] template.")
 
 /client/proc/debug_controller(controller as null|anything in list("Jobs","Sun","Radio","Evacuation","Configuration","pAI", "Cameras", "Transfer Controller", "Gas Data","Plants","Wireless","Observation","Alt Appearance Manager","Datacore","Military Branches"))
 	set category = "Debug"

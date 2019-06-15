@@ -71,7 +71,7 @@
 			continue
 		if(R.holder.assigned_role == holder.assigned_role)
 			best += R
-		if(R.holder.assigned_role.department_flag & holder.assigned_role.department_flag)
+		if(R.holder.assigned_role.role_flag & holder.assigned_role.role_flag)
 			good += R
 	if(best.len)
 		return best

@@ -53,7 +53,7 @@
 
 /obj/item/weapon/excalibur/pickup(var/mob/living/user as mob)
 	if(user.mind)
-		if(!GLOB.wizards.is_antagonist(user.mind) || user.mind.special_role != ANTAG_SERVANT)
+		if(!GLOB.wizards.is_antagonist(user.mind)/* || user.mind.special_rank != ANTAG_SERVANT*/)
 			START_PROCESSING(SSobj, src)
 			to_chat(user,"<span class='danger'>\The [src] heats up in your hands, burning you!</span>")
 

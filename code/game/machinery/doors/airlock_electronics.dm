@@ -8,7 +8,7 @@
 
 	matter = list(MATERIAL_STEEL = 50,MATERIAL_GLASS = 50)
 
-	req_access = list(access_engine)
+	req_access = list(/*access_engine*/)
 
 	var/secure = 0 //if set, then wires will be randomized and bolts will drop if the door is broken
 	var/list/conf_access = list()
@@ -38,8 +38,8 @@
 /obj/item/weapon/airlock_electronics/ui_data(mob/user)
 	var/list/data = list()
 	var/list/regions = list()
-
-	for(var/i in ACCESS_REGION_SECURITY to ACCESS_REGION_NT) //code/game/roles/_access_defs.dm
+	/*
+	for(var/i in ACCESS_REGION_ALL) //code/game/roles/_access_defs.dm
 		var/list/region = list()
 		var/list/accesses = list()
 		for(var/j in get_region_accesses(i))
@@ -51,6 +51,7 @@
 		region["name"] = get_region_accesses_name(i)
 		region["accesses"] = accesses
 		regions[++regions.len] = region
+	*/
 	data["regions"] = regions
 	data["oneAccess"] = one_access
 	data["locked"] = locked
@@ -95,7 +96,7 @@
 					return TRUE
 				if (check_access(I))
 					locked = 0
-					last_configurator = I.registered_name
+					//last_configurator = I.registered_name
 				else
 					to_chat(usr, "<span class='warning'>[\src] flashes a red LED near the ID scanner, indicating your access has been denied.</span>")
 					return TRUE

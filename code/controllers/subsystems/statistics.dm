@@ -2,7 +2,7 @@
 	var/name
 	var/key
 	var/role
-	var/special_role
+	var/special_rank
 	var/place_of_death
 	var/time_of_death
 	var/last_attacker_name
@@ -41,7 +41,7 @@ SUBSYSTEM_DEF(statistics)
 		name TEXT, \
 		key TEXT, \
 		role TEXT, \
-		special_role TEXT, \
+		special_rank TEXT, \
 		place_of_death TEXT, \
 		time_of_death TEXT, \
 		last_attacker_name TEXT, \
@@ -78,7 +78,7 @@ SUBSYSTEM_DEF(statistics)
 				death.name,
 				death.key,
 				death.role,
-				death.special_role,
+				death.special_rank,
 				death.place_of_death,
 				death.time_of_death,
 				death.last_attacker_name,
@@ -148,7 +148,7 @@ SUBSYSTEM_DEF(statistics)
 		death.place_of_death = sanitizeSQL(death.place_of_death)
 		death.name = sanitizeSQL(dead.real_name)
 		death.key = sanitizeSQL(dead.key)
-		death.special_role = sanitizeSQL(dead.mind.special_role)
+		death.special_rank = sanitizeSQL(dead.mind.special_rank)
 		death.role = sanitizeSQL(dead.mind.assigned_role)
 		if(dead.last_attacker_)
 			death.last_attacker_name = sanitizeSQL(dead.last_attacker_.name)

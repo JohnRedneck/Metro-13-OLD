@@ -20,7 +20,7 @@
 	var/mob/living/silicon/ai/master
 
 	for(var/mob/living/silicon/ai/ai in GLOB.player_list)
-		if(ai.check_special_role("Rampant AI"))
+		if(ai.check_special_rank("Rampant AI"))
 			master = ai
 			break
 

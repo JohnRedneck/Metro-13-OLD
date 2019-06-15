@@ -42,7 +42,7 @@
 		var/strings = list(M.name, M.ckey)
 		if(M.mind)
 			strings += M.mind.assigned_role
-			strings += M.mind.special_role
+			strings += M.mind.special_rank
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
 			if(H.species)
@@ -274,7 +274,7 @@ var/world_topic_spam_protect_time = world.timeofday
 			info["loc"] = M.loc ? "[M.loc]" : "null"
 			info["turf"] = MT ? "[MT] @ [MT.x], [MT.y], [MT.z]" : "null"
 			info["area"] = MT ? "[MT.loc]" : "null"
-			info["antag"] = M.mind ? (M.mind.special_role ? M.mind.special_role : "Not antag") : "No mind"
+			info["antag"] = M.mind ? (M.mind.special_rank ? M.mind.special_rank : "Not antag") : "No mind"
 			info["hasbeenrev"] = M.mind ? M.mind.has_been_rev : "No mind"
 			info["stat"] = M.stat
 			info["type"] = M.type

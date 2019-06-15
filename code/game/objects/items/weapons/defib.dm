@@ -108,12 +108,12 @@
 			update_icon()
 	else
 		return ..()
-
+/*
 /obj/item/weapon/defibrillator/emag_act(var/uses, var/mob/user)
 	if(paddles)
 		return paddles.emag_act(uses, user, src)
 	return NO_EMAG_ACT
-
+*/
 //Paddle stuff
 
 /obj/item/weapon/defibrillator/verb/toggle_paddles()

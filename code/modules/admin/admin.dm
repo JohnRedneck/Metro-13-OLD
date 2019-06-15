@@ -376,7 +376,7 @@ var/global/floorIsLava = 0
 	var/datum/browser/popup = new(usr, "adminplayerinfo", "Player Info", 480, 480)
 	popup.set_content(html)
 	popup.open()
-
+/*
 /datum/admins/proc/access_news_network() //MARKER
 	set category = "Fun"
 	set name = "Access Newscaster Network"
@@ -621,7 +621,7 @@ var/global/floorIsLava = 0
 
 	usr << browse(dat, "window=admincaster_main;size=400x600")
 	onclose(usr, "admincaster_main")
-
+*/
 
 
 /datum/admins/proc/rolebans()
@@ -1017,7 +1017,7 @@ var/global/floorIsLava = 0
 			for(var/datum/antagonist/antag in SSticker.mode.antag_templates)
 				if(antag.is_antagonist(M))
 					return 2
-		if(M.special_role)
+		if(M.special_rank)
 			return 1
 	/*
 	if(isrobot(character))

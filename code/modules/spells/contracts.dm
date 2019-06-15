@@ -42,10 +42,10 @@
 	color = "#993300"
 
 /obj/item/weapon/contract/apprentice/contract_effect(mob/user as mob)
-	if(user.mind.special_role == ANTAG_APPRENTICE)
+	if(user.mind.special_rank == ANTAG_APPRENTICE)
 		to_chat(user, "<span class='warning'>You are already a wizarding apprentice!</span>")
 		return 0
-	if(user.mind.special_role == ANTAG_SERVANT)
+	if(user.mind.special_rank == ANTAG_SERVANT)
 		to_chat(user, "<span class='notice'>You are a servant. You have no need of apprenticeship.</span>")
 		return 0
 	if(GLOB.wizards.add_antagonist_mind(user.mind,1,ANTAG_APPRENTICE,"<b>You are an apprentice! Your job is to learn the wizarding arts!</b>"))
@@ -123,7 +123,7 @@
 
 /obj/item/weapon/contract/boon/contract_effect(mob/user as mob)
 	..()
-	if(user.mind.special_role == ANTAG_SERVANT)
+	if(user.mind.special_rank == ANTAG_SERVANT)
 		to_chat(user, "<span class='warning'>As a servant you find yourself unable to use this contract.</span>")
 		return 0
 	if(ispath(path,/spell))

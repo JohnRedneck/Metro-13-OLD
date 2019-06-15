@@ -24,7 +24,7 @@
 	xo_fields += add_field(/datum/report_field/number, "Number of personnel in requested position")
 	xo_fields += add_field(/datum/report_field/options/yes_no, "Approved")
 	for(var/datum/report_field/field in xo_fields)
-		field.set_access(access_edit = access_hop)
+		field.set_access(access_edit = null)
 
 /datum/computer_file/report/recipient/access_modification
 	form_name = "AMA-SGF-02"
@@ -50,7 +50,7 @@
 	xo_fields += add_field(/datum/report_field/number, "Number of personnel in relevant position")
 	xo_fields += add_field(/datum/report_field/options/yes_no, "Approved")
 	for(var/datum/report_field/field in xo_fields)
-		field.set_access(access_edit = access_hop)
+		field.set_access(access_edit = null)
 
 /datum/computer_file/report/recipient/borging
 	form_name = "CC-SGF-09"
@@ -71,15 +71,15 @@
 	xo_fields += add_field(/datum/report_field/signature, "Executive Officer's signature")
 	xo_fields += add_field(/datum/report_field/options/yes_no, "Approved")
 	for(var/datum/report_field/field in xo_fields)
-		field.set_access(access_edit = access_hop)
+		field.set_access(access_edit = null)
 
 /datum/computer_file/report/recipient/sec
 	logo = "\[solcrest\]"
 
 /datum/computer_file/report/recipient/sec/New()
 	..()
-	set_access(access_security)
-	set_access(access_heads, override = 0)
+	set_access(null)
+	set_access(null, override = 0)
 
 /datum/computer_file/report/recipient/sec/investigation
 	form_name = "SCG-SEC-43"
@@ -97,7 +97,7 @@
 	add_field(/datum/report_field/pencode_text, "Summary")
 	add_field(/datum/report_field/pencode_text, "Observations")
 	add_field(/datum/report_field/signature, "Signature")
-	set_access(access_edit = access_security)
+	set_access(access_edit = null)
 
 /datum/computer_file/report/recipient/sec/incident
 	form_name = "SCG-SEC-12"
@@ -118,7 +118,7 @@
 	add_field(/datum/report_field/pencode_text, "Description of Items/Property", "\[small\]\[i\](D-Damaged, E-Evidence, L-Lost, R-Recovered, S-Stolen)\[/i\]\[/small\]")
 	add_field(/datum/report_field/pencode_text, "Narrative")
 	add_field(/datum/report_field/signature, "Reporting Officer's signature")
-	set_access(access_edit = access_security)
+	set_access(access_edit = null)
 
 /datum/computer_file/report/recipient/sec/evidence
 	form_name = "SCG-SEC-02b"
@@ -133,11 +133,11 @@
 	add_field(/datum/report_field/time, "Time")
 	add_field(/datum/report_field/people/from_manifest, "Confiscated from")
 	add_field(/datum/report_field/pencode_text, "List of items in custody/evidence lockup")
-	set_access(access_edit = access_security)
+	set_access(access_edit = null)
 	temp_field = add_field(/datum/report_field/signature, "Brig Officer's signature")
-	temp_field.set_access(access_edit = list(access_security, access_armory))
+	temp_field.set_access(access_edit = list(null, null))
 	temp_field = add_field(/datum/report_field/signature, "Forensic Technician's signature")
-	temp_field.set_access(access_edit = list(access_security, access_forensics_lockers))
+	temp_field.set_access(access_edit = list(null, null))
 
 //Supply and Exploration; these are not shown in deck manager.
 
@@ -149,8 +149,8 @@
 
 /datum/computer_file/report/recipient/docked/New()
 	..()
-	set_access(access_cargo, access_cargo)
-	set_access(access_heads, override = 0)
+	set_access(null, null)
+	set_access(null, override = 0)
 
 /datum/computer_file/report/recipient/docked/generate_fields()
 	..()
@@ -182,7 +182,7 @@
 /datum/computer_file/report/recipient/docked/New()
 	..()
 	//set_access(access_edit = access_hangar)
-	set_access(access_edit = access_research, override = 0)
+	set_access(access_edit = null, override = 0)
 
 /datum/computer_file/report/recipient/fauna/generate_fields()
 	..()
@@ -219,7 +219,7 @@
 
 /datum/computer_file/report/recipient/nt/anomaly/New()
 	..()
-	set_access(access_research, access_research)
+	set_access(null, null)
 
 /datum/computer_file/report/recipient/nt/anomaly/generate_fields()
 	..()
@@ -239,7 +239,7 @@
 
 /datum/computer_file/report/recipient/nt/fire/New()
 	..()
-	set_access(access_heads, access_heads)
+	set_access(null, null)
 	//set_access(access_nanotrasen, override = 0)
 
 /datum/computer_file/report/recipient/nt/fire/generate_fields()
@@ -499,7 +499,7 @@
 	add_field(/datum/report_field/pencode_text, "Description of incident")
 	add_field(/datum/report_field/signature, "Signature")
 	add_field(/datum/report_field/options/yes_no, "Approved")
-	//set_access(access_edit = list(access_heads, access_solgov_crew))
+	//set_access(access_edit = list(null, access_solgov_crew))
 
 /datum/computer_file/report/recipient/sol/audit
 	form_name = "SCG-REP-03b"

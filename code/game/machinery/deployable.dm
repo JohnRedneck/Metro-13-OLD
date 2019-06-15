@@ -3,7 +3,7 @@
 	name = "deployable"
 	desc = "Deployable."
 	icon = 'icons/obj/objects.dmi'
-	req_access = list(access_security)//I'm changing this until these are properly tested./N
+	req_access = list(/*access_security*/)//I'm changing this until these are properly tested./N
 
 /obj/machinery/deployable/barrier
 	name = "deployable barrier"
@@ -46,12 +46,12 @@
 			if (src.health < src.maxhealth)
 				src.health = src.maxhealth
 				src.emagged = 0
-				src.req_access = list(access_security)
+				src.req_access = list(/*access_security*/)
 				visible_message("<span class='warning'>[user] repairs \the [src]!</span>")
 				return
 			else if (src.emagged > 0)
 				src.emagged = 0
-				src.req_access = list(access_security)
+				src.req_access = list(/*access_security*/)
 				visible_message("<span class='warning'>[user] repairs \the [src]!</span>")
 				return
 			return

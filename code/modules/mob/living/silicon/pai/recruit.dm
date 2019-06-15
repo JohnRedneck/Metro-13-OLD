@@ -357,7 +357,7 @@ var/datum/paiController/paiController			// Global handler for pAI candidates
 			else
 				asked.Remove(O.key)
 		if(O.client)
-			if(BE_PAI in O.client.prefs.be_special_role)
+			if(BE_PAI in O.client.prefs.be_special_rank)
 				question(O.client)
 
 /datum/paiController/proc/question(var/client/C)
@@ -370,4 +370,4 @@ var/datum/paiController/paiController			// Global handler for pAI candidates
 		if(response == "Yes")
 			recruitWindow(C.mob)
 		else if (response == "Never for this round")
-			C.prefs.be_special_role -= BE_PAI
+			C.prefs.be_special_rank -= BE_PAI

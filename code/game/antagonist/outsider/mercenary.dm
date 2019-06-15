@@ -2,9 +2,9 @@ GLOBAL_DATUM_INIT(mercs, /datum/antagonist/mercenary, new)
 
 /datum/antagonist/mercenary
 	id = MODE_MERCENARY
-	role_text = "Mercenary"
+	rank_text = "Mercenary"
 	antag_indicator = "hudsyndicate"
-	role_text_plural = "Mercenaries"
+	rank_text_plural = "Mercenaries"
 	landmark_id = "Syndicate-Spawn"
 	leader_welcome_text = "You are the leader of the mercenary strikeforce; hail to the chief. Use :t to speak to your underlings."
 	welcome_text = "To speak on the strike team's private channel use :t."
@@ -31,7 +31,7 @@ GLOBAL_DATUM_INIT(mercs, /datum/antagonist/mercenary, new)
 		return 0
 
 	//var/decl/hierarchy/outfit/mercenary = outfit_by_type(/decl/hierarchy/outfit/mercenary)
-	mercenary.equip(player)
+	//mercenary.equip(player)
 
 	/*
 	var/obj/item/device/radio/uplink/U = new(get_turf(player), player.mind, DEFAULT_TELECRYSTAL_AMOUNT)

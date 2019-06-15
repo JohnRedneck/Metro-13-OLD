@@ -19,7 +19,7 @@
 /obj/item/weapon/implant/loyalty/implanted(mob/M)
 	if(!istype(M, /mob/living/carbon/human))	return FALSE
 	var/mob/living/carbon/human/H = M
-	var/datum/antagonist/antag_data = get_antag_data(H.mind.special_role)
+	var/datum/antagonist/antag_data = get_antag_data(H.mind.special_rank)
 	if(antag_data && (antag_data.flags & ANTAG_IMPLANT_IMMUNE))
 		H.visible_message("[H] seems to resist the implant!", "You feel the corporate tendrils of [GLOB.using_map.company_name] try to invade your mind!")
 		return FALSE

@@ -84,7 +84,7 @@
 /proc/nano_crew_manifest()
 	return list(
 		"redline" = filtered_nano_crew_manifest(SSroles.titles_by_role(REDLINE)),
-		"vdnk" =   filtered_nano_crew_manifest(SSroles.titles_by_role(VDNK)),
+		"vdnkh" =   filtered_nano_crew_manifest(SSroles.titles_by_role(VDNK)),
 		"reich" =   filtered_nano_crew_manifest(SSroles.titles_by_role(REICH)),
 		"neutrals" =   filtered_nano_crew_manifest(SSroles.titles_by_role(NEUTRAL))
 	)

@@ -16,7 +16,7 @@
 		if(isghost(C.mob))
 			to_chat(src, "<span class='warning'>You cannot use [name] while ghosting/observing!</span>")
 			return FALSE
-		if(!(C.mob && C.mob.mind && C.mob.mind.special_role))
+		if(!(C.mob && C.mob.mind && C.mob.mind.special_rank))
 			to_chat(C, "<span class='danger'>You must be an antag to use [name].</span>")
 			return FALSE
 
@@ -26,7 +26,7 @@
 	for(var/client/target in GLOB.clients)
 		if(target.holder)
 			receive_communication(C, target, "<span class='ooc'><span class='aooc'>[create_text_tag("aooc", "Antag-OOC:", target)] <EM>[get_options_bar(C, 0, 1, 1)]:</EM> <span class='message'>[message]</span></span></span>")
-		else if(target.mob && target.mob.mind && target.mob.mind.special_role)
+		else if(target.mob && target.mob.mind && target.mob.mind.special_rank)
 			var/display_name = C.key
 			var/player_display = holder ? "[display_name]([usr.client.holder.rank])" : display_name
 			receive_communication(C, target, "<span class='ooc'><span class='aooc'>[create_text_tag("aooc", "Antag-OOC:", target)] <EM>[player_display]:</EM> <span class='message'>[message]</span></span></span>")

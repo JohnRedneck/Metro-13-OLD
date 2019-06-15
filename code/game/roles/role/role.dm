@@ -138,13 +138,13 @@
 	if(!outfit)
 		return FALSE
 	. = outfit.equip(H, title, alt_title, OUTFIT_ADJUSTMENT_SKIP_POST_EQUIP|OUTFIT_ADJUSTMENT_SKIP_ID_PDA|additional_skips)
-
+/*
 /datum/role/proc/get_access()
 	if(minimal_access.len && (!config || config.roles_have_minimal_access))
 		return src.minimal_access.Copy()
 	else
 		return src.access.Copy()
-
+*/
 //If the configuration option is set to require players to be logged as old enough to play certain roles, then this proc checks that they are, otherwise it just returns 1
 /datum/role/proc/player_old_enough(client/C)
 	return (available_in_days(C) == 0) //Available in 0 days = available right now = player is old enough to play.
@@ -171,7 +171,7 @@
 	return (current_positions < total_positions) || (total_positions == -1)
 
 /datum/role/proc/has_alt_title(var/mob/H, var/supplied_title, var/desired_title)
-	return (supplied_title == desired_title) || (H.mind && H.mind.role_alt_title == desired_title)
+	return (supplied_title == desired_title) || (H.mind && H.mind.rank_alt_title == desired_title)
 
 /datum/role/proc/is_restricted(var/datum/preferences/prefs, var/feedback)
 

@@ -96,6 +96,6 @@
 		H.add_language("Hivemind")
 		if(H.mind && H.species.get_bodytype(H) != "Xenophage")
 			to_chat(H, "<span class='alium'>You feel a sense of pressure as a vast intelligence meshes with your thoughts...</span>")
-			GLOB.xenomorphs.add_antagonist_mind(H.mind,1, GLOB.xenomorphs.faction_role_text, GLOB.xenomorphs.faction_welcome)
+			GLOB.xenomorphs.add_antagonist_mind(H.mind,1, GLOB.xenomorphs.faction_rank_text, GLOB.xenomorphs.faction_welcome)
 
 	return 1

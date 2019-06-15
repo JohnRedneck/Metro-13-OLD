@@ -343,10 +343,10 @@
 	************************************WARNING!***********************************/
 		var/counter = 0
 //Regular roles
-	//Command (Blue)
+	//Leader (Blue)
 		roles += "<table cellpadding='1' cellspacing='0' width='100%'>"
-		roles += "<tr align='center' bgcolor='ccccff'><th colspan='[length(SSroles.titles_by_department(COM))]'><a href='?src=\ref[src];roleban3=commanddept;roleban4=\ref[M]'>Command Positions</a></th></tr><tr align='center'>"
-		for(var/rolePos in SSroles.titles_by_department(COM))
+		roles += "<tr align='center' bgcolor='ccccff'><th colspan='[length(SSroles.titles_by_role(LEAD))]'><a href='?src=\ref[src];roleban3=leadrole;roleban4=\ref[M]'>Leader Roles</a></th></tr><tr align='center'>"
+		for(var/rolePos in SSroles.titles_by_role(LEAD))
 			if(!rolePos)	continue
 			var/datum/role/role = SSroles.get_by_title(rolePos)
 			if(!role) continue
@@ -363,31 +363,11 @@
 				counter = 0
 		roles += "</tr></table>"
 
-	//Command Support (Sky Blue)
-		roles += "<table cellpadding='1' cellspacing='0' width='100%'>"
-		roles += "<tr bgcolor='87ceeb'><th colspan='[length(SSroles.titles_by_department(SPT))]'><a href='?src=\ref[src];roleban3=supportdept;roleban4=\ref[M]'>Command Support Positions</a></th></tr><tr align='center'>"
-		for(var/rolePos in SSroles.titles_by_department(SPT))
-			if(!rolePos)	continue
-			var/datum/role/role = SSroles.get_by_title(rolePos)
-			if(!role) continue
-
-			if(roleban_isbanned(M, role.title))
-				roles += "<td width='20%'><a href='?src=\ref[src];roleban3=[role.title];roleban4=\ref[M]'><font color=red>[replacetext(role.title, " ", "&nbsp")]</font></a></td>"
-				counter++
-			else
-				roles += "<td width='20%'><a href='?src=\ref[src];roleban3=[role.title];roleban4=\ref[M]'>[replacetext(role.title, " ", "&nbsp")]</a></td>"
-				counter++
-
-			if(counter >= 6) //So things dont get squiiiiished!
-				roles += "</tr><tr>"
-				counter = 0
-		roles += "</tr></table>"
-
-	//Security (Red)
+	//Military (Red)
 		counter = 0
 		roles += "<table cellpadding='1' cellspacing='0' width='100%'>"
-		roles += "<tr bgcolor='ffddf0'><th colspan='[length(SSroles.titles_by_department(SEC))]'><a href='?src=\ref[src];roleban3=securitydept;roleban4=\ref[M]'>Security Positions</a></th></tr><tr align='center'>"
-		for(var/rolePos in SSroles.titles_by_department(SEC))
+		roles += "<tr bgcolor='ffddf0'><th colspan='[length(SSroles.titles_by_role(MIL))]'><a href='?src=\ref[src];roleban3=milrole;roleban4=\ref[M]'>Military Roles</a></th></tr><tr align='center'>"
+		for(var/rolePos in SSroles.titles_by_role(MIL))
 			if(!rolePos)	continue
 			var/datum/role/role = SSroles.get_by_title(rolePos)
 			if(!role) continue
@@ -404,93 +384,10 @@
 				counter = 0
 		roles += "</tr></table>"
 
-	//Engineering (Yellow)
-		counter = 0
+	//Civilian (Tea Green)
 		roles += "<table cellpadding='1' cellspacing='0' width='100%'>"
-		roles += "<tr bgcolor='fff5cc'><th colspan='[length(SSroles.titles_by_department(ENG))]'><a href='?src=\ref[src];roleban3=engineeringdept;roleban4=\ref[M]'>Engineering Positions</a></th></tr><tr align='center'>"
-		for(var/rolePos in SSroles.titles_by_department(ENG))
-			if(!rolePos)	continue
-			var/datum/role/role = SSroles.get_by_title(rolePos)
-			if(!role) continue
-
-			if(roleban_isbanned(M, role.title))
-				roles += "<td width='20%'><a href='?src=\ref[src];roleban3=[role.title];roleban4=\ref[M]'><font color=red>[replacetext(role.title, " ", "&nbsp")]</font></a></td>"
-				counter++
-			else
-				roles += "<td width='20%'><a href='?src=\ref[src];roleban3=[role.title];roleban4=\ref[M]'>[replacetext(role.title, " ", "&nbsp")]</a></td>"
-				counter++
-
-			if(counter >= 5) //So things dont get squiiiiished!
-				roles += "</tr><tr align='center'>"
-				counter = 0
-		roles += "</tr></table>"
-
-	//Medical (White)
-		counter = 0
-		roles += "<table cellpadding='1' cellspacing='0' width='100%'>"
-		roles += "<tr bgcolor='ffeef0'><th colspan='[length(SSroles.titles_by_department(MED))]'><a href='?src=\ref[src];roleban3=medicaldept;roleban4=\ref[M]'>Medical Positions</a></th></tr><tr align='center'>"
-		for(var/rolePos in SSroles.titles_by_department(MED))
-			if(!rolePos)	continue
-			var/datum/role/role = SSroles.get_by_title(rolePos)
-			if(!role) continue
-
-			if(roleban_isbanned(M, role.title))
-				roles += "<td width='20%'><a href='?src=\ref[src];roleban3=[role.title];roleban4=\ref[M]'><font color=red>[replacetext(role.title, " ", "&nbsp")]</font></a></td>"
-				counter++
-			else
-				roles += "<td width='20%'><a href='?src=\ref[src];roleban3=[role.title];roleban4=\ref[M]'>[replacetext(role.title, " ", "&nbsp")]</a></td>"
-				counter++
-
-			if(counter >= 5) //So things dont get squiiiiished!
-				roles += "</tr><tr align='center'>"
-				counter = 0
-		roles += "</tr></table>"
-
-	//Science (Purple)
-		counter = 0
-		roles += "<table cellpadding='1' cellspacing='0' width='100%'>"
-		roles += "<tr bgcolor='e79fff'><th colspan='[length(SSroles.titles_by_department(SCI))]'><a href='?src=\ref[src];roleban3=sciencedept;roleban4=\ref[M]'>Science Positions</a></th></tr><tr align='center'>"
-		for(var/rolePos in SSroles.titles_by_department(SCI))
-			if(!rolePos)	continue
-			var/datum/role/role = SSroles.get_by_title(rolePos)
-			if(!role) continue
-
-			if(roleban_isbanned(M, role.title))
-				roles += "<td width='20%'><a href='?src=\ref[src];roleban3=[role.title];roleban4=\ref[M]'><font color=red>[replacetext(role.title, " ", "&nbsp")]</font></a></td>"
-				counter++
-			else
-				roles += "<td width='20%'><a href='?src=\ref[src];roleban3=[role.title];roleban4=\ref[M]'>[replacetext(role.title, " ", "&nbsp")]</a></td>"
-				counter++
-
-			if(counter >= 5) //So things dont get squiiiiished!
-				roles += "</tr><tr align='center'>"
-				counter = 0
-		roles += "</tr></table>"
-
-	//Exploration (Pale Purple)
-		roles += "<table cellpadding='1' cellspacing='0' width='100%'>"
-		roles += "<tr bgcolor='b784a7'><th colspan='[length(SSroles.titles_by_department(EXP))]'><a href='?src=\ref[src];roleban3=explorationdept;roleban4=\ref[M]'>Exploration Positions</a></th></tr><tr align='center'>"
-		for(var/rolePos in SSroles.titles_by_department(EXP))
-			if(!rolePos)	continue
-			var/datum/role/role = SSroles.get_by_title(rolePos)
-			if(!role) continue
-
-			if(roleban_isbanned(M, role.title))
-				roles += "<td width='20%'><a href='?src=\ref[src];roleban3=[role.title];roleban4=\ref[M]'><font color=red>[replacetext(role.title, " ", "&nbsp")]</font></a></td>"
-				counter++
-			else
-				roles += "<td width='20%'><a href='?src=\ref[src];roleban3=[role.title];roleban4=\ref[M]'>[replacetext(role.title, " ", "&nbsp")]</a></td>"
-				counter++
-
-			if(counter >= 6) //So things dont get squiiiiished!
-				roles += "</tr><tr>"
-				counter = 0
-		roles += "</tr></table>"
-
-	//Service (Tea Green)
-		roles += "<table cellpadding='1' cellspacing='0' width='100%'>"
-		roles += "<tr bgcolor='d0f0c0'><th colspan='[length(SSroles.titles_by_department(SRV))]'><a href='?src=\ref[src];roleban3=servicedept;roleban4=\ref[M]'>Service Positions</a></th></tr><tr align='center'>"
-		for(var/rolePos in SSroles.titles_by_department(SRV))
+		roles += "<tr bgcolor='d0f0c0'><th colspan='[length(SSroles.titles_by_role(CIV))]'><a href='?src=\ref[src];roleban3=civrole;roleban4=\ref[M]'>Service Positions</a></th></tr><tr align='center'>"
+		for(var/rolePos in SSroles.titles_by_role(CIV))
 			if(!rolePos)	continue
 			var/datum/role/role = SSroles.get_by_title(rolePos)
 			if(!role) continue
@@ -508,10 +405,10 @@
 		roles += "</tr></table>"
 
 
-	//Supply (Khaki)
+	//Vagrant (Khaki)
 		roles += "<table cellpadding='1' cellspacing='0' width='100%'>"
-		roles += "<tr bgcolor='f0e68c'><th colspan='[length(SSroles.titles_by_department(SUP))]'><a href='?src=\ref[src];roleban3=supplydept;roleban4=\ref[M]'>Supply Positions</a></th></tr><tr align='center'>"
-		for(var/rolePos in SSroles.titles_by_department(SUP))
+		roles += "<tr bgcolor='f0e68c'><th colspan='[length(SSroles.titles_by_role(VAG))]'><a href='?src=\ref[src];roleban3=vagrole;roleban4=\ref[M]'>Vagrant Roles</a></th></tr><tr align='center'>"
+		for(var/rolePos in SSroles.titles_by_role(VAG))
 			if(!rolePos)	continue
 			var/datum/role/role = SSroles.get_by_title(rolePos)
 			if(!role) continue
@@ -526,70 +423,11 @@
 			if(counter >= 6) //So things dont get squiiiiished!
 				roles += "</tr><tr>"
 				counter = 0
-		roles += "</tr></table>"
-
-	//Civilian (Grey)
-		counter = 0
-		roles += "<table cellpadding='1' cellspacing='0' width='100%'>"
-		roles += "<tr bgcolor='dddddd'><th colspan='[length(SSroles.titles_by_department(CIV))]'><a href='?src=\ref[src];roleban3=civiliandept;roleban4=\ref[M]'>Civilian Positions</a></th></tr><tr align='center'>"
-		for(var/rolePos in SSroles.titles_by_department(CIV))
-			if(!rolePos)	continue
-			var/datum/role/role = SSroles.get_by_title(rolePos)
-			if(!role) continue
-
-			if(roleban_isbanned(M, role.title))
-				roles += "<td width='20%'><a href='?src=\ref[src];roleban3=[role.title];roleban4=\ref[M]'><font color=red>[replacetext(role.title, " ", "&nbsp")]</font></a></td>"
-				counter++
-			else
-				roles += "<td width='20%'><a href='?src=\ref[src];roleban3=[role.title];roleban4=\ref[M]'>[replacetext(role.title, " ", "&nbsp")]</a></td>"
-				counter++
-
-			if(counter >= 5) //So things dont get squiiiiished!
-				roles += "</tr><tr align='center'>"
-				counter = 0
-
-		if(roleban_isbanned(M, "Internal Affairs Agent"))
-			roles += "<td width='20%'><a href='?src=\ref[src];roleban3=Internal Affairs Agent;roleban4=\ref[M]'><font color=red>Internal Affairs Agent</font></a></td>"
-		else
-			roles += "<td width='20%'><a href='?src=\ref[src];roleban3=Internal Affairs Agent;roleban4=\ref[M]'>Internal Affairs Agent</a></td>"
-
-		roles += "</tr></table>"
-
-	//Non-Human (Green)
-		counter = 0
-		roles += "<table cellpadding='1' cellspacing='0' width='100%'>"
-		roles += "<tr bgcolor='ccffcc'><th colspan='[length(SSroles.titles_by_department(MSC))+1]'><a href='?src=\ref[src];roleban3=nonhumandept;roleban4=\ref[M]'>Non-human Positions</a></th></tr><tr align='center'>"
-		for(var/rolePos in SSroles.titles_by_department(MSC))
-			if(!rolePos)	continue
-			var/datum/role/role = SSroles.get_by_title(rolePos)
-			if(!role) continue
-
-			if(roleban_isbanned(M, role.title))
-				roles += "<td width='20%'><a href='?src=\ref[src];roleban3=[role.title];roleban4=\ref[M]'><font color=red>[replacetext(role.title, " ", "&nbsp")]</font></a></td>"
-				counter++
-			else
-				roles += "<td width='20%'><a href='?src=\ref[src];roleban3=[role.title];roleban4=\ref[M]'>[replacetext(role.title, " ", "&nbsp")]</a></td>"
-				counter++
-
-			if(counter >= 5) //So things dont get squiiiiished!
-				roles += "</tr><tr align='center'>"
-				counter = 0
-
-		//pAI isn't technically a role, but it goes in here.
-
-		if(roleban_isbanned(M, "pAI"))
-			roles += "<td width='20%'><a href='?src=\ref[src];roleban3=pAI;roleban4=\ref[M]'><font color=red>pAI</font></a></td>"
-		else
-			roles += "<td width='20%'><a href='?src=\ref[src];roleban3=pAI;roleban4=\ref[M]'>pAI</a></td>"
-		if(roleban_isbanned(M, "AntagHUD"))
-			roles += "<td width='20%'><a href='?src=\ref[src];roleban3=AntagHUD;roleban4=\ref[M]'><font color=red>AntagHUD</font></a></td>"
-		else
-			roles += "<td width='20%'><a href='?src=\ref[src];roleban3=AntagHUD;roleban4=\ref[M]'>AntagHUD</a></td>"
 		roles += "</tr></table>"
 
 	//Antagonist (Orange)
 		roles += "<table cellpadding='1' cellspacing='0' width='100%'>"
-		roles += "<tr bgcolor='ffeeaa'><th colspan='10'><a href='?src=\ref[src];roleban3=Syndicate;roleban4=\ref[M]'>Antagonist Positions</a></th></tr><tr align='center'>"
+		roles += "<tr bgcolor='ffeeaa'><th colspan='10'><a href='?src=\ref[src];roleban3=antag;roleban4=\ref[M]'>Antagonists</a></th></tr><tr align='center'>"
 
 		// Antagonists.
 		var/list/all_antag_types = GLOB.all_antag_types_
@@ -598,9 +436,9 @@
 			if(!antag || !antag.id)
 				continue
 			if(roleban_isbanned(M, "[antag.id]"))
-				roles += "<td width='20%'><a href='?src=\ref[src];roleban3=[antag.id];roleban4=\ref[M]'><font color=red>[replacetext("[antag.role_text]", " ", "&nbsp")]</font></a></td>"
+				roles += "<td width='20%'><a href='?src=\ref[src];roleban3=[antag.id];roleban4=\ref[M]'><font color=red>[replacetext("[antag.rank_text]", " ", "&nbsp")]</font></a></td>"
 			else
-				roles += "<td width='20%'><a href='?src=\ref[src];roleban3=[antag.id];roleban4=\ref[M]'>[replacetext("[antag.role_text]", " ", "&nbsp")]</a></td>"
+				roles += "<td width='20%'><a href='?src=\ref[src];roleban3=[antag.id];roleban4=\ref[M]'>[replacetext("[antag.rank_text]", " ", "&nbsp")]</a></td>"
 
 		roles += "</tr></table>"
 
@@ -653,77 +491,34 @@
 				alert("You cannot perform this action. You must be of a higher administrative rank!")
 				return
 
-		//get roles for department if specified, otherwise just returnt he one role in a list.
+		//get roles for department if specified, otherwise just return the one role in a list.
 		var/list/role_list = list()
 		switch(href_list["roleban3"])
-			if("commanddept")
-				for(var/rolePos in SSroles.titles_by_department(COM))
+			if("leadrole")
+				for(var/rolePos in SSroles.titles_by_role(LEAD))
 					if(!rolePos)	continue
 					var/datum/role/temp = SSroles.get_by_title(rolePos)
 					if(!temp) continue
 					role_list += temp.title
-			if("supportdept")
-				for(var/rolePos in SSroles.titles_by_department(SPT))
+			if("milrole")
+				for(var/rolePos in SSroles.titles_by_role(MIL))
 					if(!rolePos)	continue
 					var/datum/role/temp = SSroles.get_by_title(rolePos)
 					if(!temp) continue
 					role_list += temp.title
-			if("securitydept")
-				for(var/rolePos in SSroles.titles_by_department(SEC))
+			if("civrole")
+				for(var/rolePos in SSroles.titles_by_role(CIV))
 					if(!rolePos)	continue
 					var/datum/role/temp = SSroles.get_by_title(rolePos)
 					if(!temp) continue
 					role_list += temp.title
-			if("engineeringdept")
-				for(var/rolePos in SSroles.titles_by_department(ENG))
+			if("vagrole")
+				for(var/rolePos in SSroles.titles_by_role(VAG))
 					if(!rolePos)	continue
 					var/datum/role/temp = SSroles.get_by_title(rolePos)
 					if(!temp) continue
 					role_list += temp.title
-			if("medicaldept")
-				for(var/rolePos in SSroles.titles_by_department(MED))
-					if(!rolePos)	continue
-					var/datum/role/temp = SSroles.get_by_title(rolePos)
-					if(!temp) continue
-					role_list += temp.title
-			if("sciencedept")
-				for(var/rolePos in SSroles.titles_by_department(SCI))
-					if(!rolePos)	continue
-					var/datum/role/temp = SSroles.get_by_title(rolePos)
-					if(!temp) continue
-					role_list += temp.title
-			if("explorationdept")
-				for(var/rolePos in SSroles.titles_by_department(EXP))
-					if(!rolePos)	continue
-					var/datum/role/temp = SSroles.get_by_title(rolePos)
-					if(!temp) continue
-					role_list += temp.title
-			if("servicedept")
-				for(var/rolePos in SSroles.titles_by_department(SRV))
-					if(!rolePos)	continue
-					var/datum/role/temp = SSroles.get_by_title(rolePos)
-					if(!temp) continue
-					role_list += temp.title
-			if("supplydept")
-				for(var/rolePos in SSroles.titles_by_department(SUP))
-					if(!rolePos)	continue
-					var/datum/role/temp = SSroles.get_by_title(rolePos)
-					if(!temp) continue
-					role_list += temp.title
-			if("civiliandept")
-				for(var/rolePos in SSroles.titles_by_department(CIV))
-					if(!rolePos)	continue
-					var/datum/role/temp = SSroles.get_by_title(rolePos)
-					if(!temp) continue
-					role_list += temp.title
-			if("nonhumandept")
-				role_list += "pAI"
-				for(var/rolePos in SSroles.titles_by_department(MSC))
-					if(!rolePos)	continue
-					var/datum/role/temp = SSroles.get_by_title(rolePos)
-					if(!temp) continue
-					role_list += temp.title
-			if("Syndicate")
+			if("antag")
 				var/list/all_antag_types = GLOB.all_antag_types_
 				for(var/antagPos in all_antag_types)
 					if(!antagPos) continue
@@ -1318,7 +1113,7 @@
 			return
 
 		var/location_description = ""
-		var/special_role_description = ""
+		var/special_rank_description = ""
 		var/health_description = ""
 		var/gender_description = ""
 		var/turf/T = get_turf(M)
@@ -1332,9 +1127,9 @@
 
 		//Job + antagonist
 		if(M.mind)
-			special_role_description = "Role: <b>[M.mind.assigned_role]</b>; Antagonist: <font color='red'><b>[M.mind.special_role]</b></font>; Has been rev: [(M.mind.has_been_rev)?"Yes":"No"]"
+			special_rank_description = "Role: <b>[M.mind.assigned_role]</b>; Antagonist: <font color='red'><b>[M.mind.special_rank]</b></font>; Has been rev: [(M.mind.has_been_rev)?"Yes":"No"]"
 		else
-			special_role_description = "Role: <i>Mind datum missing</i> Antagonist: <i>Mind datum missing</i>; Has been rev: <i>Mind datum missing</i>;"
+			special_rank_description = "Role: <i>Mind datum missing</i> Antagonist: <i>Mind datum missing</i>; Has been rev: <i>Mind datum missing</i>;"
 
 		//Health
 		if(isliving(M))
@@ -1358,7 +1153,7 @@
 		to_chat(src.owner, "Mob type = [M.type]; Gender = [gender_description] Damage = [health_description]")
 		to_chat(src.owner, "Name = <b>[M.name]</b>; Real_name = [M.real_name]; Mind_name = [M.mind?"[M.mind.name]":""]; Key = <b>[M.key]</b>;")
 		to_chat(src.owner, "Location = [location_description];")
-		to_chat(src.owner, "[special_role_description]")
+		to_chat(src.owner, "[special_rank_description]")
 		to_chat(src.owner, "(<a href='?src=\ref[usr];priv_msg=\ref[M]'>PM</a>) (<A HREF='?src=\ref[src];adminplayeropts=\ref[M]'>PP</A>) (<A HREF='?_src_=vars;Vars=\ref[M]'>VV</A>) (<A HREF='?src=\ref[src];subtlemessage=\ref[M]'>SM</A>) ([admin_jump_link(M, src)]) (<A HREF='?src=\ref[src];secretsadmin=check_antagonist'>CA</A>)")
 
 	else if(href_list["adminspawncookie"])
@@ -1622,10 +1417,12 @@
 				if(!check_rights(R_FUN,0))
 					removed_paths += dirty_path
 					continue
+			/*
 			else if(ispath(path, /obj/effect/bhole))
 				if(!check_rights(R_FUN,0))
 					removed_paths += dirty_path
 					continue
+			*/
 			paths += path
 
 		if(!paths)
@@ -1713,7 +1510,7 @@
 	else if(href_list["admin_secrets"])
 		var/datum/admin_secret_item/item = locate(href_list["admin_secrets"]) in admin_secrets.items
 		item.execute(usr)
-
+	/*
 	else if(href_list["ac_view_wanted"])            //Admin newscaster Topic() stuff be here
 		src.admincaster_screen = 18                 //The ac_ prefix before the hrefs stands for AdminCaster.
 		src.access_news_network()
@@ -1728,6 +1525,7 @@
 
 	else if(href_list["ac_submit_new_channel"])
 		var/check = 0
+
 		for(var/datum/feed_channel/FC in news_network.network_channels)
 			if(FC.channel_name == src.admincaster_feed_channel.channel_name)
 				check = 1
@@ -1904,7 +1702,7 @@
 	else if(href_list["ac_set_signature"])
 		src.admincaster_signature = sanitize(input(usr, "Provide your desired signature", "Network Identity Handler", ""))
 		src.access_news_network()
-
+	*/
 	else if(href_list["populate_inactive_customitems"])
 		if(check_rights(R_ADMIN|R_SERVER))
 			populate_inactive_customitems_list(src.owner)

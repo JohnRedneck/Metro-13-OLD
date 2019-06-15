@@ -109,8 +109,8 @@ datum/announcement/proc/NewsCast(message as text, message_title as text)
 	if (GAME_STATE != RUNLEVEL_GAME)
 		return
 	var/rank = role.title
-	if(character.mind.role_alt_title)
-		rank = character.mind.role_alt_title
+	if(character.mind.rank_alt_title)
+		rank = character.mind.rank_alt_title
 
 	AnnounceArrivalSimple(character.real_name, rank, join_message, get_announcement_frequency(role))
 

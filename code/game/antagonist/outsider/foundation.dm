@@ -2,9 +2,9 @@ GLOBAL_DATUM_INIT(foundation_agents, /datum/antagonist/foundation, new)
 
 /datum/antagonist/foundation
 	id = MODE_FOUNDATION
-	role_text = "Foundation Agent"
+	rank_text = "Foundation Agent"
 	antag_indicator = "hudfoundation"
-	role_text_plural = "Foundation Agents"
+	rank_text_plural = "Foundation Agents"
 	welcome_text = "<span class='info'>You are a field agent of the Cuchulain Foundation, \
 	a body that specializes in taking down psychic threats. You have a free pass to anywhere \
 	you like, a pistol loaded with anti-psi nullglass rounds, and a clear duty. Naturally, \

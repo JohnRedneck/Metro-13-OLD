@@ -43,12 +43,14 @@
 		home_waypoint = current_location
 
 /datum/shuttle/autodock/multi/antag/shuttle_moved()
+	/*
 	if(current_location == home_waypoint)
 		announce_arrival()
 	else if(next_location == home_waypoint)
 		announce_departure()
+	*/
 	..()
-
+/*
 /datum/shuttle/autodock/multi/antag/proc/announce_departure()
 	if(cloaked || isnull(departure_message))
 		return
@@ -58,3 +60,4 @@
 	if(cloaked || isnull(arrival_message))
 		return
 	command_announcement.Announce(arrival_message, announcer || "[GLOB.using_map.boss_name]")
+*/

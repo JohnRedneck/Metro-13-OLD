@@ -41,16 +41,19 @@
 	update_icon()
 
 /mob/living/simple_animal/crow/GetIdCard()
-	return access_card
+	return 1
+	//return access_card
 
 /mob/living/simple_animal/crow/show_inv(var/mob/user)
 	if(user.incapacitated())
 		return
 	var/list/dat = list()
+	/*
 	if(access_card)
 		dat += "<b>ID:</b> [access_card] (<a href='?src=\ref[src];remove_inv=access cuff'>Remove</a>)"
 	else
 		dat += "<b>ID:</b> <a href='?src=\ref[src];add_inv=access cuff'>Nothing</a>"
+	*/
 	if(messenger_bag)
 		dat += "<b>Back:</b> [messenger_bag] (<a href='?src=\ref[src];remove_inv=back'>Remove</a>)"
 	else
@@ -67,9 +70,11 @@
 		if(href_list["remove_inv"])
 			var/obj/item/removed
 			switch(href_list["remove_inv"])
+				/*
 				if("access cuff")
 					removed = access_card
 					access_card = null
+				*/
 				if("back")
 					removed = messenger_bag
 					messenger_bag = null
@@ -90,9 +95,11 @@
 			var/obj/item/equipped
 			var/checktype
 			switch(href_list["add_inv"])
+				/*
 				if("access cuff")
 					equipped = access_card
 					checktype = /obj/item/weapon/card/id
+				*/
 				if("back")
 					equipped = messenger_bag
 					checktype = /obj/item/weapon/storage/messenger
@@ -122,9 +129,10 @@
 				to_chat(user, "It's wearing a little messenger bag with a Corvid Couriers logo on it. There's something stuffed inside.")
 			else
 				to_chat(user, "It's wearing a little messenger bag with a Corvid Couriers logo on it. It seems to be empty.")
+		/*
 		if(access_card)
 			to_chat(user, "It has an access cuff with \the [access_card] inserted.")
-
+		*/
 /mob/living/simple_animal/crow/on_update_icon()
 	..()
 	overlays -= "bag"

@@ -13,7 +13,7 @@
 	for(var/antag_type in all_antag_types)
 		var/datum/antagonist/antag = all_antag_types[antag_type]
 		if(!(antag.id in additional_antag_types) && antag.is_votable())
-			choices += antag.role_text
+			choices += antag.rank_text
 	choices += "Random"
 	if(!automatic)
 		choices += "None"

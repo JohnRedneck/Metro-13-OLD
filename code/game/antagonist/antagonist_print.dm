@@ -4,7 +4,7 @@
 		return 0
 
 	var/text = list()
-	text += "<br><br><font size = 2><b>The [current_antagonists.len == 1 ? "[role_text] was" : "[role_text_plural] were"]:</b></font>"
+	text += "<br><br><font size = 2><b>The [current_antagonists.len == 1 ? "[rank_text] was" : "[rank_text_plural] were"]:</b></font>"
 	for(var/datum/mind/P in current_antagonists)
 		text += print_player(P)
 		text += get_special_objective_text(P)
@@ -26,9 +26,9 @@
 					failed = 1
 				num++
 			if(failed)
-				text += "<br><font color='red'><B>The [role_text] has failed.</B></font>"
+				text += "<br><font color='red'><B>The [rank_text] has failed.</B></font>"
 			else
-				text += "<br><font color='green'><B>The [role_text] was successful!</B></font>"
+				text += "<br><font color='green'><B>The [rank_text] was successful!</B></font>"
 
 	if(global_objectives && global_objectives.len)
 		text += "<BR><FONT size = 2>Their objectives were:</FONT>"
@@ -52,7 +52,7 @@
 	return text
 
 /datum/antagonist/proc/print_player(var/datum/mind/ply)
-	var/role = ply.assigned_role ? "\improper[ply.assigned_role]" : (ply.special_role ? "\improper[ply.special_role]" : "unknown role")
+	var/role = ply.assigned_role ? "\improper[ply.assigned_role]" : (ply.special_rank ? "\improper[ply.special_rank]" : "unknown role")
 	var/text = "<br><b>[ply.name]</b> (<b>[ply.key]</b>) as \a <b>[role]</b> ("
 	if(ply.current)
 		if(ply.current.stat == DEAD)

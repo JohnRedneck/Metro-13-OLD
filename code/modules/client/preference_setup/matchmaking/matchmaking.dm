@@ -69,8 +69,8 @@ var/global/datum/matchmaker/matchmaker = new()
 	if(!M.current)	//no extremely platonic relationships
 		return FALSE
 
-	var/datum/antagonist/special_role_data = get_antag_data(M.special_role)
-	if(special_role_data && (special_role_data.flags & ANTAG_OVERRIDE_ROLE))
+	var/datum/antagonist/special_rank_data = get_antag_data(M.special_rank)
+	if(special_rank_data && (special_rank_data.flags & ANTAG_OVERRIDE_ROLE))
 		return FALSE
 
 	return TRUE
@@ -128,7 +128,7 @@ var/global/datum/matchmaker/matchmaker = new()
 				continue
 			var/datum/role/coworker = SSroles.get_by_title(M.role)
 			if(coworker && holder.assigned_role && other.holder.assigned_role)
-				if((coworker.department_flag & holder.assigned_role.department_flag) || (coworker.department_flag & other.holder.assigned_role.department_flag))
+				if((coworker.roleB_flag & holder.assigned_role.role_flag) || (coworker.role_flag & other.holder.assigned_role.role_flag))
 					candidates[M] = 5	//coworkers are 5 times as likely to know about your relations
 
 		for(var/i=1 to 5)
@@ -159,7 +159,7 @@ var/global/datum/matchmaker/matchmaker = new()
 		dat += "An <b>\[F\]</b> indicates that the other player has finalized the connection.<br>"
 		dat += "<br>"
 	for(var/datum/relation/R in relations)
-		dat += "<b>[R.other.finalized ? "\[F\] " : ""][R.other.holder]</b>, [R.other.holder.role_alt_title ? R.other.holder.role_alt_title : R.other.holder.assigned_role]."
+		dat += "<b>[R.other.finalized ? "\[F\] " : ""][R.other.holder]</b>, [R.other.holder.rank_alt_title ? R.other.holder.rank_alt_title : R.other.holder.assigned_role]."
 		if (!R.finalized)
 			dat += " <a href='?src=\ref[src];del_relation=\ref[R]'>Remove</a>"
 			editable = 1

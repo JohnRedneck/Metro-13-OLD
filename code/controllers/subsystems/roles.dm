@@ -36,7 +36,7 @@ SUBSYSTEM_DEF(roles)
 	// Create main map roles.
 	primary_role_datums.Cut()
 	//If a role is present we'll add the faction it belongs to to the list of
-	for(var/roletype in (list(/datum/faction/neutral/vagrant) | GLOB.using_map.allowed_roles))
+	for(var/roletype in (list(/datum/role/neutral/vagrant) | GLOB.using_map.allowed_roles))
 		var/datum/role/role = get_by_path(roletype)
 		if(!role)
 			role = new roletype
@@ -54,7 +54,7 @@ SUBSYSTEM_DEF(roles)
 				role = get_by_path(roletype)
 			if(role)
 				archetype_role_datums |= role
-
+				
 	// Load role configuration (is this even used anymore?)
 	if(role_config_file && config.load_roles_from_txt)
 		var/list/roleEntries = file2list(role_config_file)
@@ -132,7 +132,7 @@ SUBSYSTEM_DEF(roles)
 		if((player) && (player.mind))
 			player.mind.assigned_role = null
 			player.mind.assigned_rank = null
-			player.mind.special_role = null
+			player.mind.special_rank = null
 	for(var/datum/role/role in primary_role_datums)
 		role.current_positions = 0
 	unassigned_roundstart = list()
@@ -212,7 +212,7 @@ SUBSYSTEM_DEF(roles)
 		if((role.current_positions < position_limit) || position_limit == -1)
 			player.mind.assigned_role = role
 			player.mind.assigned_rank = rank
-			player.mind.role_alt_title = role.get_alt_title_for(player.client)
+			player.mind.rank_alt_title = role.get_alt_title_for(player.client)
 			unassigned_roundstart -= player
 			role.current_positions++
 			return 1
@@ -228,7 +228,7 @@ SUBSYSTEM_DEF(roles)
 			continue
 		if(role.minimum_character_age && (player.client.prefs.age < role.minimum_character_age))
 			continue
-		if(flag && !(flag in player.client.prefs.be_special_role))
+		if(flag && !(flag in player.client.prefs.be_special_rank))
 			continue
 		if(player.client.prefs.CorrectLevel(role,level))
 			candidates += player
@@ -312,7 +312,7 @@ SUBSYSTEM_DEF(roles)
 	//Shuffle players and roles
 	unassigned_roundstart = shuffle(unassigned_roundstart)
 	//People who wants to be assistants, sure, go on.
-	var/datum/faction/neutral/vagrant = new DEFAULT_ROLE_TYPE ()
+	var/datum/role/neutral/vagrant = new DEFAULT_ROLE_TYPE ()
 	var/list/vagrant_candidates = find_occupation_candidates(vagrant, 3)
 	for(var/mob/new_player/player in vagrant_candidates)
 		assign_rank(player, GLOB.using_map.default_vagrant_title)
@@ -360,7 +360,7 @@ SUBSYSTEM_DEF(roles)
 	// For those who wanted to be assistant if their preferences were filled, here you go.
 	for(var/mob/new_player/player in unassigned_roundstart)
 		if(player.client.prefs.alternate_option == BE_VAGRANT)
-			var/datum/role/vag = /datum/faction/neutral/vagrant
+			var/datum/role/vag = /datum/role/neutral/vagrant
 			if((GLOB.using_map.flags & MAP_HAS_BRANCH) && player.client.prefs.branches[initial(vag.title)])
 				var/datum/mil_branch/branch = mil_branches.get_branch(player.client.prefs.branches[initial(vag.title)])
 				vag = branch.vagrant_role
@@ -459,7 +459,7 @@ SUBSYSTEM_DEF(roles)
 		//Equip role items.
 		role.setup_account(H)
 
-		role.equip(H, H.mind ? H.mind.role_alt_title : "", H.char_branch, H.char_rank)
+		role.equip(H, H.mind ? H.mind.rank_alt_title : "", H.char_branch, H.char_rank)
 		role.apply_fingerprints(H)
 		spawn_in_storage = equip_custom_loadout(H, role)
 	else
@@ -499,7 +499,7 @@ SUBSYSTEM_DEF(roles)
 	if(H.mind)
 		H.mind.assigned_role = role
 		H.mind.assigned_rank = rank
-		alt_title = H.mind.role_alt_title
+		alt_title = H.mind.rank_alt_title
 		/*
 		switch(rank)
 

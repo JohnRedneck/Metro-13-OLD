@@ -30,7 +30,7 @@
 	return "You are the Workplace Liaison. You are a civilian employee of EXO, the Expeditionary Corps Organisation, the government-owned corporate conglomerate that partially funds the Torch. You are on board the vessel to promote corporate interests and protect the rights of the contractors on board as their union leader. You are not internal affairs. You advise command on corporate and union matters and contractors on their rights and obligations. Maximise profit. Be the shady corporate shill you always wanted to be."
 
 /datum/role/liaison/post_equip_rank(var/mob/person)
-	var/my_title = "\a ["\improper [(person.mind ? (person.mind.role_alt_title ? person.mind.role_alt_title : person.mind.assigned_role) : "Loss Prevention Associate")]"]"
+	var/my_title = "\a ["\improper [(person.mind ? (person.mind.rank_alt_title ? person.mind.rank_alt_title : person.mind.assigned_role) : "Loss Prevention Associate")]"]"
 	for(var/mob/M in GLOB.player_list)
 		if(M.client && M.mind)
 			if(M.mind.assigned_role == "Loss Prevention Associate")
@@ -81,7 +81,7 @@
 	return "You are the Loss Prevention Associate. You are an employee of one of the corporations that make up the Expeditionary Corps Organisation, and your role is to prevent the loss of the Liason's life - even at the cost of your own. Good luck."
 
 /datum/role/bodyguard/post_equip_rank(var/mob/person)
-	var/my_title = "\a ["\improper [(person.mind ? (person.mind.role_alt_title ? person.mind.role_alt_title : person.mind.assigned_role) : "Loss Prevention Associate")]"]"
+	var/my_title = "\a ["\improper [(person.mind ? (person.mind.rank_alt_title ? person.mind.rank_alt_title : person.mind.assigned_role) : "Loss Prevention Associate")]"]"
 	for(var/mob/M in GLOB.player_list)
 		if(M.client && M.mind)
 			if(M.mind.assigned_role == "Workplace Liaison")

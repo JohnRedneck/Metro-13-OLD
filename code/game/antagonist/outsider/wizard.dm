@@ -2,8 +2,8 @@ GLOBAL_DATUM_INIT(wizards, /datum/antagonist/wizard, new)
 
 /datum/antagonist/wizard
 	id = MODE_WIZARD
-	role_text = ANTAG_WIZARD
-	role_text_plural = ANTAG_WIZARD + "s"
+	rank_text = ANTAG_WIZARD
+	rank_text_plural = ANTAG_WIZARD + "s"
 	landmark_id = "wizard"
 	welcome_text = "You will find a list of available spells in your spell book. Choose your magic arsenal carefully.<br>In your pockets you will find a teleport scroll. Use it as needed."
 	flags = ANTAG_OVERRIDE_ROLE | ANTAG_CLEAR_EQUIPMENT | ANTAG_CHOOSE_NAME | ANTAG_VOTABLE | ANTAG_SET_APPEARANCE
@@ -86,7 +86,7 @@ GLOBAL_DATUM_INIT(wizards, /datum/antagonist/wizard, new)
 		break
 	if(!survivor)
 		SSstatistics.set_field_details("round_end_result","loss - wizard killed")
-		to_world("<span class='danger'><font size = 3>The [(current_antagonists.len>1)?"[role_text_plural] have":"[role_text] has"] been killed by the crew! The Space Wizards Federation has been taught a lesson they will not soon forget!</font></span>")
+		to_world("<span class='danger'><font size = 3>The [(current_antagonists.len>1)?"[rank_text_plural] have":"[rank_text] has"] been killed by the crew! The Space Wizards Federation has been taught a lesson they will not soon forget!</font></span>")
 
 
 /datum/antagonist/wizard/print_player_summary()

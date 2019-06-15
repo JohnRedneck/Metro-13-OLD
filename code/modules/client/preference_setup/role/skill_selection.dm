@@ -52,7 +52,7 @@
 		budget -= S.get_cost(i)
 
 //These procs convert to/from static save-data formats.
-/datum/category_item/player_setup_item/occupation/proc/load_skills()
+/datum/category_item/player_setup_item/role/proc/load_skills()
 	if(!length(GLOB.skills))
 		decls_repository.get_decl(/decl/hierarchy/skill)
 
@@ -68,7 +68,7 @@
 			if(length(L))
 				pref.skills_allocated[role] = L
 
-/datum/category_item/player_setup_item/occupation/proc/save_skills()
+/datum/category_item/player_setup_item/role/proc/save_skills()
 	pref.skills_saved = list()
 	for(var/datum/role/role in pref.skills_allocated)
 		var/S = pref.skills_allocated[role]
@@ -141,7 +141,7 @@
 		if(!length(T))
 			skills_allocated -= role		  //Don't keep track of a role with no allocation
 
-/datum/category_item/player_setup_item/occupation/proc/update_skill_value(datum/role/role, decl/hierarchy/skill/S, new_level)
+/datum/category_item/player_setup_item/role/proc/update_skill_value(datum/role/role, decl/hierarchy/skill/S, new_level)
 	if(!isnum(new_level) || (round(new_level) != new_level))
 		return											//Checks to make sure we were fed an integer.
 	if(!pref.check_skill_prerequisites(role, S))
@@ -167,7 +167,7 @@
 	T[S] = new_level - min								//skills_allocated stores the difference from role minimum
 	pref.purge_skills_missing_prerequisites(role)
 
-/datum/category_item/player_setup_item/occupation/proc/generate_skill_content(datum/role/role)
+/datum/category_item/player_setup_item/role/proc/generate_skill_content(datum/role/role)
 	var/dat  = list()
 	dat += "<body>"
 	dat += "<style>.Selectable,.Current,.Unavailable,.Toohigh{border: 1px solid #161616;padding: 1px 4px 1px 4px;margin: 0 2px 0 0}</style>"
@@ -191,7 +191,7 @@
 	dat += "</table>"
 	return JOINTEXT(dat)
 
-/datum/category_item/player_setup_item/occupation/proc/get_skill_row(datum/role/role, decl/hierarchy/skill/S)
+/datum/category_item/player_setup_item/role/proc/get_skill_row(datum/role/role, decl/hierarchy/skill/S)
 	var/list/dat = list()
 	var/min = pref.get_min_skill(role,S)
 	var/level = min + (pref.skills_allocated[role] ? pref.skills_allocated[role][S] : 0)				//the current skill level
@@ -203,12 +203,12 @@
 	dat += "</tr>"
 	return JOINTEXT(dat)
 
-/datum/category_item/player_setup_item/occupation/proc/open_skill_setup(mob/user, datum/role/role)
+/datum/category_item/player_setup_item/role/proc/open_skill_setup(mob/user, datum/role/role)
 	panel = new(user, "Skill Selection: [role.title]", "Skill Selection: [role.title]", 770, 850, src)
 	panel.set_content(generate_skill_content(role))
 	panel.open()
 
-/datum/category_item/player_setup_item/occupation/proc/skill_to_button(decl/hierarchy/skill/skill, datum/role/role, current_level, selection_level, min, max)
+/datum/category_item/player_setup_item/role/proc/skill_to_button(decl/hierarchy/skill/skill, datum/role/role, current_level, selection_level, min, max)
 	var/offset = skill.prerequisites ? skill.prerequisites[skill.parent.type] - 1 : 0
 	var/effective_level = selection_level - offset
 	if(effective_level <= 0 || effective_level > length(skill.levels))
@@ -227,7 +227,7 @@
 	else
 		return "<th><span class='Toohigh'>[button_label]</span></th>"
 
-/datum/category_item/player_setup_item/occupation/proc/add_link(decl/hierarchy/skill/skill, datum/role/role, text, style, value)
+/datum/category_item/player_setup_item/role/proc/add_link(decl/hierarchy/skill/skill, datum/role/role, text, style, value)
 	if(pref.check_skill_prerequisites(role, skill))
 		return "<a class=[style] href='?src=\ref[src];hit_skill_button=\ref[skill];at_role=\ref[role];newvalue=[value]'>[text]</a>"
 	return text

@@ -1,6 +1,6 @@
-/datum/faction/neutral/vagrant
+/datum/role/neutral/vagrant
 	title = "A Vagrant"
-	department = "Neutrals"
+	team = "Neutrals"
 	role_flag = VAG
 	team_flag = NEUTRAL
 	total_positions = -1

@@ -2,8 +2,8 @@ GLOBAL_DATUM_INIT(raiders, /datum/antagonist/raider, new)
 
 /datum/antagonist/raider
 	id = MODE_RAIDER
-	role_text = "Raider"
-	role_text_plural = "Raiders"
+	rank_text = "Raider"
+	rank_text_plural = "Raiders"
 	antag_indicator = "hudraider"
 	landmark_id = "voxstart"
 	welcome_text = "Use :H to talk on your encrypted channel."

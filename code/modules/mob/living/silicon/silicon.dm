@@ -357,7 +357,7 @@
 			mind.assigned_role.clear_slot()
 		if(mind.objectives.len)
 			qdel(mind.objectives)
-			mind.special_role = null
+			mind.special_rank = null
 		clear_antag_roles(mind)
 	ghostize(0)
 	qdel(src)

@@ -126,7 +126,7 @@
 	if(H.mind)
 		H.mind.reset()
 		H.mind.assigned_role = "Alien"
-		H.mind.special_role = "Alien"
+		H.mind.special_rank = "Alien"
 
 	var/decl/cultural_info/culture/hidden/xenophage/culture = SSculture.get_culture(force_cultural_info[TAG_CULTURE])
 	if(istype(culture))

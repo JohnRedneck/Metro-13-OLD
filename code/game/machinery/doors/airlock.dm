@@ -240,9 +240,10 @@ var/list/airlock_overlays = list()
 
 /obj/machinery/door/airlock/external/inherit_access_from_area()
 	..()
+	/*
 	if(is_station_area(get_area(src)))
 		add_access_requirement(req_access, access_external_airlocks)
-
+	*/
 /obj/machinery/door/airlock/external/escapepod
 	name = "Escape Pod"
 	frequency =  1380

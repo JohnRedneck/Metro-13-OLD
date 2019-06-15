@@ -6,9 +6,9 @@
 	//do this again, just in case
 	if(flags & ANTAG_OVERRIDE_ROLE)
 		player.assigned_role = null
-		player.assigned_role = role_text
-		player.role_alt_title = null
-	player.special_role = role_text
+		player.assigned_rank = rank_text
+		player.rank_alt_title = null
+	player.special_rank = rank_text
 
 	if(isghostmind(player))
 		create_default(player.current)
@@ -52,7 +52,7 @@
 	if(nonstandard_role_type)
 		faction_members |= player
 		to_chat(player.current, "<span class='danger'><font size=3>You are \a [nonstandard_role_type]!</font></span>")
-		player.special_role = nonstandard_role_type
+		player.special_rank = nonstandard_role_type
 		if(nonstandard_role_msg)
 			to_chat(player.current, "<span class='notice'>[nonstandard_role_msg]</span>")
 		update_icons_added(player)
@@ -66,10 +66,10 @@
 	if(faction && player.current.faction == faction)
 		player.current.faction = MOB_FACTION_NEUTRAL
 	if(player in current_antagonists)
-		to_chat(player.current, "<span class='danger'><font size = 3>You are no longer a [role_text]!</font></span>")
+		to_chat(player.current, "<span class='danger'><font size = 3>You are no longer a [rank_text]!</font></span>")
 		current_antagonists -= player
 		faction_members -= player
-		player.special_role = null
+		player.special_rank = null
 		update_icons_removed(player)
 
 		if(player.current)

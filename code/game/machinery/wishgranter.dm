@@ -57,7 +57,7 @@
 			user.mutations.Add(MUTATION_HEAL)
 
 		user.update_mutations()
-		user.mind.special_role = "Avatar of the Wish Granter"
+		user.mind.special_rank = "Avatar of the Wish Granter"
 
 		var/datum/objective/silence/silence = new
 		silence.owner = user.mind

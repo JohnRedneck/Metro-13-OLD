@@ -18,7 +18,7 @@
 		return
 
 	if(!faction.can_become_antag(player, 1))
-		to_chat(src, "<span class='warning'>\The [player.current] cannot be \a [faction.faction_role_text]!</span>")
+		to_chat(src, "<span class='warning'>\The [player.current] cannot be \a [faction.faction_rank_text]!</span>")
 		return
 
 	if(world.time < player.rev_cooldown)
@@ -26,13 +26,13 @@
 		return
 
 	to_chat(src, "<span class='danger'>You are attempting to convert \the [player.current]...</span>")
-	log_admin("[src]([src.ckey]) attempted to convert [player.current] to the [faction.faction_role_text] faction.")
-	message_admins("<span class='danger'>[src]([src.ckey]) attempted to convert [player.current] to the [faction.faction_role_text] faction.</span>")
+	log_admin("[src]([src.ckey]) attempted to convert [player.current] to the [faction.faction_rank_text] faction.")
+	message_admins("<span class='danger'>[src]([src.ckey]) attempted to convert [player.current] to the [faction.faction_rank_text] faction.</span>")
 
 	player.rev_cooldown = world.time+100
 	if (!faction.is_antagonist(player))
 		var/choice = alert(player.current,"Asked by [src]: Do you want to join the [faction.faction_descriptor]?","Join the [faction.faction_descriptor]?","No!","Yes!")
-		if(choice == "Yes!" && faction.add_antagonist_mind(player, 0, faction.faction_role_text, faction.faction_welcome))
+		if(choice == "Yes!" && faction.add_antagonist_mind(player, 0, faction.faction_rank_text, faction.faction_welcome))
 			to_chat(src, "<span class='notice'>\The [player.current] joins the [faction.faction_descriptor]!</span>")
 			return
 		else
