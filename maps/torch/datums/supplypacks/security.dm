@@ -61,7 +61,7 @@
 	cost = 40
 	containertype = /obj/structure/closet/crate/secure/weapon
 	containername = "ballistic sidearms crate"
-	access = access_armory
+	access = null
 	security_level = SUPPLY_SECURITY_ELEVATED
 
 /decl/hierarchy/supply_pack/security/laser

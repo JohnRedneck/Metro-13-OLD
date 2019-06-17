@@ -8,7 +8,7 @@ var/global/list/rad_collectors = list()
 	icon_state = "ca"
 	anchored = 0
 	density = 1
-	req_access = list(access_engine_equip)
+	req_access = list(null)
 	var/obj/item/weapon/tank/phoron/P = null
 
 	var/health = 100

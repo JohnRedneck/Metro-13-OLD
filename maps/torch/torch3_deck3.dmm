@@ -1670,7 +1670,7 @@
 	dir = 8;
 	pixel_x = 25;
 	pixel_y = 0;
-	req_access = list(list("ACCESS_ENGINE_EQUIP","ACCESS_ATMOS"))
+	req_access = list(list("null","ACCESS_ATMOS"))
 	},
 /obj/effect/floor_decal/industrial/warning{
 	icon_state = "warning";
@@ -19288,7 +19288,7 @@
 /obj/machinery/door/airlock/command{
 	autoset_access = 0;
 	name = "Officer's Mess";
-	req_access = list(list("ACCESS_BRIDGE","ACCESS_KITCHEN","ACCESS_TORCH_SENIOR_MED","ACCESS_PSYCHIATRIST"))
+	req_access = list(list("ACCESS_BRIDGE","ACCESS_KITCHEN","ACCESS_TORCH_SENIOR_MED","null"))
 	},
 /obj/effect/floor_decal/corner/blue/diagonal{
 	dir = 4
@@ -20405,7 +20405,7 @@
 	dir = 4;
 	pixel_x = -22;
 	pixel_y = 0;
-	req_access = list(list("ACCESS_ENGINE_EQUIP","ACCESS_ATMOS"))
+	req_access = list(list("null","ACCESS_ATMOS"))
 	},
 /turf/simulated/floor/tiled/dark,
 /area/tcommsat/chamber)
@@ -20783,7 +20783,7 @@
 	id_tag = "eva_airlock";
 	name = "EVA Airlock Console";
 	pixel_y = -24;
-	req_access = list(list("ACCESS_SECURITY","ACCESS_MEDICAL","ACCESS_ENGINE_EQUIP","ACCESS_EVA","ACCESS_ATMOS"));
+	req_access = list(list("ACCESS_SECURITY","ACCESS_MEDICAL","null","ACCESS_EVA","ACCESS_ATMOS"));
 	tag_airpump = "eva_pump";
 	tag_chamber_sensor = "eva_sensor";
 	tag_exterior_door = "eva_outer";

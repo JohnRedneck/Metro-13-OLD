@@ -24,7 +24,7 @@
 		to_chat(user, "A small screen on the side of the weapon indicates that it is registered to [registered_owner].")
 
 /obj/item/weapon/gun/attackby(obj/item/weapon/W as obj, mob/user as mob)
-	if(istype(W, /obj/item/weapon/card/id) && is_secure_gun())
+	if(is_secure_gun())
 		if(!registered_owner)
 			var/obj/item/weapon/card/id/id = W
 			GLOB.registered_weapons += src
@@ -35,7 +35,7 @@
 			to_chat(user, "This weapon is already registered, you must reset it first.")
 	else
 		..()
-
+/*
 /obj/item/weapon/gun/emag_act(var/charges, var/mob/user)
 	if(!charges)
 		return NO_EMAG_ACT
@@ -48,7 +48,7 @@
 		return 1
 	else
 		return ..()
-
+*/
 /obj/item/weapon/gun/proc/reset_registration()
 	set name = "Reset Registration"
 	set category = "Object"

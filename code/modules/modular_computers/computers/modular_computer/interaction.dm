@@ -183,6 +183,7 @@
 		turn_on(user)
 
 /obj/item/modular_computer/attackby(var/obj/item/weapon/W as obj, var/mob/user as mob)
+	/*
 	if(istype(W, /obj/item/weapon/card/id)) // ID Card, try to insert it.
 		var/obj/item/weapon/card/id/I = W
 		if(!card_slot)
@@ -201,6 +202,7 @@
 		to_chat(user, "You insert [I] into [src].")
 
 		return
+	*/
 	if(istype(W, /obj/item/weapon/pen) && stores_pen)
 		if(istype(stored_pen))
 			to_chat(user, "<span class='notice'>There is already a pen in [src].</span>")

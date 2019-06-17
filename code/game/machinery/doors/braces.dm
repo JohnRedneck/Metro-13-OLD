@@ -74,6 +74,7 @@
 
 /obj/item/weapon/airlock_brace/attackby(obj/item/weapon/W as obj, mob/user as mob)
 	..()
+	/*
 	if (istype(W.GetIdCard(), /obj/item/weapon/card/id))
 		if(!airlock)
 			attack_self(user)
@@ -89,7 +90,7 @@
 			else
 				to_chat(user, "You swipe \the [C] through \the [src], but it does not react.")
 		return
-
+	*/
 	if (istype(W, /obj/item/weapon/crowbar/brace_jack))
 		if(!airlock)
 			return

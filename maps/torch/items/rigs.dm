@@ -148,7 +148,7 @@
 				   /obj/item/stack/medical,
 				   /obj/item/roller)
 
-	req_access = list(access_cmo)
+	req_access = list(null)
 
 /obj/item/clothing/head/helmet/space/rig/command/medical
 	icon_state = "command_med_rig"

@@ -33,8 +33,8 @@
 	                    SKILL_ENGINES      = SKILL_MAX)
 	skill_points = 24
 
-	access = list(access_engine, access_engine_equip, access_maint_tunnels, access_external_airlocks, access_emergency_storage,
-			            access_teleporter, access_eva, access_tech_storage, access_atmospherics, access_janitor, access_construction,
+	access = list(access_engine, null, access_maint_tunnels, access_external_airlocks, access_emergency_storage,
+			            access_teleporter, access_eva, access_tech_storage, null, access_janitor, null,
 			            access_tcomsat, access_solgov_crew, access_seneng, access_hangar)
 
 	software_on_spawn = list(/datum/computer_file/program/power_monitor,
@@ -92,8 +92,8 @@
 	                    SKILL_ENGINES      = SKILL_MAX)
 	skill_points = 20
 
-	access = list(access_engine, access_engine_equip, access_maint_tunnels, access_external_airlocks, access_emergency_storage,
-			            access_teleporter, access_eva, access_tech_storage, access_atmospherics, access_janitor, access_construction,
+	access = list(access_engine, null, access_maint_tunnels, access_external_airlocks, access_emergency_storage,
+			            access_teleporter, access_eva, access_tech_storage, null, access_janitor, null,
 			            access_solgov_crew, access_hangar)
 	minimal_access = list()
 
@@ -144,8 +144,8 @@
 	                    SKILL_ATMOS        = SKILL_MAX,
 	                    SKILL_ENGINES      = SKILL_MAX)
 
-	access = list(access_engine_equip, access_maint_tunnels, access_external_airlocks, access_emergency_storage,
-			            access_eva, access_tech_storage, access_janitor, access_construction,
+	access = list(null, access_maint_tunnels, access_external_airlocks, access_emergency_storage,
+			            access_eva, access_tech_storage, access_janitor, null,
 			            access_solgov_crew, access_hangar)
 
 	software_on_spawn = list(/datum/computer_file/program/power_monitor,

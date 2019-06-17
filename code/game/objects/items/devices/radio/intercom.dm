@@ -64,7 +64,7 @@
 	. = ..()
 	internal_channels = list(
 		num2text(PUB_FREQ) = list(),
-		num2text(SEC_I_FREQ) = list(access_security)
+		num2text(SEC_I_FREQ) = list()
 	)
 
 /obj/item/device/radio/intercom/entertainment/Initialize()
@@ -83,7 +83,7 @@
 
 /obj/item/device/radio/intercom/syndicate/Initialize()
 	. = ..()
-	internal_channels[num2text(SYND_FREQ)] = list(access_syndicate)
+	internal_channels[num2text(SYND_FREQ)] = list()
 
 /obj/item/device/radio/intercom/raider
 	name = "illicit intercom"
@@ -94,7 +94,7 @@
 
 /obj/item/device/radio/intercom/raider/Initialize()
 	. = ..()
-	internal_channels[num2text(RAID_FREQ)] = list(access_syndicate)
+	internal_channels[num2text(RAID_FREQ)] = list()
 
 /obj/item/device/radio/intercom/Destroy()
 	STOP_PROCESSING(SSobj, src)

@@ -321,7 +321,7 @@
 	name = "spiderling cube box"
 	desc = "Drymate brand Instant spiders. WHY WOULD YOU ORDER THIS!?"
 	startswith = list(/obj/item/weapon/reagent_containers/food/snacks/monkeycube/wrapped/spidercube = 5)
-
+/*
 /obj/item/weapon/storage/box/ids
 	name = "box of spare IDs"
 	desc = "Has so many empty IDs."
@@ -333,7 +333,7 @@
 	desc = "Has so, so many empty IDs."
 	icon_state = "id_large"
 	startswith = list(/obj/item/weapon/card/id = 14)
-
+*/
 /obj/item/weapon/storage/box/handcuffs
 	name = "box of spare handcuffs"
 	desc = "A box full of handcuffs."

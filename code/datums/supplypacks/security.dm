@@ -41,7 +41,7 @@
 	cost = 45
 	containertype = /obj/structure/closet/crate/secure
 	containername = "tactical armor crate"
-	access = access_armory
+	access = null
 
 /decl/hierarchy/supply_pack/security/blackguards
 	name = "Armor - Arm and leg guards, black"
@@ -50,7 +50,7 @@
 	cost = 20
 	containertype = /obj/structure/closet/crate/secure
 	containername = "arm and leg guards crate"
-	access = access_armory
+	access = null
 
 /decl/hierarchy/supply_pack/security/blueguards
 	name = "Armor - Arm and leg guards, blue"
@@ -59,7 +59,7 @@
 	cost = 20
 	containertype = /obj/structure/closet/crate/secure
 	containername = "arm and leg guards crate"
-	access = access_armory
+	access = null
 
 /decl/hierarchy/supply_pack/security/greenguards
 	name = "Armor - Arm and leg guards, green"
@@ -68,7 +68,7 @@
 	cost = 20
 	containertype = /obj/structure/closet/crate/secure
 	containername = "arm and leg guards crate"
-	access = access_armory
+	access = null
 
 /decl/hierarchy/supply_pack/security/navyguards
 	name = "Armor - Arm and leg guards, navy blue"
@@ -77,7 +77,7 @@
 	cost = 20
 	containertype = /obj/structure/closet/crate/secure
 	containername = "arm and leg guards crate"
-	access = access_armory
+	access = null
 
 /decl/hierarchy/supply_pack/security/tanguards
 	name = "Armor - Arm and leg guards, tan"
@@ -86,7 +86,7 @@
 	cost = 20
 	containertype = /obj/structure/closet/crate/secure
 	containername = "arm and leg guards crate"
-	access = access_armory
+	access = null
 
 /decl/hierarchy/supply_pack/security/riotarmor
 	name = "Armor - Riot gear"
@@ -98,7 +98,7 @@
 	cost = 80
 	containertype = /obj/structure/closet/crate/secure
 	containername = "riot armor crate"
-	access = access_armory
+	access = null
 
 /decl/hierarchy/supply_pack/security/ballisticarmor
 	name = "Armor - Ballistic"
@@ -107,7 +107,7 @@
 	cost = 60
 	containertype = /obj/structure/closet/crate/secure
 	containername = "ballistic suit crate"
-	access = access_armory
+	access = null
 
 /decl/hierarchy/supply_pack/security/ablativearmor
 	name = "Armor - Ablative"
@@ -116,7 +116,7 @@
 	cost = 60
 	containertype = /obj/structure/closet/crate/secure
 	containername = "ablative suit crate"
-	access = access_armory
+	access = null
 
 /decl/hierarchy/supply_pack/security/weapons
 	name = "Weapons - Security basic"
@@ -135,7 +135,7 @@
 	cost = 40
 	containertype = /obj/structure/closet/crate/secure/weapon
 	containername = "energy sidearms crate"
-	access = access_armory
+	access = null
 	security_level = SUPPLY_SECURITY_ELEVATED
 
 /decl/hierarchy/supply_pack/security/egun/shady
@@ -152,7 +152,7 @@
 	cost = 50
 	containertype = /obj/structure/closet/crate/secure/weapon
 	containername = "electromagnetic weapons crate"
-	access = access_armory
+	access = null
 	security_level = SUPPLY_SECURITY_ELEVATED
 
 /decl/hierarchy/supply_pack/security/shotgun
@@ -161,7 +161,7 @@
 	cost = 60
 	containertype = /obj/structure/closet/crate/secure/weapon
 	containername = "shotgun crate"
-	access = access_armory
+	access = null
 	security_level = SUPPLY_SECURITY_ELEVATED
 
 /decl/hierarchy/supply_pack/security/flashbang

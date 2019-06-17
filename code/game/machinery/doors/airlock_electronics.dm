@@ -88,6 +88,7 @@
 				locked = 0
 				last_configurator = usr.name
 				return TRUE
+			/*
 			else
 				var/obj/item/weapon/card/id/I = usr.get_active_hand()
 				I = I ? I.GetIdCard() : null
@@ -100,6 +101,7 @@
 				else
 					to_chat(usr, "<span class='warning'>[\src] flashes a red LED near the ID scanner, indicating your access has been denied.</span>")
 					return TRUE
+			*/
 		if("lock")
 			if(!lockable)
 				return TRUE

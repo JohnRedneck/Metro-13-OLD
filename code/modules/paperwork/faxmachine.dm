@@ -8,7 +8,7 @@ GLOBAL_LIST_EMPTY(adminfaxes)	//cache for faxes that have been sent to admins
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "fax"
 	insert_anim = "faxsend"
-	req_access = list(/*list(access_lawyer, access_bridge, access_armory, access_qm)*/)
+	req_access = list(/*list(access_lawyer, access_bridge, null, access_qm)*/)
 
 	idle_power_usage = 30
 	active_power_usage = 200
@@ -32,6 +32,7 @@ GLOBAL_LIST_EMPTY(adminfaxes)	//cache for faxes that have been sent to admins
 		GLOB.alldepartments |= department
 
 /obj/machinery/photocopier/faxmachine/attackby(obj/item/O as obj, mob/user as mob)
+	/*
 	if(istype(O, /obj/item/weapon/card/id))
 		if(!user.unEquip(O, src))
 			return
@@ -39,18 +40,21 @@ GLOBAL_LIST_EMPTY(adminfaxes)	//cache for faxes that have been sent to admins
 		to_chat(user, "<span class='notice'>You insert \the [O] into \the [src].</span>")
 	else
 		..()
+	*/
+	..()
 
 /obj/machinery/photocopier/faxmachine/attack_hand(mob/user as mob)
 	user.set_machine(src)
 
 	var/dat = "Fax Machine<BR>"
 
-	var/scan_name
+	var/scan_name = "--------"
+	/*
 	if(scan)
 		scan_name = scan.name
 	else
 		scan_name = "--------"
-
+	*/
 	dat += "Confirm Identity: <a href='byond://?src=\ref[src];scan=1'>[scan_name]</a><br>"
 
 	if(authenticated)
@@ -110,7 +114,7 @@ GLOBAL_LIST_EMPTY(adminfaxes)	//cache for faxes that have been sent to admins
 			to_chat(usr, "<span class='notice'>You take \the [copyitem] out of \the [src].</span>")
 			copyitem = null
 			updateUsrDialog()
-
+	/*
 	if(href_list["scan"])
 		if (scan)
 			if(ishuman(usr))
@@ -123,16 +127,15 @@ GLOBAL_LIST_EMPTY(adminfaxes)	//cache for faxes that have been sent to admins
 			if (istype(I, /obj/item/weapon/card/id) && usr.unEquip(I, src))
 				scan = I
 		authenticated = 0
-
+	*/
 	if(href_list["dept"])
 		var/lastdestination = destination
 		destination = input(usr, "Which department?", "Choose a department", "") as null|anything in (GLOB.alldepartments + admin_departments)
 		if(!destination) destination = lastdestination
 
 	if(href_list["auth"])
-		if ( (!( authenticated ) && (scan)) )
-			if (check_access(scan))
-				authenticated = 1
+		if (!( authenticated ))
+			authenticated = 1
 
 	if(href_list["logout"])
 		authenticated = 0

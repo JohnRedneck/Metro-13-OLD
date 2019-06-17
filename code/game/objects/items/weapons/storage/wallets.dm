@@ -8,7 +8,7 @@
 	max_storage_space = 8
 	can_hold = list(
 		/obj/item/weapon/spacecash,
-		/obj/item/weapon/card,
+		///obj/item/weapon/card,
 		/obj/item/clothing/mask/smokable,
 		/obj/item/weapon/lipstick,
 		/obj/item/weapon/haircomb,
@@ -47,28 +47,35 @@
 	color = COLOR_SEDONA
 
 /obj/item/weapon/storage/wallet/Destroy()
+	/*
 	if(front_id)
 		front_id.dropInto(loc)
 		front_id = null
+	*/
 	. = ..()
 
 /obj/item/weapon/storage/wallet/remove_from_storage(obj/item/W as obj, atom/new_location)
 	. = ..(W, new_location)
+	/*
 	if(.)
 		if(W == front_id)
 			front_id = null
 			SetName(initial(name))
 			update_icon()
+	*/
 
 /obj/item/weapon/storage/wallet/handle_item_insertion(obj/item/W as obj, prevent_warning = 0)
 	. = ..(W, prevent_warning)
+	/*
 	if(.)
 		if(!front_id && istype(W, /obj/item/weapon/card/id))
 			front_id = W
 			update_icon()
+	*/
 
 /obj/item/weapon/storage/wallet/on_update_icon()
 	overlays.Cut()
+	/*
 	if(front_id)
 		var/tiny_state = "id-generic"
 		if("id-"+front_id.icon_state in icon_states(icon))
@@ -76,10 +83,11 @@
 		var/image/tiny_image = new/image(icon, icon_state = tiny_state)
 		tiny_image.appearance_flags = RESET_COLOR
 		overlays += tiny_image
-
+	*/
+/*
 /obj/item/weapon/storage/wallet/GetIdCard()
 	return front_id
-
+*/
 /obj/item/weapon/storage/wallet/GetAccess()
 	var/obj/item/I = GetIdCard()
 	if(I)

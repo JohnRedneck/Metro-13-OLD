@@ -8,7 +8,7 @@
 	w_class = ITEM_SIZE_HUGE
 	max_w_class = ITEM_SIZE_NORMAL
 	max_storage_space = 32 //The sum of the w_classes of all the items in this storage item.
-	req_access = list(/*access_armory*/)
+	req_access = list(/*null*/)
 	var/locked = 1
 	var/broken = 0
 	var/icon_locked = "lockbox+l"
@@ -17,6 +17,7 @@
 
 
 	attackby(obj/item/weapon/W as obj, mob/user as mob)
+		/*
 		if (istype(W, /obj/item/weapon/card/id))
 			if(src.broken)
 				to_chat(user, "<span class='warning'>It appears to be broken.</span>")
@@ -41,6 +42,7 @@
 				spark_system.start()
 				playsound(src.loc, 'sound/weapons/blade1.ogg', 50, 1)
 				playsound(src.loc, "sparks", 50, 1)
+		*/
 		if(!locked)
 			..()
 		else

@@ -16,7 +16,7 @@
 	cost = 25
 	containertype = /obj/structure/closet/crate/secure
 	containername = "virus sample crate"
-	access = access_cmo
+	access = null
 
 /decl/hierarchy/supply_pack/science/coolanttank
 	name = "Liquid - Coolant tank"
@@ -54,7 +54,7 @@
 	cost = 10
 	containertype = /obj/structure/closet/crate/secure/phoron
 	containername = "phoron assembly crate"
-	access = access_tox_storage
+	access = null_storage
 
 /decl/hierarchy/supply_pack/science/scanner_module
 	name = "Electronics - Reagent scanner modules"

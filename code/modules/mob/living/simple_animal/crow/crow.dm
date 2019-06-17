@@ -110,8 +110,10 @@
 				to_chat(usr, "<span class='warning'>\The [equipping] won't fit on \the [src]'s [href_list["add_inv"]].</span>")
 				return 0
 			switch(href_list["add_inv"])
+				/*
 				if("access cuff")
 					access_card = equipping
+				*/
 				if("back")
 					messenger_bag = equipping
 			if(!usr.unEquip(equipping, src))

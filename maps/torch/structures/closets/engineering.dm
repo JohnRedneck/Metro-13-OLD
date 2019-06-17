@@ -70,7 +70,7 @@
 
 /obj/structure/closet/secure_closet/engineering_torch
 	name = "engineer's locker"
-	req_access = list(access_engine_equip)
+	req_access = list(null)
 	closet_appearance = /decl/closet_appearance/secure_closet/torch/engineering
 
 /obj/structure/closet/secure_closet/engineering_torch/WillContain()
@@ -121,7 +121,7 @@
 
 /obj/structure/closet/secure_closet/atmos_torch
 	name = "atmospherics equipment locker"
-	req_access = list(access_atmospherics)
+	req_access = list(null)
 	closet_appearance = /decl/closet_appearance/secure_closet/torch/engineering/atmos
 
 /obj/structure/closet/secure_closet/atmos_torch/WillContain()

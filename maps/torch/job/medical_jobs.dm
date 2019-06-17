@@ -36,9 +36,9 @@
 	                    SKILL_VIROLOGY    = SKILL_MAX)
 	skill_points = 32
 
-	access = list(access_medical, access_morgue, access_virology, access_maint_tunnels, access_emergency_storage,
-			            access_crematorium, access_chemistry, access_surgery,
-			            access_medical_equip, access_solgov_crew, access_senmed)
+	access = list(access_medical, access_morgue, null, access_maint_tunnels, access_emergency_storage,
+			            access_crematorium, null, null,
+			            null, access_solgov_crew, access_senmed)
 
 	software_on_spawn = list(/datum/computer_file/program/suit_sensors,
 							 /datum/computer_file/program/camera_monitor)
@@ -80,7 +80,7 @@
 	                    SKILL_VIROLOGY    = SKILL_MAX)
 
 	access = list(access_medical, access_morgue, access_maint_tunnels, access_external_airlocks, access_emergency_storage,
-			            access_eva, access_surgery, access_medical_equip, access_solgov_crew, access_hangar)
+			            access_eva, null, null, access_solgov_crew, access_hangar)
 	minimal_access = list()
 
 	software_on_spawn = list(/datum/computer_file/program/suit_sensors,
@@ -155,7 +155,7 @@
 	                    SKILL_VIROLOGY    = SKILL_MAX)
 
 	access = list(access_medical, access_morgue, access_maint_tunnels, access_external_airlocks, access_emergency_storage,
-			            access_surgery, access_medical_equip, access_solgov_crew)
+			            null, null, access_solgov_crew)
 
 	software_on_spawn = list(/datum/computer_file/program/suit_sensors,
 							 /datum/computer_file/program/camera_monitor)
@@ -184,7 +184,7 @@
 	                    SKILL_CHEMISTRY   = SKILL_MAX)
 	skill_points = 26
 
-	access = list(access_medical, access_maint_tunnels, access_emergency_storage, access_medical_equip, access_solgov_crew, access_chemistry)
+	access = list(access_medical, access_maint_tunnels, access_emergency_storage, null, access_solgov_crew, null)
 	minimal_access = list()
 
 /datum/role/psychiatrist
@@ -214,7 +214,7 @@
 
 	max_skill = list(   SKILL_MEDICAL     = SKILL_MAX)
 
-	access = list(access_medical, access_morgue, access_chapel_office, access_crematorium, access_psychiatrist, access_solgov_crew, access_medical_equip)
+	access = list(access_medical, access_morgue, null, access_crematorium, null, access_solgov_crew, null)
 	minimal_access = list()
 
 	software_on_spawn = list(/datum/computer_file/program/suit_sensors,

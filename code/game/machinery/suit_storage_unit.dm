@@ -53,7 +53,7 @@
 	boots_type = /obj/item/clothing/shoes/magboots
 	tank_type = /obj/item/weapon/tank/oxygen
 	mask_type = /obj/item/clothing/mask/breath
-	req_access = list(access_atmospherics)
+	req_access = list(null)
 	islocked = 1
 
 /obj/machinery/suit_storage_unit/atmos/alt
@@ -705,7 +705,7 @@
 /obj/machinery/suit_cycler/engineering
 	name = "Engineering suit cycler"
 	model_text = "Engineering"
-	req_access = list(access_construction)
+	req_access = list(null)
 	available_modifications = list(/decl/item_modifier/space_suit/engineering, /decl/item_modifier/space_suit/atmos)
 	species = list(SPECIES_HUMAN, SPECIES_SKRELL, SPECIES_UNATHI) //Add Unathi when sprites exist for their suits.
 

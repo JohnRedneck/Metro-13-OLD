@@ -99,7 +99,7 @@
 
 /obj/structure/closet/secure_closet/brigofficer
 	name = "brig officer's locker"
-	req_access = list(access_armory)
+	req_access = list(null)
 	closet_appearance = /decl/closet_appearance/secure_closet/torch/security/warden
 
 /obj/structure/closet/secure_closet/brigofficer/WillContain()

@@ -231,9 +231,9 @@
 
 		// ID cards and PDAs are applied directly to the existing object rather than spawned fresh.
 		var/obj/item/existing_item
+		/*
 		if(citem.item_path == /obj/item/weapon/card/id && istype(current_id)) //Set earlier.
 			existing_item = M.wear_id
-		/*
 		else if(citem.item_path == /obj/item/modular_computer/pda)
 			existing_item = locate(/obj/item/modular_computer/pda) in M.contents
 		*/

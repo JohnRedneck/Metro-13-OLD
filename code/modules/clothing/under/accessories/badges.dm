@@ -72,7 +72,7 @@
 	icon_state = "holobadge"
 	item_state = "holobadge"
 	badge_string = "Security"
-	var/badge_access = access_security
+	var/badge_access = null
 	var/badge_number
 	var/emagged //emag_act removes access requirements
 
@@ -82,7 +82,7 @@
 	icon_state = "ntholobadge"
 	color = null
 	badge_string = "Corporate Security"
-	badge_access = access_research
+	badge_access = null
 
 /obj/item/clothing/accessory/badge/holo/cord
 	icon_state = "holobadge-cord"
@@ -118,7 +118,7 @@
 		return 1
 
 /obj/item/clothing/accessory/badge/holo/attackby(var/obj/item/O as obj, var/mob/user as mob)
-	if(istype(O, /obj/item/weapon/card/id) || istype(O, /obj/item/modular_computer))
+	if(istype(O, /obj/item/modular_computer))
 
 		var/obj/item/weapon/card/id/id_card = O.GetIdCard()
 

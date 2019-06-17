@@ -5,7 +5,7 @@
 	anchored = 1
 	density = 0
 	wall_mounted = 1
-	req_access = list(access_heads_vault)
+	req_access = list(null)
 	storage_types = CLOSET_STORAGE_ITEMS
 
 /obj/structure/closet/secure_closet/nuke_wall/WillContain()

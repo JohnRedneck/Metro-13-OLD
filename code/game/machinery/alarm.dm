@@ -40,7 +40,7 @@
 	idle_power_usage = 80
 	active_power_usage = 1000 //For heating/cooling rooms. 1000 joules equates to about 1 degree every 2 seconds for a single tile of air.
 	power_channel = ENVIRON
-	req_access = list(/*list(access_atmospherics, access_engine_equip)*/)
+	req_access = list(/*list(null, null)*/)
 	clicksound = "button"
 	clickvol = 30
 
@@ -96,7 +96,7 @@
 
 /obj/machinery/alarm/server/New()
 	..()
-	req_access = list(/*access_rd, access_atmospherics, access_engine_equip*/)
+	req_access = list(/*access_rd, null, null*/)
 	TLV["temperature"] =	list(T0C-26, T0C, T0C+30, T0C+40) // K
 	target_temperature = T0C+10
 
@@ -797,7 +797,7 @@
 				update_icon()
 				return
 
-			if (istype(W, /obj/item/weapon/card/id) || istype(W, /obj/item/modular_computer))// trying to unlock the interface with an ID card
+			if (istype(W, /obj/item/modular_computer))// trying to unlock the interface with an ID card
 				if(stat & (NOPOWER|BROKEN))
 					to_chat(user, "It does nothing")
 					return

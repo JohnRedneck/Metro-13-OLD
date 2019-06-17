@@ -42,6 +42,7 @@
 	return 0
 
 /obj/item/weapon/disk/secret_project/attackby(obj/item/weapon/W as obj, mob/user as mob)
+	/*
 	if(istype(W,/obj/item/weapon/card/id))
 		var/obj/item/weapon/card/id/ID = W
 		if(check_access(ID))
@@ -50,6 +51,7 @@
 		else
 			to_chat(user, "<span class='warning'>The disk's screen flashes 'Access Denied'.</span>")
 		return
+	*/
 	. = ..()
 
 /obj/item/weapon/disk/secret_project/verb/change_codename()

@@ -1,6 +1,6 @@
 /obj/structure/closet/secure_closet/freezer/kitchen
 	name = "kitchen cabinet"
-	req_access = list(access_kitchen)
+	req_access = list()
 
 /obj/structure/closet/secure_closet/freezer/kitchen/WillContain()
 	return list(
@@ -39,7 +39,7 @@
 	name = "secure locker"
 	icon = 'icons/obj/closets/fridge.dmi'
 	closet_appearance = null
-	req_access = list(access_heads_vault)
+	req_access = list(null)
 
 /obj/structure/closet/secure_closet/freezer/money/Initialize()
 	. = ..()

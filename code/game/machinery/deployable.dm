@@ -23,6 +23,7 @@
 		src.icon_state = "barrier[src.locked]"
 
 	attackby(obj/item/weapon/W as obj, mob/user as mob)
+		/*
 		if (istype(W, /obj/item/weapon/card/id/))
 			if (src.allowed(user))
 				if	(src.emagged < 2.0)
@@ -42,7 +43,8 @@
 					visible_message("<span class='warning'>BZZzZZzZZzZT</span>")
 					return
 			return
-		else if(isWrench(W))
+		*/
+		if(isWrench(W))
 			if (src.health < src.maxhealth)
 				src.health = src.maxhealth
 				src.emagged = 0

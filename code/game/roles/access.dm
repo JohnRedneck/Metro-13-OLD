@@ -181,24 +181,24 @@
 	return SSroles.titles_to_datums + list("Prisoner")
 
 /obj/proc/GetRoleName() //Used in secHUD icon generation
+	/*
 	var/obj/item/weapon/card/id/I = GetIdCard()
-
 	if(I)
 		var/role_icons = get_all_role_icons()
 		if(I.assignment	in role_icons) //Check if the role has a hud icon
 			return I.assignment
 		if(I.rank in role_icons)
 			return I.rank
-		/*
+		
 		var/centcom = get_all_centcom_roles()
 		if(I.assignment	in centcom) //Return with the NT logo if it is a Centcom role
 			return "Centcom"
 		if(I.rank in centcom)
 			return "Centcom"
-		*/
+		
 	else
 		return
-
+	*/
 	return "Unknown" //Return unknown if none of the above apply
 
 /proc/get_access_region_by_id(id)

@@ -28,7 +28,7 @@
 	                    SKILL_FORENSICS   = SKILL_MAX)
 	skill_points = 20
 
-	access = list(access_security, access_brig, access_armory, access_forensics_lockers,
+	access = list(access_security, access_brig, null, access_forensics_lockers,
 			            access_maint_tunnels, access_external_airlocks, access_emergency_storage,
 			            access_eva, access_sec_doors, access_solgov_crew, access_gun)
 	minimal_access = list()

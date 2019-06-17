@@ -260,7 +260,7 @@
 
 /obj/item/weapon/pinpointer/radio/attack_self(var/mob/user as mob)
 	interact(user)
-
+/*
 /obj/item/weapon/pinpointer/radio/interact(var/mob/user)
 	var/dat = "<b>Radio frequency tracker</b><br>"
 	dat += {"
@@ -294,3 +294,4 @@
 
 	if(. == TOPIC_REFRESH)
 		interact(user)
+*/

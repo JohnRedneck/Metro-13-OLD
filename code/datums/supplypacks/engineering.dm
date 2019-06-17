@@ -71,7 +71,7 @@
 	cost = 10
 	containertype = /obj/structure/closet/crate/secure/large
 	containername = "emitter crate"
-	access = access_engine_equip
+	access = null
 
 /decl/hierarchy/supply_pack/engineering/field_gen
 	name = "Equipment - Field generator"
@@ -95,7 +95,7 @@
 	cost = 8
 	containertype = /obj/structure/closet/crate/secure/large
 	containername = "collector crate"
-	access = access_engine_equip
+	access = null
 
 /decl/hierarchy/supply_pack/engineering/PA
 	name = "Equipment - Particle accelerator"
@@ -139,7 +139,7 @@
 	cost = 75
 	containertype = /obj/structure/closet/crate/secure/large
 	containername = "\improper Mk1 TEG crate"
-	access = access_engine_equip
+	access = null
 
 /decl/hierarchy/supply_pack/engineering/circulator
 	name = "Equipment - Binary atmospheric circulator"
@@ -147,7 +147,7 @@
 	cost = 60
 	containertype = /obj/structure/closet/crate/secure/large
 	containername = "atmospheric circulator crate"
-	access = access_atmospherics
+	access = null
 
 /decl/hierarchy/supply_pack/engineering/air_dispenser
 	name = "Equipment - Pipe Dispenser"
@@ -155,7 +155,7 @@
 	cost = 35
 	containertype = /obj/structure/closet/crate/secure/large
 	containername = "pipe dispenser crate"
-	access = access_atmospherics
+	access = null
 
 /decl/hierarchy/supply_pack/engineering/disposals_dispenser
 	name = "Equipment - Disposals pipe dispenser"
@@ -163,7 +163,7 @@
 	cost = 35
 	containertype = /obj/structure/closet/crate/secure/large
 	containername = "disposal dispenser crate"
-	access = access_atmospherics
+	access = null
 
 /decl/hierarchy/supply_pack/engineering/shield_generator
 	name = "Equipment - Shield generator construction kit"

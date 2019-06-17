@@ -131,8 +131,8 @@
 
 	if(!(freq in internal_channels))
 		return 0
-
-	return user.has_internal_radio_channel_access(internal_channels[freq])
+	return 1
+	//return user.has_internal_radio_channel_access(internal_channels[freq])
 /*
 /mob/observer/ghost/has_internal_radio_channel_access(var/list/req_one_accesses)
 	return can_admin_interact()

@@ -24,7 +24,7 @@
 
 /obj/structure/closet/secure_closet/CMO_torch
 	name = "chief medical officer's locker"
-	req_access = list(access_cmo)
+	req_access = list(null)
 	closet_appearance = /decl/closet_appearance/secure_closet/torch/medical/cmo
 
 /obj/structure/closet/secure_closet/CMO_torch/WillContain()
@@ -85,7 +85,7 @@
 
 /obj/structure/closet/secure_closet/medical_torch
 	name = "medical technician's locker"
-	req_access = list(access_medical_equip)
+	req_access = list(null)
 	closet_appearance = /decl/closet_appearance/secure_closet/torch/medical
 
 /obj/structure/closet/secure_closet/medical_torch/WillContain()

@@ -2,7 +2,7 @@
 //Bartender
 /obj/item/clothing/head/chefhat
 	name = "chef's hat"
-	desc = "It's a hat used by chefs to keep hair out of your food. Judging by the food in the mess, they don't work."
+	desc = "It's a hat used by chefs to keep hair out of your food."
 	icon_state = "chefhat"
 	item_state = "chefhat"
 
@@ -36,7 +36,7 @@
 //Chaplain
 /obj/item/clothing/head/chaplain_hood
 	name = "chaplain's hood"
-	desc = "It's hood that covers the head. It keeps you warm during the space winters."
+	desc = "It's hood that covers the head. It keeps you warm during the winters."
 	icon_state = "chaplain_hood"
 	flags_inv = BLOCKHAIR
 	body_parts_covered = HEAD
@@ -44,7 +44,7 @@
 //Chaplain
 /obj/item/clothing/head/nun_hood
 	name = "nun hood"
-	desc = "Maximum piety in this star system."
+	desc = "I watch her go, with a surge of that well known sadness."
 	icon_state = "nun_hood"
 	flags_inv = BLOCKHAIR
 	body_parts_covered = HEAD

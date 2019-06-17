@@ -1,7 +1,7 @@
 /obj/structure/closet/secure_closet/personal
 	name = "personal closet"
 	desc = "It's a secure locker for personnel. The first card swiped gains control."
-	req_access = list(access_all_personal_lockers)
+	req_access = list(null)
 	var/registered_name = null
 
 /obj/structure/closet/secure_closet/personal/WillContain()
@@ -25,13 +25,16 @@
 	return list(/obj/item/weapon/storage/backpack/satchel/grey/withwallet, /obj/item/device/radio/headset)
 
 /obj/structure/closet/secure_closet/personal/CanToggleLock(var/mob/user, var/obj/item/weapon/card/id/id_card)
-	return ..() || (istype(id_card) && id_card.registered_name && (!registered_name || (registered_name == id_card.registered_name)))
+	return ..()// || (istype(id_card) && id_card.registered_name && (!registered_name || (registered_name == id_card.registered_name)))
 
-/obj/structure/closet/secure_closet/personal/togglelock(var/mob/user, var/obj/item/weapon/card/id/id_card)
+/obj/structure/closet/secure_closet/personal/togglelock(var/mob/user/*, var/obj/item/weapon/card/id/id_card*/)
+	/*
 	if (..() && !src.registered_name)
 		id_card = id_card ? id_card : user.GetIdCard()
 		if (id_card)
 			set_owner(id_card.registered_name)
+	*/
+	return
 
 /obj/structure/closet/secure_closet/personal/proc/set_owner(var/registered_name)
 	if (registered_name)

@@ -314,13 +314,14 @@
 			to_chat(user, "<span class='notice'>You secure the [src] to the floor!</span>")
 			anchored = 1
 
-
-	else if(istype(W, /obj/item/weapon/card/id)/* || istype(W, /obj/item/modular_computer/pda)*/)
+	/*
+	else if(istype(W, /obj/item/weapon/card/id) || istype(W, /obj/item/modular_computer/pda))
 		if(src.allowed(user))
 			src.locked = !src.locked
 			to_chat(user, "The controls are now [src.locked ? "locked." : "unlocked."]")
 		else
 			to_chat(user, "<span class='warning'>Access denied.</span>")
+	*/
 	else
 		..()
 

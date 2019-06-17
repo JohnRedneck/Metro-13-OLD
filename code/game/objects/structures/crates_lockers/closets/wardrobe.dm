@@ -94,18 +94,6 @@
 	new /obj/item/clothing/shoes/black(src)
 	new /obj/item/clothing/shoes/black(src)
 
-/obj/structure/closet/wardrobe/xenos
-	name = "xenos wardrobe"
-	closet_appearance = /decl/closet_appearance/wardrobe/green
-
-/obj/structure/closet/wardrobe/xenos/New()
-	..()
-	new /obj/item/clothing/suit/unathi/mantle(src)
-	new /obj/item/clothing/suit/unathi/robe(src)
-	new /obj/item/clothing/shoes/sandal(src)
-	new /obj/item/clothing/shoes/sandal(src)
-	new /obj/item/clothing/shoes/sandal(src)
-
 /obj/structure/closet/wardrobe/orange
 	name = "prison wardrobe"
 	desc = "It's a storage unit for regulation prisoner attire."
@@ -135,25 +123,6 @@
 	new /obj/item/clothing/shoes/orange(src)
 	new /obj/item/clothing/shoes/orange(src)
 	new /obj/item/clothing/shoes/orange(src)
-
-/obj/structure/closet/wardrobe/atmospherics_yellow
-	name = "atmospherics wardrobe"
-	closet_appearance = /decl/closet_appearance/wardrobe/yellow
-
-/obj/structure/closet/wardrobe/atmospherics_yellow/New()
-	..()
-	new /obj/item/clothing/under/rank/atmospheric_technician(src)
-	new /obj/item/clothing/under/rank/atmospheric_technician(src)
-	new /obj/item/clothing/under/rank/atmospheric_technician(src)
-	new /obj/item/clothing/shoes/workboots(src)
-	new /obj/item/clothing/shoes/workboots(src)
-	new /obj/item/clothing/shoes/workboots(src)
-	new /obj/item/clothing/head/hardhat/red(src)
-	new /obj/item/clothing/head/hardhat/red(src)
-	new /obj/item/clothing/head/hardhat/red(src)
-	new /obj/item/clothing/head/beret/engineering(src)
-	new /obj/item/clothing/head/beret/engineering(src)
-	new /obj/item/clothing/head/beret/engineering(src)
 
 /obj/structure/closet/wardrobe/engineering_yellow
 	name = "engineering wardrobe"
@@ -217,62 +186,6 @@
 	new /obj/item/clothing/shoes/white(src)
 	new /obj/item/clothing/shoes/white(src)
 	new /obj/item/clothing/shoes/white(src)
-
-/obj/structure/closet/wardrobe/robotics_black
-	name = "robotics wardrobe"
-	closet_appearance = /decl/closet_appearance/wardrobe/black
-
-/obj/structure/closet/wardrobe/robotics_black/New()
-	..()
-	new /obj/item/clothing/under/rank/roboticist(src)
-	new /obj/item/clothing/under/rank/roboticist(src)
-	new /obj/item/clothing/suit/storage/toggle/labcoat(src)
-	new /obj/item/clothing/suit/storage/toggle/labcoat(src)
-	new /obj/item/clothing/shoes/black(src)
-	new /obj/item/clothing/shoes/black(src)
-	new /obj/item/clothing/gloves/thick(src)
-	new /obj/item/clothing/gloves/thick(src)
-
-/obj/structure/closet/wardrobe/chemistry_white
-	name = "chemistry wardrobe"
-	closet_appearance = /decl/closet_appearance/wardrobe/white
-
-/obj/structure/closet/wardrobe/chemistry_white/New()
-	..()
-	new /obj/item/clothing/under/rank/chemist(src)
-	new /obj/item/clothing/under/rank/chemist(src)
-	new /obj/item/clothing/shoes/white(src)
-	new /obj/item/clothing/shoes/white(src)
-	new /obj/item/clothing/suit/storage/toggle/labcoat/chemist(src)
-	new /obj/item/clothing/suit/storage/toggle/labcoat/chemist(src)
-
-/obj/structure/closet/wardrobe/genetics_white
-	name = "genetics wardrobe"
-	closet_appearance = /decl/closet_appearance/wardrobe/white
-
-/obj/structure/closet/wardrobe/genetics_white/New()
-	..()
-	new /obj/item/clothing/under/rank/geneticist(src)
-	new /obj/item/clothing/under/rank/geneticist(src)
-	new /obj/item/clothing/shoes/white(src)
-	new /obj/item/clothing/shoes/white(src)
-	new /obj/item/clothing/suit/storage/toggle/labcoat/genetics(src)
-	new /obj/item/clothing/suit/storage/toggle/labcoat/genetics(src)
-
-/obj/structure/closet/wardrobe/virology_white
-	name = "virology wardrobe"
-	closet_appearance = /decl/closet_appearance/wardrobe/white
-
-/obj/structure/closet/wardrobe/virology_white/New()
-	..()
-	new /obj/item/clothing/under/rank/virologist(src)
-	new /obj/item/clothing/under/rank/virologist(src)
-	new /obj/item/clothing/shoes/white(src)
-	new /obj/item/clothing/shoes/white(src)
-	new /obj/item/clothing/suit/storage/toggle/labcoat/virologist(src)
-	new /obj/item/clothing/suit/storage/toggle/labcoat/virologist(src)
-	new /obj/item/clothing/mask/surgical(src)
-	new /obj/item/clothing/mask/surgical(src)
 
 /obj/structure/closet/wardrobe/medic_white
 	name = "medical wardrobe"

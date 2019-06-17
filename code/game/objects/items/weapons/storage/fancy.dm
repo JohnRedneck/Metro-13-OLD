@@ -299,7 +299,7 @@
 	max_w_class = ITEM_SIZE_TINY
 	max_storage_space = null
 	storage_slots = 12
-	req_access = list(/*access_virology*/)
+	req_access = list(/*null*/)
 
 /obj/item/weapon/storage/lockbox/vials/New()
 	..()

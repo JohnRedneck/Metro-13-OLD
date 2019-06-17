@@ -490,14 +490,14 @@
 		return FALSE
 
 	add_fingerprint(user)
-
+	/*
 	if(!id_card)
 		id_card = user.GetIdCard()
-
+	*/
 	if(!user.IsAdvancedToolUser())
 		to_chat(user, FEEDBACK_YOU_LACK_DEXTERITY)
 		return FALSE
-
+	/*
 	if(CanToggleLock(user, id_card))
 		locked = !locked
 		visible_message("<span class='notice'>\The [src] has been [locked ? null : "un"]locked by \the [user].</span>", range = 3)
@@ -506,10 +506,12 @@
 	else
 		to_chat(user, "<span class='warning'>Access denied!</span>")
 		return FALSE
-
+	*/
+	return TRUE
+/*
 /obj/structure/closet/proc/CanToggleLock(var/mob/user, var/obj/item/weapon/card/id/id_card)
 	return allowed(user) || (istype(id_card) && check_access_list(id_card.GetAccess()))
-
+*/
 /obj/structure/closet/AltClick(var/mob/user)
 	if(!src.opened)
 		togglelock(user)
@@ -531,7 +533,7 @@
 				open()
 			else
 				src.req_access = list()
-				src.req_access += pick(get_all_station_access())
+				//src.req_access += pick(get_all_station_access())
 	..()
 
 /obj/structure/closet/emag_act(var/remaining_charges, var/mob/user, var/emag_source, var/visual_feedback = "", var/audible_feedback = "")

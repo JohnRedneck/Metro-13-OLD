@@ -6,7 +6,7 @@
 	icon_state = "Shield_Gen"
 	anchored = 0
 	density = 1
-	req_access = list(/*list(access_engine_equip,access_research)*/)
+	req_access = list(/*list(null,access_research)*/)
 	var/active = 0
 	var/power = 0
 	var/locked = 1
@@ -212,7 +212,7 @@
 			src.anchored = 0
 			return
 
-	if(istype(W, /obj/item/weapon/card/id)||istype(W, /obj/item/modular_computer))
+	if(istype(W, /obj/item/modular_computer))
 		if (src.allowed(user))
 			src.locked = !src.locked
 			to_chat(user, "Controls are now [src.locked ? "locked." : "unlocked."]")

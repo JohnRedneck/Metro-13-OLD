@@ -14,6 +14,7 @@
 
 /obj/item/weapon/computer_hardware/card_slot/diagnostics(var/mob/user)
 	..()
+	/*
 	var/to_send = list()
 	to_send += "[name] status: [stored_card ? "Card Inserted" : "Card Not Present"]\n"
 	if(stored_card)
@@ -46,8 +47,8 @@
 					else
 						list_of_accesses += "RD_ERR"
 				to_send += jointext(list_of_accesses, ", ") + "\n" // Should append a proper, comma separated list.
-	
 	to_chat(user, JOINTEXT(to_send))
+	*/
 		
 
 /obj/item/weapon/computer_hardware/card_slot/broadcaster // read only
@@ -61,7 +62,9 @@
 /obj/item/weapon/computer_hardware/card_slot/Destroy()
 	if(holder2 && (holder2.card_slot == src))
 		holder2.card_slot = null
+	/*
 	if(stored_card)
 		stored_card.dropInto(holder2 ? holder2.loc : loc)
+	*/
 	holder2 = null
 	return ..()

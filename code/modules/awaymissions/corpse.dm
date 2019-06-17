@@ -119,9 +119,6 @@
 	name = "Scientist"
 	corpse_outfits = list(/decl/hierarchy/outfit/role/science/scientist)
 
-/obj/effect/landmark/corpse/engineer/rig
-	corpse_outfits = list(/decl/hierarchy/outfit/role/engineering/engineer/void)
-
 /obj/effect/landmark/corpse/clown
 	name = "Clown"
 	corpse_outfits = list(/decl/hierarchy/outfit/clown)
@@ -130,25 +127,10 @@
 	name = "Miner"
 	corpse_outfits = list(/decl/hierarchy/outfit/role/cargo/mining)
 
-/obj/effect/landmark/corpse/miner/rig
-	corpse_outfits = list(/decl/hierarchy/outfit/role/cargo/mining/void)
-
-/obj/effect/landmark/corpse/bridgeofficer
-	name = "Bridge Officer"
-	corpse_outfits = list(/decl/hierarchy/outfit/nanotrasen/officer)
-
-/obj/effect/landmark/corpse/commander
-	name = "Commander"
-	corpse_outfits = list(/decl/hierarchy/outfit/nanotrasen/commander)
-
 /obj/effect/landmark/corpse/pirate
 	name = "Pirate"
 	corpse_outfits = list(/decl/hierarchy/outfit/pirate/norm)
 	spawn_flags = CORPSE_SPAWNER_NO_RANDOMIZATION
-
-/obj/effect/landmark/corpse/pirate/ranged
-	name = "Pirate Gunner"
-	corpse_outfits = list(/decl/hierarchy/outfit/pirate/space)
 
 /obj/effect/landmark/corpse/russian
 	name = "Russian"
@@ -157,12 +139,3 @@
 
 /obj/effect/landmark/corpse/russian/ranged
 	corpse_outfits = list(/decl/hierarchy/outfit/soviet_soldier)
-
-/obj/effect/landmark/corpse/syndicate
-	name = "Syndicate Operative"
-	corpse_outfits = list(/decl/hierarchy/outfit/mercenary/syndicate)
-	spawn_flags = CORPSE_SPAWNER_NO_RANDOMIZATION
-
-/obj/effect/landmark/corpse/syndicate/commando
-	name = "Syndicate Commando"
-	corpse_outfits = list(/decl/hierarchy/outfit/mercenary/syndicate/commando)
