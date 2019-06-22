@@ -243,10 +243,10 @@
 				if(M.freq == frequency && M.code == code)
 					magnets.Add(M)
 
-
+	/*
 	attack_ai(mob/user as mob)
 		return src.attack_hand(user)
-
+	*/
 	attack_hand(mob/user as mob)
 		if(stat & (BROKEN|NOPOWER))
 			return

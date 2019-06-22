@@ -23,10 +23,12 @@
 	var/material/A = SSmaterials.get_material_by_name(MATERIAL_ALIENALLOY)
 	if(A)
 		color = A.icon_colour
+	/*
 	if(GLOB.using_map.use_overmap)
 		var/obj/effect/overmap/sector/exoplanet/E = map_sectors["[z]"]
 		if(istype(E))
 			desc += "\nThere are images on it: [E.get_engravings()]"
+	*/
 
 /obj/structure/monolith/on_update_icon()
 	overlays.Cut()
@@ -41,6 +43,7 @@
 
 /obj/structure/monolith/attack_hand(mob/user)
 	visible_message("[user] touches \the [src].")
+	/*
 	if(GLOB.using_map.use_overmap && istype(user,/mob/living/carbon/human))
 		var/obj/effect/overmap/sector/exoplanet/E = map_sectors["[z]"]
 		if(istype(E))
@@ -59,6 +62,7 @@
 					H.Paralyse(2)
 					H.hallucination(20, 100)
 				return
+	*/
 	to_chat(user, "<span class='notice'>\The [src] is still.</span>")
 	return ..()
 

@@ -128,7 +128,7 @@ var/global/datum/matchmaker/matchmaker = new()
 				continue
 			var/datum/role/coworker = SSroles.get_by_title(M.role)
 			if(coworker && holder.assigned_role && other.holder.assigned_role)
-				if((coworker.roleB_flag & holder.assigned_role.role_flag) || (coworker.role_flag & other.holder.assigned_role.role_flag))
+				if((coworker.role_flag & holder.assigned_role.role_flag) || (coworker.role_flag & other.holder.assigned_role.role_flag))
 					candidates[M] = 5	//coworkers are 5 times as likely to know about your relations
 
 		for(var/i=1 to 5)

@@ -1,4 +1,5 @@
 //Brain slug proc for voluntary removal of control.
+/*
 /mob/living/carbon/proc/release_control()
 
 	set category = "Abilities"
@@ -61,7 +62,7 @@
 	else
 		to_chat(src, "<span class='warning'>You do not have enough chemicals stored to reproduce.</span>")
 		return
-
+*/
 /**
  *  Attempt to devour victim
  *

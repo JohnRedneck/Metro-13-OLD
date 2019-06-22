@@ -33,10 +33,10 @@
 	emote_message_3p = "USER shows USER_HIS legal authorization barcode."
 	emote_message_3p_target = "USER shows TARGET USER_THEIR legal authorization barcode."
 	emote_sound = 'sound/voice/biamthelaw.ogg'
-
+/*
 /decl/emote/audible/synth/security/check_user(var/mob/living/silicon/robot/user)
 	return (istype(user) && istype(user.module,/obj/item/weapon/robot_module/security))
-
+*/
 /decl/emote/audible/synth/security/halt
 	key = "halt"
 	emote_message_3p = "USER's speakers skreech, \"Halt! Security!\"."

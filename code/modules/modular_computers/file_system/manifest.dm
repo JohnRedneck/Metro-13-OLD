@@ -22,6 +22,7 @@
 	<tr class='head'><th>Name</th><th>Position</th><th>Activity</th></tr>
 	"}
 	// sort mobs
+	/*
 	for(var/datum/computer_file/report/crew_record/CR in GLOB.all_crew_records)
 		var/name = CR.get_formal_name()
 		var/rank = CR.get_role()
@@ -46,17 +47,16 @@
 			isactive[name] = CR.get_status()
 
 		var/datum/role/role = SSroles.get_by_title(rank)
-		var/found_place = 0
+		//var/found_place = 0
 		if(role)
 			for(var/list/faction in faction_data)
 				var/list/names = faction["names"]
 				if(role.faction_flag & faction["flag"])
 					names[name] = rank
-					found_place = 1
-		/*
+					//found_place = 1
 		if(!found_place)
 			misc[name] = rank
-		*/
+	*/
 	for(var/list/faction in faction_data)
 		var/list/names = faction["names"]
 		if(names.len > 0)
@@ -71,6 +71,7 @@
 
 /proc/filtered_nano_crew_manifest(var/list/filter, var/blacklist = FALSE)
 	var/list/filtered_entries = list()
+	/*
 	for(var/datum/computer_file/report/crew_record/CR in faction_crew_manifest(filter, blacklist))
 		filtered_entries.Add(list(list(
 			"name" = CR.get_name(),
@@ -79,6 +80,7 @@
 			"branch" = CR.get_branch(),
 			"milrank" = CR.get_rank()
 		)))
+	*/
 	return filtered_entries
 
 /proc/nano_crew_manifest()

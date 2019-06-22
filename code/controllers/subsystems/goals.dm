@@ -17,32 +17,36 @@ SUBSYSTEM_DEF(goals)
 		// /datum/goal/money,
 		/datum/goal/sickness
 	)
-	var/list/departments = list()
+	var/list/factions = list()
 	var/list/ambitions =   list()
 
 /datum/controller/subsystem/goals/Initialize()
-	for(var/dtype in GLOB.using_map.departments)
-		var/datum/department/dept = dtype
-		var/dept_flag = initial(dept.flag)
-		if(dept_flag)
-			departments["[dept_flag]"] = new dtype
-	for(var/thing in departments)
-		var/datum/department/dept = departments[thing]
-		dept.Initialize()
+	var/list/all_factions = subtypesof(/datum/faction)
+	//See if map is very particular about what depts it has
+	if(LAZYLEN(GLOB.using_map.factions))
+		all_factions = GLOB.using_map.factions
+	for(var/dtype in all_factions)
+		var/datum/faction/faction = dtype
+		var/faction_flag = initial(faction.flag)
+		if(faction_flag)
+			factions["[faction_flag]"] = new dtype
+	for(var/thing in factions)
+		var/datum/faction/faction = factions[thing]
+		faction.Initialize()
 	. = ..()
 
-/datum/controller/subsystem/goals/proc/update_department_goal(var/department_flag, var/goal_type, var/progress)
-	var/datum/department/dept = departments["[department_flag]"]
-	if(dept)
-		dept.update_progress(goal_type, progress)
+/datum/controller/subsystem/goals/proc/update_faction_goal(var/faction_flag, var/goal_type, var/progress)
+	var/datum/faction/faction = factions["[faction_flag]"]
+	if(faction)
+		faction.update_progress(goal_type, progress)
 
 /datum/controller/subsystem/goals/proc/get_roundend_summary()
 	. = list()
-	for(var/thing in departments)
-		var/datum/department/dept = departments[thing]
-		. += "<b>[dept.name] had the following shift goals:</b>"
-		. += dept.summarize_goals(show_success = TRUE)
+	for(var/thing in factions)
+		var/datum/faction/faction = factions[thing]
+		. += "<b>[faction.name] had the following shift goals:</b>"
+		. += faction.summarize_goals(show_success = TRUE)
 	if(LAZYLEN(.))
 		. = "<br>[jointext(., "<br>")]"
 	else
-		. = "<br><b>There were no departmental goals this round.</b>"
+		. = "<br><b>There were no faction goals this round.</b>"

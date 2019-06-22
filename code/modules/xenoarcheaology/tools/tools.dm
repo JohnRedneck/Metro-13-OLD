@@ -246,7 +246,7 @@
 	desc = "Used to scan and locate signals on a particular frequency."
 	var/tracking_freq = PUB_FREQ
 	matter = list(MATERIAL_ALUMINIUM = 1000, MATERIAL_GLASS = 500)
-
+/*
 /obj/item/weapon/pinpointer/radio/acquire_target()
 	var/turf/T = get_turf(src)
 	var/zlevels = GetConnectedZlevels(T.z)
@@ -257,7 +257,7 @@
 			if(check_dist < cur_dist)
 				cur_dist = check_dist
 				. = weakref(R)
-
+*/
 /obj/item/weapon/pinpointer/radio/attack_self(var/mob/user as mob)
 	interact(user)
 /*

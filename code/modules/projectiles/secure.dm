@@ -24,6 +24,8 @@
 		to_chat(user, "A small screen on the side of the weapon indicates that it is registered to [registered_owner].")
 
 /obj/item/weapon/gun/attackby(obj/item/weapon/W as obj, mob/user as mob)
+	..()
+	/*
 	if(is_secure_gun())
 		if(!registered_owner)
 			var/obj/item/weapon/card/id/id = W
@@ -35,6 +37,7 @@
 			to_chat(user, "This weapon is already registered, you must reset it first.")
 	else
 		..()
+	*/
 /*
 /obj/item/weapon/gun/emag_act(var/charges, var/mob/user)
 	if(!charges)
@@ -82,8 +85,9 @@
 	return length(req_access)
 
 /obj/item/weapon/gun/proc/free_fire()
-	var/decl/security_state/security_state = decls_repository.get_decl(GLOB.using_map.security_state)
-	return security_state.current_security_level_is_same_or_higher_than(security_state.high_security_level)
+	return 1
+	//var/decl/security_state/security_state = decls_repository.get_decl(GLOB.using_map.security_state)
+	//return security_state.current_security_level_is_same_or_higher_than(security_state.high_security_level)
 
 /obj/item/weapon/gun/special_check()
 	if(is_secure_gun() && !free_fire() && (!authorized_modes[sel_mode] || !registered_owner))

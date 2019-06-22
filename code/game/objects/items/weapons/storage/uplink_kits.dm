@@ -13,13 +13,13 @@
 	name = "black dufflebag"
 	desc = "A sleek, sturdy dufflebag."
 	icon_state = "duffle_syndie"
-
+/*
 /obj/item/weapon/storage/box/syndie_kit/imp_freedom
 	startswith = list(/obj/item/weapon/implanter/freedom)
 
 /obj/item/weapon/storage/box/syndie_kit/imp_uplink
 	startswith = list(/obj/item/weapon/implanter/uplink)
-
+*/
 /obj/item/weapon/storage/box/syndie_kit/imp_compress
 	startswith = list(/obj/item/weapon/implanter/compressed)
 

@@ -111,8 +111,8 @@ var/global/floorIsLava = 0
 	body += "<br><br>"
 	body += "<b>Psionics:</b><br/>"
 	if(isliving(M))
-		var/mob/living/psyker = M
 		/*
+		var/mob/living/psyker = M
 		if(psyker.psi)
 			body += "<a href='?src=\ref[psyker.psi];remove_psionics=1'>Remove psionics.</a><br/><br/>"
 			body += "<a href='?src=\ref[psyker.psi];trigger_psi_latencies=1'>Trigger latencies.</a><br/>"
@@ -985,7 +985,7 @@ var/global/floorIsLava = 0
 	SSstatistics.add_field_details("admin_verb","IR") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 	world.Reboot()
-
+/*
 /datum/admins/proc/unprison(var/mob/M in SSmobs.mob_list)
 	set category = "Admin"
 	set name = "Unprison"
@@ -999,7 +999,7 @@ var/global/floorIsLava = 0
 	else
 		alert("[M.name] is not prisoned.")
 	SSstatistics.add_field_details("admin_verb","UP") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-
+*/
 ////////////////////////////////////////////////////////////////////////////////////////////////ADMIN HELPER PROCS
 
 /proc/is_special_character(var/character) // returns 1 for special characters and 2 for heroes of gamemode

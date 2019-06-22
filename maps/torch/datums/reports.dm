@@ -181,7 +181,7 @@
 
 /datum/computer_file/report/recipient/docked/New()
 	..()
-	//set_access(access_edit = access_hangar)
+	//set_access(access_edit = null)
 	set_access(access_edit = null, override = 0)
 
 /datum/computer_file/report/recipient/fauna/generate_fields()
@@ -499,7 +499,7 @@
 	add_field(/datum/report_field/pencode_text, "Description of incident")
 	add_field(/datum/report_field/signature, "Signature")
 	add_field(/datum/report_field/options/yes_no, "Approved")
-	//set_access(access_edit = list(null, access_solgov_crew))
+	//set_access(access_edit = list(null, null))
 
 /datum/computer_file/report/recipient/sol/audit
 	form_name = "SCG-REP-03b"

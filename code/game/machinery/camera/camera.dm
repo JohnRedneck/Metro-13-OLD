@@ -41,17 +41,7 @@
 	. = ..()
 	if(stat & BROKEN)
 		to_chat(user, "<span class='warning'>It is completely demolished.</span>")
-/*
-/obj/machinery/camera/malf_upgrade(var/mob/living/silicon/ai/user)
-	..()
-	malf_upgraded = 1
 
-	upgradeEmpProof()
-	upgradeXRay()
-
-	to_chat(user, "\The [src] has been upgraded. It now has X-Ray capability and EMP resistance.")
-	return 1
-*/
 /obj/machinery/camera/apply_visual(mob/living/carbon/human/M)
 	if(!M.client)
 		return
@@ -77,12 +67,12 @@
 
 	update_icon()
 
-	/* // Use this to look for cameras that have the same c_tag.
+	 // Use this to look for cameras that have the same c_tag.
 	for(var/obj/machinery/camera/C in cameranet.cameras)
 		var/list/tempnetwork = C.network&src.network
 		if(C != src && C.c_tag == src.c_tag && tempnetwork.len)
 			world.log << "[src.c_tag] [src.x] [src.y] [src.z] conflicts with [C.c_tag] [C.x] [C.y] [C.z]"
-	*/
+
 	if(!src.network || src.network.len < 1)
 		if(loc)
 			error("[src.name] in [get_area(src)] (x:[src.x] y:[src.y] z:[src.z] has errored. [src.network?"Empty network list":"Null network list"]")
@@ -120,7 +110,7 @@
 		stat &= ~EMPED
 		cancelCameraAlarm()
 		update_icon()
-		//update_coverage()
+		update_coverage()
 	return internal_process()
 
 /obj/machinery/camera/proc/internal_process()
@@ -135,7 +125,7 @@
 			set_light(0)
 			triggerCameraAlarm()
 			update_icon()
-			//update_coverage()
+			update_coverage()
 			START_PROCESSING(SSmachines, src)
 
 /obj/machinery/camera/bullet_act(var/obj/item/projectile/P)
@@ -176,10 +166,10 @@
 		destroy()
 
 /obj/machinery/camera/attackby(obj/item/W as obj, mob/living/user as mob)
-	//update_coverage()
+	update_coverage()
 	// DECONSTRUCTION
 	if(isScrewdriver(W))
-//		to_chat(user, "<span class='notice'>You start to [panel_open ? "close" : "open"] the camera's panel.</span>")
+		to_chat(user, "<span class='notice'>You start to [panel_open ? "close" : "open"] the camera's panel.</span>")
 		//if(toggle_panel(user)) // No delay because no one likes screwdrivers trying to be hip and have a duration cooldown
 		panel_open = !panel_open
 		user.visible_message("<span class='warning'>[user] screws the camera's panel [panel_open ? "open" : "closed"]!</span>",
@@ -275,7 +265,7 @@
 
 	triggerCameraAlarm()
 	queue_icon_update()
-	//update_coverage()
+	update_coverage()
 
 	//sparks
 	var/datum/effect/effect/system/spark_spread/spark_system = new /datum/effect/effect/system/spark_spread()
@@ -286,7 +276,7 @@
 /obj/machinery/camera/proc/set_status(var/newstatus)
 	if (status != newstatus)
 		status = newstatus
-		//update_coverage()
+		update_coverage()
 
 /obj/machinery/camera/check_eye(mob/user)
 	if(!can_use()) return -1
@@ -425,10 +415,9 @@
 		if(!(network_name in src.network))
 			network += network_name
 			network_added = 1
-	/*
 	if(network_added)
 		update_coverage(1)
-	*/
+
 /obj/machinery/camera/proc/remove_networks(var/list/networks)
 	var/network_removed
 	network_removed = 0
@@ -436,26 +425,25 @@
 		if(network_name in src.network)
 			network -= network_name
 			network_removed = 1
-	/*
 	if(network_removed)
 		update_coverage(1)
-	*/
+
 /obj/machinery/camera/proc/replace_networks(var/list/networks)
 	if(networks.len != network.len)
 		network = networks
-		//update_coverage(1)
+		update_coverage(1)
 		return
 
 	for(var/new_network in networks)
 		if(!(new_network in network))
 			network = networks
-			//update_coverage(1)
+			update_coverage(1)
 			return
 
 /obj/machinery/camera/proc/clear_all_networks()
 	if(network.len)
 		network.Cut()
-		//update_coverage(1)
+		update_coverage(1)
 
 /obj/machinery/camera/proc/nano_structure()
 	var/cam[0]
@@ -474,4 +462,4 @@
 	set_broken(FALSE) // Fixes the camera and updates the icon.
 	wires.CutAll()
 	wires.MendAll()
-	//update_coverage()
+	update_coverage()

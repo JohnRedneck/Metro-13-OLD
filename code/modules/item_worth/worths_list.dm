@@ -4,6 +4,7 @@
 
 var/list/worths = list(
 //ROBOT ASSEMBLIES,
+					/*
 					/obj/item/weapon/secbot_assembly = 180,
 					/obj/item/weapon/secbot_assembly/ed209_assembly = 280,
 					/obj/item/weapon/farmbot_arm_assembly = 130,
@@ -12,6 +13,7 @@ var/list/worths = list(
 					/obj/item/weapon/firstaid_arm_assembly = 150,
 					/obj/item/weapon/bucket_sensor = 40,
 					/obj/item/device/bot_kit = 300,
+					*/
 //REAGENT CONTAINERS,
 					/obj/item/weapon/reagent_containers/hypospray = -90,
 					/obj/item/weapon/reagent_containers/spray = -23,

@@ -22,6 +22,11 @@
 			GLOB.newplayer_start += loc
 			delete_me = 1
 			return
+		if ("debugspawn")
+			GLOB.debugspawn += loc
+			delete_me = 1
+			return
+		/*
 		if("JoinLate")
 			GLOB.latejoin += loc
 			delete_me = 1
@@ -54,6 +59,7 @@
 			GLOB.prisonsecuritywarp += loc
 			delete_me = 1
 			return
+		*/
 		if("endgame_exit")
 			endgame_safespawns += loc
 			delete_me = 1

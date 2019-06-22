@@ -5,26 +5,27 @@
 	var/role_to_species_whitelist = list()
 	var/role_to_species_blacklist = list()
 
-	var/default_assistant_title = "Vagrant"
+	var/default_vagrant_title = "Vagrant"
 
 // The white, and blacklist are type specific, any subtypes (of both species and roles) have to be added explicitly
-/datum/map/proc/is_species_role_restricted(var/datum/species/S, var/datum/role/J)
-	if(!istype(S) || !istype(J))
+/datum/map/proc/is_species_role_restricted(var/datum/species/S, var/datum/role/R)
+	return FALSE
+	if(!istype(S) || !istype(R))
 		return TRUE
 
-	var/list/whitelist = species_to_role_whitelist[S.type]
+	var/list/whitelist = list()//species_to_role_whitelist[S.type]
 	if(whitelist)
-		return !(J.type in whitelist)
+		return !(R.type in whitelist)
 
-	whitelist = role_to_species_whitelist[J.type]
+	whitelist = role_to_species_whitelist[R.type]
 	if(whitelist)
 		return !(S.type in whitelist)
 
 	var/list/blacklist = species_to_role_blacklist[S.type]
 	if(blacklist)
-		return (J.type in blacklist)
+		return (R.type in blacklist)
 
-	blacklist = role_to_species_blacklist[J.type]
+	blacklist = role_to_species_blacklist[R.type]
 	if(blacklist)
 		return (S.type in blacklist)
 

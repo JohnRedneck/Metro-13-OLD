@@ -41,6 +41,7 @@
 	animate_tail_stop()
 
 	//Handle brain slugs.
+	/*
 	var/obj/item/organ/external/head = get_organ(BP_HEAD)
 	var/mob/living/simple_animal/borer/B
 
@@ -59,15 +60,15 @@
 				B.host_brain.real_name = "host brain"
 
 			verbs -= /mob/living/carbon/proc/release_control
-
+	*/
 	callHook("death", list(src, gibbed))
 
 	if(SSticker.mode)
 		SSticker.mode.check_win()
-
+	/*
 	if(wearing_rig)
 		wearing_rig.notify_ai("<span class='danger'>Warning: user death event. Mobility control passed to integrated intelligence system.</span>")
-
+	*/
 	. = ..(gibbed,"no message")
 	if(!gibbed)
 		handle_organs()

@@ -39,10 +39,10 @@
 	..()
 	fireaxe = new(src)
 	update_icon()
-
+/*
 /obj/structure/fireaxecabinet/attack_ai(var/mob/user)
 	toggle_lock(user)
-
+*/
 /obj/structure/fireaxecabinet/attack_hand(var/mob/user)
 	if(!unlocked)
 		to_chat(user, "<span class='warning'>\The [src] is locked.</span>")

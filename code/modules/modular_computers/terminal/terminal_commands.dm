@@ -80,12 +80,14 @@ Subtypes
 	pattern = "^ifconfig$"
 
 /datum/terminal_command/ifconfig/proper_input_entered(text, mob/user, datum/terminal/terminal)
+	return ""
+	/*
 	if(!terminal.computer.network_card)
 		return "No network adaptor found."
 	if(!terminal.computer.network_card.check_functionality())
 		return "Network adaptor not activated."
 	return "Visible tag: [terminal.computer.network_card.get_network_tag()]. Real nid: [terminal.computer.network_card.identification_id]."
-
+	*/
 /datum/terminal_command/hwinfo
 	name = "hwinfo"
 	man_entry = list("Format: hwinfo \[name\]", "If no slot specified, lists hardware.", "If slot is specified, runs diagnostic tests.")
@@ -155,8 +157,8 @@ Subtypes
 	var/obj/item/modular_computer/origin = terminal.computer
 	if(!origin || !origin.get_ntnet_status())
 		return
-	var/nid = text2num(copytext(text, 8))
 	/*
+	var/nid = text2num(copytext(text, 8))
 	var/obj/item/modular_computer/comp = ntnet_global.get_computer_by_nid(nid)
 	if(!comp || !comp.enabled || !comp.get_ntnet_status())
 		return
@@ -177,8 +179,8 @@ Subtypes
 	if(!origin || !origin.get_ntnet_status())
 		. += "failed. Check network status."
 		return
-	var/nid = text2num(copytext(text, 6))
 	/*
+	var/nid = text2num(copytext(text, 6))
 	var/obj/item/modular_computer/comp = ntnet_global.get_computer_by_nid(nid)
 	if(!comp || !comp.enabled || !comp.get_ntnet_status())
 		. += "failed. Target device not responding."

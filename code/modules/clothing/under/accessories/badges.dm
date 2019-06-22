@@ -65,6 +65,7 @@
 /*
  *Holobadges
  */
+ /*
 /obj/item/clothing/accessory/badge/holo
 	name = "holobadge"
 	desc = "This glowing blue badge marks the holder as a member of security."
@@ -145,7 +146,7 @@
 	desc = "A box containing corporate security holobadges."
 	startswith = list(/obj/item/clothing/accessory/badge/holo/NT = 4,
 					  /obj/item/clothing/accessory/badge/holo/NT/cord = 2)
-
+*/
 /obj/item/clothing/accessory/badge/old
 	name = "faded badge"
 	desc = "A faded badge, backed with leather. Looks crummy."

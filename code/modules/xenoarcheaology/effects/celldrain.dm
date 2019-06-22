@@ -17,8 +17,8 @@
 
 /datum/artifact_effect/celldrain/DoEffectAura()
 	if(holder)
-		var/turf/T = get_turf(holder)
 		/*
+		var/turf/T = get_turf(holder)
 		for (var/obj/machinery/power/apc/C in range(200, T))
 			for (var/obj/item/weapon/cell/B in C.contents)
 				B.charge = max(B.charge - 50,0)

@@ -35,8 +35,6 @@
 /decl/hierarchy/outfit/role/librarian
     name = OUTFIT_ROLE_NAME("Librarian")
     uniform = /obj/item/clothing/under/suit_jacket/red
-    id_type = /obj/item/weapon/card/id/civilian/librarian
-    pda_type = /obj/item/modular_computer/pda
 
 /decl/hierarchy/outfit/role/internal_affairs_agent
     name = OUTFIT_ROLE_NAME("Internal affairs agent")
@@ -63,7 +61,6 @@
     suit = /obj/item/clothing/suit/storage/toggle/labcoat
     l_hand = /obj/item/weapon/storage/firstaid/adv
     r_pocket = /obj/item/device/flashlight/pen
-    id_type = /obj/item/weapon/card/id/medical
 
 /decl/hierarchy/outfit/role/medical/doctor/nurse
     name = OUTFIT_ROLE_NAME("Nurse")
@@ -123,3 +120,4 @@
 /decl/hierarchy/outfit/pirate/norm
     name = "Pirate - Normal"
     head = /obj/item/clothing/mask/bandana/red
+

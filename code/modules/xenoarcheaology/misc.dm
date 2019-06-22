@@ -13,7 +13,7 @@
 
 /obj/structure/closet/secure_closet/xenoarchaeologist
 	name = "Xenoarchaeologist Locker"
-	req_access = list(access_xenoarch)
+	req_access = list(null)
 	closet_appearance = /decl/closet_appearance/secure_closet/expedition/science
 
 /obj/structure/closet/secure_closet/xenoarchaeologist/New()
@@ -59,7 +59,7 @@
 	new /obj/item/taperoll/research(src)
 
 /obj/machinery/alarm/isolation
-	req_access = list(/*list(access_research, null, null)*/)
+	req_access = list(/*list(null, null, null)*/)
 
 /obj/machinery/alarm/monitor/isolation
-	req_access = list(/*list(access_research, null, null)*/)
+	req_access = list(/*list(null, null, null)*/)

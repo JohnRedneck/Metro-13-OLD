@@ -376,10 +376,12 @@
 	make_announcement("pings, \"Resuscitation successful.\"", "notice")
 	playsound(get_turf(src), 'sound/machines/defib_success.ogg', 50, 0)
 	H.resuscitate()
-	var/obj/item/organ/internal/cell/potato = H.internal_organs_by_name[BP_CELL]
+	//var/obj/item/organ/internal/cell/potato = H.internal_organs_by_name[BP_CELL]
+	/*
 	if(istype(potato) && potato.cell)
 		var/obj/item/weapon/cell/C = potato.cell
 		C.give(chargecost)
+	*/
 	H.AdjustSleeping(-60)
 	log_and_message_admins("used \a [src] to revive [key_name(H)].")
 
@@ -500,7 +502,7 @@
 			playsound(get_turf(src), 'sound/machines/defib_safetyoff.ogg', 50, 0)
 		update_icon()
 	..()
-
+/*
 /obj/item/weapon/shockpaddles/robot
 	name = "defibrillator paddles"
 	desc = "A pair of advanced shockpaddles powered by a robot's internal power cell, able to penetrate thick clothing."
@@ -519,7 +521,7 @@
 	if(isrobot(src.loc))
 		var/mob/living/silicon/robot/R = src.loc
 		return (R.cell && R.cell.checked_use(charge_amt))
-
+*/
 /*
 	Shockpaddles that are linked to a base unit
 */

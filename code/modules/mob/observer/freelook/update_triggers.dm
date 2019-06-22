@@ -1,5 +1,20 @@
 //UPDATE TRIGGERS, when the chunk (and the surrounding chunks) should update.
 
+/obj/machinery/camera/proc/update_coverage(var/network_change = 0)
+	if(network_change)
+		var/list/open_networks = difflist(network, restricted_camera_networks)
+		// Add or remove camera from the camera net as necessary
+		if(on_open_network && !open_networks.len)
+			on_open_network = FALSE
+			cameranet.remove_source(src)
+		else if(!on_open_network && open_networks.len)
+			on_open_network = TRUE
+			cameranet.add_source(src)
+	else
+		cameranet.update_visibility(src)
+
+	invalidateCameraCache()
+
 // TURFS
 
 /proc/updateVisibility(atom/A, var/opacity_check = 1)

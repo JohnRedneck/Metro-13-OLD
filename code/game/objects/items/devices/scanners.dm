@@ -100,25 +100,27 @@ REAGENT SCANNER
 		if(!brain || H.stat == DEAD || (H.status_flags & FAKEDEATH))
 			brain_result = "<span class='scan_danger'>none, patient is braindead</span>"
 		else if(H.stat != DEAD)
+			/*
 			if(H.has_brain_worms())
 				brain_result = "<span class='scan_danger'>ERROR - aberrant/unknown brainwave patterns, advanced scanner recommended</span>"
 			else
-				if(skill_level < SKILL_BASIC)
-					brain_result = "there's movement on the graph"
-				else
-					switch(brain.get_current_damage_threshold())
-						if(0)
-							brain_result = "<span class='scan_notice'>normal</span>"
-						if(1 to 2)
-							brain_result = "<span class='scan_notice'>minor brain damage</span>"
-						if(3 to 5)
-							brain_result = "<span class='scan_warning'>weak</span>"
-						if(6 to 8)
-							brain_result = "<span class='scan_danger'>extremely weak</span>"
-						if(9 to INFINITY)
-							brain_result = "<span class='scan_danger'>fading</span>"
-						else
-							brain_result = "<span class='scan_danger'>ERROR - Hardware fault</span>"
+			*/
+			if(skill_level < SKILL_BASIC)
+				brain_result = "there's movement on the graph"
+			else
+				switch(brain.get_current_damage_threshold())
+					if(0)
+						brain_result = "<span class='scan_notice'>normal</span>"
+					if(1 to 2)
+						brain_result = "<span class='scan_notice'>minor brain damage</span>"
+					if(3 to 5)
+						brain_result = "<span class='scan_warning'>weak</span>"
+					if(6 to 8)
+						brain_result = "<span class='scan_danger'>extremely weak</span>"
+					if(9 to INFINITY)
+						brain_result = "<span class='scan_danger'>fading</span>"
+					else
+						brain_result = "<span class='scan_danger'>ERROR - Hardware fault</span>"
 	else
 		brain_result = "<span class='scan_danger'>ERROR - Nonstandard biology</span>"
 	dat += "<span class='scan_notice'>Brain activity:</span> [brain_result]."
@@ -513,15 +515,15 @@ proc/get_wound_severity(var/damage_ratio, var/can_heal_overkill = 0)
 	throw_speed = 3
 	throw_range = 3
 	matter = list(MATERIAL_ALUMINIUM = 25, MATERIAL_GLASS = 25)
-
+/*
 /obj/item/device/price_scanner/afterattack(atom/movable/target, mob/user as mob, proximity)
 	if(!proximity)
 		return
 
-	var/value = get_value(target)
+	var/value = 0//get_value(target)
 	user.visible_message("\The [user] scans \the [target] with \the [src]")
 	user.show_message("Price estimation of \the [target]: [value ? value : "N/A"] Thalers")
-/*
+
 /obj/item/device/slime_scanner
 	name = "xenolife scanner"
 	desc = "Multipurpose organic life scanner. With spectral breath analyzer you can find out what snacks Ian had! Or what gasses alien life breathes."

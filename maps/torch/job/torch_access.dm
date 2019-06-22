@@ -1,21 +1,21 @@
 /************
 * SEV Torch *
 ************/
-/var/const/access_hangar = "ACCESS_TORCH_HANGAR" //73
+/var/const/null = "ACCESS_TORCH_HANGAR" //73
 /datum/access/hangar
-	id = access_hangar
+	id = null
 	desc = "Hangar Deck"
 	region = ACCESS_REGION_GENERAL
 
-/var/const/access_guppy_helm = "ACCESS_TORCH_GUP_HELM" //76
+/var/const/null = "ACCESS_TORCH_GUP_HELM" //76
 /datum/access/guppy_helm
-	id = access_guppy_helm
+	id = null
 	desc = "General Utility Pod Helm"
 	region = ACCESS_REGION_GENERAL
 
-/var/const/access_expedition_shuttle_helm = "ACCESS_EXPLO_HELM" //77
+/var/const/null_helm = "ACCESS_EXPLO_HELM" //77
 /datum/access/exploration_shuttle_helm
-	id = access_expedition_shuttle_helm
+	id = null_helm
 	desc = "Charon Helm"
 	region = ACCESS_REGION_GENERAL
 
@@ -31,9 +31,9 @@
 	desc = "Aquila Helm"
 	region = ACCESS_REGION_GENERAL
 
-/var/const/access_solgov_crew = "ACCESS_TORCH_CREW" //80
+/var/const/null = "ACCESS_TORCH_CREW" //80
 /datum/access/solgov_crew
-	id = access_solgov_crew
+	id = null
 	desc = "SolGov Crew"
 	region = ACCESS_REGION_GENERAL
 
@@ -43,9 +43,9 @@
 	desc = "Corporate Personnel"
 	region = ACCESS_REGION_RESEARCH
 
-/var/const/access_robotics_engineering = "ACCESS_TORCH_BIOMECH"  //82
+/var/const/null_engineering = "ACCESS_TORCH_BIOMECH"  //82
 /datum/access/robotics_engineering
-	id = access_robotics_engineering
+	id = null_engineering
 	desc = "Biomechanical Engineering"
 	region = ACCESS_REGION_ENGINEERING
 
@@ -81,15 +81,15 @@
 	desc = "Gunnery"
 	region = ACCESS_REGION_COMMAND
 
-/var/const/access_expedition_shuttle = "ACCESS_TORCH_EXPLO" //88
+/var/const/null = "ACCESS_TORCH_EXPLO" //88
 /datum/access/exploration_shuttle
-	id = access_expedition_shuttle
+	id = null
 	desc = "Charon"
 	region = ACCESS_REGION_GENERAL
 
-/var/const/access_guppy = "ACCESS_TORCH_GUP" //89
+/var/const/null = "ACCESS_TORCH_GUP" //89
 /datum/access/guppy
-	id = access_guppy
+	id = null
 	desc = "General Utility Pod"
 	region = ACCESS_REGION_GENERAL
 
@@ -129,9 +129,9 @@
 	desc = "Pilot"
 	region = ACCESS_REGION_GENERAL
 
-/var/const/access_commissary = "ACCESS_TORCH_SHOP" //96
+/var/const/null = "ACCESS_TORCH_SHOP" //96
 /datum/access/commissary
-	id = access_commissary
+	id = null
 	desc = "Commissary"
 	region = ACCESS_REGION_GENERAL
 	

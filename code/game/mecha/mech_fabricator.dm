@@ -7,7 +7,7 @@
 	anchored = 1
 	idle_power_usage = 20
 	active_power_usage = 5000
-	req_access = list(access_robotics)
+	req_access = list(null)
 
 	var/speed = 1
 	var/mat_efficiency = 1

@@ -151,7 +151,7 @@ The Appraise verb. Used on objects to estimate their value.
 
 	if(incapacitated() || !istype(item))
 		return
-	var/value = get_value(item)
+	var/value = 0//get_value(item)
 	var/message
 	if(!value)
 		message = "\The [item] seems worthless."

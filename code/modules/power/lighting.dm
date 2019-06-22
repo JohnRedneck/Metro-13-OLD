@@ -399,10 +399,10 @@
 		flickering = 0
 
 // ai attack - make lights flicker, because why not
-
+/*
 /obj/machinery/light/attack_ai(mob/user)
 	src.flicker(1)
-
+*/
 // attack with hand - remove tube/bulb
 // if hands aren't protected and the light is on, burn the player
 /obj/machinery/light/attack_hand(mob/user)

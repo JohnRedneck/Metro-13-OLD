@@ -50,8 +50,8 @@
 	var/datum/role/previewJob
 	if(equip_preview_mob)
 		// Determine what role is marked as 'High' priority, and dress them up as such.
-		if(GLOB.using_map.default_assistant_title in role_low)
-			previewJob = SSroles.get_by_title(GLOB.using_map.default_assistant_title)
+		if(GLOB.using_map.default_vagrant_title in role_low)
+			previewJob = SSroles.get_by_title(GLOB.using_map.default_vagrant_title)
 		else
 			previewJob = SSroles.get_by_title(role_high)
 	else

@@ -1,3 +1,4 @@
+/*
 /obj/effect/overmap/sector/exoplanet/volcanic
 	name = "volcanic exoplanet"
 	desc = "A tectonically unstable planet, extremely rich in minerals."
@@ -75,7 +76,7 @@
 /area/exoplanet/volcanic
 	forced_ambience = list('sound/ambience/magma.ogg')
 	base_turf = /turf/simulated/floor/exoplanet/volcanic
-
+*/
 /turf/simulated/floor/exoplanet/volcanic
 	name = "volcanic floor"
 	icon = 'icons/turf/flooring/lava.dmi'
@@ -86,7 +87,7 @@
 	descriptor = "space volcanic mountains"
 	wall_type =  /turf/simulated/mineral/volcanic
 	mineral_turf =  /turf/simulated/mineral/random/volcanic
-	rock_color = COLOR_DARK_GRAY
+	//rock_color = COLOR_DARK_GRAY
 
 /turf/simulated/floor/exoplanet/lava
 	name = "lava"
@@ -105,7 +106,7 @@
 /turf/simulated/floor/exoplanet/lava/Destroy()
 	STOP_PROCESSING(SSobj, src)
 	. = ..()
-
+/*
 /turf/simulated/floor/exoplanet/lava/Entered(atom/movable/AM)
 	..()
 	if(locate(/obj/structure/catwalk/) in src)
@@ -135,7 +136,7 @@
 
 /turf/simulated/floor/exoplanet/lava/get_footstep_sound(var/mob/caller)
 	return get_footstep(FOOTSTEP_LAVA, caller)
-
+*/
 /turf/simulated/mineral/volcanic
 	name = "volcanic rock"
 	color = COLOR_DARK_GRAY

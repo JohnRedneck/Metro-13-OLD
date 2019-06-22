@@ -93,7 +93,7 @@ var/const/MAP_HAS_RANK = 2		//Rank system, also togglable
 	var/welcome_sound = 'sound/AI/welcome.ogg'		// Sound played on roundstart
 
 	//var/default_law_type = /datum/ai_laws/nanotrasen  // The default lawset use by synth units, if not overriden by their laws var.
-	var/security_state = /decl/security_state/default // The default security state system to use.
+	//var/security_state = /decl/security_state/default // The default security state system to use.
 
 	var/id_hud_icons = 'icons/mob/hud.dmi' // Used by the ID HUD (primarily sechud) overlay.
 
@@ -105,9 +105,9 @@ var/const/MAP_HAS_RANK = 2		//Rank system, also togglable
 
 	//Economy stuff
 	var/starting_money = 75000		//Money in station account
-	var/department_money = 5000		//Money in department accounts
+	var/faction_money = 5000		//Money in department accounts
 	var/salary_modifier	= 1			//Multiplier to starting character money
-	var/station_departments = list()//Gets filled automatically depending on roles allowed
+	var/station_factions = list()//Gets filled automatically depending on roles allowed
 
 	var/supply_currency_name = "Credits"
 	var/supply_currency_name_short = "Cr."
@@ -187,17 +187,17 @@ var/const/MAP_HAS_RANK = 2		//Rank system, also togglable
 	)
 
 	var/access_modify_region = list(/*
-		ACCESS_REGION_SECURITY = list(access_hos, access_change_ids),
+		ACCESS_REGION_SECURITY = list(null, access_change_ids),
 		ACCESS_REGION_MEDBAY = list(null, access_change_ids),
-		ACCESS_REGION_RESEARCH = list(access_rd, access_change_ids),
-		ACCESS_REGION_ENGINEERING = list(access_ce, access_change_ids),
+		ACCESS_REGION_RESEARCH = list(null, access_change_ids),
+		ACCESS_REGION_ENGINEERING = list(null, access_change_ids),
 		ACCESS_REGION_COMMAND = list(access_change_ids),
 		ACCESS_REGION_GENERAL = list(access_change_ids),
 		ACCESS_REGION_SUPPLY = list(access_change_ids)*/
 	)
 
 	// List of /datum/department types to instantiate at roundstart.
-	var/list/departments = list(/*
+	var/list/factions = list(/*
 		/datum/department/medbay*/
 	)
 

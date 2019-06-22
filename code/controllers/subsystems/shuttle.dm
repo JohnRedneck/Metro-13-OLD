@@ -138,10 +138,9 @@ SUBSYSTEM_DEF(shuttle)
 	if(overmap_halted == new_setting)
 		return
 	overmap_halted = !overmap_halted
-	/*
 	for(var/ship in ships)
 		var/obj/effect/overmap/ship/ship_effect = ship
 		overmap_halted ? ship_effect.halt() : ship_effect.unhalt()
-	*/
+
 /datum/controller/subsystem/shuttle/stat_entry()
 	..("Shuttles:[shuttles.len], Ships:[ships.len], L:[registered_shuttle_landmarks.len][overmap_halted ? ", HALT" : ""]")

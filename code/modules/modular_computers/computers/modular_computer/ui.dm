@@ -139,10 +139,9 @@
 		data["PC_batteryicon"] = "batt_5.gif"
 		data["PC_batterypercent"] = "N/C"
 		data["PC_showbatteryicon"] = battery_module ? 1 : 0
-
+	/*
 	if(tesla_link && tesla_link.enabled && apc_powered)
 		data["PC_apclinkicon"] = "charging.gif"
-
 	if(network_card && network_card.is_banned())
 		data["PC_ntneticon"] = "sig_warning.gif"
 	else
@@ -155,7 +154,7 @@
 				data["PC_ntneticon"] = "sig_high.gif"
 			if(3)
 				data["PC_ntneticon"] = "sig_lan.gif"
-
+	*/
 	var/list/program_headers = list()
 	for(var/datum/computer_file/program/P in idle_threads)
 		if(!P.ui_header)

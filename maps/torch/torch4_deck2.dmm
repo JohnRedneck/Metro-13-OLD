@@ -1174,7 +1174,7 @@
 /obj/machinery/door/airlock/highsecurity{
 	name = "Secure Tech Storage";
 	autoset_access = 0;
-	req_access = list("ACCESS_BRIDGE","ACCESS_TECH_STORAGE")
+	req_access = list("null","null")
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -4409,7 +4409,7 @@
 	name = "Door Bolt Control";
 	pixel_x = -24;
 	pixel_y = -24;
-	req_access = list("ACCESS_ENGINEERING");
+	req_access = list("nullERING");
 	specialfunctions = 4
 	},
 /obj/structure/cable/yellow{
@@ -7111,7 +7111,7 @@
 	name = "Engine Emitter";
 	pixel_x = 6;
 	pixel_y = 7;
-	req_access = list("ACCESS_ENGINEERING")
+	req_access = list("nullERING")
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -18852,7 +18852,7 @@
 	name = "Engine Hatch Bolt Control";
 	pixel_x = -24;
 	pixel_y = -10;
-	req_access = list("ACCESS_ENGINEERING");
+	req_access = list("nullERING");
 	specialfunctions = 4
 	},
 /obj/machinery/keycard_auth/torch{

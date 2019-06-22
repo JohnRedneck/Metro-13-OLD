@@ -87,9 +87,12 @@
 	if(old_event == new_event)
 		return
 	if(old_event)
+		return
+		/*
 		if(new_event && old_event.difficulty == new_event.difficulty && same_entries(old_event.events, new_event.events))
 			return
-		old_event.leave(entering_ship)
+		*/
+		//old_event.leave(entering_ship)
 
 /decl/overmap_event_handler/proc/on_turf_entered(var/turf/new_loc, var/obj/effect/overmap/ship/entering_ship, var/old_loc)
 	if(!istype(entering_ship))
@@ -106,7 +109,7 @@
 	if(new_event)
 		if(old_event && old_event.difficulty == new_event.difficulty && same_entries(old_event.events, new_event.events))
 			return
-		new_event.enter(entering_ship)
+		//new_event.enter(entering_ship)
 
 // We don't subtype /obj/effect/overmap because that'll create sections one can travel to
 //  And with them "existing" on the overmap Z-level things quickly get odd.
@@ -118,7 +121,7 @@
 
 /obj/effect/overmap_event/Destroy()
 	var/list/events_by_turf = overmap_event_handler.get_event_turfs_by_z_level(z)
-	var/datum/overmap_event/tokill = events_by_turf[get_turf(src)]
+	//var/datum/overmap_event/tokill = events_by_turf[get_turf(src)]
 	GLOB.entered_event.unregister(get_turf(src), overmap_event_handler, /decl/overmap_event_handler/proc/on_turf_entered)
 	GLOB.exited_event.unregister(get_turf(src), overmap_event_handler, /decl/overmap_event_handler/proc/on_turf_exited)
 	/*

@@ -99,12 +99,12 @@
 /obj/item/device/radio/intercom/Destroy()
 	STOP_PROCESSING(SSobj, src)
 	return ..()
-
+/*
 /obj/item/device/radio/intercom/attack_ai(mob/user as mob)
 	src.add_fingerprint(user)
 	spawn (0)
 		attack_self(user)
-
+*/
 /obj/item/device/radio/intercom/attack_hand(mob/user as mob)
 	src.add_fingerprint(user)
 	spawn (0)

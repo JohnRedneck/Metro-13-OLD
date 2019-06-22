@@ -247,7 +247,7 @@
 					/obj/item/weapon/storage/candle_box = 3)
 	cost = 10
 	containername = "chaplain equipment crate"
-
+/*
 /decl/hierarchy/supply_pack/nonessent/exosuit_mod_ripl1
 	name = "Mod - Ripley APLU modkit"
 	contains = list(/obj/item/device/kit/paint/ripley)
@@ -309,3 +309,4 @@
 	contains = list(/obj/item/device/kit/paint/gygax/recitence)
 	cost = 50
 	containername = "\improper EXO modkit heavy crate"
+*/

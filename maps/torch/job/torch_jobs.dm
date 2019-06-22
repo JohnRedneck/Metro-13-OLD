@@ -81,4 +81,4 @@
 	)
 
 /datum/map/torch
-	default_assistant_title = "Passenger"
+	default_vagrant_title = "Passenger"

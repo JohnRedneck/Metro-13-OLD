@@ -416,7 +416,7 @@
 		var/datum/objective/objective = locate(href_list["obj_completed"])
 		if(!istype(objective))	return
 		objective.completed = !objective.completed
-
+	/*
 	else if(href_list["implant"])
 		var/mob/living/carbon/human/H = current
 
@@ -436,7 +436,7 @@
 				H.implant_loyalty(H, override = TRUE)
 				log_admin("[key_name_admin(usr)] has loyalty implanted [current].")
 			else
-			/*
+	
 	else if (href_list["silicon"])
 		BITSET(current.hud_updateflag, SPECIALRANK_HUD)
 		switch(href_list["silicon"])
@@ -476,7 +476,7 @@
 								R.module_state_3 = null
 								R.contents -= R.module.emag
 					log_admin("[key_name_admin(usr)] has unemag'ed [ai]'s Cyborgs.")
-			*/
+	*/
 	else if (href_list["common"])
 		switch(href_list["common"])
 			if("undress")
@@ -587,8 +587,8 @@
 /mob/living/carbon/human/mind_initialize()
 	..()
 	if(!mind.assigned_rank)
-		mind.assigned_rank = GLOB.using_map.default_assistant_title
-
+		mind.assigned_rank = GLOB.using_map.default_vagrant_title
+/*
 //slime
 /mob/living/carbon/slime/mind_initialize()
 	..()
@@ -613,7 +613,7 @@
 	..()
 	mind.assigned_rank = "pAI"
 	mind.special_rank = ""
-
+*/
 //Animals
 /mob/living/simple_animal/mind_initialize()
 	..()
@@ -622,7 +622,7 @@
 /mob/living/simple_animal/corgi/mind_initialize()
 	..()
 	mind.assigned_rank = "Corgi"
-
+/*
 /mob/living/simple_animal/shade/mind_initialize()
 	..()
 	mind.assigned_rank = "Shade"
@@ -641,3 +641,4 @@
 	..()
 	mind.assigned_rank = "Juggernaut"
 	mind.special_rank = "Cultist"
+*/

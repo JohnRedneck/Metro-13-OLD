@@ -18,7 +18,7 @@
 	icon = 'icons/obj/status_display.dmi'
 	icon_state = "frame"
 	desc = "A remote control for a door."
-	req_access = list(/*access_brig*/)
+	req_access = list(/*null*/)
 	anchored = 1.0    		// can't pick it up
 	density = 0       		// can walk through it.
 	var/id = null     		// id of door it controls.
@@ -149,9 +149,10 @@
 	return
 
 //Allows AIs to use door_timer, see human attack_hand function below
+/*
 /obj/machinery/door_timer/attack_ai(var/mob/user as mob)
 	return src.attack_hand(user)
-
+*/
 /obj/machinery/door_timer/attack_hand(var/mob/user as mob)
 	tg_ui_interact(user)
 

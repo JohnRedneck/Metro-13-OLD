@@ -96,7 +96,7 @@ I said no!
 		/obj/item/organ/internal/brain
 	)
 	result = /obj/item/weapon/reagent_containers/food/snacks/brainburger
-
+/*
 /datum/recipe/roburger
 	items = list(
 		/obj/item/weapon/reagent_containers/food/snacks/bun,
@@ -110,7 +110,7 @@ I said no!
 		/obj/item/weapon/reagent_containers/food/snacks/xenomeat
 	)
 	result = /obj/item/weapon/reagent_containers/food/snacks/xenoburger
-
+*/
 /datum/recipe/fishburger
 	items = list(
 		/obj/item/weapon/reagent_containers/food/snacks/bun,
@@ -710,12 +710,6 @@ I said no!
 		/obj/item/weapon/reagent_containers/food/snacks/meatball,
 	)
 	result = /obj/item/weapon/reagent_containers/food/snacks/spesslaw
-
-/datum/recipe/nanopasta
-	reagents = list(/datum/reagent/water = 10)
-	items = list(/obj/item/weapon/reagent_containers/food/snacks/spagetti,
-				/obj/item/stack/nanopaste)
-	result = /obj/item/weapon/reagent_containers/food/snacks/nanopasta
 
 /datum/recipe/superbiteburger
 	fruit = list("tomato" = 1)

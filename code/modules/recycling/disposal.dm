@@ -443,11 +443,11 @@
 // should usually only occur if the pipe network is modified
 /obj/machinery/disposal/proc/expel(var/obj/structure/disposalholder/H)
 
-	var/turf/target
+	//var/turf/target
 	playsound(src, 'sound/machines/hiss.ogg', 50, 0, 0)
 	if(H) // Somehow, someone managed to flush a window which broke mid-transit and caused the disposal to go in an infinite loop trying to expel null, hopefully this fixes it
 		for(var/atom/movable/AM in H)
-			target = get_offset_target_turf(src.loc, rand(5)-rand(5), rand(5)-rand(5))
+			//target = get_offset_target_turf(src.loc, rand(5)-rand(5), rand(5)-rand(5))
 
 			AM.forceMove(src.loc)
 			AM.pipe_eject(0)

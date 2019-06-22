@@ -20,13 +20,13 @@ var/const/NETWORK_NANOTRASEN  = "Petrov"
 		if(NETWORK_BRIDGE)
 			return access_heads
 		if(NETWORK_CALYPSO)
-			return access_expedition_shuttle
+			return null
 		if(NETWORK_POD)
-			return access_guppy
+			return null
 		if(NETWORK_SUPPLY)
-			return access_mailsorting
+			return null
 		if(NETWORK_HANGAR)
-			return access_hangar
+			return null
 		if(NETWORK_EXPLO)
 			return access_explorer
 		if(NETWORK_NANOTRASEN)
@@ -213,22 +213,22 @@ var/const/NETWORK_ENGINEERING_OUTPOST = "Engineering Outpost"
 		if(NETWORK_COMMAND)
 			return access_heads
 		if(NETWORK_ENGINE, NETWORK_ENGINEERING_OUTPOST)
-			return access_engine
+			return null
 
 /datum/map/torch/default_internal_channels()
 	return list(
 		num2text(PUB_FREQ)   = list(),
 		num2text(AI_FREQ)    = list(access_synth),
 		num2text(ENT_FREQ)   = list(),
-		num2text(ERT_FREQ)   = list(access_cent_specops),
+		num2text(ERT_FREQ)   = list(nullnt_specops),
 		num2text(COMM_FREQ)  = list(access_heads),
 		num2text(ENG_FREQ)   = list(null, null),
 		num2text(MED_FREQ)   = list(null),
 		num2text(MED_I_FREQ) = list(null),
-		num2text(SEC_FREQ)   = list(access_security),
-		num2text(SEC_I_FREQ) = list(access_security),
-		num2text(SCI_FREQ)   = list(null, access_robotics, access_xenobiology, access_pathfinder),
-		num2text(SUP_FREQ)   = list(access_cargo),
+		num2text(SEC_FREQ)   = list(null),
+		num2text(SEC_I_FREQ) = list(null),
+		num2text(SCI_FREQ)   = list(null, null, null, access_pathfinder),
+		num2text(SUP_FREQ)   = list(null),
 		num2text(SRV_FREQ)   = list(access_janitor, null),
-		num2text(EXP_FREQ)   = list(access_explorer, access_rd)
+		num2text(EXP_FREQ)   = list(access_explorer, null)
 	)

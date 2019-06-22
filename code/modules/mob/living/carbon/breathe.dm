@@ -57,9 +57,10 @@
 	var/datum/gas_mixture/breath = null
 
 	var/datum/gas_mixture/environment
+	/* Only for cryo cells, we don't need it. - Bennett
 	if(loc)
 		environment = loc.return_air_for_internal_lifeform()
-
+	*/
 	if(environment)
 		breath = environment.remove_volume(volume_needed)
 		handle_chemical_smoke(environment) //handle chemical smoke while we're at it

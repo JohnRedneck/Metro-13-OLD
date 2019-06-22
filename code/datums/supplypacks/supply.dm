@@ -37,7 +37,7 @@
 	contains = list(/obj/item/weapon/computer_hardware/scanner/paper = 4)
 	cost = 20
 	containername = "paper scanner module crate"
-
+/*
 /decl/hierarchy/supply_pack/supply/spare_pda
 	name = "Electronics - Spare PDAs"
 	contains = list(/obj/item/modular_computer/pda = 3)
@@ -49,7 +49,7 @@
 	name = "Electronics - EFTPOS scanner"
 	cost = 10
 	containername = "\improper EFTPOS crate"
-
+*/
 /decl/hierarchy/supply_pack/supply/water
 	name = "Refills - Bottled water"
 	contains = list (/obj/item/weapon/storage/box/water = 2)

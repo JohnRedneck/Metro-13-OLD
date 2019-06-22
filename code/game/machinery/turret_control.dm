@@ -243,7 +243,7 @@
 
 	..()
 
-
+/*
 /obj/machinery/turretid/malf_upgrade(var/mob/living/silicon/ai/user)
 	..()
 	malf_upgraded = 1
@@ -252,3 +252,4 @@
 	to_chat(user, "\The [src] has been upgraded. It has been locked and can not be tampered with by anyone but you and your cyborgs.")
 	master_ai = user
 	return 1
+*/

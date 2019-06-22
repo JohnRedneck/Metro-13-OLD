@@ -37,7 +37,7 @@
 	containertype = /obj/structure/closet/crate/secure
 	containername = "\improper Spiderling crate"
 	contraband = 1
-	security_level = null
+	//security_level = null
 
 
 //actual live animals

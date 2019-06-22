@@ -37,7 +37,7 @@
 
 	usr.show_message(t, 1)
 	SSstatistics.add_field_details("admin_verb","ASL") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-
+/*
 /client/proc/cmd_admin_robotize(var/mob/M in SSmobs.mob_list)
 	set category = "Fun"
 	set name = "Make Robot"
@@ -52,7 +52,7 @@
 
 	else
 		alert("Invalid mob")
-
+*/
 /client/proc/cmd_admin_animalize(var/mob/M in SSmobs.mob_list)
 	set category = "Fun"
 	set name = "Make Simple Animal"

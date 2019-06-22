@@ -114,7 +114,7 @@ datum/unit_test/zas_supply_shuttle_moved
 	var/datum/shuttle/autodock/ferry/supply/shuttle = null
 
 	var/testtime = 0	//Used as a timer.
-
+/*
 datum/unit_test/zas_supply_shuttle_moved/start_test()
 
 	if(!SSshuttle)
@@ -162,7 +162,7 @@ datum/unit_test/zas_supply_shuttle_moved/check_result()
 			if(SKIP)    skip(test["msg"])
 			else        fail(test["msg"])
 	return 1
-
+*/
 #undef UT_NORMAL
 #undef UT_VACUUM
 #undef UT_NORMAL_COLD

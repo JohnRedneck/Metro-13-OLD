@@ -1,11 +1,15 @@
 /obj/item/modular_computer/proc/update_verbs()
 	verbs.Cut()
+	/*
 	if(ai_slot)
 		verbs |= /obj/item/modular_computer/verb/eject_ai
+	*/
 	if(portable_drive)
 		verbs |= /obj/item/modular_computer/verb/eject_usb
+	/*
 	if(card_slot && card_slot.stored_card)
 		verbs |= /obj/item/modular_computer/verb/eject_id
+	*/
 	if(stores_pen && istype(stored_pen))
 		verbs |= /obj/item/modular_computer/verb/remove_pen
 
@@ -44,7 +48,7 @@
 			bsod = 0
 			update_icon()
 
-
+/*
 // Eject ID card from computer, if it has ID slot with card inside.
 /obj/item/modular_computer/verb/eject_id()
 	set name = "Remove ID"
@@ -59,8 +63,8 @@
 		to_chat(usr, "<span class='warning'>You can't reach it.</span>")
 		return
 
-	proc_eject_id(usr)
-
+	//proc_eject_id(usr)
+*/
 // Eject ID card from computer, if it has ID slot with card inside.
 /obj/item/modular_computer/verb/eject_usb()
 	set name = "Eject Portable Storage"
@@ -76,7 +80,7 @@
 		return
 
 	proc_eject_usb(usr)
-
+/*
 /obj/item/modular_computer/verb/eject_ai()
 	set name = "Eject AI"
 	set category = "Object"
@@ -91,7 +95,7 @@
 		return
 
 	proc_eject_ai(usr)
-
+*/
 /obj/item/modular_computer/verb/remove_pen()
 	set name = "Remove Pen"
 	set category = "Object"
@@ -110,11 +114,10 @@
 		usr.put_in_hands(stored_pen) // Silicons will drop it anyway.
 		stored_pen = null
 		update_verbs()
-
+/*
 /obj/item/modular_computer/proc/proc_eject_id(mob/user)
 	if(!user)
 		user = usr
-
 	if(!card_slot)
 		to_chat(user, "\The [src] does not have an ID card slot")
 		return
@@ -122,7 +125,6 @@
 	if(!card_slot.stored_card)
 		to_chat(user, "There is no card in \the [src]")
 		return
-
 	if(active_program)
 		active_program.event_idremoved(0)
 
@@ -134,7 +136,7 @@
 	card_slot.stored_card = null
 	update_uis()
 	update_verbs()
-
+*/
 /obj/item/modular_computer/proc/proc_eject_usb(mob/user)
 	if(!user)
 		user = usr
@@ -145,7 +147,7 @@
 
 	uninstall_component(user, portable_drive)
 	update_uis()
-
+/*
 /obj/item/modular_computer/proc/proc_eject_ai(mob/user)
 	if(!user)
 		user = usr
@@ -158,7 +160,7 @@
 	ai_slot.stored_card = null
 	ai_slot.update_power_usage()
 	update_uis()
-
+*/
 /obj/item/modular_computer/attack_ghost(var/mob/observer/ghost/user)
 	if(enabled)
 		ui_interact(user)
@@ -294,10 +296,10 @@
 
 	if(enabled && .)
 		to_chat(user, "The time [stationtime2text()] is displayed in the corner of the screen.")
-
+	/*
 	if(card_slot && card_slot.stored_card)
 		to_chat(user, "The [card_slot.stored_card] is inserted into it.")
-
+	*/
 /obj/item/modular_computer/MouseDrop(var/atom/over_object)
 	var/mob/M = usr
 	if(!istype(over_object, /obj/screen) && CanMouseDrop(M))

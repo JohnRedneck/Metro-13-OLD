@@ -188,7 +188,7 @@
 				view_core()
 				return
 			sleep(10)
-*/
+
 /obj/machinery/camera/attack_ai(var/mob/living/silicon/ai/user as mob)
 	if (!istype(user))
 		return
@@ -196,7 +196,6 @@
 		return
 	user.eyeobj.setLoc(get_turf(src))
 
-/*
 /mob/living/silicon/ai/attack_ai(var/mob/user as mob)
 	ai_camera_list()
 */

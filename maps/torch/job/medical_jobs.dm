@@ -36,9 +36,9 @@
 	                    SKILL_VIROLOGY    = SKILL_MAX)
 	skill_points = 32
 
-	access = list(access_medical, access_morgue, null, access_maint_tunnels, access_emergency_storage,
+	access = list(null, null, null, null, null,
 			            access_crematorium, null, null,
-			            null, access_solgov_crew, access_senmed)
+			            null, null, access_senmed)
 
 	software_on_spawn = list(/datum/computer_file/program/suit_sensors,
 							 /datum/computer_file/program/camera_monitor)
@@ -79,8 +79,8 @@
 	                    SKILL_CHEMISTRY   = SKILL_MAX,
 	                    SKILL_VIROLOGY    = SKILL_MAX)
 
-	access = list(access_medical, access_morgue, access_maint_tunnels, access_external_airlocks, access_emergency_storage,
-			            access_eva, null, null, access_solgov_crew, access_hangar)
+	access = list(null, null, null, access_external_airlocks, null,
+			            access_eva, null, null, null, null)
 	minimal_access = list()
 
 	software_on_spawn = list(/datum/computer_file/program/suit_sensors,
@@ -113,7 +113,7 @@
 	                    SKILL_CONSTRUCTION 	= SKILL_EXPERT,
 	                    SKILL_ELECTRICAL 	= SKILL_EXPERT)
 	skill_points = 24
-	access = list(access_robotics, access_robotics_engineering, access_tech_storage, access_morgue, access_medical, access_solgov_crew)
+	access = list(null, null_engineering, null, null, null, null)
 	minimal_access = list()
 
 /datum/role/biomech/get_description_blurb()
@@ -154,8 +154,8 @@
 	                    SKILL_CHEMISTRY   = SKILL_MAX,
 	                    SKILL_VIROLOGY    = SKILL_MAX)
 
-	access = list(access_medical, access_morgue, access_maint_tunnels, access_external_airlocks, access_emergency_storage,
-			            null, null, access_solgov_crew)
+	access = list(null, null, null, access_external_airlocks, null,
+			            null, null, null)
 
 	software_on_spawn = list(/datum/computer_file/program/suit_sensors,
 							 /datum/computer_file/program/camera_monitor)
@@ -184,7 +184,7 @@
 	                    SKILL_CHEMISTRY   = SKILL_MAX)
 	skill_points = 26
 
-	access = list(access_medical, access_maint_tunnels, access_emergency_storage, null, access_solgov_crew, null)
+	access = list(null, null, null, null, null, null)
 	minimal_access = list()
 
 /datum/role/psychiatrist
@@ -214,7 +214,7 @@
 
 	max_skill = list(   SKILL_MEDICAL     = SKILL_MAX)
 
-	access = list(access_medical, access_morgue, null, access_crematorium, null, access_solgov_crew, null)
+	access = list(null, null, null, access_crematorium, null, null, null)
 	minimal_access = list()
 
 	software_on_spawn = list(/datum/computer_file/program/suit_sensors,

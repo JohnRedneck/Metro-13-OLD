@@ -819,7 +819,7 @@ About the new airlock wires panel:
 		ui.set_initial_data(data)
 		ui.open()
 		ui.set_auto_update(1)
-
+/*
 /obj/machinery/door/airlock/proc/hack(mob/user as mob)
 	if(src.aiHacking==0)
 		src.aiHacking=1
@@ -867,7 +867,7 @@ About the new airlock wires panel:
 			src.aiHacking = 0
 			if (user)
 				src.attack_ai(user)
-
+*/
 /obj/machinery/door/airlock/CanPass(atom/movable/mover, turf/target, height=0, air_group=0)
 	if (src.isElectrified())
 		if (istype(mover, /obj/item))
@@ -895,6 +895,7 @@ About the new airlock wires panel:
 	if(operating < 0) //emagged
 		to_chat(user, "<span class='warning'>Unable to interface: Internal error.</span>")
 		return STATUS_CLOSE
+	/*
 	if(issilicon(user) && !src.canAIControl())
 		if(src.canAIHack(user))
 			src.hack(user)
@@ -904,7 +905,7 @@ About the new airlock wires panel:
 			else
 				to_chat(user, "<span class='warning'>Unable to interface: Connection refused.</span>")
 		return STATUS_CLOSE
-
+	*/
 	return ..()
 
 /obj/machinery/door/airlock/Topic(href, href_list)

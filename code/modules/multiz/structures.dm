@@ -45,7 +45,7 @@
 
 /obj/structure/ladder/attack_hand(var/mob/M)
 	climb(M)
-
+/*
 /obj/structure/ladder/attack_ai(var/mob/M)
 	var/mob/living/silicon/ai/ai = M
 	if(!istype(ai))
@@ -56,7 +56,7 @@
 
 /obj/structure/ladder/attack_robot(var/mob/M)
 	climb(M)
-
+*/
 /obj/structure/ladder/proc/instant_climb(var/mob/M)
 	var/atom/target_ladder = getTargetLadder(M)
 	if(target_ladder)

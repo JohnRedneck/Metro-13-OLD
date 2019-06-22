@@ -6,7 +6,7 @@
 	anchored = TRUE
 	density = TRUE
 	opacity = FALSE
-	req_access = list(list(null, access_captain, null, access_hos))
+	req_access = list(list(null, null, null, null))
 
 	var/list/psi_violations = list()
 	var/show_violations = FALSE

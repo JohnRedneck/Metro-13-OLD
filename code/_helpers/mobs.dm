@@ -99,12 +99,13 @@ proc/age2agedescription(age)
 	return icon_states[icon_states.len] // If we had no match, return the last element
 
 //checks whether this item is a module of the robot it is located in.
+/*
 /proc/is_robot_module(var/obj/item/thing)
 	if (!thing || !istype(thing.loc, /mob/living/silicon/robot))
 		return 0
 	var/mob/living/silicon/robot/R = thing.loc
 	return (thing in R.module.equipment)
-
+*/
 /proc/get_exposed_defense_zone(var/atom/movable/target)
 	return pick(BP_HEAD, BP_L_HAND, BP_R_HAND, BP_L_FOOT, BP_R_FOOT, BP_L_ARM, BP_R_ARM, BP_L_LEG, BP_R_LEG, BP_CHEST, BP_GROIN)
 

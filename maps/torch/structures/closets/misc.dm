@@ -100,7 +100,7 @@
 
 /obj/structure/closet/secure_closet/crew
 	name = "crew equipment locker"
-	req_access = list(access_solgov_crew)
+	req_access = list(null)
 	closet_appearance = /decl/closet_appearance/secure_closet/torch/sol
 
 /obj/structure/closet/secure_closet/crew/WillContain()
@@ -119,7 +119,7 @@
 
 /obj/structure/closet/secure_closet/guncabinet/sidearm
 	name = "sidearm cabinet"
-	req_access = list(list(null,access_emergency_armory,access_hos,access_hop,access_ce,null,access_rd,access_senadv))
+	req_access = list(list(null,access_emergency_armory,null,null,null,null,null,access_senadv))
 
 /obj/structure/closet/secure_closet/guncabinet/sidearm/WillContain()
 	return list(

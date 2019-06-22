@@ -139,10 +139,11 @@
 	. = ..(user)
 	if(mode != STATUS_DISPLAY_BLANK && mode != STATUS_DISPLAY_ALERT)
 		to_chat(user, "The display says:<br>\t[sanitize(message1)]<br>\t[sanitize(message2)]")
+	/*
 	if(mode == STATUS_DISPLAY_ALERT)
 		var/decl/security_state/security_state = decls_repository.get_decl(GLOB.using_map.security_state)
 		to_chat(user, "The current alert level is [security_state.current_security_level.name].")
-
+	*/
 /obj/machinery/status_display/proc/set_message(m1, m2)
 	if(m1)
 		index1 = (length(m1) > CHARS_PER_LINE)
@@ -160,14 +161,14 @@
 
 /obj/machinery/status_display/proc/display_alert()
 	remove_display()
-
+	/*
 	var/decl/security_state/security_state = decls_repository.get_decl(GLOB.using_map.security_state)
 	var/decl/security_level/sl = security_state.current_security_level
 
 	var/image/alert = image(sl.icon, sl.overlay_status_display)
 	set_light(sl.light_max_bright, sl.light_inner_range, sl.light_outer_range, 2, sl.light_color_alarm)
 	overlays |= alert
-
+	*/
 /obj/machinery/status_display/proc/set_picture(state)
 	remove_display()
 	if(!picture || picture_state != state)
@@ -187,7 +188,7 @@
 	if(timeleft < 0)
 		return ""
 	return "[add_zero(num2text((timeleft / 60) % 60),2)]:[add_zero(num2text(timeleft % 60), 2)]"
-
+/*
 /obj/machinery/status_display/proc/get_supply_shuttle_timer()
 	var/datum/shuttle/autodock/ferry/supply/shuttle = SSsupply.shuttle
 	if (!shuttle)
@@ -199,7 +200,7 @@
 			return "Late"
 		return "[add_zero(num2text((timeleft / 60) % 60),2)]:[add_zero(num2text(timeleft % 60), 2)]"
 	return ""
-
+*/
 /obj/machinery/status_display/proc/remove_display()
 	if(overlays.len)
 		overlays.Cut()

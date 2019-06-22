@@ -131,9 +131,9 @@ var/list/debug_verbs = list (
 		,/client/proc/count_objects_on_z_level
 		,/client/proc/count_objects_all
 		,/client/proc/cmd_assume_direct_control
-		,/client/proc/startSinglo
+		//,/client/proc/startSinglo
 		,/client/proc/ticklag
-		,/client/proc/cmd_admin_grantfullaccess
+		//,/client/proc/cmd_admin_grantfullaccess
 		,/client/proc/cmd_admin_areatest
 		,/client/proc/cmd_admin_rejuvenate
 		,/datum/admins/proc/show_traitor_panel
@@ -146,7 +146,7 @@ var/list/debug_verbs = list (
 		,/client/proc/hide_debug_verbs
 		,/client/proc/testZAScolors
 		,/client/proc/testZAScolors_remove
-		,/datum/admins/proc/setup_supermatter
+		//,/datum/admins/proc/setup_supermatter
 		,/client/proc/atmos_toggle_debug
 		,/client/proc/spawn_tanktransferbomb
 		,/client/proc/find_leaky_pipes

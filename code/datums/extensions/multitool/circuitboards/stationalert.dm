@@ -13,6 +13,7 @@
 	. += "</table>"
 
 /datum/extension/interactive/multitool/circuitboards/stationalert/on_topic(href, href_list, user)
+	/*
 	var/obj/item/weapon/circuitboard/stationalert/SA = holder
 	if(href_list["add"])
 		var/datum/alarm_handler/AH = locate(href_list["add"]) in SSalarm.all_handlers
@@ -25,5 +26,5 @@
 		if(AH)
 			SA.alarm_handlers -= AH
 			return MT_REFRESH
-
+	*/
 	return ..()

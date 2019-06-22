@@ -163,23 +163,24 @@
 		return 1
 
 	usr.set_machine(src)
+	/*
 	if (href_list["track"])
 		var/mob/target = locate(href_list["track"])
-		/*
 		var/mob/living/silicon/ai/A = locate(href_list["track2"])
 		if(A && target)
 			A.ai_actual_track(target)
-		*/
 		. = 1
-
-	else if (href_list["freq"])
+	*/
+	if (href_list["freq"])
 		var/new_frequency = (frequency + text2num(href_list["freq"]))
 		if ((new_frequency < PUBLIC_LOW_FREQ || new_frequency > PUBLIC_HIGH_FREQ))
 			new_frequency = sanitize_frequency(new_frequency)
 		set_frequency(new_frequency)
+		/*
 		if(hidden_uplink)
 			if(hidden_uplink.check_trigger(usr, frequency, traitor_frequency))
 				usr << browse(null, "window=radio")
+		*/
 		. = 1
 	else if (href_list["talk"])
 		ToggleBroadcast()
@@ -319,7 +320,7 @@
 	// --- Carbon Nonhuman ---
 	else if (iscarbon(M)) // Nonhuman carbon mob
 		rolename = "No id"
-
+	/*
 	// --- AI ---
 	else if (isAI(M))
 		rolename = "AI"
@@ -331,7 +332,7 @@
 	// --- Personal AI (pAI) ---
 	else if (istype(M, /mob/living/silicon/pai))
 		rolename = "Personal AI"
-
+	*/
 	// --- Unidentifiable mob ---
 	else
 		rolename = "Unknown"
@@ -409,12 +410,13 @@
 
   /* ###### Intercoms and station-bounced radios ###### */
 
-	var/filter_type = 2
+	//var/filter_type = 2
 
 	/* --- Intercoms can only broadcast to other intercoms, but bounced radios can broadcast to bounced radios and intercoms --- */
+	/*
 	if(istype(src, /obj/item/device/radio/intercom))
 		filter_type = 1
-
+	*/
 
 	var/datum/signal/signal = new
 	signal.transmission_method = 2
@@ -576,7 +578,7 @@
 //////////Borg Radios//////////
 ///////////////////////////////
 //Giving borgs their own radio to have some more room to work with -Sieve
-
+/*
 /obj/item/device/radio/borg
 	var/mob/living/silicon/robot/myborg = null // Cyborg which owns this radio. Used for power checks
 	var/obj/item/device/encryptionkey/keyslot = null//Borg radios can handle a single encryption key
@@ -746,7 +748,7 @@
 		ui = new(user, src, ui_key, "radio_basic.tmpl", "[name]", 400, 430)
 		ui.set_initial_data(data)
 		ui.open()
-
+*/
 /obj/item/device/radio/proc/config(op)
 	if(radio_controller)
 		for (var/ch_name in channels)

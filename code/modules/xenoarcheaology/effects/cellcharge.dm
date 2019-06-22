@@ -15,8 +15,8 @@
 
 /datum/artifact_effect/cellcharge/DoEffectAura()
 	if(holder)
-		var/turf/T = get_turf(holder)
 		/*
+		var/turf/T = get_turf(holder)
 		for (var/obj/machinery/power/apc/C in range(200, T))
 			for (var/obj/item/weapon/cell/B in C.contents)
 				B.charge += 25

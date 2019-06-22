@@ -145,8 +145,7 @@
 		speaker_name = "unknown"
 
 	var/changed_voice
-	/*
-	if(istype(src, /mob/living/silicon/ai) && !hard_to_hear)
+	if(!hard_to_hear)
 		var/rolename // the mob's "role"
 		var/mob/living/carbon/human/impersonating //The crew member being impersonated, if any.
 
@@ -167,7 +166,7 @@
 
 				// If I's display name is currently different from the voice name and using an agent ID then don't impersonate
 				// as this would allow the AI to track I and realize the mismatch.
-				if(I && !(I.name != speaker_name && I.wear_id && istype(I.wear_id,/obj/item/weapon/card/id/syndicate)))
+				if(I && !(I.name != speaker_name && I.wear_id/* && istype(I.wear_id,/obj/item/weapon/card/id/syndicate)*/))
 					impersonating = I
 					rolename = impersonating.get_assignment()
 				else
@@ -177,12 +176,14 @@
 
 		else if (iscarbon(speaker)) // Nonhuman carbon mob
 			rolename = "No id"
+		/*
 		else if (isAI(speaker))
 			rolename = "AI"
 		else if (isrobot(speaker))
 			rolename = "Robot"
 		else if (istype(speaker, /mob/living/silicon/pai))
 			rolename = "Personal AI"
+		*/
 		else
 			rolename = "Unknown"
 
@@ -193,7 +194,7 @@
 				track = "[speaker_name] ([rolename])"
 		else
 			track = "<a href='byond://?src=\ref[src];trackname=[html_encode(speaker_name)];track=\ref[speaker]'>[speaker_name] ([rolename])</a>"
-	*/
+
 	if(isghost(src))
 		if(speaker_name != speaker.real_name && !isAI(speaker)) //Announce computer and various stuff that broadcasts doesn't use it's real name but AI's can't pretend to be other mobs.
 			speaker_name = "[speaker.real_name] ([speaker_name])"

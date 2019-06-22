@@ -291,10 +291,10 @@
 	..()
 	if(!powered())
 		icon_state = "tvalvenopower"
-
+/*
 /obj/machinery/atmospherics/tvalve/digital/attack_ai(mob/user as mob)
 	return src.attack_hand(user)
-
+*/
 /obj/machinery/atmospherics/tvalve/digital/attack_hand(mob/user as mob)
 	if(!powered())
 		return
@@ -426,10 +426,10 @@
 	..()
 	if(!powered())
 		icon_state = "tvalvemnopower"
-
+/*
 /obj/machinery/atmospherics/tvalve/mirrored/digital/attack_ai(mob/user as mob)
 	return src.attack_hand(user)
-
+*/
 /obj/machinery/atmospherics/tvalve/mirrored/digital/attack_hand(mob/user as mob)
 	if(!powered())
 		return

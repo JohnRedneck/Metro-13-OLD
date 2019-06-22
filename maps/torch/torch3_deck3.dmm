@@ -72,7 +72,7 @@
 "am" = (
 /obj/machinery/shieldwallgen{
 	anchored = 1;
-	req_access = list("ACCESS_RESEARCH")
+	req_access = list("null")
 	},
 /turf/simulated/floor/plating,
 /area/vacant/brig)
@@ -2538,7 +2538,7 @@
 /obj/machinery/door/airlock/maintenance{
 	autoset_access = 0;
 	name = "Expedition Storage Maintenance";
-	req_access = list(list("ACCESS_MINING","ACCESS_XENOARCH"),"ACCESS_MAINT")
+	req_access = list(list("null","null"),"ACCESS_MAINT")
 	},
 /turf/simulated/floor/tiled/techfloor/grid,
 /area/maintenance/thirddeck/starboard)
@@ -19288,7 +19288,7 @@
 /obj/machinery/door/airlock/command{
 	autoset_access = 0;
 	name = "Officer's Mess";
-	req_access = list(list("ACCESS_BRIDGE","ACCESS_KITCHEN","ACCESS_TORCH_SENIOR_MED","null"))
+	req_access = list(list("null","ACCESS_KITCHEN","ACCESS_TORCH_SENIOR_MED","null"))
 	},
 /obj/effect/floor_decal/corner/blue/diagonal{
 	dir = 4
@@ -20783,7 +20783,7 @@
 	id_tag = "eva_airlock";
 	name = "EVA Airlock Console";
 	pixel_y = -24;
-	req_access = list(list("ACCESS_SECURITY","ACCESS_MEDICAL","null","ACCESS_EVA","ACCESS_ATMOS"));
+	req_access = list(list("null","null","null","ACCESS_EVA","ACCESS_ATMOS"));
 	tag_airpump = "eva_pump";
 	tag_chamber_sensor = "eva_sensor";
 	tag_exterior_door = "eva_outer";

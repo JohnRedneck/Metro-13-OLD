@@ -164,10 +164,10 @@ datum/track/proc/GetTrack()
 			M.make_jittery(400)
 	spawn(15)
 		explode()
-
+/*
 /obj/machinery/media/jukebox/attack_ai(mob/user as mob)
 	return src.attack_hand(user)
-
+*/
 /obj/machinery/media/jukebox/attack_hand(var/mob/user as mob)
 	interact(user)
 

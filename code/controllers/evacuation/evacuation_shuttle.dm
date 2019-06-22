@@ -18,7 +18,8 @@
 
 	var/departed = 0
 	var/autopilot = 1
-	var/datum/shuttle/autodock/ferry/emergency/shuttle // Set in shuttle_emergency.dm
+	var/datum/shuttle/autodock/ferry/shuttle
+	//var/datum/shuttle/autodock/ferry/emergency/shuttle // Set in shuttle_emergency.dm
 	var/shuttle_launch_time
 
 /datum/evacuation_controller/shuttle/has_evacuated()

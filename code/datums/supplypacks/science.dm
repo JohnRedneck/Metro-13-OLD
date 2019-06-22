@@ -32,7 +32,7 @@
 	cost = 25
 	containertype = /obj/structure/closet/crate/secure
 	containername = "\improper \"Odysseus\" Circuit crate"
-	access = access_robotics
+	access = null
 
 /decl/hierarchy/supply_pack/science/robotics
 	name = "Parts - Robotics"
@@ -43,7 +43,7 @@
 	cost = 10
 	containertype = /obj/structure/closet/crate/secure/gear
 	containername = "robotics assembly crate"
-	access = access_robotics
+	access = null
 
 /decl/hierarchy/supply_pack/science/phoron
 	name = "Parts - Phoron device kit"
@@ -54,14 +54,14 @@
 	cost = 10
 	containertype = /obj/structure/closet/crate/secure/phoron
 	containername = "phoron assembly crate"
-	access = null_storage
-
+	access = null
+/*
 /decl/hierarchy/supply_pack/science/scanner_module
 	name = "Electronics - Reagent scanner modules"
 	contains = list(/obj/item/weapon/computer_hardware/scanner/reagent = 4)
 	cost = 20
 	containername = "reagent scanner module crate"
-
+*/
 /decl/hierarchy/supply_pack/science/minergear
 	name = "Shaft miner equipment"
 	contains = list(/obj/item/weapon/storage/backpack/industrial,
@@ -81,7 +81,7 @@
 	cost = 15
 	containertype = /obj/structure/closet/crate/secure
 	containername = "shaft miner equipment crate"
-	access = access_mining
+	access = null
 
 /decl/hierarchy/supply_pack/science/flamps
 	num_contained = 3

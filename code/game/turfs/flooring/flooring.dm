@@ -264,10 +264,10 @@
 	has_damage_range = 6
 	flags = TURF_ACID_IMMUNE | TURF_CAN_BREAK | TURF_REMOVE_WRENCH
 	can_paint = null
-
+/*
 /decl/flooring/reinforced/cult/on_remove()
 	GLOB.cult.remove_cultiness(CULTINESS_PER_TURF)
-
+*/
 /decl/flooring/reinforced/shuttle
 	name = "floor"
 	icon = 'icons/turf/shuttle.dmi'

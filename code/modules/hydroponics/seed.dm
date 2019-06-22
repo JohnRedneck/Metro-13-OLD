@@ -433,7 +433,7 @@
 		var/list/banned_chems = list(
 			/datum/reagent/adminordrazine,
 			/datum/reagent/nutriment,
-			/datum/reagent/nanites,
+			// /datum/reagent/nanites,
 			// /datum/reagent/water/holywater,
 			/datum/reagent/toxin/plantbgone,
 			/datum/reagent/chloralhydrate/beer2

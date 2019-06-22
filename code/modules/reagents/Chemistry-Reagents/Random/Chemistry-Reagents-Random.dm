@@ -3,7 +3,7 @@
 // subtypes of stuff in here will be avoided when randomizing interactions.
 GLOBAL_LIST_INIT(random_chem_interaction_blacklist, list(
 	/datum/reagent/adminordrazine,
-	/datum/reagent/nanites,
+	// /datum/reagent/nanites,
 	// /datum/reagent/water/holywater,
 	/datum/reagent/chloralhydrate/beer2,
 	/datum/reagent/tobacco,
@@ -141,13 +141,13 @@ GLOBAL_LIST_INIT(random_chem_interaction_blacklist, list(
 			dat += "Here are the chemicals you suspect this one will interact with, probably when heated or cooled:"
 			dat += JOINTEXT(interactions)
 	to_chat(user, jointext(dat, "<br>"))
-
+/*
 /datum/reagent/random/Value()
 	. = 0
 	FOR_ALL_EFFECTS
 		. += effect.get_value(data[effect.type])
 	. = max(., 0)
-
+*/
 // Extra unique types for exoplanet spawns, etc.
 /datum/reagent/random/one
 /datum/reagent/random/two

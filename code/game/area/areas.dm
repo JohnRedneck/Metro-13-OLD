@@ -26,7 +26,7 @@
 
 /area/Initialize()
 	. = ..()
-	if(!requires_power || !apc)
+	if(!requires_power)
 		power_light = 0
 		power_equip = 0
 		power_environ = 0
@@ -277,7 +277,8 @@ var/list/mob/living/forced_ambiance_list = new
 			temp_windoor.open()
 */
 /area/proc/has_gravity()
-	return has_gravity
+	return 1
+	//return has_gravity
 
 /area/space/has_gravity()
 	return 0

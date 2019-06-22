@@ -51,10 +51,10 @@
 	else
 		var/atom/movable/prize = pick(contents)
 		prize.forceMove(src.loc)
-
+/*
 /obj/machinery/computer/arcade/attack_ai(mob/user as mob)
 	return src.attack_hand(user)
-
+*/
 
 /obj/machinery/computer/arcade/emp_act(severity)
 	if(stat & (NOPOWER|BROKEN))

@@ -129,7 +129,7 @@
 
 	if(!istype(user))
 		return 0
-
+	/*
 	var/obj/item/weapon/card/id/I = user.GetIdCard()
 	if(!I)
 		if(loud)
@@ -140,7 +140,8 @@
 		return 1
 	else if(loud)
 		to_chat(user, "<span class='notice'>\The [computer] flashes an \"Access Denied\" warning.</span>")
-
+	*/
+	return 1
 // This attempts to retrieve header data for NanoUIs. If implementing completely new device of different type than existing ones
 // always include the device here in this proc. This proc basically relays the request to whatever is running the program.
 /datum/computer_file/program/proc/get_header_data()

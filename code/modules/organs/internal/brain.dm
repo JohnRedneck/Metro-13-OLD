@@ -88,12 +88,12 @@
 
 	if(name == initial(name))
 		name = "\the [owner.real_name]'s [initial(name)]"
-
+	/*
 	var/mob/living/simple_animal/borer/borer = owner.has_brain_worms()
 
 	if(borer)
 		borer.detatch() //Should remove borer if the brain is removed - RR
-
+	*/
 	transfer_identity(owner)
 
 	..()
@@ -135,9 +135,10 @@
 		return
 	to_chat(owner, "<span class = 'notice' font size='10'><B>What happened...?</B></span>")
 	alert(owner, "You have taken massive brain damage! You will not be able to remember the events leading up to your injury.", "Brain Damaged")
+	/*
 	if(owner.psi)
 		owner.psi.check_latency_trigger(20, "physical trauma")
-
+	*/
 /obj/item/organ/internal/brain/Process()
 	if(owner)
 		if(damage > max_damage / 2 && healed_threshold)

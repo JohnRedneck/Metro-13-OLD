@@ -7,7 +7,7 @@
 	density = 1
 	idle_power_usage = 4
 	active_power_usage = 4 KILOWATTS // A CT scan machine uses 1-15 kW depending on the model and equipment involved.
-	req_access = list(access_medical)
+	req_access = list(null)
 
 	icon_state = "body_scanner_0"
 	var/empty_state = "body_scanner_0"

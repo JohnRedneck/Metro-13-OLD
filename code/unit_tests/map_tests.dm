@@ -9,7 +9,7 @@
 #define FAILURE 0
 #define SUCCESS 1
 
-
+/*
 /datum/unit_test/apc_area_test
 	name = "MAP: Area Test APC / Scrubbers / Vents"
 
@@ -65,7 +65,7 @@
 		var/exempt_type = GLOB.using_map.apc_test_exempt_areas[i]
 		if(istype(area, exempt_type))
 			return GLOB.using_map.apc_test_exempt_areas[exempt_type]
-
+*/
 //=======================================================================================
 
 /datum/unit_test/wire_test

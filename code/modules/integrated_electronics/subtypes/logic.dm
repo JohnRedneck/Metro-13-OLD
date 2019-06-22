@@ -1,4 +1,4 @@
-/obj/item/integrated_circuit/logic
+	/obj/item/integrated_circuit/logic
 	desc = "This tiny chip will decide for you!"
 	extended_desc = "Logic circuits will treat a null, 0, and a \"\" string value as FALSE and anything else as TRUE."
 	complexity = 1

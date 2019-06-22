@@ -32,7 +32,7 @@
 
 /obj/structure/closet/secure_closet/engineering_chief_torch
 	name = "chief engineer's locker"
-	req_access = list(access_ce)
+	req_access = list(null)
 	closet_appearance = /decl/closet_appearance/secure_closet/torch/engineering/ce
 
 /obj/structure/closet/secure_closet/engineering_chief_torch/WillContain()

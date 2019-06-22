@@ -116,8 +116,10 @@
 	if(!ability)
 		return
 	ability_objects.Remove(ability)
+	/*
 	if(istype(ability,/obj/screen/ability/spell))
 		spell_objects.Remove(ability)
+	*/
 	qdel(ability)
 
 
@@ -148,14 +150,14 @@
 		if(O.object == instance)
 			return O
 	return null
-
+/*
 /obj/screen/movable/ability_master/proc/get_ability_by_spell(var/spell/s)
 	for(var/screen in spell_objects)
 		var/obj/screen/ability/spell/S = screen
 		if(S.spell == s)
 			return S
 	return null
-
+*/
 /mob/Login()
 	..()
 	if(ability_master)
@@ -293,6 +295,7 @@
 		object.Click()
 
 // Technomancer
+/*
 /obj/screen/ability/obj_based/technomancer
 	icon_state = "wiz_spell_base"
 	background_base_state = "wiz"
@@ -350,12 +353,14 @@
 	ability_objects.Add(A)
 	if(my_mob.client)
 		toggle_open(2) //forces the icons to refresh on screen
-
+*/
 /mob/Life()
 	..()
+	/*
 	if(ability_master)
 		ability_master.update_spells(0)
-
+	*/
+/*
 /obj/screen/movable/ability_master/proc/update_spells(var/forced = 0)
 	for(var/obj/screen/ability/spell/spell in spell_objects)
 		spell.update_charge(forced)
@@ -405,8 +410,10 @@
 /obj/screen/ability/spell/activate()
 	spell.perform(usr)
 
+
 /obj/screen/movable/ability_master/proc/silence_spells(var/amount)
 	for(var/obj/screen/ability/spell/spell in spell_objects)
 		spell.spell.silenced = amount
 		spell.spell.process()
 		spell.update_charge(1)
+*/

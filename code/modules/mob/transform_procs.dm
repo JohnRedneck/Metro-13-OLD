@@ -267,8 +267,10 @@
 		return 1
 	if(ispath(MP, /mob/living/simple_animal/mushroom))
 		return 1
+	/*
 	if(ispath(MP, /mob/living/simple_animal/shade))
 		return 1
+	*/
 	if(ispath(MP, /mob/living/simple_animal/tomato))
 		return 1
 	if(ispath(MP, /mob/living/simple_animal/mouse))

@@ -120,11 +120,11 @@
 	else
 		previous_security_level.switching_down_from()
 		new_security_level.switching_down_to()
-
+	/*
 	for(var/thing in SSpsi.psi_dampeners)
 		var/obj/item/weapon/implant/psi_control/implant = thing
 		implant.update_functionality()
-
+	*/
 	log_and_message_admins("has changed the security level from [previous_security_level.name] to [new_security_level.name].")
 	return TRUE
 
@@ -151,7 +151,7 @@
 
 	var/up_description
 	var/down_description
-	var/psionic_control_level = PSI_IMPLANT_WARN
+	//var/psionic_control_level = PSI_IMPLANT_WARN
 
 // Called when we're switching from a lower security level to this one.
 /decl/security_level/proc/switching_up_to()

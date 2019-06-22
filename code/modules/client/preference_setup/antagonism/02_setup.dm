@@ -15,7 +15,7 @@
 */
 
 /datum/category_item/player_setup_item/antagonism/basic/load_character(var/savefile/S)
-	var/list/uplink_order
+	//var/list/uplink_order
 	// from_file(S["uplink_sources"], uplink_order)
 	from_file(S["exploit_record"], pref.exploit_record)
 
@@ -40,11 +40,13 @@
 	to_file(S["exploit_record"], pref.exploit_record)
 
 /datum/category_item/player_setup_item/antagonism/basic/sanitize_character()
+	return
+	/*
 	if(!istype(pref.uplink_sources))
 		pref.uplink_sources = list()
 		for(var/entry in GLOB.default_uplink_source_priority)
 			pref.uplink_sources += decls_repository.get_decl(entry)
-
+	*/
 /datum/category_item/player_setup_item/antagonism/basic/content(var/mob/user)
 	. +="<b>Antag Setup:</b><br>"
 	/*
@@ -65,14 +67,14 @@
 		. +="<a href='?src=\ref[src];exploitable_record=1'>[TextPreview(pref.exploit_record,40)]</a><br>"
 
 /datum/category_item/player_setup_item/antagonism/basic/OnTopic(var/href,var/list/href_list, var/mob/user)
+	return
 	/*
 	if(href_list["add_source"])
 		var/source_selection = input(user, "Select Uplink Source to Add", CHARACTER_PREFERENCE_INPUT_TITLE) as null|anything in (list_values(uplink_sources_by_name) - pref.uplink_sources)
 
 			pref.uplink_sources |= source_selection
 			return TOPIC_REFRESH
-	*/
-
+	
 	if(href_list["remove_source"])
 		var/decl/uplink_source/US = locate(href_list["remove_source"]) in pref.uplink_sources
 		if(US && pref.uplink_sources.Remove(US))
@@ -97,6 +99,7 @@
 			return TOPIC_NOACTION
 		pref.uplink_sources.Swap(index, index + 1)
 		return TOPIC_REFRESH
+	*/
 
 /*
 	if(href_list["exploitable_record"])

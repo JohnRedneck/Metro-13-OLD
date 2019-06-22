@@ -1,8 +1,8 @@
 /datum/role/redline/leader
 	title = "General Secretary of the Red Line"
-	team = "The Red Line"
+	faction = "The Red Line"
 	role_flag = LEAD
-	team_flag = REDLINE
+	faction_flag = REDLINE
 	lead_position = 1
 	total_positions = 1
 	spawn_positions = 1
@@ -11,9 +11,9 @@
 
 /datum/role/reich/leader
 	title = "Leader of the Fourth Reich"
-	team = "The Fourth Reich"
+	faction = "The Fourth Reich"
 	role_flag = LEAD
-	team_flag = REICH
+	faction_flag = REICH
 	lead_position = 1
 	total_positions = 1
 	spawn_positions = 1
@@ -22,9 +22,9 @@
 
 /datum/role/vdnkh/leader
 	title = "Leader of the VDNKh"
-	team = "The VDNKh"
+	faction = "The VDNKh"
 	role_flag = LEAD
-	team_flag = VDNK
+	faction_flag = VDNK
 	lead_position = 1
 	total_positions = 1
 	spawn_positions = 1

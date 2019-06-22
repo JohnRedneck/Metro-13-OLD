@@ -22,9 +22,10 @@ var/repository/uplink_purchases/uplink_purchase_repository = new()
 		pur_log.Cut()
 		var/uplink_purchase_entry/upe = purchases_by_mind[ply]
 		to_world("<b>[ply.name]</b> (<b>[ply.key]</b>) (used [upe.total_cost] TC\s):")
-
+		/*
 		for(var/datum/uplink_item/UI in upe.purchased_items)
 			pur_log += "[upe.purchased_items[UI]]x[UI.log_icon()][UI.name]"
+		*/
 		to_world(english_list(pur_log, nothing_text = ""))
 
 

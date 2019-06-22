@@ -99,7 +99,7 @@
 	cost = 15
 	containertype = /obj/structure/closet/crate/secure
 	containername = "medical surplus equipment crate"
-	access = access_medical
+	access = null
 
 /decl/hierarchy/supply_pack/medical/cmogear
 	name = "Gear - Chief medical officer equipment"
@@ -147,7 +147,7 @@
 	contains = list(/obj/item/weapon/storage/box/beakers,
 					/obj/item/device/radio/headset/headset_med,
 					/obj/item/weapon/storage/box/autoinjectors,
-					/obj/item/clothing/under/rank/chemist,
+					///obj/item/clothing/under/rank/chemist,
 					/obj/item/clothing/glasses/science,
 					/obj/item/clothing/suit/storage/toggle/labcoat/chemist,
 					/obj/item/clothing/mask/surgical,
@@ -234,14 +234,14 @@
 	cost = 20
 	containertype = /obj/structure/closet/crate/secure
 	containername = "autopsy equipment crate"
-	access = access_morgue
+	access = null
 
 /decl/hierarchy/supply_pack/medical/medicaluniforms
 	name = "Gear - Medical uniforms"
 	contains = list(/obj/item/clothing/shoes/white = 3,
 					/obj/item/clothing/under/rank/chief_medical_officer,
-					/obj/item/clothing/under/rank/geneticist,
-					/obj/item/clothing/under/rank/virologist,
+					///obj/item/clothing/under/rank/geneticist,
+					///obj/item/clothing/under/rank/virologist,
 					/obj/item/clothing/under/rank/nursesuit,
 					/obj/item/clothing/under/rank/nurse,
 					/obj/item/clothing/under/rank/orderly,
@@ -299,7 +299,7 @@
 	cost = 25
 	containertype = /obj/structure/closet/crate/secure
 	containername = "surgery crate"
-	access = access_medical
+	access = null
 
 /decl/hierarchy/supply_pack/medical/sterile
 	name = "Gear - Sterile clothes"
@@ -311,7 +311,7 @@
 	cost = 15
 	containertype = /obj/structure/closet/crate
 	containername = "sterile clothes crate"
-
+/*
 /decl/hierarchy/supply_pack/medical/scanner_module
 	name = "Electronics - Medical scanner modules"
 	contains = list(/obj/item/weapon/computer_hardware/scanner/medical = 4)
@@ -319,7 +319,7 @@
 	containername = "medical scanner module crate"
 	containertype = /obj/structure/closet/crate/secure
 	access = null
-
+*/
 /decl/hierarchy/supply_pack/medical/defib
 	name = "Electronics - Defibrilator crate"
 	contains = list(/obj/item/weapon/defibrillator)

@@ -186,6 +186,7 @@
 			return C
 	return null
 
-
+/*
 /area/proc/get_apc()
 	return apc
+*/

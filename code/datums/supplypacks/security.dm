@@ -17,7 +17,7 @@
 	cost = 30
 	containertype = /obj/structure/closet/crate/secure
 	containername = "light armor crate"
-	access = access_security
+	access = null
 
 /decl/hierarchy/supply_pack/security/armor
 	name = "Armor - Unmarked"
@@ -26,7 +26,7 @@
 	cost = 20
 	containertype = /obj/structure/closet/crate/secure
 	containername = "armor crate"
-	access = access_security
+	access = null
 
 /decl/hierarchy/supply_pack/security/tacticalarmor
 	name = "Armor - Tactical"
@@ -127,7 +127,7 @@
 	cost = 50
 	containertype = /obj/structure/closet/crate/secure/weapon
 	containername = "weapons crate"
-	access = access_security
+	access = null
 
 /decl/hierarchy/supply_pack/security/egun
 	name = "Weapons - Energy sidearms"
@@ -136,14 +136,14 @@
 	containertype = /obj/structure/closet/crate/secure/weapon
 	containername = "energy sidearms crate"
 	access = null
-	security_level = SUPPLY_SECURITY_ELEVATED
+	//security_level = SUPPLY_SECURITY_ELEVATED
 
 /decl/hierarchy/supply_pack/security/egun/shady
 	name = "Weapons - Energy sidearms (For disposal)"
 	contains = list(/obj/item/weapon/gun/energy/gun = 4)
 	cost = 60
 	contraband = 1
-	security_level = null
+	//security_level = null
 
 /decl/hierarchy/supply_pack/security/ion
 	name = "Weapons - Electromagnetic"
@@ -153,7 +153,7 @@
 	containertype = /obj/structure/closet/crate/secure/weapon
 	containername = "electromagnetic weapons crate"
 	access = null
-	security_level = SUPPLY_SECURITY_ELEVATED
+	//security_level = SUPPLY_SECURITY_ELEVATED
 
 /decl/hierarchy/supply_pack/security/shotgun
 	name = "Weapons - Shotgun"
@@ -162,7 +162,7 @@
 	containertype = /obj/structure/closet/crate/secure/weapon
 	containername = "shotgun crate"
 	access = null
-	security_level = SUPPLY_SECURITY_ELEVATED
+	//security_level = SUPPLY_SECURITY_ELEVATED
 
 /decl/hierarchy/supply_pack/security/flashbang
 	name = "Weapons - Flashbangs"
@@ -170,7 +170,7 @@
 	cost = 30
 	containertype = /obj/structure/closet/crate/secure/weapon
 	containername = "flashbang crate"
-	access = access_security
+	access = null
 
 /decl/hierarchy/supply_pack/security/teargas
 	name = "Weapons - Tear gas grenades"
@@ -178,7 +178,7 @@
 	cost = 30
 	containertype = /obj/structure/closet/crate/secure/weapon
 	containername = "tear gas grenades crate"
-	access = access_security
+	access = null
 
 /decl/hierarchy/supply_pack/security/shotgunammo
 	name = "Ammunition - Lethal shells"
@@ -187,8 +187,8 @@
 	cost = 60
 	containertype = /obj/structure/closet/crate/secure/weapon
 	containername = "lethal shotgun shells crate"
-	access = access_security
-	security_level = SUPPLY_SECURITY_ELEVATED
+	access = null
+	//security_level = SUPPLY_SECURITY_ELEVATED
 
 /decl/hierarchy/supply_pack/security/shotgunbeanbag
 	name = "Ammunition - Beanbag shells"
@@ -196,7 +196,7 @@
 	cost = 30
 	containertype = /obj/structure/closet/crate/secure/weapon
 	containername = "beanbag shotgun shells crate"
-	access = access_security
+	access = null
 
 /decl/hierarchy/supply_pack/security/pdwammo
 	name = "Ammunition - SMG top mounted"
@@ -204,8 +204,8 @@
 	cost = 40
 	containertype = /obj/structure/closet/crate/secure/weapon
 	containername = "SMG ammunition crate"
-	access = access_security
-	security_level = SUPPLY_SECURITY_HIGH
+	access = null
+	//security_level = SUPPLY_SECURITY_HIGH
 
 /decl/hierarchy/supply_pack/security/pdwammorubber
 	name = "Ammunition - SMG top mounted rubber"
@@ -213,7 +213,7 @@
 	cost = 30
 	containertype = /obj/structure/closet/crate/secure/weapon
 	containername = "SMG rubber ammunition crate"
-	access = access_security
+	access = null
 
 /decl/hierarchy/supply_pack/security/pdwammopractice
 	name = "Ammunition - SMG top mounted practice"
@@ -221,7 +221,7 @@
 	cost = 30
 	containertype = /obj/structure/closet/crate/secure/weapon
 	containername = "SMG practice ammunition crate"
-	access = access_security
+	access = null
 
 /decl/hierarchy/supply_pack/security/bullpupammo
 	name = "Ammunition - military rifle"
@@ -229,8 +229,8 @@
 	cost = 60
 	containertype = /obj/structure/closet/crate/secure/weapon
 	containername = "military rifle ammunition crate"
-	access = access_security
-	security_level = SUPPLY_SECURITY_HIGH
+	access = null
+	//security_level = SUPPLY_SECURITY_HIGH
 
 /decl/hierarchy/supply_pack/security/bullpupammopractice
 	name = "Ammunition - military rifle practice"
@@ -238,7 +238,7 @@
 	cost = 30
 	containertype = /obj/structure/closet/crate/secure/weapon
 	containername = "military rifle practice ammunition crate"
-	access = access_security
+	access = null
 
 /decl/hierarchy/supply_pack/security/forensics //Not access-restricted so PIs can use it.
 	name = "Forensics - Auxiliary tools"
@@ -268,7 +268,7 @@
 	cost = 50
 	containertype = /obj/structure/closet/crate/secure
 	containername = "forensic equipment crate"
-	access = access_forensics_lockers
+	access = null
 
 /decl/hierarchy/supply_pack/security/securitybarriers
 	name = "Equipment - Barrier crate"
@@ -276,7 +276,7 @@
 	cost = 20
 	containertype = /obj/structure/closet/crate/secure/large
 	containername = "security barrier crate"
-	access = access_security
+	access = null
 
 /decl/hierarchy/supply_pack/security/securitybarriers
 	name = "Equipment - Wall shield Generators"
@@ -284,7 +284,7 @@
 	cost = 20
 	containertype = /obj/structure/closet/crate/secure/large
 	containername = "wall shield generators crate"
-	access = access_brig
+	access = null
 
 /decl/hierarchy/supply_pack/security/securitybiosuit
 	name = "Gear - Security biohazard gear"
@@ -296,8 +296,8 @@
 	cost = 30
 	containertype = /obj/structure/closet/crate/secure
 	containername = "security biohazard gear crate"
-	access = access_security
-
+	access = null
+/*
 /decl/hierarchy/supply_pack/security/voidsuit_security
 	name = "EVA - Security (armored) voidsuit"
 	contains = list(/obj/item/clothing/suit/space/void/security/alt,
@@ -306,4 +306,5 @@
 	cost = 120
 	containername = "security voidsuit crate"
 	containertype = /obj/structure/closet/crate/secure/large
-	access = access_brig
+	access = null
+*/

@@ -213,11 +213,12 @@
 			return
 
 		// Check for required access.
+		/*
 		var/obj/item/weapon/card/id/current_id = M.wear_id
 		if(citem.req_access && citem.req_access > 0)
 			if(!(istype(current_id) && (citem.req_access in current_id.access)))
 				continue
-
+		*/
 		// Check for required role title.
 		if(citem.req_titles && citem.req_titles.len > 0)
 			var/has_title

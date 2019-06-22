@@ -177,8 +177,8 @@
 	name = "Repair damage to prosthetic"
 	allowed_tools = list(
 		/obj/item/weapon/weldingtool = 100,
-		/obj/item/weapon/gun/energy/plasmacutter = 50,
-		/obj/item/psychic_power/psiblade/master = 100
+		///obj/item/weapon/gun/energy/plasmacutter = 50,
+		///obj/item/psychic_power/psiblade/master = 100
 	)
 
 	min_duration = 50
@@ -473,6 +473,7 @@
 //////////////////////////////////////////////////////////////////
 //	mmi installation surgery step
 //////////////////////////////////////////////////////////////////
+/*
 /decl/surgery_step/robotics/install_mmi
 	name = "Install MMI"
 	allowed_tools = list(
@@ -531,7 +532,7 @@
 /decl/surgery_step/robotics/install_mmi/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 	user.visible_message("<span class='warning'>[user]'s hand slips.</span>", \
 	"<span class='warning'>Your hand slips.</span>")
-
+*/
 /decl/surgery_step/internal/remove_organ/robotic
 	name = "Remove robotic component"
 	can_infect = 0
@@ -543,7 +544,7 @@
 	can_infect = 0
 	core_skill = SKILL_DEVICES
 	surgery_candidate_flags = SURGERY_NO_CRYSTAL | SURGERY_NO_FLESH | SURGERY_NO_STUMP | SURGERY_NEEDS_ENCASEMENT
-
+/*
 /decl/surgery_step/remove_mmi
 	name = "Remove MMI"
 	min_duration = 60
@@ -590,3 +591,4 @@
 	SPAN_WARNING("\The [user]'s hand slips, damaging \the [target]'s [affected.name] with \the [tool]!"), \
 	SPAN_WARNING("Your hand slips, damaging \the [target]'s [affected.name] with \the [tool]!"))
 	affected.take_external_damage(3, 0, used_weapon = tool)
+*/

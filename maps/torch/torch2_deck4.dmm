@@ -587,7 +587,7 @@
 	pixel_y = 32
 	},
 /obj/machinery/vending/boozeomat{
-	req_access = list(list("ACCESS_BRIDGE","ACCESS_BAR","ACCESS_KITCHEN"))
+	req_access = list(list("null","null","ACCESS_KITCHEN"))
 	},
 /turf/simulated/floor/tiled/dark/monotile,
 /area/command/captainmess)
@@ -8197,7 +8197,7 @@
 /obj/random/maintenance/solgov/clean,
 /obj/structure/closet/secure_closet{
 	name = "Security Equipment Locker";
-	req_access = list("ACCESS_SECURITY")
+	req_access = list("null")
 	},
 /obj/random_multi/single_item/boombox,
 /obj/effect/floor_decal/corner/red/mono,
@@ -14111,7 +14111,7 @@
 /obj/machinery/light,
 /obj/structure/closet/secure_closet{
 	name = "Security Equipment Locker";
-	req_access = list("ACCESS_SECURITY")
+	req_access = list("null")
 	},
 /obj/machinery/alarm{
 	dir = 4;

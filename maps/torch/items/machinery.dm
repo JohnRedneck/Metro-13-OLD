@@ -1,7 +1,7 @@
 //Shouldn't be a lot in here, only torch versions of existing machines that need a different access req or something along those lines.
 
 /obj/machinery/vending/medical/torch
-	req_access = list(access_medical)
+	req_access = list(null)
 
 /obj/machinery/drone_fabricator/torch
 	fabricator_tag = "SEV Torch Maintenance"
@@ -78,7 +78,7 @@
 	icon_deny = "sec-deny"
 	icon_vend = "sec-vend"
 	vend_delay = 14
-	req_access = list(access_security)
+	req_access = list(null)
 	products = list(/obj/item/weapon/handcuffs = 8,/obj/item/weapon/grenade/flashbang = 4,/obj/item/weapon/grenade/chem_grenade/teargas = 4,/obj/item/device/flash = 5,
 					/obj/item/weapon/reagent_containers/food/snacks/donut/normal = 12,/obj/item/weapon/storage/box/evidence = 6,/obj/item/clothing/accessory/badge/solgov/security = 6)
 	contraband = list(/obj/item/clothing/glasses/sunglasses = 2,/obj/item/weapon/storage/box/donut = 2)

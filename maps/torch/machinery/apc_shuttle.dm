@@ -8,10 +8,10 @@
 	req_access = list(null)
 
 /obj/machinery/power/apc/shuttle/charon
-	req_access = list(list(null, access_expedition_shuttle_helm))
+	req_access = list(list(null, null_helm))
 
 /obj/machinery/power/apc/high/shuttle/charon
-	req_access = list(list(null, access_expedition_shuttle_helm))
+	req_access = list(list(null, null_helm))
 
 /obj/machinery/power/apc/shuttle/aquila
 	req_access = list(list(null, access_aquila_helm))

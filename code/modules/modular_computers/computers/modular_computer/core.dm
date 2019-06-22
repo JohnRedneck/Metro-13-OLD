@@ -54,12 +54,13 @@
 /obj/item/modular_computer/proc/install_default_programs_by_role(var/mob/living/carbon/human/H)
 	var/datum/role/jb = SSroles.get_by_title(H.role)
 	if(!jb) return
+	/*	
 	for(var/prog_type in jb.software_on_spawn)
 		var/datum/computer_file/program/prog_file = prog_type
 		if(initial(prog_file.usage_flags) & hardware_flag)
 			prog_file = new prog_file
 			hard_drive.store_file(prog_file)
-
+	*/
 /obj/item/modular_computer/Initialize()
 	START_PROCESSING(SSobj, src)
 
@@ -119,8 +120,10 @@
 /obj/item/modular_computer/proc/turn_on(var/mob/user)
 	if(bsod)
 		return
+	/*
 	if(tesla_link)
 		tesla_link.enabled = 1
+	*/
 	var/issynth = issilicon(user) // Robots and AIs get different activation messages.
 	if(damage > broken_damage)
 		if(issynth)
@@ -153,11 +156,13 @@
 
 // Returns 0 for No Signal, 1 for Low Signal and 2 for Good Signal. 3 is for wired connection (always-on)
 /obj/item/modular_computer/proc/get_ntnet_status(var/specific_action = 0)
+	return 0
+	/*
 	if(network_card)
 		return network_card.get_signal(specific_action)
 	else
 		return 0
-
+	*/
 /obj/item/modular_computer/proc/add_log(var/text)
 	if(!get_ntnet_status())
 		return 0
@@ -306,11 +311,11 @@
 		autorun.filename = "autorun"
 		autorun.stored_data = "[program]"
 		hard_drive.store_file(autorun)
-
+/*
 /obj/item/modular_computer/GetIdCard()
 	if(card_slot && card_slot.can_broadcast && istype(card_slot.stored_card) && card_slot.check_functionality())
 		return card_slot.stored_card
-
+*/
 /obj/item/modular_computer/proc/update_name()
 
 /obj/item/modular_computer/get_cell()

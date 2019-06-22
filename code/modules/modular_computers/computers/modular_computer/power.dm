@@ -21,17 +21,20 @@
 	apc_powered = TRUE
 	// Tesla link was originally limited to machinery only, but this probably works too, and the benefit of being able to power all devices from an APC outweights
 	// the possible minor performance loss.
+	/*
 	if(!tesla_link || !tesla_link.check_functionality())
 		return FALSE
+	*/
 	var/area/A = get_area(src)
 	if(!istype(A) || !A.powered(EQUIP))
 		return FALSE
 
 	// At this point, we know that APC can power us for this tick. Check if we also need to charge our battery, and then actually use the power.
+	/*
 	if(battery_module && (battery_module.battery.charge < battery_module.battery.maxcharge) && (power_usage > 0))
 		power_usage += tesla_link.passive_charging_rate
 		battery_module.battery.give(tesla_link.passive_charging_rate * CELLRATE)
-
+	*/
 	A.use_power_oneoff(power_usage, EQUIP)
 	return TRUE
 

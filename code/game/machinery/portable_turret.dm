@@ -87,7 +87,7 @@
 
 /obj/machinery/porta_turret/New()
 	..()
-	req_access = list(list(access_security, access_bridge))
+	req_access = list(list(null, null))
 
 	//Sets up a spark system
 	spark_system = new /datum/effect/effect/system/spark_spread
@@ -98,7 +98,7 @@
 
 /obj/machinery/porta_turret/crescent/New()
 	..()
-	req_access = list(access_cent_specops)
+	req_access = list(nullnt_specops)
 
 /obj/machinery/porta_turret/Destroy()
 	qdel(spark_system)

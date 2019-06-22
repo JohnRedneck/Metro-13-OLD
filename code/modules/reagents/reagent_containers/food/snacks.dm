@@ -157,7 +157,7 @@
 		var/hide_item = !has_edge(W) || !can_slice_here
 
 		if (hide_item)
-			if (W.w_class >= src.w_class || is_robot_module(W) || istype(W,/obj/item/weapon/reagent_containers/food/condiment))
+			if (W.w_class >= src.w_class || istype(W,/obj/item/weapon/reagent_containers/food/condiment))
 				return
 			if(!user.unEquip(W, src))
 				return
@@ -683,7 +683,7 @@
 	nutriment_desc = list("bun" = 2, "pseudo-soy meat" = 3)
 	nutriment_amt = 6
 	bitesize = 2
-
+/*
 /obj/item/weapon/reagent_containers/food/snacks/roburger
 	name = "roburger"
 	desc = "The lettuce is the only organic component. Beep."
@@ -720,7 +720,7 @@
 /obj/item/weapon/reagent_containers/food/snacks/xenoburger/Initialize()
 	.=..()
 	reagents.add_reagent(/datum/reagent/nutriment/protein, 8)
-
+*/
 /obj/item/weapon/reagent_containers/food/snacks/clownburger
 	name = "clown burger"
 	desc = "This tastes funny..."
@@ -1724,7 +1724,7 @@
 /obj/item/weapon/reagent_containers/food/snacks/pastatomato/Initialize()
 	.=..()
 	reagents.add_reagent(/datum/reagent/drink/juice/tomato, 10)
-
+/*
 /obj/item/weapon/reagent_containers/food/snacks/nanopasta
 	name = "nanopasta"
 	desc = "Nanomachines, son!"
@@ -1737,7 +1737,7 @@
 /obj/item/weapon/reagent_containers/food/snacks/nanopasta/Initialize()
 	.=..()
 	reagents.add_reagent(/datum/reagent/nanites, 10)
-
+*/
 /obj/item/weapon/reagent_containers/food/snacks/meatballspagetti
 	name = "spaghetti & meatballs"
 	desc = "Now thats a nic'e meatball!"

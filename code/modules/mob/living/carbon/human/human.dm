@@ -95,15 +95,15 @@
 				stat("Internal Atmosphere Info", internal.name)
 				stat("Tank Pressure", internal.air_contents.return_pressure())
 				stat("Distribution Pressure", internal.distribute_pressure)
-
+		/*
 		var/obj/item/organ/internal/xeno/plasmavessel/P = internal_organs_by_name[BP_PLASMA]
 		if(P)
 			stat(null, "Phoron Stored: [P.stored_plasma]/[P.max_plasma]")
-
+		
 		var/obj/item/organ/internal/cell/potato = internal_organs_by_name[BP_CELL]
 		if(potato && potato.cell)
 			stat("Battery charge:", "[potato.get_charge()]/[potato.cell.maxcharge]")
-
+		*/
 		if(back && istype(back,/obj/item/weapon/rig))
 			var/obj/item/weapon/rig/suit = back
 			var/cell_status = "ERROR"
@@ -152,26 +152,6 @@
 	// distribute the remaining 30% on all limbs equally (including the one already dealt damage)
 	apply_damage(0.3 * b_loss, BRUTE, null, DAM_EXPLODE | DAM_DISPERSED, used_weapon = "Explosive blast")
 	apply_damage(0.3 * f_loss, BURN, null, DAM_EXPLODE | DAM_DISPERSED, used_weapon = "Explosive blast")
-
-
-/mob/living/carbon/human/proc/implant_loyalty(mob/living/carbon/human/M, override = FALSE) // Won't override by default.
-	if(!config.use_loyalty_implants && !override) return // Nuh-uh.
-
-	var/obj/item/weapon/implant/loyalty/L = new/obj/item/weapon/implant/loyalty(M)
-	L.imp_in = M
-	L.implanted = 1
-	var/obj/item/organ/external/affected = M.organs_by_name[BP_HEAD]
-	affected.implants += L
-	L.part = affected
-	L.implanted(src)
-
-/mob/living/carbon/human/proc/is_loyalty_implanted(mob/living/carbon/human/M)
-	for(var/L in M.contents)
-		if(istype(L, /obj/item/weapon/implant/loyalty))
-			for(var/obj/item/organ/external/O in M.organs)
-				if(L in O.implants)
-					return 1
-	return 0
 
 /mob/living/carbon/human/restrained()
 	if (handcuffed)
@@ -253,31 +233,36 @@
 		V.RunOver(src)
 
 // Get rank from ID, ID inside PDA, PDA, ID in wallet, etc.
+/*
 /mob/living/carbon/human/proc/get_authentification_rank(var/if_no_id = "No id", var/if_no_role = "No role")
 	var/obj/item/weapon/card/id/id = GetIdCard()
 	if(istype(id))
 		return id.rank ? id.rank : if_no_role
 	else
 		return if_no_id
-
+*/	
 //gets assignment from ID or ID inside PDA or PDA itself
 //Useful when player do something with computers
 /mob/living/carbon/human/proc/get_assignment(var/if_no_id = "No id", var/if_no_role = "No role")
+	return if_no_id
+	/*
 	var/obj/item/weapon/card/id/id = GetIdCard()
 	if(istype(id))
 		return id.assignment ? id.assignment : if_no_role
 	else
 		return if_no_id
-
+	*/
 //gets name from ID or ID inside PDA or PDA itself
 //Useful when player do something with computers
 /mob/living/carbon/human/proc/get_authentification_name(var/if_no_id = "Unknown")
+	return if_no_id
+	/*
 	var/obj/item/weapon/card/id/id = GetIdCard()
 	if(istype(id))
 		return id.registered_name
 	else
 		return if_no_id
-
+	*/
 //repurposed proc. Now it combines get_id_name() and get_face_name() to determine a mob's name variable. Made into a seperate proc as it'll be useful elsewhere
 /mob/living/carbon/human/proc/get_visible_name()
 	var/face_name = get_face_name()
@@ -303,10 +288,11 @@
 //Useful when player is being seen by other mobs
 /mob/living/carbon/human/proc/get_id_name(var/if_no_id = "Unknown")
 	. = if_no_id
+	/*
 	var/obj/item/weapon/card/id/I = GetIdCard()
 	if(istype(I))
 		return I.registered_name
-
+	*/
 //Removed the horrible safety parameter. It was only being used by ninja code anyways.
 //Now checks siemens_coefficient of the affected area by default
 /mob/living/carbon/human/electrocute_act(var/shock_damage, var/obj/source, var/base_siemens_coeff = 1.0, var/def_zone = null)
@@ -1381,7 +1367,7 @@
 
 
 /mob/living/carbon/human/can_stand_overridden()
-	if(wearing_rig && wearing_rig.ai_can_move_suit(check_for_ai = 1))
+	if(wearing_rig/* && wearing_rig.ai_can_move_suit(check_for_ai = 1)*/)
 		// Actually missing a leg will screw you up. Everything else can be compensated for.
 		for(var/limbcheck in list(BP_L_LEG,BP_R_LEG))
 			var/obj/item/organ/affecting = get_organ(limbcheck)

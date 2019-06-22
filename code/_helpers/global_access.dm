@@ -47,8 +47,10 @@
 			return global.SScharacter_setup;
 		if("SSchemistry")
 			return global.SSchemistry;
+		/*
 		if("SScircuit_components")
 			return global.SScircuit_components;
+		*/
 		if("SSculture")
 			return global.SSculture;
 		if("SSevac")
@@ -103,8 +105,6 @@
 			return global.SSstatistics;
 		if("SSsun")
 			return global.SSsun;
-		if("SSsupply")
-			return global.SSsupply;
 		if("SStemperature")
 			return global.SStemperature;
 		if("SStgui")
@@ -175,8 +175,6 @@
 			return global.adminhelp_ignored_words;
 		if("adminlog")
 			return global.adminlog;
-		if("ai_status_emotions")
-			return global.ai_status_emotions;
 		if("air_blocked")
 			return global.air_blocked;
 		if("airlock_overlays")
@@ -679,8 +677,6 @@
 			return global.swapmaps_loaded;
 		if("swapmaps_mode")
 			return global.swapmaps_mode;
-		if("syndicate_access")
-			return global.syndicate_access;
 		if("syndicate_code_phrase")
 			return global.syndicate_code_phrase;
 		if("syndicate_code_response")
@@ -775,10 +771,6 @@
 			return global.world_topic_spam_protect_ip;
 		if("world_topic_spam_protect_time")
 			return global.world_topic_spam_protect_time;
-		if("world_uplinks")
-			return global.world_uplinks;
-		if("worths")
-			return global.worths;
 		if("wrapped_species_by_ref")
 			return global.wrapped_species_by_ref;
 		if("z_levels")
@@ -834,8 +826,10 @@
 			global.SScharacter_setup=newval;
 		if("SSchemistry")
 			global.SSchemistry=newval;
+		/*
 		if("SScircuit_components")
 			global.SScircuit_components=newval;
+		*/
 		if("SSculture")
 			global.SSculture=newval;
 		if("SSevac")
@@ -890,8 +884,6 @@
 			global.SSstatistics=newval;
 		if("SSsun")
 			global.SSsun=newval;
-		if("SSsupply")
-			global.SSsupply=newval;
 		if("SStemperature")
 			global.SStemperature=newval;
 		if("SStgui")
@@ -962,8 +954,6 @@
 			global.adminhelp_ignored_words=newval;
 		if("adminlog")
 			global.adminlog=newval;
-		if("ai_status_emotions")
-			global.ai_status_emotions=newval;
 		if("air_blocked")
 			global.air_blocked=newval;
 		if("airlock_overlays")
@@ -1466,8 +1456,6 @@
 			global.swapmaps_loaded=newval;
 		if("swapmaps_mode")
 			global.swapmaps_mode=newval;
-		if("syndicate_access")
-			global.syndicate_access=newval;
 		if("syndicate_code_phrase")
 			global.syndicate_code_phrase=newval;
 		if("syndicate_code_response")
@@ -1562,10 +1550,6 @@
 			global.world_topic_spam_protect_ip=newval;
 		if("world_topic_spam_protect_time")
 			global.world_topic_spam_protect_time=newval;
-		if("world_uplinks")
-			global.world_uplinks=newval;
-		if("worths")
-			global.worths=newval;
 		if("wrapped_species_by_ref")
 			global.wrapped_species_by_ref=newval;
 		if("z_levels")

@@ -102,10 +102,11 @@
 /obj/item/weapon/disk/survey/examine(mob/user)
 	..()
 	to_chat(user,"A tiny indicator on the [src] shows it holds [data] good explorer points.")
-
+/*
 /obj/item/weapon/disk/survey/Value()
 	if(data < 10000)
 		return 0.07*data
 	if(data < 30000)
 		return 0.1*data
 	return 0.15*data
+*/

@@ -84,9 +84,11 @@
 		hard_drive = null
 		found = 1
 		critical = 1
+	/*
 	if(network_card == H)
 		network_card = null
 		found = 1
+	*/
 	if(nano_printer == H)
 		nano_printer = null
 		found = 1
@@ -100,12 +102,14 @@
 		processor_unit = null
 		found = 1
 		critical = 1
+	/*
 	if(ai_slot == H)
 		ai_slot = null
 		found = 1
 	if(tesla_link == H)
 		tesla_link = null
 		found = 1
+	*/
 	if(scanner == H)
 		scanner.do_before_uninstall()
 		scanner = null
@@ -131,8 +135,10 @@
 		return portable_drive
 	if(hard_drive && (hard_drive.name == name))
 		return hard_drive
+	/*
 	if(network_card && (network_card.name == name))
 		return network_card
+	*/
 	if(nano_printer && (nano_printer.name == name))
 		return nano_printer
 	if(card_slot && (card_slot.name == name))
@@ -141,10 +147,12 @@
 		return battery_module
 	if(processor_unit && (processor_unit.name == name))
 		return processor_unit
+	/*
 	if(ai_slot && (ai_slot.name == name))
 		return ai_slot
 	if(tesla_link && (tesla_link.name == name))
 		return tesla_link
+	*/
 	if(scanner && (scanner.name == name))
 		return scanner
 	return null
@@ -154,8 +162,10 @@
 	var/list/all_components = list()
 	if(hard_drive)
 		all_components.Add(hard_drive)
+	/*
 	if(network_card)
 		all_components.Add(network_card)
+	*/
 	if(portable_drive)
 		all_components.Add(portable_drive)
 	if(nano_printer)
@@ -166,10 +176,12 @@
 		all_components.Add(battery_module)
 	if(processor_unit)
 		all_components.Add(processor_unit)
+	/*
 	if(ai_slot)
 		all_components.Add(ai_slot)
 	if(tesla_link)
 		all_components.Add(tesla_link)
+	*/
 	if(scanner)
 		all_components.Add(scanner)
 	return all_components

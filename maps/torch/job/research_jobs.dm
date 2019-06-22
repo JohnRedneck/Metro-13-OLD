@@ -20,9 +20,9 @@
 		/datum/mil_rank/ec/o1
 	)
 
-	access = list(null, null_storage, access_maint_tunnels, access_research, access_mining, access_mining_office,
-						access_mining_station, access_xenobiology, access_xenoarch, access_nanotrasen, access_solgov_crew,
-						access_expedition_shuttle, access_guppy, access_hangar, access_petrov, access_petrov_helm, access_guppy_helm,
+	access = list(null, null, null, null, null, null_office,
+						null_station, null, null, access_nanotrasen, null,
+						null, null, null, access_petrov, access_petrov_helm, null,
 						access_petrov_analysis, access_petrov_phoron, access_petrov_toxins, access_petrov_chemistry, access_petrov_security,
 						access_petrov_maint)
 	min_skill = list(   SKILL_BUREAUCRACY = SKILL_BASIC,
@@ -74,9 +74,9 @@
 		/datum/mil_rank/sol/scientist = /decl/hierarchy/outfit/role/torch/passenger/research/scientist/solgov
 	)
 
-	access = list(null, null_storage, access_research, access_petrov, access_petrov_helm,
-						access_mining_office, access_mining_station, access_xenobiology, access_guppy_helm,
-						access_xenoarch, access_nanotrasen, access_expedition_shuttle, access_guppy, access_hangar,
+	access = list(null, null, null, access_petrov, access_petrov_helm,
+						null_office, null_station, null, null,
+						null, access_nanotrasen, null, null, null,
 						access_petrov_analysis, access_petrov_phoron, access_petrov_toxins, access_petrov_chemistry)
 	minimal_access = list()
 	skill_points = 20
@@ -115,4 +115,4 @@
 	                    SKILL_DEVICES     = SKILL_MAX,
 	                    SKILL_SCIENCE     = SKILL_MAX)
 
-	access = list(access_research, access_mining_office, access_nanotrasen, access_petrov, access_expedition_shuttle, access_guppy, access_hangar)
+	access = list(null, null_office, access_nanotrasen, access_petrov, null, null, null)

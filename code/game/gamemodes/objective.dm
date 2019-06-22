@@ -141,14 +141,17 @@ datum/objective/anti_revolution/brig
 
 /datum/objective/anti_revolution/demote/check_completion()
 	if(target && target.current && istype(target,/mob/living/carbon/human))
+		return 0
+		/*
 		var/obj/item/weapon/card/id/I = target.current.GetIdCard()
 
 		if(!istype(I)) return 1
 
-		if(I.assignment == GLOB.using_map.default_assistant_title)
+		if(I.assignment == GLOB.using_map.default_vagrant_title)
 			return 1
 		else
 			return 0
+		*/
 	return 1
 
 datum/objective/debrain//I want braaaainssss
@@ -228,8 +231,10 @@ datum/objective/hijack/check_completion()
 		return 0
 
 	for(var/mob/living/player in GLOB.player_list)
+		/*
 		if(is_type_in_list(player.type, list(/mob/living/silicon/ai, /mob/living/silicon/pai)))
 			continue
+		*/
 		if (!player.mind || player.mind == owner)
 			continue
 		if(get_area(player) == shuttle_area)
@@ -249,9 +254,9 @@ datum/objective/block
 		if(!owner.current)
 			return 0
 		var/area/shuttle = locate(/area/shuttle/escape/centcom)
-		var/protected_mobs[] = list(/mob/living/silicon/ai, /mob/living/silicon/pai, /mob/living/silicon/robot)
+		//var/protected_mobs[] = list(/mob/living/silicon/ai, /mob/living/silicon/pai, /mob/living/silicon/robot)
 		for(var/mob/living/player in GLOB.player_list)
-			if(player.type in protected_mobs)	continue
+			//if(player.type in protected_mobs)	continue
 			if (player.mind)
 				if (player.stat != 2)
 					if (get_turf(player) in shuttle)
@@ -521,7 +526,7 @@ datum/objective/download
 		if(!owner.current || owner.current.stat == 2)
 			return 0
 
-		var/current_amount
+		//var/current_amount
 		var/obj/item/weapon/rig/S
 		if(istype(owner.current,/mob/living/carbon/human))
 			var/mob/living/carbon/human/H = owner.current
@@ -549,21 +554,21 @@ datum/objective/capture
 
 	check_completion()//Basically runs through all the mobs in the area to determine how much they are worth.
 		var/captured_amount = 0
+		/*
 		var/area/centcom/holding/A = locate()
-
-		for(var/mob/living/carbon/human/M in A) // Humans (and subtypes).
+		for(var/mob/living/carbon/Humans/M in A) // Humans (and subtypes).
 			var/worth = M.species.rarity_value
 			if(M.stat==DEAD)//Dead folks are worth less.
 				worth*=0.5
 				continue
 			captured_amount += worth
-
+	
 		for(var/mob/living/carbon/alien/larva/M in A)//Larva are important for research.
 			if(M.stat==DEAD)
 				captured_amount+=0.5
 				continue
 			captured_amount+=1
-
+		*/
 
 		if(captured_amount<target_amount)
 			return 0
@@ -761,10 +766,12 @@ datum/objective/heist/salvage
 	explanation_text = "Do not leave anyone behind, alive or dead."
 
 	check_completion()
+	/*
 		if(GLOB.raiders && GLOB.raiders.is_raider_crew_safe()) return 1
 		return 0
-
+	*/
 //Borer objective(s).
+/*
 /datum/objective/borer_survive
 	explanation_text = "Survive in a host until the end of the round."
 
@@ -782,7 +789,7 @@ datum/objective/heist/salvage
 		var/mob/living/simple_animal/borer/B = owner.current
 		if(istype(B) && B.has_reproduced) return 1
 	return 0
-
+*/
 /datum/objective/ninja_highlander
    explanation_text = "You aspire to be a Grand Master of the Spider Clan. Kill all of your fellow acolytes."
 
@@ -803,6 +810,8 @@ datum/objective/heist/salvage
 	explanation_text = "Our knowledge must live on. Make sure at least [target_amount] acolytes escape on the shuttle to spread their work on an another station."
 
 /datum/objective/cult/survive/check_completion()
+	return 0
+	/*
 	var/acolytes_survived = 0
 	if(!GLOB.cult)
 		return 0
@@ -815,6 +824,7 @@ datum/objective/heist/salvage
 		return 0
 	else
 		return 1
+	*/
 
 /*
 /datum/objective/cult/eldergod
@@ -866,8 +876,10 @@ datum/objective/heist/salvage
 		if(H.stat == DEAD || H.restrained())
 			return 1
 		// Check if they're converted
+		/*
 		if(target in GLOB.revs.current_antagonists)
 			return 1
+		*/
 		var/turf/T = get_turf(H)
 		if(T && isNotStationLevel(T.z))			//If they leave the station they count as dead for this
 			rval = 2

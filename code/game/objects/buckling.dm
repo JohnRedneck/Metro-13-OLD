@@ -62,14 +62,15 @@
 			animate(M, pixel_x = M.default_pixel_x, pixel_y = M.default_pixel_y, 4, 1, LINEAR_EASING)
 
 /obj/proc/user_buckle_mob(mob/living/M, mob/user)
-	if(!user.Adjacent(M) || istype(user, /mob/living/silicon/pai) || (M != user && user.incapacitated()))
+	if(!user.Adjacent(M) || (M != user && user.incapacitated()))
 		return 0
 	if(M == buckled_mob)
 		return 0
+	/*
 	if(istype(M, /mob/living/carbon/slime))
 		to_chat(user, "<span class='warning'>\The [M] is too squishy to buckle in.</span>")
 		return 0
-
+	*/
 	add_fingerprint(user)
 	unbuckle_mob()
 

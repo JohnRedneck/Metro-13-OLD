@@ -241,7 +241,7 @@
 						M_role = "Alien"
 					else
 						M_role = "Carbon-based"
-
+				/*
 				else if(issilicon(M)) //silicon
 					if(isAI(M))
 						M_role = "AI"
@@ -251,7 +251,7 @@
 						M_role = "Robot"
 					else
 						M_role = "Silicon-based"
-
+				*/
 				else if(isanimal(M)) //simple animals
 					if(iscorgi(M))
 						M_role = "Corgi"
@@ -336,14 +336,18 @@
 		if(!M.ckey) continue
 
 		dat += "<tr><td>[M.name]</td>"
+		/*
 		if(isAI(M))
 			dat += "<td>AI</td>"
 		else if(isrobot(M))
 			dat += "<td>Cyborg</td>"
-		else if(ishuman(M))
+		*/
+		if(ishuman(M))
 			dat += "<td>[M.real_name]</td>"
+		/*
 		else if(istype(M, /mob/living/silicon/pai))
 			dat += "<td>pAI</td>"
+		*/
 		else if(istype(M, /mob/new_player))
 			dat += "<td>New Player</td>"
 		else if(isghost(M))

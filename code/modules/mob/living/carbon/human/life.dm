@@ -210,7 +210,7 @@
 		if(species.appearance_flags & RADIATION_GLOWS)
 			set_light(0.3, 0.1, max(1,min(20,radiation/20)), 2, species.get_flesh_colour(src))
 		// END DOGSHIT SNOWFLAKE
-
+		/*
 		var/obj/item/organ/internal/diona/nutrients/rad_organ = locate() in internal_organs
 		if (rad_organ && !rad_organ.is_broken())
 			var/rads = radiation/25
@@ -224,7 +224,7 @@
 			nutrition = Clamp(nutrition, 0, 550)
 
 			return
-
+		*/
 		var/damage = 0
 		radiation -= 1 * RADIATION_SPEED_COEFFICIENT
 		if(prob(25))
@@ -750,7 +750,7 @@
 				if(250 to 350)					nutrition_icon.icon_state = "nutrition2"
 				if(150 to 250)					nutrition_icon.icon_state = "nutrition3"
 				else							nutrition_icon.icon_state = "nutrition4"
-
+		/*
 		if(isSynthetic())
 			var/obj/item/organ/internal/cell/C = internal_organs_by_name[BP_CELL]
 			if (istype(C))
@@ -758,7 +758,7 @@
 				cells.icon_state = "charge[chargeNum]"
 			else
 				cells.icon_state = "charge-empty"
-
+		*/
 		if(pressure)
 			pressure.icon_state = "pressure[pressure_alert]"
 		if(toxin)
@@ -950,20 +950,24 @@
 			holder.icon_state = "huddead"
 		else if(foundVirus)
 			holder.icon_state = "hudill"
+		/*
 		else if(has_brain_worms())
 			var/mob/living/simple_animal/borer/B = has_brain_worms()
 			if(B.controlling)
 				holder.icon_state = "hudbrainworm"
 			else
 				holder.icon_state = "hudhealthy"
+		*/
 		else
 			holder.icon_state = "hudhealthy"
 
 		var/image/holder2 = hud_list[STATUS_HUD_OOC]
 		if(stat == DEAD)
 			holder2.icon_state = "huddead"
+		/*
 		else if(has_brain_worms())
 			holder2.icon_state = "hudbrainworm"
+		*/
 		else if(virus2.len)
 			holder2.icon_state = "hudill"
 		else
@@ -971,28 +975,29 @@
 
 		hud_list[STATUS_HUD] = holder
 		hud_list[STATUS_HUD_OOC] = holder2
-
 	if (BITTEST(hud_updateflag, ID_HUD) && hud_list[ID_HUD])
 		var/image/holder = hud_list[ID_HUD]
 		holder.icon_state = "hudunknown"
+		/*
 		if(wear_id)
 			var/obj/item/weapon/card/id/I = wear_id.GetIdCard()
 			if(I)
 				var/datum/role/role = SSroles.get_by_title(role.GetRoleName())
 				if(role)
 					holder.icon_state = role.hud_icon
-
+		*/
 		hud_list[ID_HUD] = holder
 
 	if (BITTEST(hud_updateflag, WANTED_HUD) && hud_list[WANTED_HUD])
 		var/image/holder = hud_list[WANTED_HUD]
 		holder.icon_state = "hudblank"
+		/*
 		var/perpname = name
 		if(wear_id)
 			var/obj/item/weapon/card/id/I = wear_id.GetIdCard()
 			if(I)
 				perpname = I.registered_name
-
+		*/
 		/*
 		var/datum/computer_file/report/crew_record/E = get_crewmember_record(perpname)
 		if(E)

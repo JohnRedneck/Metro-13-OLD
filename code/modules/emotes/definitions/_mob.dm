@@ -72,6 +72,7 @@
 
 /mob/living/carbon/brain
 	default_emotes = list(
+		/*
 		/decl/emote/audible/alarm,
 		/decl/emote/audible/alert,
 		/decl/emote/audible/notice,
@@ -80,16 +81,19 @@
 		/decl/emote/audible/boop,
 		/decl/emote/visible/blink,
 		/decl/emote/visible/flash
+		*/
 		)
 
 /mob/living/carbon/human
 	default_emotes = list(
 		/decl/emote/visible/blink,
+		/*
 		/decl/emote/audible/synth,
 		/decl/emote/audible/synth/ping,
 		/decl/emote/audible/synth/buzz,
 		/decl/emote/audible/synth/confirm,
 		/decl/emote/audible/synth/deny,
+		*/
 		/decl/emote/visible/nod,
 		/decl/emote/visible/shake,
 		/decl/emote/visible/shiver,
@@ -165,7 +169,7 @@
 		/decl/emote/visible/tfist,
 		/decl/emote/visible/tilt
 	)
-
+/*
 /mob/living/silicon/robot
 	default_emotes = list(
 		/decl/emote/audible/clap,
@@ -189,7 +193,7 @@
 		/decl/emote/audible/synth/security,
 		/decl/emote/audible/synth/security/halt
 		)
-
+*/
 /mob/living/carbon/slime
 	default_emotes = list(
 		/decl/emote/audible/moan,
@@ -199,11 +203,13 @@
 		/decl/emote/visible/bounce,
 		/decl/emote/visible/jiggle,
 		/decl/emote/visible/lightup,
-		/decl/emote/visible/vibrate,
+		/decl/emote/visible/vibrate
+		/*,
 		/decl/emote/slime,
 		/decl/emote/slime/pout,
 		/decl/emote/slime/sad,
 		/decl/emote/slime/angry,
 		/decl/emote/slime/frown,
 		/decl/emote/slime/smile
+		*/
 		)

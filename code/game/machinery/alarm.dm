@@ -96,7 +96,7 @@
 
 /obj/machinery/alarm/server/New()
 	..()
-	req_access = list(/*access_rd, null, null*/)
+	req_access = list(/*null, null, null*/)
 	TLV["temperature"] =	list(T0C-26, T0C, T0C+30, T0C+40) // K
 	target_temperature = T0C+10
 
@@ -877,7 +877,7 @@ FIRE ALARM
 	var/working = 1.0
 	var/time = 10.0
 	var/timing = 0.0
-	var/lockdownbyai = 0
+	//var/lockdownbyai = 0
 	anchored = 1.0
 	idle_power_usage = 2
 	active_power_usage = 6
@@ -889,8 +889,8 @@ FIRE ALARM
 
 /obj/machinery/firealarm/examine(mob/user)
 	. = ..(user)
-	var/decl/security_state/security_state = decls_repository.get_decl(GLOB.using_map.security_state)
-	to_chat(user, "The current alert level is [security_state.current_security_level.name].")
+	//var/decl/security_state/security_state = decls_repository.get_decl(GLOB.using_map.security_state)
+	//to_chat(user, "The current alert level is [security_state.current_security_level.name].")
 
 /obj/machinery/firealarm/Initialize()
 	. = ..()
@@ -936,21 +936,22 @@ FIRE ALARM
 			set_light(0.25, 0.1, 1, 2, COLOR_RED)
 		else if(z in GLOB.using_map.contact_levels)
 			icon_state = "fire0"
+			/*
 			var/decl/security_state/security_state = decls_repository.get_decl(GLOB.using_map.security_state)
 			var/decl/security_level/sl = security_state.current_security_level
 
 			set_light(sl.light_max_bright, sl.light_inner_range, sl.light_outer_range, 2, sl.light_color_alarm)
 			src.overlays += image(sl.icon, sl.overlay_alarm)
-
+			*/
 /obj/machinery/firealarm/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	if(src.detecting)
 		if(exposed_temperature > T0C+200)
 			src.alarm()			// added check of detector status here
 	return
-
+/*
 /obj/machinery/firealarm/attack_ai(mob/user as mob)
 	return src.attack_hand(user)
-
+*/
 /obj/machinery/firealarm/bullet_act()
 	return src.alarm()
 
@@ -1042,13 +1043,13 @@ FIRE ALARM
 
 	user.set_machine(src)
 	var/area/A = src.loc
-	var/d1
-	var/d2
+	//var/d1
+	//var/d2
 
-	var/decl/security_state/security_state = decls_repository.get_decl(GLOB.using_map.security_state)
+	//var/decl/security_state/security_state = decls_repository.get_decl(GLOB.using_map.security_state)
 	if (istype(user, /mob/living/carbon/human) || istype(user, /mob/living/silicon))
 		A = A.loc
-
+		/*
 		if (A.fire)
 			d1 = text("<A href='?src=\ref[];reset=1'>Reset - Lockdown</A>", src)
 		else
@@ -1057,13 +1058,15 @@ FIRE ALARM
 			d2 = text("<A href='?src=\ref[];time=0'>Stop Time Lock</A>", src)
 		else
 			d2 = text("<A href='?src=\ref[];time=1'>Initiate Time Lock</A>", src)
-		var/second = round(src.time) % 60
-		var/minute = (round(src.time) - second) / 60
-		var/dat = "<HTML><HEAD></HEAD><BODY><TT><B>Fire alarm</B> [d1]\n<HR>The current alert level is <b>[security_state.current_security_level.name]</b><br><br>\nTimer System: [d2]<BR>\nTime Left: [(minute ? "[minute]:" : null)][second] <A href='?src=\ref[src];tp=-30'>-</A> <A href='?src=\ref[src];tp=-1'>-</A> <A href='?src=\ref[src];tp=1'>+</A> <A href='?src=\ref[src];tp=30'>+</A>\n</TT></BODY></HTML>"
+		*/
+		//var/second = round(src.time) % 60
+		//var/minute = (round(src.time) - second) / 60
+		var/dat = "<HTML><HEAD></HEAD></HTML>"//"<HTML><HEAD></HEAD><BODY><TT><B>Fire alarm</B> [d1]\n<HR>The current alert level is <b>[security_state.current_security_level.name]</b><br><br>\nTimer System: [d2]<BR>\nTime Left: [(minute ? "[minute]:" : null)][second] <A href='?src=\ref[src];tp=-30'>-</A> <A href='?src=\ref[src];tp=-1'>-</A> <A href='?src=\ref[src];tp=1'>+</A> <A href='?src=\ref[src];tp=30'>+</A>\n</TT></BODY></HTML>"
 		user << browse(dat, "window=firealarm")
 		onclose(user, "firealarm")
 	else
 		A = A.loc
+		/*
 		if (A.fire)
 			d1 = text("<A href='?src=\ref[];reset=1'>[]</A>", src, stars("Reset - Lockdown"))
 		else
@@ -1072,9 +1075,10 @@ FIRE ALARM
 			d2 = text("<A href='?src=\ref[];time=0'>[]</A>", src, stars("Stop Time Lock"))
 		else
 			d2 = text("<A href='?src=\ref[];time=1'>[]</A>", src, stars("Initiate Time Lock"))
-		var/second = round(src.time) % 60
-		var/minute = (round(src.time) - second) / 60
-		var/dat = "<HTML><HEAD></HEAD><BODY><TT><B>[stars("Fire alarm")]</B> [d1]\n<HR>The current security level is <b>[security_state.current_security_level.name]</b><br><br>\nTimer System: [d2]<BR>\nTime Left: [(minute ? text("[]:", minute) : null)][second] <A href='?src=\ref[src];tp=-30'>-</A> <A href='?src=\ref[src];tp=-1'>-</A> <A href='?src=\ref[src];tp=1'>+</A> <A href='?src=\ref[src];tp=30'>+</A>\n</TT></BODY></HTML>"
+		*/
+		//var/second = round(src.time) % 60
+		//var/minute = (round(src.time) - second) / 60
+		var/dat = "<HTML><HEAD></HEAD></HTML>"//"<HTML><HEAD></HEAD><BODY><TT><B>[stars("Fire alarm")]</B> [d1]\n<HR>The current security level is <b>[security_state.current_security_level.name]</b><br><br>\nTimer System: [d2]<BR>\nTime Left: [(minute ? text("[]:", minute) : null)][second] <A href='?src=\ref[src];tp=-30'>-</A> <A href='?src=\ref[src];tp=-1'>-</A> <A href='?src=\ref[src];tp=1'>+</A> <A href='?src=\ref[src];tp=30'>+</A>\n</TT></BODY></HTML>"
 		user << browse(dat, "window=firealarm")
 		onclose(user, "firealarm")
 	return

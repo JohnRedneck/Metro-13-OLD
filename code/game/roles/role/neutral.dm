@@ -1,8 +1,8 @@
 /datum/role/neutral/vagrant
-	title = "A Vagrant"
-	team = "Neutrals"
+	title = "Vagrant"
+	faction = "Neutrals"
 	role_flag = VAG
-	team_flag = NEUTRAL
+	faction_flag = NEUTRAL
 	total_positions = -1
 	spawn_positions = -1
 	supervisors = "only to Darwinism"

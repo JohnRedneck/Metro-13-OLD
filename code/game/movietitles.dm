@@ -124,8 +124,10 @@ client
 		if(!cast.len && !chunksize)
 			chunk += "CAST:"
 		var/role = ""
+		/*
 		if(GetAssignment(H) != "Unassigned")
 			role = ", [uppertext(GetAssignment(H))]"
+		*/
 		var/used_name = H.real_name
 		var/datum/computer_file/report/crew_record/R = get_crewmember_record(H.real_name)
 		if(R && R.get_rank())

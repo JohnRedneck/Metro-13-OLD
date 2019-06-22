@@ -63,7 +63,7 @@
 	if(loud)
 		visible_message("\The [src] shuts down.")
 		playsound(src.loc, 'sound/effects/flashlight.ogg', 50, 0)
-
+/*
 /obj/machinery/floodlight/attack_ai(mob/user as mob)
 	if(istype(user, /mob/living/silicon/robot) && Adjacent(user))
 		return attack_hand(user)
@@ -74,7 +74,7 @@
 		if(!turn_on(1))
 			to_chat(user, "You try to turn on \the [src] but it does not work.")
 			playsound(src.loc, 'sound/effects/flashlight.ogg', 50, 0)
-
+*/
 
 /obj/machinery/floodlight/attack_hand(mob/user as mob)
 	if(open && cell)

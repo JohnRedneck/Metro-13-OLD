@@ -125,10 +125,12 @@
 
 /decl/surgery_step/limb/mechanize/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 	if(..())
+		/*
 		var/obj/item/robot_parts/p = tool
 		if (p.part)
 			if (!(target_zone in p.part))
 				return 0
+		*/
 		return isnull(target.get_organ(target_zone))
 
 /decl/surgery_step/limb/mechanize/begin_step(mob/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
@@ -136,10 +138,10 @@
 	"You start attaching \the [tool] to [target].")
 
 /decl/surgery_step/limb/mechanize/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
+	/*
 	var/obj/item/robot_parts/L = tool
 	user.visible_message("<span class='notice'>[user] has attached \the [tool] to [target].</span>",	\
 	"<span class='notice'>You have attached \the [tool] to [target].</span>")
-
 	if(L.part)
 		for(var/part_name in L.part)
 			if(!isnull(target.get_organ(part_name)))
@@ -158,6 +160,8 @@
 	target.UpdateDamageIcon()
 
 	qdel(tool)
+	*/
+	return 0
 
 /decl/surgery_step/limb/mechanize/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 		user.visible_message("<span class='warning'> [user]'s hand slips, damaging [target]'s flesh!</span>", \

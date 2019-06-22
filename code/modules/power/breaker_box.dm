@@ -39,7 +39,7 @@
 		to_chat(user, "<span class='good'>It seems to be online.</span>")
 	else
 		to_chat(user, "<span class='warning'>It seems to be offline.</span>")
-
+/*
 /obj/machinery/power/breakerbox/attack_ai(mob/user)
 	if(update_locked)
 		to_chat(user, "<span class='warning'>System locked. Please try again later.</span>")
@@ -58,7 +58,7 @@
 		spawn(600)
 			update_locked = 0
 	busy = 0
-
+*/
 
 /obj/machinery/power/breakerbox/attack_hand(mob/user)
 	if(update_locked)

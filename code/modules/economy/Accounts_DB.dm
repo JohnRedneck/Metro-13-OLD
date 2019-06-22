@@ -3,7 +3,7 @@
 	name = "accounts uplink terminal"
 	desc = "Access transaction logs, account data and all kinds of other financial records."
 
-	req_access = list(list(access_hop, access_captain, access_cent_captain))
+	req_access = list(list(null, null, nullnt_captain))
 	var/receipt_num
 	var/machine_id = ""
 	var/obj/item/weapon/card/id/held_card
@@ -16,9 +16,9 @@
 	proc/get_access_level()
 		if (!held_card)
 			return 0
-		if(access_cent_captain in held_card.access)
+		if(nullnt_captain in held_card.access)
 			return 2
-		else if(access_hop in held_card.access || access_captain in held_card.access)
+		else if(null in held_card.access || null in held_card.access)
 			return 1
 
 	proc/create_transation(target, reason, amount)

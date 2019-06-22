@@ -44,8 +44,10 @@
 			return 1
 		if(other.universal_speak)
 			return 1
+		/*
 		if(isAI(src) && ispAI(other))
 			return 1
+		*/
 		if (istype(other, src.type) || istype(src, other.type))
 			return 1
 		return 0

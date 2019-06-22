@@ -59,7 +59,7 @@
 		set_value(formatted_manifest[input])
 
 /datum/report_field/people/from_manifest/perform_send(subject, body, attach_report)
-	var/login = find_email(value["name"])
+	//var/login = find_email(value["name"])
 	//send_to_recipient(subject, body, attach_report, login)
 	return 1
 

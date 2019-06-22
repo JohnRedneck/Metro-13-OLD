@@ -74,9 +74,9 @@
 /obj/machinery/computer/shuttle_control/explore/exploration_shuttle
 	name = "shuttle control console"
 	shuttle_tag = "Charon"
-	req_access = list(access_expedition_shuttle_helm)
+	req_access = list(null_helm)
 
 /obj/machinery/computer/shuttle_control/explore/guppy
 	name = "guppy control console"
 	shuttle_tag = "Guppy"
-	req_access = list(access_guppy_helm)
+	req_access = list(null)

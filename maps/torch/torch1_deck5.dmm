@@ -4349,7 +4349,7 @@
 	id_tag = "petrov_shuttle_dock_airlock";
 	pixel_x = 24;
 	pixel_y = 0;
-	req_access = list(list("ACCESS_SECURITY","ACCESS_EXTERNAL","ACCESS_TORCH_PETROV"));
+	req_access = list(list("null","ACCESS_EXTERNAL","ACCESS_TORCH_PETROV"));
 	tag_airpump = "petrov_shuttle_dock_pump";
 	tag_chamber_sensor = "petrov_shuttle_dock_sensor";
 	tag_exterior_door = "petrov_shuttle_dock_outer";

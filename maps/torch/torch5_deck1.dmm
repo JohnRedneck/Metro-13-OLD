@@ -9004,7 +9004,7 @@
 "aDz" = (
 /obj/structure/closet/secure_closet{
 	name = "Security Equipment Locker";
-	req_access = list("ACCESS_SECURITY")
+	req_access = list("null")
 	},
 /obj/item/device/radio/intercom/department/security{
 	dir = 8;
@@ -9236,7 +9236,7 @@
 "aEA" = (
 /obj/structure/closet/secure_closet{
 	name = "Security Equipment Locker";
-	req_access = list("ACCESS_SECURITY")
+	req_access = list("null")
 	},
 /obj/effect/floor_decal/corner/red/half{
 	icon_state = "bordercolorhalf";
@@ -10124,21 +10124,21 @@
 	name = "Exit Doors";
 	pixel_x = 6;
 	pixel_y = 24;
-	req_access = list("ACCESS_BRIG")
+	req_access = list("null")
 	},
 /obj/machinery/button/remote/airlock{
 	id = "prisonentry";
 	name = "Entry Doors";
 	pixel_x = -6;
 	pixel_y = 24;
-	req_access = list("ACCESS_BRIG")
+	req_access = list("null")
 	},
 /obj/machinery/button/flasher{
 	id = "permflash";
 	name = "Brig Flash Control";
 	pixel_x = -6;
 	pixel_y = 40;
-	req_access = list("ACCESS_BRIG")
+	req_access = list("null")
 	},
 /obj/machinery/button/remote/blast_door{
 	id = "Secure Gate";
@@ -11190,7 +11190,7 @@
 	name = "entry flash";
 	pixel_x = 22;
 	pixel_y = 24;
-	req_access = list("ACCESS_BRIG")
+	req_access = list("null")
 	},
 /obj/effect/floor_decal/corner/red{
 	dir = 10
@@ -13950,7 +13950,7 @@
 	},
 /obj/machinery/computer/atmoscontrol/laptop{
 	monitored_alarm_ids = list("xenobio1_alarm","xenobio2_alarm","xenobio3_alarm","xenobio4_alarm");
-	req_access = list("ACCESS_RESEARCH")
+	req_access = list("null")
 	},
 /turf/simulated/floor/tiled/white/monotile,
 /area/rnd/xenobiology)
@@ -15687,7 +15687,7 @@
 "crA" = (
 /obj/structure/closet/secure_closet{
 	name = "Secure Evidence Locker";
-	req_access = list("ACCESS_SECURITY")
+	req_access = list("null")
 	},
 /obj/effect/floor_decal/industrial/outline/grey,
 /obj/item/device/radio/intercom{
@@ -18615,7 +18615,7 @@
 	autoset_access = 0;
 	id_tag = "MedbayFoyer";
 	name = "Infirmary";
-	req_access = list(list("ACCESS_MEDICAL","ACCESS_MORGUE","ACCESS_TORCH_CREW"))
+	req_access = list(list("null","null","ACCESS_TORCH_CREW"))
 	},
 /turf/simulated/floor/tiled/white/monotile,
 /area/medical/infirmreception)
@@ -19204,7 +19204,7 @@
 	name = "Infirmary Entrance Control";
 	pixel_x = -24;
 	pixel_y = 6;
-	req_access = list("ACCESS_MEDICAL")
+	req_access = list("null")
 	},
 /obj/machinery/button/remote/blast_door{
 	id = "infirmaryentrylock";
@@ -24246,7 +24246,7 @@
 /obj/machinery/door/airlock/glass/medical{
 	name = "Infirmary Reception";
 	autoset_access = 0;
-	req_access = list("ACCESS_MEDICAL")
+	req_access = list("null")
 	},
 /obj/machinery/door/firedoor,
 /obj/structure/disposalpipe/segment,

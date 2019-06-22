@@ -258,9 +258,11 @@
 /proc/electrocute_mob(mob/living/carbon/M as mob, var/power_source, var/obj/source, var/siemens_coeff = 1.0)
 	//if(istype(M.loc,/obj/mecha))	return 0	//feckin mechs are dumb
 	var/area/source_area
+	/*
 	if(istype(power_source,/area))
 		source_area = power_source
 		power_source = source_area.get_apc()
+	*/
 	if(istype(power_source,/obj/structure/cable))
 		var/obj/structure/cable/Cable = power_source
 		power_source = Cable.powernet

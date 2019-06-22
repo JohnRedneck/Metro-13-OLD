@@ -377,12 +377,13 @@
 		if(icon_state == "scrap")
 			to_chat(usr, "<span class='warning'>\The [src] is too crumpled to write on.</span>")
 			return
-
+		/*
 		var/obj/item/weapon/pen/robopen/RP = P
 		if ( istype(RP) && RP.mode == 2 )
 			RP.RenamePaper(user,src)
 		else
-			user << browse("<HTML><HEAD><TITLE>[name]</TITLE></HEAD><BODY bgcolor='[color]'>[info_links][stamps]</BODY></HTML>", "window=[name]")
+		*/
+		user << browse("<HTML><HEAD><TITLE>[name]</TITLE></HEAD><BODY bgcolor='[color]'>[info_links][stamps]</BODY></HTML>", "window=[name]")
 		return
 
 	else if(istype(P, /obj/item/weapon/stamp) || istype(P, /obj/item/clothing/ring/seal))

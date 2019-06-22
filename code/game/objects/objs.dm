@@ -53,7 +53,7 @@
 			if (!(usr in nearby))
 				if (usr.client && usr.machine==src) // && M.machine == src is omitted because if we triggered this by using the dialog, it doesn't matter if our machine changed in between triggering it and this - the dialog is probably still supposed to refresh.
 					is_in_use = 1
-					src.attack_ai(usr)
+					//src.attack_ai(usr)
 
 		// check for TK users
 
@@ -69,10 +69,10 @@
 	// Check that people are actually using the machine. If not, don't update anymore.
 	if(in_use)
 		var/list/nearby = viewers(1, src)
-		var/is_in_use = 0
+		//var/is_in_use = 0
 		for(var/mob/M in nearby)
 			if ((M.client && M.machine == src))
-				is_in_use = 1
+				//is_in_use = 1
 				src.interact(M)
 		/*
 		var/ai_in_use = AutoUpdateAI(src)

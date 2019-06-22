@@ -209,9 +209,6 @@
 	take_damage(tforce)
 	return
 
-/obj/machinery/door/attack_ai(mob/user as mob)
-	return src.attack_hand(user)
-
 /obj/machinery/door/attack_hand(mob/user as mob)
 	return src.attackby(user, user)
 

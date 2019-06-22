@@ -20,7 +20,7 @@
 	contains = list(/obj/item/seeds/bloodtomatoseed,
 					/obj/item/weapon/storage/pill_bottle/zoom,
 					/obj/item/weapon/storage/pill_bottle/happy,
-					/obj/item/weapon/storage/pill_bottle/three_eye,
+					///obj/item/weapon/storage/pill_bottle/three_eye,
 					/obj/item/weapon/reagent_containers/food/drinks/bottle/pwine)
 
 	name = "UNLISTED - Contraband crate"
@@ -28,14 +28,14 @@
 	containername = "unlabeled crate"
 	contraband = 1
 	supply_method = /decl/supply_method/randomized
-
+/*
 /decl/hierarchy/supply_pack/operations/hoverpod
 	name = "Equipment - Hoverpod Shipment"
 	contains = list()
 	cost = 80
 	containertype = /obj/structure/largecrate/hoverpod
 	containername = "hoverpod crate"
-
+*/
 /decl/hierarchy/supply_pack/operations/webbing
 	name = "Gear - Webbing, vests, holsters."
 	num_contained = 4
@@ -49,7 +49,7 @@
 					/obj/item/clothing/accessory/storage/webbing)
 	cost = 15
 	containername = "webbing crate"
-
+/*
 /decl/hierarchy/supply_pack/operations/voidsuit_engineering
 	name = "EVA - Engineering voidsuit"
 	contains = list(/obj/item/clothing/suit/space/void/engineering/alt,
@@ -58,7 +58,7 @@
 	cost = 120
 	containername = "engineering voidsuit crate"
 	containertype = /obj/structure/closet/crate/secure/large
-	access = access_engine
+	access = null
 
 /decl/hierarchy/supply_pack/operations/voidsuit_medical
 	name = "EVA - Medical voidsuit"
@@ -78,8 +78,8 @@
 	cost = 120
 	containername = "security voidsuit crate"
 	containertype = /obj/structure/closet/crate/secure/large
-	access = access_brig
-
+	access = null
+*/
 /decl/hierarchy/supply_pack/operations/bureaucracy
 	contains = list(/obj/item/weapon/material/clipboard,
 					 /obj/item/weapon/material/clipboard,

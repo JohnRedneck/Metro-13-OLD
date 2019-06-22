@@ -12,10 +12,10 @@
 	var/label_y
 	var/label_x
 	var/tag_x
-
+/*
 /obj/structure/bigDelivery/attack_robot(mob/user as mob)
 	unwrap(user)
-
+*/
 /obj/structure/bigDelivery/attack_hand(mob/user as mob)
 	unwrap(user)
 

@@ -23,7 +23,7 @@
 	)
 	min_skill = list(   SKILL_HAULING = SKILL_BASIC)
 
-	access = list(access_maint_tunnels, access_emergency_storage, access_janitor, access_solgov_crew)
+	access = list(null, null, access_janitor, null)
 	minimal_access = list()
 	
 /datum/role/chef
@@ -53,7 +53,7 @@
 	min_skill = list(   SKILL_COOKING   = SKILL_ADEPT,
 	                    SKILL_BOTANY    = SKILL_BASIC,
 	                    SKILL_CHEMISTRY = SKILL_BASIC)
-	access = list(access_maint_tunnels, null, access_kitchen, access_solgov_crew, access_bar, access_commissary)
+	access = list(null, null, access_kitchen, null, null, null)
 	minimal_access = list()
 
 /datum/role/bartender
@@ -65,7 +65,7 @@
 	allowed_branches = list(/datum/mil_branch/civilian)
 	allowed_ranks = list(/datum/mil_rank/civ/contractor)
 
-	access = list(null, access_bar, access_solgov_crew, access_kitchen, access_commissary)
+	access = list(null, null, null, access_kitchen, null)
 	minimal_access = list()
 	min_skill = list(   SKILL_COOKING   = SKILL_BASIC,
 	                    SKILL_BOTANY    = SKILL_BASIC,
@@ -91,4 +91,4 @@
 		/datum/mil_rank/fleet/e4
 	)
 
-	access = list(access_maint_tunnels, access_emergency_storage, access_solgov_crew)
+	access = list(null, null, null)

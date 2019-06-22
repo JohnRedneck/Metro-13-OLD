@@ -76,7 +76,7 @@
 
 	charge = 0
 	should_be_mapped = 1
-
+/*
 /obj/machinery/power/smes/buildable/malf_upgrade(var/mob/living/silicon/ai/user)
 	..()
 	malf_upgraded = 1
@@ -84,7 +84,7 @@
 	recalc_coils()
 	to_chat(user, "\The [src] has been upgraded. It's transfer rate and capacity has increased, and it is now resistant against EM pulses.")
 	return 1
-
+*/
 
 /obj/machinery/power/smes/buildable/max_cap_in_out/Initialize()
 	. = ..()

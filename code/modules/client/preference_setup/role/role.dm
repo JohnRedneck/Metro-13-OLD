@@ -393,15 +393,15 @@
 		var/dat = list()
 
 		dat += "<p style='background-color: [role.selection_color]'><br><br><p>"
-		if(role.alt_titles)
+		if(role.alt_titles)	
 			dat += "<i><b>Alternative titles:</b> [english_list(role.alt_titles)].</i>"
 		send_rsc(user, role.get_role_icon(), "role[ckey(rank)].png")
 		dat += "<img src=role[ckey(rank)].png width=96 height=96 style='float:left;'>"
-		if(role.department)
-			dat += "<b>Department:</b> [role.department]."
-			if(role.head_position)
-				dat += "You are in charge of this department."
-
+		if(role.faction)
+			dat += "<b>Faction:</b> [role.faction]."
+			if(role.lead_position)
+				dat += "You are in charge of this faction."
+				
 		dat += "You answer <b>[role.supervisors]</b>."
 
 		if(role.allowed_branches)
@@ -433,14 +433,14 @@
 	if(role.title != new_title)
 		pref.player_alt_titles[role.title] = new_title
 
-/datum/category_item/player_setup_item/role/proc/SetRole(mob/user, role, level)
+/datum/category_item/player_setup_item/role/proc/SetRole(mob/user, rank, level)
 
 	level = Clamp(level, ROLE_LEVEL_HIGH, ROLE_LEVEL_NEVER)
-	var/datum/role/role = SSroles.get_by_title(role, TRUE)
+	var/datum/role/role = SSroles.get_by_title(rank, TRUE)
 	if(!role)
 		return 0
 
-	if(role == GLOB.using_map.default_vagrant_title)
+	if(rank == GLOB.using_map.default_vagrant_title)
 		if(level == ROLE_LEVEL_NEVER)
 			pref.role_low -= role.title
 		else

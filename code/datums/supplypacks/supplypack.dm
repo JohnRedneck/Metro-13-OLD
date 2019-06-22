@@ -21,7 +21,7 @@
 
 	var/decl/supply_method/sm = get_supply_method(supply_method)
 	manifest = sm.setup_manifest(src)
-
+/*
 /decl/hierarchy/supply_pack/proc/sec_available()
 	if(isnull(security_level))
 		return TRUE
@@ -37,7 +37,7 @@
 	if(!istype(security_level))
 		return TRUE
 	return security_state.current_security_level_is_same_or_higher_than(security_level)
-
+*/
 /decl/hierarchy/supply_pack/proc/spawn_contents(var/location)
 	var/decl/supply_method/sm = get_supply_method(supply_method)
 	return sm.spawn_contents(src, location)

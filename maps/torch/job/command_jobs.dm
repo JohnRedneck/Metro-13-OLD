@@ -53,30 +53,30 @@
 	                    SKILL_SCIENCE     = SKILL_MAX)
 	skill_points = 30
 
-	access = list(access_security, access_brig, null, access_forensics_lockers, access_heads, access_medical, access_morgue, null, null_storage,
-					access_engine, null, access_maint_tunnels, access_external_airlocks, access_emergency_storage, access_change_ids,
-					access_ai_upload, access_teleporter, access_eva, access_bridge, null, null, access_tech_storage,
-					null, access_bar, access_janitor, access_crematorium, access_kitchen, access_robotics, access_cargo, null,
-					null, access_cargo_bot, null, access_manufacturing, access_library, access_lawyer, null, null,
-					access_qm, access_network, null, access_research, access_mining, access_mining_office, access_mailsorting, null,
-					access_mining_station, access_xenobiology, access_ce, access_hop, access_hos, access_RC_announce, access_keycard_auth, access_tcomsat,
-					access_gateway, access_sec_doors, null, access_xenoarch, null, access_heads, access_hangar, access_guppy_helm,
-					access_expedition_shuttle_helm, access_aquila, access_aquila_helm, access_solgov_crew, access_nanotrasen, access_robotics_engineering,
-					access_emergency_armory, access_sec_guard, access_gun, access_expedition_shuttle, access_guppy, access_seneng, access_senmed, access_senadv,
-					access_explorer, access_pathfinder, access_pilot, access_commissary, access_petrov, access_petrov_helm, access_petrov_analysis, access_petrov_phoron,
-					access_petrov_toxins, access_petrov_chemistry, access_petrov_security, access_petrov_maint, access_rd, access_petrov_rd)
-	minimal_access = list(access_security, access_brig, null, access_forensics_lockers, access_heads, access_medical, access_morgue, null, null_storage,
-						access_engine, null, access_maint_tunnels, access_external_airlocks, access_emergency_storage, access_change_ids,
-						access_ai_upload, access_teleporter, access_eva, access_bridge, null, null, access_tech_storage,
-						null, access_bar, access_janitor, access_crematorium, access_kitchen, access_robotics, access_cargo, null,
-						null, access_cargo_bot, null, access_manufacturing, access_library, access_lawyer, null, null,
-						access_qm, access_network, null, access_research, access_mining, access_mining_office, access_mailsorting, null,
-						access_mining_station, access_xenobiology, access_ce, access_hop, access_hos, access_RC_announce, access_keycard_auth, access_tcomsat,
-						access_gateway, access_sec_doors, null, access_xenoarch, null, access_heads, access_hangar, access_guppy_helm,
-						access_expedition_shuttle_helm, access_aquila, access_aquila_helm, access_solgov_crew, access_nanotrasen, access_robotics_engineering,
-						access_emergency_armory, access_sec_guard, access_gun, access_expedition_shuttle, access_guppy, access_seneng, access_senmed, access_senadv,
-						access_explorer, access_pathfinder, access_pilot, access_commissary, access_petrov, access_petrov_helm, access_petrov_analysis, access_petrov_phoron,
-						access_petrov_toxins, access_petrov_chemistry, access_petrov_security, access_petrov_maint, access_rd, access_petrov_rd)
+	access = list(null, null, null, null, access_heads, null, null, null, null,
+					null, null, null, access_external_airlocks, null, access_change_ids,
+					access_ai_upload, access_teleporter, access_eva, null, null, null, null,
+					null, null, access_janitor, access_crematorium, access_kitchen, null, null, null,
+					null, null_bot, null, access_manufacturing, access_library, null, null, null,
+					null, access_network, null, null, null, null_office, null, null,
+					null_station, null, null, null, null, access_RC_announce, access_keycard_auth, access_tcomsat,
+					access_gateway, access_sec_doors, null, null, null, access_heads, null, null,
+					null_helm, access_aquila, access_aquila_helm, null, access_nanotrasen, null_engineering,
+					access_emergency_armory, access_sec_guard, access_gun, null, null, access_seneng, access_senmed, access_senadv,
+					access_explorer, access_pathfinder, access_pilot, null, access_petrov, access_petrov_helm, access_petrov_analysis, access_petrov_phoron,
+					access_petrov_toxins, access_petrov_chemistry, access_petrov_security, access_petrov_maint, null, access_petrov_rd)
+	minimal_access = list(null, null, null, null, access_heads, null, null, null, null,
+						null, null, null, access_external_airlocks, null, access_change_ids,
+						access_ai_upload, access_teleporter, access_eva, null, null, null, null,
+						null, null, access_janitor, access_crematorium, access_kitchen, null, null, null,
+						null, null_bot, null, access_manufacturing, access_library, null, null, null,
+						null, access_network, null, null, null, null_office, null, null,
+						null_station, null, null, null, null, access_RC_announce, access_keycard_auth, access_tcomsat,
+						access_gateway, access_sec_doors, null, null, null, access_heads, null, null,
+						null_helm, access_aquila, access_aquila_helm, null, access_nanotrasen, null_engineering,
+						access_emergency_armory, access_sec_guard, access_gun, null, null, access_seneng, access_senmed, access_senadv,
+						access_explorer, access_pathfinder, access_pilot, null, access_petrov, access_petrov_helm, access_petrov_analysis, access_petrov_phoron,
+						access_petrov_toxins, access_petrov_chemistry, access_petrov_security, access_petrov_maint, null, access_petrov_rd)
 
 	software_on_spawn = list(/datum/computer_file/program/comm,
 							 /datum/computer_file/program/card_mod,
@@ -114,13 +114,13 @@
 	skill_points = 30
 
 	access = list(
-		null, null_storage, access_emergency_storage, access_teleporter, access_bridge, access_rd,
-		access_research, access_mining, access_mining_office, access_mining_station, access_xenobiology,
-		access_RC_announce, access_keycard_auth, access_xenoarch, access_nanotrasen, access_sec_guard, access_heads,
-		access_expedition_shuttle, access_guppy, access_hangar, access_petrov, access_petrov_helm, access_guppy_helm,
+		null, null, null, access_teleporter, null, null,
+		null, null, null_office, null_station, null,
+		access_RC_announce, access_keycard_auth, null, access_nanotrasen, access_sec_guard, access_heads,
+		null, null, null, access_petrov, access_petrov_helm, null,
 		access_petrov_analysis, access_petrov_phoron, access_petrov_toxins, access_petrov_chemistry, access_petrov_rd, 
-		access_petrov_security, access_petrov_maint, access_pathfinder, access_explorer, access_eva, access_solgov_crew, 
-		access_expedition_shuttle, access_expedition_shuttle_helm
+		access_petrov_security, access_petrov_maint, access_pathfinder, access_explorer, access_eva, null, 
+		null, null_helm
 	)
 	minimal_access = list()
 
@@ -160,11 +160,11 @@
 	                    SKILL_VIROLOGY    = SKILL_MAX)
 	skill_points = 32
 
-	access = list(access_medical, access_morgue, access_maint_tunnels, access_external_airlocks, access_emergency_storage,
-			            access_teleporter, access_eva, access_bridge, access_heads,
+	access = list(null, null, null, access_external_airlocks, null,
+			            access_teleporter, access_eva, null, access_heads,
 			            null, access_crematorium, null, null,
 			            null, null, access_RC_announce, access_keycard_auth, null,
-			            null, access_solgov_crew, access_senmed, access_hangar)
+			            null, null, access_senmed, null)
 	minimal_access = list()
 
 	software_on_spawn = list(/datum/computer_file/program/comm,
@@ -205,16 +205,16 @@
 	                    SKILL_ENGINES      = SKILL_MAX)
 	skill_points = 30
 
-	access = list(access_engine, null, access_maint_tunnels, access_external_airlocks, access_emergency_storage,
-			            access_ai_upload, access_teleporter, access_eva, access_bridge, access_heads,
-			            access_tech_storage, access_robotics, null, access_janitor, null,
-			            access_network, access_ce, access_RC_announce, access_keycard_auth, access_tcomsat,
-			            access_solgov_crew, access_robotics_engineering, access_seneng, access_hangar, access_robotics)
-	minimal_access = list(access_engine, null, access_maint_tunnels, access_external_airlocks, access_emergency_storage,
-			            access_ai_upload, access_teleporter, access_eva, access_bridge, access_heads,
-			            access_tech_storage, null, access_janitor, null,
-			            access_network, access_ce, access_RC_announce, access_keycard_auth, access_tcomsat,
-			            access_solgov_crew, access_robotics_engineering, access_seneng, access_hangar, access_robotics)
+	access = list(null, null, null, access_external_airlocks, null,
+			            access_ai_upload, access_teleporter, access_eva, null, access_heads,
+			            null, null, null, access_janitor, null,
+			            access_network, null, access_RC_announce, access_keycard_auth, access_tcomsat,
+			            null, null_engineering, access_seneng, null, null)
+	minimal_access = list(null, null, null, access_external_airlocks, null,
+			            access_ai_upload, access_teleporter, access_eva, null, access_heads,
+			            null, null, access_janitor, null,
+			            access_network, null, access_RC_announce, access_keycard_auth, access_tcomsat,
+			            null, null_engineering, access_seneng, null, null)
 
 	software_on_spawn = list(/datum/computer_file/program/comm,
 							 /datum/computer_file/program/ntnetmonitor,
@@ -257,11 +257,11 @@
 	                    SKILL_FORENSICS   = SKILL_MAX)
 	skill_points = 28
 
-	access = list(access_security, access_brig, null, access_forensics_lockers,
-			            access_maint_tunnels, access_external_airlocks, access_emergency_storage,
-			            access_teleporter, access_eva, access_bridge, access_heads,
-			            access_hos, access_RC_announce, access_keycard_auth, access_sec_doors,
-			            access_solgov_crew, access_gun, access_emergency_armory, access_hangar)
+	access = list(null, null, null, null,
+			            null, access_external_airlocks, null,
+			            access_teleporter, access_eva, null, access_heads,
+			            null, access_RC_announce, access_keycard_auth, access_sec_doors,
+			            null, access_gun, access_emergency_armory, null)
 	minimal_access = list()
 
 	software_on_spawn = list(/datum/computer_file/program/comm,
@@ -289,8 +289,8 @@
 	                    SKILL_FINANCE     = SKILL_BASIC)
 	skill_points = 20
 
-	access = list(access_representative, access_security, access_medical,
-			            access_bridge, access_cargo, access_solgov_crew, access_hangar)
+	access = list(access_representative, null, null,
+			            null, null, null, null)
 
 	software_on_spawn = list(/datum/computer_file/program/reports)
 
@@ -331,10 +331,10 @@
 	skill_points = 24
 
 
-	access = list(access_security, access_medical, access_engine, access_maint_tunnels, access_external_airlocks, access_emergency_storage,
-			            access_teleporter, access_eva, access_bridge, null, access_janitor,
-			            access_kitchen, access_cargo, access_RC_announce, access_keycard_auth, access_guppy_helm,
-			            access_solgov_crew, access_gun, access_expedition_shuttle, access_guppy, access_senadv, access_hangar, access_emergency_armory)
+	access = list(null, null, null, null, access_external_airlocks, null,
+			            access_teleporter, access_eva, null, null, access_janitor,
+			            access_kitchen, null, access_RC_announce, access_keycard_auth, null,
+			            null, access_gun, null, null, access_senadv, null, access_emergency_armory)
 
 	software_on_spawn = list(/datum/computer_file/program/camera_monitor,
 							 /datum/computer_file/program/reports)
@@ -369,10 +369,10 @@
 	skill_points = 20
 
 
-	access = list(access_security, access_medical, access_engine, access_maint_tunnels, access_emergency_storage,
-			            access_bridge, access_janitor, access_kitchen, access_cargo, access_mailsorting, access_RC_announce, access_keycard_auth,
-			            access_solgov_crew, access_aquila, access_aquila_helm, access_guppy, access_guppy_helm, access_external_airlocks,
-			            access_eva, access_hangar, access_cent_creed, access_explorer, access_expedition_shuttle, access_expedition_shuttle_helm)
+	access = list(null, null, null, null, null,
+			            null, access_janitor, access_kitchen, null, null, access_RC_announce, access_keycard_auth,
+			            null, access_aquila, access_aquila_helm, null, null, access_external_airlocks,
+			            access_eva, null, nullnt_creed, access_explorer, null, null_helm)
 
 	software_on_spawn = list(/datum/computer_file/program/comm,
 							 /datum/computer_file/program/suit_sensors,

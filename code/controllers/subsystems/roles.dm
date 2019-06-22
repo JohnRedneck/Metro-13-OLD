@@ -457,7 +457,7 @@ SUBSYSTEM_DEF(roles)
 		H.skillset.obtain_from_client(role, H.client)
 
 		//Equip role items.
-		role.setup_account(H)
+		//role.setup_account(H) //This proc manages economics stuff which hasn't been reworked yet - Bennett
 
 		role.equip(H, H.mind ? H.mind.rank_alt_title : "", H.char_branch, H.char_rank)
 		role.apply_fingerprints(H)

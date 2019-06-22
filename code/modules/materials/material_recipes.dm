@@ -70,14 +70,14 @@
 	. += new/datum/stack_recipe/furniture/computerframe(src)
 	. += new/datum/stack_recipe/furniture/girder(src)
 	. += new/datum/stack_recipe/furniture/machine(src)
-	. += new/datum/stack_recipe/furniture/turret(src)
+	//. += new/datum/stack_recipe/furniture/turret(src)
 	. += new/datum/stack_recipe_list("airlock assemblies", create_recipe_list(/datum/stack_recipe/furniture/door_assembly))
 	. += new/datum/stack_recipe/grenade(src)
 	. += new/datum/stack_recipe/light(src)
 	. += new/datum/stack_recipe/light_small(src)
 	. += new/datum/stack_recipe/light_switch(src)
 	. += new/datum/stack_recipe/light_switch/windowtint(src)
-	. += new/datum/stack_recipe/apc(src)
+	//. += new/datum/stack_recipe/apc(src)
 	. += new/datum/stack_recipe/air_alarm(src)
 	. += new/datum/stack_recipe/fire_alarm(src)
 	. += new/datum/stack_recipe_list("modular computer frames", create_recipe_list(/datum/stack_recipe/computer))
@@ -87,7 +87,6 @@
 	. = ..()
 	if(reinforce_material)	//recipies below don't support composite materials
 		return
-	. += new/datum/stack_recipe/ai_core(src)
 	. += new/datum/stack_recipe/furniture/crate(src)
 	. += new/datum/stack_recipe/grip(src)
 

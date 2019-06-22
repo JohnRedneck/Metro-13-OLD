@@ -301,7 +301,7 @@ var/list/mining_floors = list()
 	return O
 
 /turf/simulated/mineral/proc/GetDrilled(var/artifact_fail = 0)
-	var/destroyed = 0 //used for breaking strange rocks
+	//var/destroyed = 0 //used for breaking strange rocks
 	if (mineral && mineral.ore_result_amount)
 
 		//if the turf has already been excavated, some of it's ore has been removed
@@ -335,12 +335,14 @@ var/list/mining_floors = list()
 /turf/simulated/mineral/proc/excavate_find(var/prob_clean = 0, var/datum/find/F)
 
 	//many finds are ancient and thus very delicate - luckily there is a specialised energy suspension field which protects them when they're being extracted
+	/*
 	if(prob(F.prob_delicate))
 		var/obj/effect/suspension_field/S = locate() in src
 		if(!S)
 			visible_message("<span class='danger'>[pick("An object in the rock crumbles away into dust.","Something falls out of the rock and shatters onto the ground.")]</span>")
 			finds.Remove(F)
 			return
+	*/
 	//with skill and luck, players can cleanly extract finds
 	//otherwise, they come out inside a chunk of rock
 	if(prob_clean)

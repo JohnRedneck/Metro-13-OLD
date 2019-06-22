@@ -431,14 +431,16 @@ Turf and target are seperate in case you want to teleport some distance from a t
 	var/list/sortmob = sortAtom(SSmobs.mob_list)
 	for(var/mob/observer/eye/M in sortmob)
 		moblist.Add(M)
+	/*
 	for(var/mob/living/silicon/ai/M in sortmob)
 		moblist.Add(M)
 	for(var/mob/living/silicon/pai/M in sortmob)
 		moblist.Add(M)
 	for(var/mob/living/silicon/robot/M in sortmob)
 		moblist.Add(M)
-	/*for(var/mob/living/deity/M in sortmob)
-		moblist.Add(M)*/
+	for(var/mob/living/deity/M in sortmob)
+		moblist.Add(M)
+	*/
 	for(var/mob/living/carbon/human/M in sortmob)
 		moblist.Add(M)
 	for(var/mob/living/carbon/brain/M in sortmob)
@@ -1010,11 +1012,11 @@ var/global/list/common_tools = list(
 Checks if that loc and dir has a item on the wall
 */
 var/list/WALLITEMS = list(
-	/obj/machinery/power/apc, /obj/machinery/alarm, /obj/item/device/radio/intercom,
+	/*/obj/machinery/power/apc,*/ /obj/machinery/alarm, /obj/item/device/radio/intercom,
 	/obj/structure/extinguisher_cabinet, /obj/structure/reagent_dispensers/peppertank,
-	/obj/machinery/status_display, /obj/machinery/requests_console, /obj/machinery/light_switch, /obj/structure/sign,
-	/obj/machinery/newscaster, /obj/machinery/firealarm, /obj/structure/noticeboard,
-	/obj/item/weapon/storage/secure/safe, /obj/machinery/door_timer, /obj/machinery/flasher, /obj/machinery/keycard_auth,
+	/obj/machinery/status_display, /*/obj/machinery/requests_console,*/ /obj/machinery/light_switch, /obj/structure/sign,
+	/*/obj/machinery/newscaster,*/ /obj/machinery/firealarm, /obj/structure/noticeboard,
+	/obj/item/weapon/storage/secure/safe, /obj/machinery/door_timer, /*/obj/machinery/flasher,*/ /*/obj/machinery/keycard_auth,*/
 	/obj/item/weapon/storage/mirror, /obj/structure/fireaxecabinet, /obj/structure/filingcabinet/wallcabinet
 	)
 /proc/gotwallitem(loc, dir)

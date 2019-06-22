@@ -53,17 +53,17 @@ var/hadevent    = 0
 
 		var/obj/vent = pick(vents)
 		var/candidate = pick(candidates)
-
+		/*
 		var/mob/living/carbon/alien/larva/new_xeno = new(vent.loc)
 		new_xeno.key = candidate
-
+		*/
 		candidates -= candidate
 		vents -= vent
 		spawncount--
-
+	/*
 	spawn(rand(5000, 6000)) //Delayed announcements to keep the crew on their toes.
 		GLOB.using_map.unidentified_lifesigns_announcement()
-
+	*/
 /proc/high_radiation_event()
 
 /* // Haha, this is way too laggy. I'll keep the prison break though.
@@ -90,8 +90,8 @@ var/hadevent    = 0
 				else
 					randmutg(H)
 					domutcheck(H,null,MUTCHK_FORCED)
-	sleep(100)
-	GLOB.using_map.radiation_detected_announcement()
+	//sleep(100)
+	//GLOB.using_map.radiation_detected_announcement()
 /*
 /proc/carp_migration() // -- Darem
 	for(var/obj/effect/landmark/C in landmarks_list)

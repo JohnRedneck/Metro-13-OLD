@@ -104,6 +104,7 @@ var/list/ghost_traps
 // Fluff!
 /datum/ghosttrap/proc/welcome_candidate(var/mob/target)
 	to_chat(target, "<b>You have inhabited the ghosttrap default type, please report this to a developer!</b>")
+	/*
 	var/turf/T = get_turf(target)
 	var/obj/item/organ/internal/posibrain/P = target.loc
 	T.visible_message("<span class='notice'>\The [P] screams in bug as a ghost inhabits it.</span>")
@@ -112,7 +113,7 @@ var/list/ghost_traps
 	P.searching = 0
 	P.SetName("ghosttrap default type ([P.brainmob.name])")
 	P.update_icon()
-
+	*/
 // Allows people to set their own name. May or may not need to be removed for posibrains if people are dumbasses.
 /datum/ghosttrap/proc/set_new_name(var/mob/target)
 	if(!can_set_own_name)

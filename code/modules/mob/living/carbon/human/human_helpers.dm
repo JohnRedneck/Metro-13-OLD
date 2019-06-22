@@ -87,7 +87,7 @@
 	return gender
 
 /mob/living/carbon/human/fully_replace_character_name(var/new_name, var/in_depth = TRUE)
-	var/old_name = real_name
+	//var/old_name = real_name
 	. = ..()
 	if(!. || !in_depth)
 		return

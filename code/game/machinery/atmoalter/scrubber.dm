@@ -97,11 +97,11 @@
 
 	//src.update_icon()
 	src.updateDialog()
-
+/*
 /obj/machinery/portable_atmospherics/powered/scrubber/attack_ai(var/mob/user)
 	src.add_hiddenprint(user)
 	return src.attack_hand(user)
-
+*/
 /obj/machinery/portable_atmospherics/powered/scrubber/attack_ghost(var/mob/user)
 	return src.attack_hand(user)
 

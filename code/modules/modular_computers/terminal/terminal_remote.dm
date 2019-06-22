@@ -22,12 +22,11 @@
 	if(!CanInteractWith(user, origin_computer, GLOB.default_state))
 		return FALSE
 
-
+	/*
 	if(!origin_computer.network_card || !origin_computer.network_card.check_functionality())
 		return FALSE
 	if(!computer.network_card || !computer.network_card.check_functionality())
 		return FALSE
-	/*
 	if(!ntnet_global.check_function())
 		return FALSE
 	*/

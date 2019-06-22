@@ -13,12 +13,12 @@
 
 /atom/movable/proc/GetAccess()
 	. = list()
+	/*
 	var/obj/item/weapon/card/id/id = GetIdCard()
 	if(id)
 		. += id.GetAccess()
-	/*
 	if(maint_all_access)
-		. |= access_maint_tunnels
+		. |= null
 	*/
 /atom/movable/proc/GetIdCard()
 	return null
@@ -154,15 +154,19 @@
 
 /mob/living/bot/GetIdCard()
 	return botcard
+
 */
 #define HUMAN_ID_CARDS list(get_active_hand(), wear_id, get_inactive_hand())
 /mob/living/carbon/human/GetIdCard()
+	return
+	/*
 	for(var/item_slot in HUMAN_ID_CARDS)
 		var/obj/item/I = item_slot
+
 		var/obj/item/weapon/card/id = I ? I.GetIdCard() : null
 		if(id)
 			return id
-
+	*/
 /mob/living/carbon/human/GetAccess()
 	. = list()
 	for(var/item_slot in HUMAN_ID_CARDS)
@@ -172,9 +176,11 @@
 #undef HUMAN_ID_CARDS
 
 /proc/FindNameFromID(var/mob/M, var/missing_id_name = "Unknown")
+	/*
 	var/obj/item/weapon/card/id/C = M.GetIdCard()
 	if(C)
 		return C.registered_name
+	*/
 	return missing_id_name
 
 /proc/get_all_role_icons() //For all existing HUD icons

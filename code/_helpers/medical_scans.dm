@@ -48,7 +48,7 @@
 	scan["immune_system"] = H.virus_immunity()
 	if (H.virus2.len)
 		scan["virus"] = TRUE
-	scan["worms"] = H.has_brain_worms()
+	//scan["worms"] = H.has_brain_worms()
 
 	scan["reagents"] = list()
 

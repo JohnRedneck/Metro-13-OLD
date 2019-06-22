@@ -62,6 +62,8 @@
 	return TELECOMMS_RECEPTION_NONE
 
 /proc/get_reception(var/atom/sender, var/receiver, var/message = "", var/do_sleep = 1)
+	return
+	/*
 	var/datum/reception/reception = new
 
 	// check if telecomms I/O route 1459 is stable
@@ -73,8 +75,10 @@
 	reception.message = signal && signal.data["compression"] > 0 ? Gibberish(message, signal.data["compression"] + 50) : message
 
 	return reception
-
+	*/
 /proc/get_receptions(var/atom/sender, var/list/atom/receivers, var/do_sleep = 1)
+	return
+	/*
 	var/datum/receptions/receptions = new
 	receptions.message_server = get_message_server()
 
@@ -89,3 +93,4 @@
 		receptions.receiver_reception[receiver] = get_receiver_reception(receiver, signal)
 
 	return receptions
+	*/

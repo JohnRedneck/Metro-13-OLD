@@ -194,7 +194,7 @@ Class Procs:
 	user.unset_machine()
 
 ////////////////////////////////////////////////////////////////////////////////////////////
-
+/*
 /obj/machinery/attack_ai(mob/user as mob)
 	if(isrobot(user))
 		// For some reason attack_robot doesn't work
@@ -203,7 +203,7 @@ Class Procs:
 			return src.attack_hand(user)
 	else
 		return src.attack_hand(user)
-
+*/
 /obj/machinery/attack_hand(mob/user as mob)
 	if(inoperable(MAINT))
 		return 1
@@ -256,12 +256,14 @@ Class Procs:
 	s.set_up(5, 1, src)
 	s.start()
 	if(electrocute_mob(user, get_area(src), src, 0.7))
+		/*
 		var/area/temp_area = get_area(src)
 		if(temp_area)
 			var/obj/machinery/power/apc/temp_apc = temp_area.get_apc()
 
 			if(temp_apc && temp_apc.terminal && temp_apc.terminal.powernet)
 				temp_apc.terminal.powernet.trigger_warning()
+		*/
 		if(user.stunned)
 			return 1
 	return 0

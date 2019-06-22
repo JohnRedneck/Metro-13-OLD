@@ -33,9 +33,9 @@
 	                    SKILL_ENGINES      = SKILL_MAX)
 	skill_points = 24
 
-	access = list(access_engine, null, access_maint_tunnels, access_external_airlocks, access_emergency_storage,
-			            access_teleporter, access_eva, access_tech_storage, null, access_janitor, null,
-			            access_tcomsat, access_solgov_crew, access_seneng, access_hangar)
+	access = list(null, null, null, access_external_airlocks, null,
+			            access_teleporter, access_eva, null, null, access_janitor, null,
+			            access_tcomsat, null, access_seneng, null)
 
 	software_on_spawn = list(/datum/computer_file/program/power_monitor,
 							 /datum/computer_file/program/supermatter_monitor,
@@ -92,9 +92,9 @@
 	                    SKILL_ENGINES      = SKILL_MAX)
 	skill_points = 20
 
-	access = list(access_engine, null, access_maint_tunnels, access_external_airlocks, access_emergency_storage,
-			            access_teleporter, access_eva, access_tech_storage, null, access_janitor, null,
-			            access_solgov_crew, access_hangar)
+	access = list(null, null, null, access_external_airlocks, null,
+			            access_teleporter, access_eva, null, null, access_janitor, null,
+			            null, null)
 	minimal_access = list()
 
 	software_on_spawn = list(/datum/computer_file/program/power_monitor,
@@ -144,9 +144,9 @@
 	                    SKILL_ATMOS        = SKILL_MAX,
 	                    SKILL_ENGINES      = SKILL_MAX)
 
-	access = list(null, access_maint_tunnels, access_external_airlocks, access_emergency_storage,
-			            access_eva, access_tech_storage, access_janitor, null,
-			            access_solgov_crew, access_hangar)
+	access = list(null, null, access_external_airlocks, null,
+			            access_eva, null, access_janitor, null,
+			            null, null)
 
 	software_on_spawn = list(/datum/computer_file/program/power_monitor,
 							 /datum/computer_file/program/supermatter_monitor,
@@ -187,7 +187,7 @@
 	                    SKILL_MEDICAL      = SKILL_EXPERT)
 	skill_points = 20
 
-	access = list(access_robotics, access_robotics_engineering, access_tech_storage, access_morgue, access_medical, access_robotics_engineering, access_solgov_crew)
+	access = list(null, null_engineering, null, null, null, null_engineering, null)
 	minimal_access = list()
 
 /datum/role/roboticist/get_description_blurb()

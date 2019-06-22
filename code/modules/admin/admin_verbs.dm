@@ -33,7 +33,7 @@ var/list/admin_verbs_admin = list(
 	/client/proc/cmd_admin_subtle_message,	//send an message to somebody as a 'voice in their head',
 	/client/proc/cmd_admin_delete,		//delete an instance/object/mob/etc,
 	/client/proc/cmd_admin_check_contents,	//displays the contents of an instance,
-	/datum/admins/proc/access_news_network,	//allows access of newscasters,
+	///datum/admins/proc/access_news_network,	//allows access of newscasters,
 	/client/proc/giveruntimelog,		//allows us to give access to runtime logs to somebody,
 	/client/proc/getserverlog,			//allows us to fetch server logs (diary) for other days,
 	/client/proc/jumptocoord,			//we ghost and jump to a coordinate,
@@ -51,7 +51,7 @@ var/list/admin_verbs_admin = list(
 	/client/proc/cmd_admin_audible_narrate,
 	/client/proc/cmd_admin_local_narrate,
 	/client/proc/cmd_admin_world_narrate,	//sends text to all players with no padding,
-	/client/proc/cmd_admin_create_centcom_report,
+	///client/proc/cmd_admin_create_centcom_report,
 	/client/proc/check_antagonists,
 	/client/proc/admin_memo,			//admin memo system. show/delete/write. +SERVER needed to delete admin memos of others,
 	/client/proc/dsay,					//talk in deadchat using our ckey
@@ -73,12 +73,12 @@ var/list/admin_verbs_admin = list(
 	/client/proc/cmd_admin_change_custom_event,
 	/client/proc/cmd_admin_rejuvenate,
 	/client/proc/toggleghostwriters,
-	/client/proc/toggledrones,
+	///client/proc/toggledrones,
 	/datum/admins/proc/show_skills,
 	/client/proc/check_customitem_activity,
 	/client/proc/man_up,
 	/client/proc/global_man_up,
-	/client/proc/response_team, // Response Teams admin verb,
+	//	/client/proc/response_team, // Response Teams admin verb,
 	/client/proc/toggle_antagHUD_use,
 	/client/proc/toggle_antagHUD_restrictions,
 	/client/proc/allow_character_respawn,    // Allows a ghost to respawn ,
@@ -86,7 +86,7 @@ var/list/admin_verbs_admin = list(
 	/client/proc/aooc,
 	/client/proc/change_human_appearance_admin,	// Allows an admin to change the basic appearance of human-based mobs ,
 	/client/proc/change_human_appearance_self,	// Allows the human-based mob itself change its basic appearance ,
-	/client/proc/change_security_level,
+	///client/proc/change_security_level,
 	/client/proc/view_chemical_reaction_logs,
 	/client/proc/fixatmos,
 	/datum/admins/proc/sendFax,
@@ -111,8 +111,8 @@ var/list/admin_verbs_fun = list(
 	/client/proc/toggle_random_events,
 	/client/proc/editappear,
 	/client/proc/roll_dices,
-	/datum/admins/proc/call_supply_drop,
-	/datum/admins/proc/call_drop_pod,
+	///datum/admins/proc/call_supply_drop,
+	///datum/admins/proc/call_drop_pod,
 	/client/proc/create_dungeon
 	)
 
@@ -224,7 +224,7 @@ var/list/admin_verbs_hideable = list(
 	/datum/admins/proc/view_atk_log,
 	/client/proc/cmd_admin_subtle_message,
 	/client/proc/cmd_admin_check_contents,
-	/datum/admins/proc/access_news_network,
+	///datum/admins/proc/access_news_network,
 	/client/proc/admin_call_shuttle,
 	/client/proc/admin_cancel_shuttle,
 	/client/proc/cmd_admin_direct_narrate,
@@ -240,7 +240,7 @@ var/list/admin_verbs_hideable = list(
 	/client/proc/cmd_admin_gib_self,
 	/client/proc/drop_bomb,
 	/client/proc/cinematic,
-	/client/proc/cmd_admin_create_centcom_report,
+	// /client/proc/cmd_admin_create_centcom_report,
 	/client/proc/toggle_random_events,
 	/client/proc/Set_Holiday,
 	/datum/admins/proc/startnow,
@@ -261,7 +261,7 @@ var/list/admin_verbs_hideable = list(
 	/client/proc/reload_admins,
 	/client/proc/cmd_debug_make_powernets,
 	/client/proc/debug_controller,
-	/client/proc/startSinglo,
+	// /client/proc/startSinglo,
 	/client/proc/cmd_debug_mob_lists,
 	/client/proc/cmd_debug_del_all,
 	/client/proc/cmd_debug_tog_aliens,
@@ -435,7 +435,7 @@ var/list/admin_verbs_mod = list(
 	set category = "Admin"
 	if(holder)
 		if(config.ban_legacy_system)
-			holder.Rolebans()
+			holder.rolebans()
 		else
 			holder.DB_ban_panel()
 	SSstatistics.add_field_details("admin_verb","VJB") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
@@ -683,9 +683,11 @@ var/list/admin_verbs_mod = list(
 /client/proc/mod_panel()
 	set name = "Moderator Panel"
 	set category = "Admin"
+	/*
 	if(holder)
 		holder.mod_panel()
 	SSstatistics.add_field_details("admin_verb","MP") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	*/
 	return
 
 /client/proc/editappear()

@@ -11,7 +11,7 @@
 
 	allowed = list(/obj/item/device/flashlight,/obj/item/weapon/tank,/obj/item/device/suit_cooling_unit,/obj/item/weapon/storage/briefcase, /obj/item/weapon/storage/secure/briefcase)
 
-	req_access = list(access_lawyer)
+	req_access = list(null)
 
 	glove_type = null
 	helm_type = null
@@ -155,7 +155,7 @@
 
 	allowed = list(/obj/item/weapon/gun,/obj/item/device/flashlight,/obj/item/weapon/tank,/obj/item/device/suit_cooling_unit,/obj/item/weapon/storage/ore,/obj/item/weapon/storage/toolbox,/obj/item/weapon/storage/briefcase/inflatable,/obj/item/weapon/inflatable_dispenser,/obj/item/device/t_scanner,/obj/item/weapon/pickaxe,/obj/item/weapon/rcd)
 
-	req_access = list(access_ce)
+	req_access = list(null)
 
 /obj/item/weapon/rig/ce/equipped
 

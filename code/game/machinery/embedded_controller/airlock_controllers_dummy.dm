@@ -34,10 +34,10 @@
 		qdel(remote_state)
 		remote_state = null
 	return ..()
-
+/*
 /obj/machinery/dummy_airlock_controller/attack_ai(var/mob/user)
 	open_remote_ui(user)
-
+*/
 /obj/machinery/dummy_airlock_controller/attack_hand(var/mob/user)
 	open_remote_ui(user)
 

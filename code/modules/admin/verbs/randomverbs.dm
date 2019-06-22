@@ -32,7 +32,7 @@
 		//teleport person to cell
 		M.Paralyse(5)
 		sleep(5)	//so they black out before warping
-		M.forceMove(pick(GLOB.prisonwarp))
+		//M.forceMove(pick(GLOB.prisonwarp))
 		if(istype(M, /mob/living/carbon/human))
 			var/mob/living/carbon/human/prisoner = M
 			prisoner.equip_to_slot_or_del(new /obj/item/clothing/under/color/orange(prisoner), slot_w_uniform)
@@ -425,8 +425,8 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		to_chat(usr, "<font color='red'>There is no active key like that in the game or the person is not currently a ghost.</font>")
 		return
 
-	var/mob/living/carbon/human/new_character = new(pick(GLOB.latejoin))//The mob being spawned.
-
+	var/mob/living/carbon/human/new_character = new(pick(GLOB.debugspawn))//The mob being spawned.
+	/*
 	var/datum/computer_file/report/crew_record/record_found			//Referenced to later to either randomize or not randomize the character.
 	if(G_found.mind && !G_found.mind.active)
 		record_found = get_crewmember_record(G_found.real_name)
@@ -438,6 +438,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		new_character.b_type = record_found.get_bloodtype()
 	else
 		new_character.gender = pick(MALE,FEMALE)
+	*/
 	var/datum/preferences/A = new()
 	A.setup()
 	A.randomize_appearance_and_body_for(new_character)
@@ -455,7 +456,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		new_character.mind.special_verbs = list()
 	else
 		new_character.mind_initialize()
-	if(!new_character.mind.assigned_role)	new_character.mind.assigned_role = GLOB.using_map.default_assistant_title//If they somehow got a null assigned role.
+	if(!new_character.mind.assigned_role)	new_character.mind.assigned_role = GLOB.using_map.default_vagrant_title//If they somehow got a null assigned role.
 
 	//DNA
 	new_character.dna.ready_dna(new_character)

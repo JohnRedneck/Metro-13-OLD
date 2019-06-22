@@ -61,7 +61,7 @@
 	cost = 15
 	containertype = /obj/structure/closet/crate/secure
 	containername = "exotic Seeds crate"
-	access = access_xenobiology
+	access = null
 
 /decl/hierarchy/supply_pack/hydroponics/watertank
 	name = "Liquid - Water tank"

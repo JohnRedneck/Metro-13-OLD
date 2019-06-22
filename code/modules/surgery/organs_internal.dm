@@ -184,6 +184,7 @@
 			playsound(target.loc, 'sound/effects/squelch1.ogg', 15, 1)
 		else
 			playsound(target.loc, 'sound/items/Ratchet.ogg', 50, 1)
+	/*
 	if(istype(O, /obj/item/organ/internal/mmi_holder))
 		var/obj/item/organ/internal/mmi_holder/brain = O
 		brain.transfer_and_delete()
@@ -192,7 +193,7 @@
 	if(istype(O, /obj/item/organ/internal/mmi_holder))
 		var/obj/item/organ/internal/mmi_holder/brain = O
 		brain.transfer_and_delete()
-
+	*/
 /decl/surgery_step/internal/remove_organ/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message("<span class='warning'>[user]'s hand slips, damaging [target]'s [affected.name] with \the [tool]!</span>", \

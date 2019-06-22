@@ -308,7 +308,7 @@
 		to_chat(src, alert("[role.title] is not available. Please try another."))
 		return 0
 
-	SSroles.assign_role(src, role.title, 1)
+	SSroles.assign_rank(src, role.title, 1)
 
 	var/mob/living/character = create_character(spawn_turf)	//creates the human and transfers vars and mind
 	if(!character)
@@ -344,7 +344,7 @@
 	spawnpoint.after_join(character)
 
 	if(role.create_record)
-		CreateModularRecord(character)
+		//CreateModularRecord(character)
 		SSticker.minds += character.mind//Cyborgs and AIs handle this in the transform proc.	//TODO!!!!! ~Carn
 		//AnnounceArrival(character, role, spawnpoint.msg)
 		matchmaker.do_matchmaking()
@@ -468,8 +468,10 @@
 	if(mind)
 		mind.active = 0 //we wish to transfer the key manually
 		mind.original = new_character
+		/*
 		if(client.prefs.memory)
 			mind.store_memory(client.prefs.memory)
+		*/
 		if(client.prefs.relations.len)
 			for(var/T in client.prefs.relations)
 				var/TT = matchmaker.relation_types[T]

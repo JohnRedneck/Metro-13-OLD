@@ -6261,7 +6261,7 @@
 	name = "interior access button";
 	pixel_x = 25;
 	pixel_y = 25;
-	req_access = list("ACCESS_CENT_SPECOPS")
+	req_access = list("nullNT_SPECOPS")
 	},
 /turf/simulated/floor/tiled/dark,
 /area/rescue_base/start)
@@ -7159,7 +7159,7 @@
 	dir = 4
 	},
 /obj/structure/closet/crate/secure{
-	req_access = list("ACCESS_CENT_SPECOPS")
+	req_access = list("nullNT_SPECOPS")
 	},
 /turf/simulated/floor/plating,
 /area/rescue_base/start)
@@ -8528,7 +8528,7 @@
 "auG" = (
 /obj/machinery/computer/shuttle_control{
 	dir = 8;
-	req_access = list("ACCESS_CENT_GENERAL");
+	req_access = list("nullNT_GENERAL");
 	shuttle_tag = "Administration"
 	},
 /turf/simulated/floor/shuttle/red,
@@ -8551,7 +8551,7 @@
 /area/centcom/living)
 "auK" = (
 /obj/structure/closet/secure_closet/bar{
-	req_access = list("ACCESS_BAR")
+	req_access = list("null")
 	},
 /turf/unsimulated/floor{
 	dir = 2;
@@ -8883,7 +8883,7 @@
 	id_tag = "admin_shuttle";
 	pixel_x = -25;
 	pixel_y = 0;
-	req_access = list("ACCESS_CENT_GENERAL");
+	req_access = list("nullNT_GENERAL");
 	tag_door = "admin_shuttle_hatch"
 	},
 /turf/simulated/floor/plating,
@@ -11334,7 +11334,7 @@
 /obj/machinery/turretid{
 	pixel_x = 28;
 	pixel_y = -28;
-	req_access = list("ACCESS_CENT_GENERAL")
+	req_access = list("nullNT_GENERAL")
 	},
 /turf/unsimulated/floor{
 	icon_state = "steel"
@@ -14267,7 +14267,7 @@
 /area/centcom/holding)
 "aHo" = (
 /obj/machinery/computer/shuttle_control{
-	req_access = list("ACCESS_CENT_GENERAL");
+	req_access = list("nullNT_GENERAL");
 	shuttle_tag = "Centcom"
 	},
 /turf/unsimulated/floor{
@@ -14577,7 +14577,7 @@
 /area/shuttle/transport1/centcom)
 "aIh" = (
 /obj/structure/closet/secure_closet/bar{
-	req_access = list("ACCESS_BAR")
+	req_access = list("null")
 	},
 /turf/unsimulated/floor{
 	icon_state = "lino"
@@ -15248,7 +15248,7 @@
 /area/shuttle/transport1/centcom)
 "aJN" = (
 /obj/machinery/computer/shuttle_control{
-	req_access = list("ACCESS_CENT_GENERAL");
+	req_access = list("nullNT_GENERAL");
 	shuttle_tag = "Centcom"
 	},
 /obj/machinery/light{

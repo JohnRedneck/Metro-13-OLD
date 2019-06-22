@@ -218,7 +218,7 @@
 				/obj/item/weapon/material/kitchen/utensil/knife/boot = 2,
 				/obj/item/weapon/storage/secure/briefcase/money = 1,
 				/obj/item/weapon/storage/box/syndie_kit/cigarette = 1,
-				/obj/item/stack/telecrystal = 1,
+				// /obj/item/stack/telecrystal = 1,
 				/obj/item/clothing/under/syndicate = 2,
 				/obj/item/weapon/reagent_containers/syringe = 3,
 				/obj/item/weapon/reagent_containers/syringe/steroid = 2,
@@ -431,7 +431,7 @@ obj/random/closet/spawn_choices()
 	return list(/obj/structure/closet,
 				/obj/structure/closet/firecloset,
 				/obj/structure/closet/emcloset,
-				/obj/structure/closet/jcloset,
+				///obj/structure/closet/jcloset,
 				/obj/structure/closet/athletic_mixed,
 				/obj/structure/closet/toolcloset,
 				/obj/structure/closet/l3closet/general,
@@ -444,7 +444,7 @@ obj/random/closet/spawn_choices()
 				/obj/structure/closet/crate/medical,
 				/obj/structure/closet/boxinggloves,
 				/obj/structure/largecrate,
-				/obj/structure/closet/wardrobe/xenos,
+				///obj/structure/closet/wardrobe/xenos,
 				/obj/structure/closet/wardrobe/mixed,
 				/obj/structure/closet/wardrobe/suit,
 				/obj/structure/closet/wardrobe/orange)
@@ -606,7 +606,7 @@ obj/random/obstruction/spawn_choices()
 				/obj/item/weapon/camera_assembly,
 				/obj/item/device/camera,
 				// /obj/item/modular_computer/pda,
-				/obj/item/weapon/card/emag_broken,
+				///obj/item/weapon/card/emag_broken,
 				/obj/item/device/radio/headset,
 				/obj/item/device/flashlight/flare/glowstick/yellow,
 				/obj/item/device/flashlight/flare/glowstick/orange,
@@ -1064,10 +1064,7 @@ something, make sure it's not in one of the other lists.*/
 	spawn_nothing_percentage = 80
 
 obj/random/hostile/spawn_choices()
-	return list(/mob/living/simple_animal/hostile/viscerator,
-				/mob/living/simple_animal/hostile/carp,
-				/mob/living/simple_animal/hostile/carp/pike,
-				/mob/living/simple_animal/hostile/vagrant/swarm)
+	return list()
 
 /*
 	Selects one spawn point out of a group of points with the same ID and asks it to generate its items
@@ -1119,12 +1116,12 @@ var/list/multi_point_spawns
 		for(var/entry in spawn_points)
 			qdel(entry)
 	return 1
-
+/*
 /obj/random_multi/single_item/captains_spare_id
 	name = "Multi Point - Captain's Spare"
 	id = "Captain's spare id"
 	item_path = /obj/item/weapon/card/id/captains_spare
-
+*/
 var/list/random_junk_
 var/list/random_useful_
 /proc/get_random_useful_type()

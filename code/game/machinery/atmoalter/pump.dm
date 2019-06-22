@@ -112,11 +112,11 @@
 			update_icon()
 
 	src.updateDialog()
-
+/*
 /obj/machinery/portable_atmospherics/powered/pump/attack_ai(var/mob/user)
 	src.add_hiddenprint(user)
 	return src.attack_hand(user)
-
+*/
 /obj/machinery/portable_atmospherics/powered/pump/attack_ghost(var/mob/user)
 	return src.attack_hand(user)
 

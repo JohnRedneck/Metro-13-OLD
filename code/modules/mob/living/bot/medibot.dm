@@ -3,8 +3,8 @@
 	desc = "A little medical robot. He looks somewhat underwhelmed."
 	icon = 'icons/mob/bot/medibot.dmi'
 	icon_state = "medibot0"
-	req_access = list(list(access_medical, access_robotics))
-	botcard_access = list(access_medical, access_morgue, null, null, null)
+	req_access = list(list(null, null))
+	botcard_access = list(null, null, null, null, null)
 	var/skin = null //Set to "tox", "ointment" or "o2" for the other two firstaid kits.
 
 	//AI vars

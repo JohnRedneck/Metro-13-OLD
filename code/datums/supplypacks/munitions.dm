@@ -12,7 +12,7 @@
 	name = "Ammo - Armor Piercing Mass Driver Slug"
 	contains = list(/obj/structure/ship_munition/ap_slug)
 	cost = 60
-
+/*
 /decl/hierarchy/supply_pack/munition/fire
 	name = "Ammo - BSA-FR1-ENFER charge"
 	contains = list(/obj/structure/ship_munition/bsa_charge/fire)
@@ -32,3 +32,4 @@
 	name = "Ammo - BSA-XP4-INDARRA charge"
 	contains = list(/obj/structure/ship_munition/bsa_charge/explosive)
 	cost = 40
+*/

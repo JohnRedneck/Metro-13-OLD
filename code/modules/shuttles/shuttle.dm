@@ -58,20 +58,22 @@
 	//	new /datum/shuttle_log(src)
 	if(flags & SHUTTLE_FLAGS_PROCESS)
 		SSshuttle.process_shuttles += src
+	/*
 	if(flags & SHUTTLE_FLAGS_SUPPLY)
 		if(SSsupply.shuttle)
 			CRASH("A supply shuttle is already defined.")
 		SSsupply.shuttle = src
-
+	*/
 /datum/shuttle/Destroy()
 	current_location = null
 
 	SSshuttle.shuttles -= src.name
 	SSshuttle.process_shuttles -= src
 	SSshuttle.shuttle_logs -= src
+	/*
 	if(SSsupply.shuttle == src)
 		SSsupply.shuttle = null
-
+	*/
 	. = ..()
 
 /datum/shuttle/proc/short_jump(var/obj/effect/shuttle_landmark/destination)
@@ -203,10 +205,11 @@
 
 		for(var/obj/structure/cable/C in A)
 			powernets |= C.powernet
+	/*
 	if(logging_home_tag)
 		var/datum/shuttle_log/s_log = SSshuttle.shuttle_logs[src]
 		s_log.handle_move(current_location, destination)
-
+	*/
 	translate_turfs(turf_translation, current_location.base_area, current_location.base_turf)
 	current_location = destination
 

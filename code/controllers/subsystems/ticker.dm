@@ -78,17 +78,19 @@ SUBSYSTEM_DEF(ticker)
 			world.Reboot("Failure to select gamemode. Tried [english_list(bad_modes)].")
 			return
 	// This means we succeeded in picking a game mode.
-	GLOB.using_map.setup_economy()
+	//GLOB.using_map.setup_economy()
 	Master.SetRunLevel(RUNLEVEL_GAME)
 
 	create_characters() //Create player characters and transfer them
 	collect_minds()
 	equip_characters()
+	/*
 	for(var/mob/living/carbon/human/H in GLOB.player_list)
 		if(H.mind && !player_is_antag(H.mind, only_offstation_roles = 1))
 			var/datum/role/role = SSroles.get_by_title(H.mind.assigned_role)
 			if(role && role.create_record)
 				CreateModularRecord(H)
+	*/
 	callHook("roundstart")
 
 	spawn(0)//Forking here so we dont have to wait for this to finish
@@ -370,9 +372,11 @@ Helpers
 
 /datum/controller/subsystem/ticker/proc/declare_completion()
 	to_world("<br><br><br><H1>A round of [mode.name] has ended!</H1>")
+	/*
 	for(var/client/C)
 		if(!C.credits)
 			C.RollCredits()
+	*/
 	for(var/mob/Player in GLOB.player_list)
 		if(Player.mind && !isnewplayer(Player))
 			if(Player.stat != DEAD)

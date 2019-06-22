@@ -25,10 +25,10 @@
 	qdel(wifi_receiver)
 	wifi_receiver = null
 	return ..()
-
+/*
 /obj/machinery/igniter/attack_ai(mob/user as mob)
 	return src.attack_hand(user)
-
+*/
 /obj/machinery/igniter/attack_hand(mob/user as mob)
 	if(..())
 		return
@@ -99,13 +99,13 @@
 		update_icon()
 	else
 		..()
-
+/*
 /obj/machinery/sparker/attack_ai()
 	if (anchored)
 		return ignite()
 	else
 		return
-
+*/
 /obj/machinery/sparker/proc/ignite()
 	if (!powered())
 		return

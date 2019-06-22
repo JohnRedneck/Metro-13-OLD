@@ -574,7 +574,7 @@
 	range = 1
 	fuel_consumption = 4
 	logging_home_tag = "nav_hangar_calypso"
-	logging_access = access_expedition_shuttle_helm
+	logging_access = null_helm
 	ceiling_type = /turf/simulated/floor/shuttle_ceiling/torch
 
 /obj/effect/shuttle_landmark/torch/hangar/exploration_shuttle
@@ -619,7 +619,7 @@
 	sound_landing = 'sound/effects/rocket_backwards.ogg'
 	fuel_consumption = 2
 	logging_home_tag = "nav_hangar_guppy"
-	logging_access = access_guppy_helm
+	logging_access = null
 	skill_needed = SKILL_NONE
 	ceiling_type = /turf/simulated/floor/shuttle_ceiling/torch
 
@@ -697,4 +697,4 @@
 
 //Makes the deck management program use hangar access
 /datum/nano_module/deck_management
-	default_access = list(access_hangar, access_cargo, access_heads)
+	default_access = list(null, null, access_heads)

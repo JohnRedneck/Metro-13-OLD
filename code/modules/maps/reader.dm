@@ -228,7 +228,7 @@ GLOBAL_DATUM_INIT(_preloader, /dmm_suite/preloader, new)
 		/obj/effect,
 		/obj/item,
 		/obj/machinery,
-		/obj/mecha,
+		// /obj/mecha,
 		/obj/structure,
 	)
 

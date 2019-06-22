@@ -8,8 +8,7 @@
 /obj/machinery/logic/indicator/process()
 	if(input)
 		return 1
-
-
+		
 	if(!input)
 		var/turf/T = get_step(src, dir)
 		if(T)

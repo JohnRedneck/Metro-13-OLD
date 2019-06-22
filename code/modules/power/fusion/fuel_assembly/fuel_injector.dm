@@ -4,7 +4,7 @@
 	icon_state = "injector0"
 	density = 1
 	anchored = 0
-	req_access = list(access_engine)
+	req_access = list(null)
 	idle_power_usage = 10
 	active_power_usage = 500
 

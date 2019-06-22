@@ -6,7 +6,7 @@
 	//var/list/access = list()              // Useful for servers which either have fewer players, so each person needs to fill more than one role, or servers which like to give more access, so players can't hide forever in their super secure departments (I'm looking at you, chemistry!)
 	//var/list/software_on_spawn = list()   // Defines the software files that spawn on tablets and labtops
 	var/role_flag = 0
-	var/team_flag = 0
+	var/faction_flag = 0
 	var/total_positions = 0               // How many players can be this role
 	var/spawn_positions = 0               // How many players can spawn in as this role
 	var/current_positions = 0             // How many players have this role
@@ -17,7 +17,7 @@
 	var/list/alt_titles                   // List of alternate titles, if any and any potential alt. outfits as assoc values.
 	var/req_admin_notify                  // If this is set to 1, a text is printed to the player when roles are assigned, telling him that he should let admins know that he has to disconnect.
 	var/minimal_player_age = 0            // If you have use_age_restriction_for_roles config option enabled and the database set up, this option will add a requirement for players to be at least minimal_player_age days old. (meaning they first signed in at least that many days before.)
-	var/team = null                       // Does this position have a team tag?
+	var/faction = null                    // Does this position have a faction tag?
 	var/lead_position = 0                 // Is this position a leader?
 	var/minimum_character_age = 0
 	var/ideal_character_age = 30
