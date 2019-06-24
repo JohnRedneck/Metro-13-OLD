@@ -57,10 +57,8 @@
 	var/datum/gas_mixture/breath = null
 
 	var/datum/gas_mixture/environment
-	/* Only for cryo cells, we don't need it. - Bennett
 	if(loc)
 		environment = loc.return_air_for_internal_lifeform()
-	*/
 	if(environment)
 		breath = environment.remove_volume(volume_needed)
 		handle_chemical_smoke(environment) //handle chemical smoke while we're at it
@@ -97,3 +95,6 @@
 /mob/living/carbon/proc/handle_post_breath(datum/gas_mixture/breath)
 	if(breath)
 		loc.assume_air(breath) //by default, exhale
+
+/atom/proc/return_air_for_internal_lifeform()
+	return return_air() //Not having this makes humans unable to breathe for some reason - Bennett

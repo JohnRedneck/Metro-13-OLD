@@ -82,6 +82,7 @@
 	switch(mode)
 		if(STATUS_DISPLAY_BLANK)	//blank
 			return 1
+		/*
 		if(STATUS_DISPLAY_TRANSFER_SHUTTLE_TIME)				//emergency shuttle timer
 			if(evacuation_controller.is_prepared())
 				message1 = "-ETD-"
@@ -99,6 +100,7 @@
 					message2 = "Error"
 				update_display(message1, message2)
 			return 1
+		*/
 		if(STATUS_DISPLAY_MESSAGE)	//custom messages
 			var/line1
 			var/line2
@@ -182,12 +184,13 @@
 	if(maptext != new_text)
 		maptext = new_text
 	set_light(0.5, 0.1, 1, 2, COLOR_WHITE)
-
+/*
 /obj/machinery/status_display/proc/get_shuttle_timer()
 	var/timeleft = evacuation_controller.get_eta()
 	if(timeleft < 0)
 		return ""
 	return "[add_zero(num2text((timeleft / 60) % 60),2)]:[add_zero(num2text(timeleft % 60), 2)]"
+*/
 /*
 /obj/machinery/status_display/proc/get_supply_shuttle_timer()
 	var/datum/shuttle/autodock/ferry/supply/shuttle = SSsupply.shuttle

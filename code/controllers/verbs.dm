@@ -29,9 +29,11 @@
 		if("Radio")
 			debug_variables(radio_controller)
 			SSstatistics.add_field_details("admin_verb","DRadio")
+		/*
 		if("Evacuation")
 			debug_variables(evacuation_controller)
 			SSstatistics.add_field_details("admin_verb","DEmergency")
+		*/
 		if("Configuration")
 			debug_variables(config)
 			SSstatistics.add_field_details("admin_verb","DConf")
@@ -43,9 +45,11 @@
 		if("Cameras")
 			debug_variables(cameranet)
 			SSstatistics.add_field_details("admin_verb","DCameras")
+		/*
 		if("Transfer Controller")
 			debug_variables(transfer_controller)
 			SSstatistics.add_field_details("admin_verb","DAutovoter")
+		*/
 		if("Gas Data")
 			debug_variables(gas_data)
 			SSstatistics.add_field_details("admin_verb","DGasdata")

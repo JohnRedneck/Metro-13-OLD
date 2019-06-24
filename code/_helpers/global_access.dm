@@ -53,8 +53,10 @@
 		*/
 		if("SSculture")
 			return global.SSculture;
+		/*
 		if("SSevac")
 			return global.SSevac;
+		*/
 		if("SSevent")
 			return global.SSevent;
 		if("SSfastprocess")
@@ -337,8 +339,10 @@
 			return global.escape_pods;
 		if("escape_pods_by_name")
 			return global.escape_pods_by_name;
+		/*
 		if("evacuation_controller")
 			return global.evacuation_controller;
+		*/
 		if("eventchance")
 			return global.eventchance;
 		if("explosion_in_progress")
@@ -733,8 +737,10 @@
 			return global.total_lighting_sources;
 		if("total_unit_tests")
 			return global.total_unit_tests;
+		/*
 		if("transfer_controller")
 			return global.transfer_controller;
+		*/
 		if("turbolifts")
 			return global.turbolifts;
 		if("types_to_datums")
@@ -777,7 +783,7 @@
 			return global.z_levels;
 		if("zone_blocked")
 			return global.zone_blocked;
-		
+
 /proc/writeglobal(which, newval)
 	switch(which)
 		if("ALL_ANTIGENS")
@@ -832,8 +838,10 @@
 		*/
 		if("SSculture")
 			global.SSculture=newval;
+		/*
 		if("SSevac")
 			global.SSevac=newval;
+		*/
 		if("SSevent")
 			global.SSevent=newval;
 		if("SSfastprocess")
@@ -1116,8 +1124,10 @@
 			global.escape_pods=newval;
 		if("escape_pods_by_name")
 			global.escape_pods_by_name=newval;
+		/*
 		if("evacuation_controller")
 			global.evacuation_controller=newval;
+		*/
 		if("eventchance")
 			global.eventchance=newval;
 		if("explosion_in_progress")
@@ -1512,8 +1522,10 @@
 			global.total_lighting_sources=newval;
 		if("total_unit_tests")
 			global.total_unit_tests=newval;
+		/*
 		if("transfer_controller")
 			global.transfer_controller=newval;
+		*/
 		if("turbolifts")
 			global.turbolifts=newval;
 		if("types_to_datums")
@@ -1556,7 +1568,7 @@
 			global.z_levels=newval;
 		if("zone_blocked")
 			global.zone_blocked=newval;
-		
+
 /var/list/_all_globals=list(
 	"ALL_ANTIGENS",
 	"ANTAG_FREQS",

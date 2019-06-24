@@ -221,11 +221,12 @@ datum/objective/hijack
 datum/objective/hijack/check_completion()
 	if(!owner.current || owner.current.stat)
 		return 0
+	/*
 	if(!evacuation_controller.has_evacuated())
 		return 0
 	if(issilicon(owner.current))
 		return 0
-
+	*/
 	var/area/shuttle/shuttle_area = get_area(owner.current)
 	if(!istype(shuttle_area) || !(shuttle_area.z in GLOB.using_map.admin_levels))
 		return 0
@@ -241,7 +242,7 @@ datum/objective/hijack/check_completion()
 			return 0
 	return 1
 
-
+/*
 datum/objective/block
 	explanation_text = "Do not allow any organic lifeforms to escape on the shuttle alive."
 
@@ -262,14 +263,15 @@ datum/objective/block
 					if (get_turf(player) in shuttle)
 						return 0
 		return 1
-
+*/
 datum/objective/silence
 	explanation_text = "Do not allow anyone to escape.  Only allow the shuttle to be called when everyone is dead and your story is the only one left."
 
 	check_completion()
+		/*
 		if(!evacuation_controller.has_evacuated())
 			return 0
-
+		*/
 		for(var/mob/living/player in GLOB.player_list)
 			if(player == owner.current)
 				continue
@@ -286,18 +288,21 @@ datum/objective/escape
 
 
 	check_completion()
+		/*
 		if(issilicon(owner.current))
 			return 0
+		*/
 		if(isbrain(owner.current))
 			return 0
+		/*
 		if(!evacuation_controller.has_evacuated())
 			return 0
+		*/
 		if(!owner.current || owner.current.stat ==2)
 			return 0
 		var/turf/location = get_turf(owner.current.loc)
 		if(!location)
 			return 0
-
 		//Fails traitors if they are in a shuttle but knocked out or cuffed.
 		if(owner.current.incapacitated(INCAPACITATION_KNOCKOUT|INCAPACITATION_RESTRAINED))
 			return 0
@@ -562,7 +567,7 @@ datum/objective/capture
 				worth*=0.5
 				continue
 			captured_amount += worth
-	
+
 		for(var/mob/living/carbon/alien/larva/M in A)//Larva are important for research.
 			if(M.stat==DEAD)
 				captured_amount+=0.5

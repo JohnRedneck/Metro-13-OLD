@@ -12,12 +12,15 @@
 /datum/game_mode/proc/shall_process_autoantag()
 	if(!round_autoantag || world.time < next_spawn)
 		return FALSE
+	/*
 	if(evacuation_controller.is_evacuating() || evacuation_controller.has_evacuated())
 		return FALSE
+	*/
 	// Don't create auto-antags in the last twenty minutes of the round, but only if the vote interval is longer than 20 minutes
+	/*
 	if((config.vote_autotransfer_interval > 20 MINUTES) && (transfer_controller.time_till_transfer_vote() < 20 MINUTES))
 		return FALSE
-
+	*/
 	return TRUE
 
 //This can be overriden in case a game mode needs to do stuff when a player latejoins

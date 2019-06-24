@@ -185,14 +185,14 @@
 			log_admin_permission_modification(adm_ckey, permissionlist[new_permission])
 
 		edit_admin_permissions()
-
+	/*
 	else if(href_list["call_shuttle"])
 
 		if(!check_rights(R_ADMIN))	return
-
+		/*
 		if(!SSticker.mode || !evacuation_controller)
 			return
-
+		*/
 		if(SSticker.mode.name == "blob")
 			alert("You can't call the shuttle during blob!")
 			return
@@ -206,7 +206,7 @@
 					log_and_message_admins("cancelled an evacuation.")
 
 		href_list["secretsadmin"] = "check_antagonist"
-
+	*/
 	else if(href_list["delay_round_end"])
 		if(!check_rights(R_SERVER))	return
 
@@ -864,7 +864,7 @@
 
 		to_chat(M, "<span class='warning'>You have been sent to the prison station!</span>")
 		log_and_message_admins("sent [key_name_admin(M)] to the prison station.")
-	
+
 	else if(href_list["tdome1"])
 		if(!check_rights(R_FUN))	return
 

@@ -42,7 +42,7 @@ var/list/nuke_disks = list()
 		if(!is_type_in_list(disk_area, GLOB.using_map.post_round_safe_areas))
 			disk_rescued = FALSE
 			break
-	var/crew_evacuated = (evacuation_controller.has_evacuated())
+	//var/crew_evacuated = (evacuation_controller.has_evacuated())
 
 	if(!disk_rescued &&  station_was_nuked && !syndies_didnt_escape)
 		SSstatistics.set_field_details("round_end_result","win - syndicate nuke")
@@ -78,7 +78,7 @@ var/list/nuke_disks = list()
 		SSstatistics.set_field_details("round_end_result","loss - evacuation - disk not secured")
 		to_world("<FONT size = 3><B>Mercenary Minor Victory!</B></FONT>")
 		to_world("<B>The Research Staff failed to secure the authentication disk but did manage to kill most of the [syndicate_name()] Operatives!</B>")
-
+	/*
 	else if (!disk_rescued && crew_evacuated)
 		SSstatistics.set_field_details("round_end_result","halfwin - detonation averted")
 		to_world("<FONT size = 3><B>Mercenary Minor Victory!</B></FONT>")
@@ -88,6 +88,6 @@ var/list/nuke_disks = list()
 		SSstatistics.set_field_details("round_end_result","halfwin - interrupted")
 		to_world("<FONT size = 3><B>Neutral Victory</B></FONT>")
 		to_world("<B>Round was mysteriously interrupted!</B>")
-
+	*/
 	..()
 	return

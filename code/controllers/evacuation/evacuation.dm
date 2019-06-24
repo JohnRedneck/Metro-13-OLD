@@ -101,7 +101,8 @@ var/datum/evacuation_controller/evacuation_controller
 	return 1
 
 /datum/evacuation_controller/proc/cancel_evacuation()
-
+	return
+	/*
 	if(!can_cancel())
 		return 0
 
@@ -114,19 +115,17 @@ var/datum/evacuation_controller/evacuation_controller
 	evac_called_at =    null
 	evac_launch_time =  null
 	auto_recall_time =  null
-
 	if(emergency_evacuation)
 		//evac_recalled.Announce(GLOB.using_map.emergency_shuttle_recall_message)
+		
 		for(var/area/A in world)
-			if(istype(A, /area/hallway))
+			if(istype(A, /area/unowned/metrotunnel))
 				A.readyreset()
 		emergency_evacuation = 0
-	/*
 	else
 		priority_announcement.Announce(GLOB.using_map.shuttle_recall_message)
-	*/
 	return 1
-
+	*/
 /datum/evacuation_controller/proc/finish_preparing_evac()
 	state = EVAC_LAUNCHING
 

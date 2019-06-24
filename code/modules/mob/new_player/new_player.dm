@@ -362,7 +362,7 @@
 	var/list/header = list("<html><body><center>")
 	header += "<b>Welcome, [name].<br></b>"
 	header += "Round Duration: [roundduration2text()]<br>"
-
+	/*
 	if(evacuation_controller.has_evacuated())
 		header += "<font color='red'><b>The [station_name()] has been evacuated.</b></font><br>"
 	else if(evacuation_controller.is_evacuating())
@@ -370,7 +370,7 @@
 			header += "<font color='red'>The [station_name()] is currently undergoing evacuation procedures.</font><br>"
 		else                                           // Crew transfer initiated
 			header += "<font color='red'>The [station_name()] is currently undergoing crew transfer procedures.</font><br>"
-
+	*/
 	var/list/dat = list()
 	dat += "Choose from the following open/valid positions:<br>"
 	dat += "<a href='byond://?src=\ref[src];invalid_roles=1'>[show_invalid_roles ? "Hide":"Show"] unavailable roles.</a><br>"

@@ -554,7 +554,7 @@ SUBSYSTEM_DEF(roles)
 	BITSET(H.hud_updateflag, IMPLOYAL_HUD)
 	BITSET(H.hud_updateflag, SPECIALROLE_HUD)
 
-	role.post_equip_rank(H)
+	role.post_equip_role(H)
 
 	return H
 

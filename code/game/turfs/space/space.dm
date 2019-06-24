@@ -8,7 +8,7 @@
 	temperature = T20C
 	thermal_conductivity = OPEN_HEAT_TRANSFER_COEFFICIENT
 	var/static/list/dust_cache
-
+/*
 /turf/space/proc/build_dust_cache()
 	LAZYINITLIST(dust_cache)
 	for (var/i in 0 to 25)
@@ -18,10 +18,12 @@
 		im.blend_mode = BLEND_ADD
 		dust_cache["[i]"] = im
 
-
+*/
 /turf/space/Initialize()
 	. = ..()
 	icon_state = "white"
+	return 
+	/*
 	update_starlight()
 	if (!dust_cache)
 		build_dust_cache()
@@ -37,7 +39,8 @@
 
 	if(!below.density && (A.area_flags & AREA_FLAG_EXTERNAL))
 		return
-
+	
+	*/
 	return INITIALIZE_HINT_LATELOAD // oh no! we need to switch to being a different kind of turf!
 
 /turf/space/LateInitialize()
@@ -54,7 +57,7 @@
 
 /turf/space/is_solid_structure()
 	return locate(/obj/structure/lattice, src) //counts as solid structure if it has a lattice
-
+/*
 /turf/space/proc/update_starlight()
 	if(!config.starlight)
 		return
@@ -62,7 +65,7 @@
 		set_light(min(0.1*config.starlight, 1), 1, 3, l_color = SSskybox.BGcolor)
 	else
 		set_light(0)
-
+*/
 /turf/space/attackby(obj/item/C as obj, mob/user as mob)
 
 	if (istype(C, /obj/item/stack/material/rods))
@@ -109,10 +112,11 @@
 	var/list/y_arr
 
 	if(src.x <= 1)
+		/*
 		if(istype(A, /obj/effect/meteor))
 			qdel(A)
 			return
-
+		*/
 		var/list/cur_pos = src.get_global_map_pos()
 		if(!cur_pos) return
 		cur_x = cur_pos["x"]
@@ -135,10 +139,11 @@
 				if ((A && A.loc))
 					A.loc.Entered(A)
 	else if (src.x >= world.maxx)
+		/*
 		if(istype(A, /obj/effect/meteor))
 			qdel(A)
 			return
-
+		*/
 		var/list/cur_pos = src.get_global_map_pos()
 		if(!cur_pos) return
 		cur_x = cur_pos["x"]
@@ -161,9 +166,11 @@
 				if ((A && A.loc))
 					A.loc.Entered(A)
 	else if (src.y <= 1)
+		/*
 		if(istype(A, /obj/effect/meteor))
 			qdel(A)
 			return
+		*/
 		var/list/cur_pos = src.get_global_map_pos()
 		if(!cur_pos) return
 		cur_x = cur_pos["x"]
@@ -217,6 +224,8 @@
 	return ..(N, tell_universe, 1)
 
 //Bluespace turfs for shuttles and possible future transit use
+/*
 /turf/space/bluespace
 	name = "bluespace"
 	icon_state = "bluespace"
+*/

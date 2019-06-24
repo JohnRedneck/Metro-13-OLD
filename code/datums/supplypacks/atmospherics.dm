@@ -101,11 +101,12 @@
 	contains = list(/obj/item/weapon/tank/phoron = 3)
 	cost = 30
 	containername = "phoron tank crate"
-
+/*
 /decl/hierarchy/supply_pack/atmospherics/scanner_module
 	name = "Electronics - Atmospherics scanner modules"
-	contains = list(/*/obj/item/weapon/computer_hardware/scanner/atmos = 4*/)
+	contains = list(/obj/item/weapon/computer_hardware/scanner/atmos = 4)
 	cost = 20
 	containername = "atmospherics scanner module crate"
 	containertype = /obj/structure/closet/crate/secure
 	access = null
+*/

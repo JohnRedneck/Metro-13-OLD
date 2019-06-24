@@ -13,7 +13,7 @@
 "m" = (/obj/machinery/atmospherics/pipe/simple/visible{icon_state = "intact"; dir = 4},/turf/simulated/floor/tiled,/area/space)
 "n" = (/obj/machinery/atmospherics/portables_connector{icon_state = "map_connector"; dir = 8},/obj/machinery/portable_atmospherics/canister/air,/turf/simulated/floor/tiled,/area/space)
 "o" = (/obj/machinery/light_switch{pixel_x = -25},/turf/simulated/floor/tiled,/area/space)
-"p" = (/obj/effect/landmark/start,/turf/simulated/floor/tiled,/area/space)
+"p" = (/obj/effect/landmark/start{name = "debugspawn"},/turf/simulated/floor/tiled,/area/space)
 "q" = (/obj/effect/landmark/test/safe_turf,/turf/simulated/floor/tiled,/area/space)
 "r" = (/obj/machinery/atmospherics/pipe/simple/visible{icon_state = "intact"; dir = 6},/turf/simulated/floor/tiled,/area/space)
 "s" = (/obj/machinery/atmospherics/portables_connector{icon_state = "map_connector"; dir = 8},/obj/machinery/portable_atmospherics/canister/empty,/turf/simulated/floor/tiled,/area/space)

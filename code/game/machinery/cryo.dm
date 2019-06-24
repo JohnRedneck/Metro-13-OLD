@@ -1,5 +1,5 @@
 #define HEAT_CAPACITY_HUMAN 100 //249840 J/K, for a 72 kg person.
-
+/*
 /obj/machinery/atmospherics/unary/cryo_cell
 	name = "cryo cell"
 	icon = 'icons/obj/cryogenics.dmi' // map only
@@ -101,7 +101,7 @@
 
 /obj/machinery/atmospherics/unary/cryo_cell/attack_hand(mob/user)
 	ui_interact(user)
-
+*/
  /**
   * The ui_interact proc is used to open and update Nano UIs
   * If ui_interact is not used then the UI will not update correctly
@@ -113,6 +113,7 @@
   *
   * @return nothing
   */
+/*
 /obj/machinery/atmospherics/unary/cryo_cell/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
 	if(user == occupant || user.stat)
 		return
@@ -377,11 +378,10 @@
 
 /obj/machinery/atmospherics/unary/cryo_cell/return_air()
 	return air_contents
-
+*/
 //This proc literally only exists for cryo cells.
-/atom/proc/return_air_for_internal_lifeform()
-	return return_air()
 
+/*
 /obj/machinery/atmospherics/unary/cryo_cell/return_air_for_internal_lifeform()
 	//assume that the cryo cell has some kind of breath mask or something that
 	//draws from the cryo tube's environment, instead of the cold internal air.
@@ -389,7 +389,7 @@
 		return loc.return_air()
 	else
 		return null
-
+*/
 /datum/data/function/proc/reset()
 	return
 

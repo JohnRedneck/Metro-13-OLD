@@ -119,7 +119,7 @@ SUBSYSTEM_DEF(ticker)
 		end_game_state = END_GAME_MODE_FINISH_DONE
 		mode.cleanup()
 		log_and_message_admins(": All antagonists are deceased or the gamemode has ended.") //Outputs as "Event: All antagonists are deceased or the gamemode has ended."
-		SSvote.initiate_vote(/datum/vote/transfer, automatic = 1)
+		SSvote.initiate_vote(/datum/vote/restart, automatic = 1)
 
 /datum/controller/subsystem/ticker/proc/post_game_tick()
 	switch(end_game_state)
@@ -344,9 +344,9 @@ Helpers
 	if(mode.explosion_in_progress)
 		return 0
 	if(config.continous_rounds)
-		return evacuation_controller.round_over() || mode.station_was_nuked
+		return /*evacuation_controller.round_over() || */mode.station_was_nuked
 	else
-		return mode.check_finished() || (evacuation_controller.round_over() && evacuation_controller.emergency_evacuation) || universe_has_ended
+		return mode.check_finished() ||/* (evacuation_controller.round_over() && evacuation_controller.emergency_evacuation) ||*/ universe_has_ended
 
 /datum/controller/subsystem/ticker/proc/mode_finished()
 	if(config.continous_rounds)
@@ -380,6 +380,7 @@ Helpers
 	for(var/mob/Player in GLOB.player_list)
 		if(Player.mind && !isnewplayer(Player))
 			if(Player.stat != DEAD)
+				/*
 				var/turf/playerTurf = get_turf(Player)
 				if(evacuation_controller.round_over() && evacuation_controller.emergency_evacuation)
 					if(isNotAdminLevel(playerTurf.z))
@@ -389,7 +390,8 @@ Helpers
 				else if(isAdminLevel(playerTurf.z))
 					to_chat(Player, "<font color='green'><b>You successfully underwent crew transfer after events on [station_name()] as [Player.real_name].</b></font>")
 				else
-					to_chat(Player, "<font color='blue'><b>You got through just another workday on [station_name()] as [Player.real_name].</b></font>")
+				*/
+				to_chat(Player, "<font color='green'><b>You managed to survive the events of [station_name()] as [Player.real_name].</b></font>")
 			else
 				if(isghost(Player))
 					var/mob/observer/ghost/O = Player

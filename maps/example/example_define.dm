@@ -10,7 +10,9 @@
 	contact_levels = list(1, 2, 3)
 	player_levels = list(1, 2, 3)
 
-	allowed_spawns = list("Arrivals Shuttle")
+	allowed_spawns = list("debugspawn")
+	default_spawn = "debugspawn"
+	welcome_sound = 'sound/effects/lift_heavy_stop.ogg'
 
 	shuttle_docked_message = "The shuttle has docked."
 	shuttle_leaving_dock = "The shuttle has departed from home dock."

@@ -424,7 +424,7 @@
 
 	return spawnpos
 
-/datum/role/proc/post_equip_rank(var/mob/person)
+/datum/role/proc/post_equip_role(var/mob/person)
 	return
 
 /datum/role/proc/get_alt_title_for(var/client/C)

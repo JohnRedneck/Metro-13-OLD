@@ -244,7 +244,7 @@
 	else if(href_list["move_antag_to_spawn"])
 		var/datum/antagonist/antag = GLOB.all_antag_types_[href_list["move_antag_to_spawn"]]
 		if(antag) antag.place_mob(src.current)
-	/*	
+	/*
 	else if (href_list["rank_edit"])
 		var/new_rank = input("Select new rank", "Assigned rank", assigned_rank) as null|anything in SSroles.titles_to_datums
 		if (!new_rank) return
@@ -339,11 +339,11 @@
 					new_objective.owner = src
 					new_objective:target = M.mind
 					new_objective.explanation_text = "[objective_type] [M.real_name], the [M.mind.special_rank ? M.mind:special_rank : M.mind:assigned_rank]."
-
+			/*
 			if ("prevent")
 				new_objective = new /datum/objective/block
 				new_objective.owner = src
-
+			*/
 			if ("hijack")
 				new_objective = new /datum/objective/hijack
 				new_objective.owner = src
@@ -436,7 +436,7 @@
 				H.implant_loyalty(H, override = TRUE)
 				log_admin("[key_name_admin(usr)] has loyalty implanted [current].")
 			else
-	
+
 	else if (href_list["silicon"])
 		BITSET(current.hud_updateflag, SPECIALRANK_HUD)
 		switch(href_list["silicon"])

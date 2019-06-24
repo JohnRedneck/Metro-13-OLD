@@ -711,7 +711,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 
 	log_and_message_admins("changed their view range to [view].")
 	SSstatistics.add_field_details("admin_verb","CVRA") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-
+/*
 /client/proc/admin_call_shuttle()
 
 	set category = "Admin"
@@ -764,7 +764,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 
 	log_admin("[key_name(src)] has [evacuation_controller.deny ? "denied" : "allowed"] evacuation to be called.")
 	message_admins("[key_name_admin(usr)] has [evacuation_controller.deny ? "denied" : "allowed"] evacuation to be called.")
-
+*/
 /client/proc/cmd_admin_attack_log(mob/M as mob in SSmobs.mob_list)
 	set category = "Special Verbs"
 	set name = "Attack Log"
