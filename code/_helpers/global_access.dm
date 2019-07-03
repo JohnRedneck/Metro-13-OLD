@@ -331,8 +331,6 @@
 			return global.dreams;
 		if("dummy_lighting_corner")
 			return global.dummy_lighting_corner;
-		if("endgame_exits")
-			return global.endgame_exits;
 		if("endgame_safespawns")
 			return global.endgame_safespawns;
 		if("escape_pods")
@@ -507,8 +505,10 @@
 			return global.next_duration_update;
 		if("next_station_date_change")
 			return global.next_station_date_change;
+		/*
 		if("ninjastart")
 			return global.ninjastart;
+		*/
 		if("not_incapacitated_turf_state")
 			return global.not_incapacitated_turf_state;
 		if("nuke_disks")
@@ -1116,8 +1116,6 @@
 			global.dreams=newval;
 		if("dummy_lighting_corner")
 			global.dummy_lighting_corner=newval;
-		if("endgame_exits")
-			global.endgame_exits=newval;
 		if("endgame_safespawns")
 			global.endgame_safespawns=newval;
 		if("escape_pods")
@@ -1292,8 +1290,10 @@
 			global.next_duration_update=newval;
 		if("next_station_date_change")
 			global.next_station_date_change=newval;
+		/*
 		if("ninjastart")
 			global.ninjastart=newval;
+		*/
 		if("not_incapacitated_turf_state")
 			global.not_incapacitated_turf_state=newval;
 		if("nuke_disks")

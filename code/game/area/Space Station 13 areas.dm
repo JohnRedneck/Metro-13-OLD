@@ -73,6 +73,10 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "caves"
 	//ambience = list('')
 
+/area/none
+	name = "\improper None"
+	icon_state = "unknown"
+
 /////////
 //SPACE//
 /////////

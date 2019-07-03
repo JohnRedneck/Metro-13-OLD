@@ -15,10 +15,14 @@ GLOBAL_VAR(spawntypes)
 	var/list/turfs   //List of turfs to spawn on.
 	var/display_name //Name used in preference setup.
 	var/always_visible = FALSE	// Whether this spawn point is always visible in selection, ignoring map-specific settings.
+	var/list/restrict_faction = null
 	var/list/restrict_role = null
 	var/list/disallow_role = null
 
-/datum/spawnpoint/proc/check_role_spawning(role)
+/datum/spawnpoint/proc/check_role_spawning(role, faction)
+	if(restrict_faction && !(faction in restrict_faction))
+		return 0
+
 	if(restrict_role && !(role in restrict_role))
 		return 0
 
@@ -41,66 +45,33 @@ GLOBAL_VAR(spawntypes)
 	. = ..()
 #endif
 
-/datum/spawnpoint/debugspawn/New()
+/datum/spawnpoint/reichspawn
+	display_name = "The Fourth Reich"
+	restrict_faction = list("The Fourth Reich")
+/datum/spawnpoint/reichspawn/New()
 	..()
-	turfs = GLOB.debugspawn
+	turfs = GLOB.reichspawn
 
-/datum/spawnpoint/debugspawn
-	display_name = "debugspawn"
-	msg = "has arrived for debugging"
-	always_visible = TRUE
-/*
-/datum/spawnpoint/arrivals/New()
+/datum/spawnpoint/vdnkhspawn
+	display_name = "The VDNKh"
+	restrict_faction = list("The VDNKh")
+/datum/spawnpoint/vdnkhspawn/New()
 	..()
-	turfs = GLOB.debugspawn
+	turfs = GLOB.vdnkhspawn
 
-
-/datum/spawnpoint/arrivals
-	display_name = "Arrivals Shuttle"
-	msg = "has arrived on the station"
-
-/datum/spawnpoint/arrivals/New()
+/datum/spawnpoint/redlinespawn
+	display_name = "The Red Line"
+	restrict_faction = list("The Red Line")
+/datum/spawnpoint/redlinespawn/New()
 	..()
-	turfs = GLOB.latejoin
+	turfs = GLOB.redlinespawn
 
-/datum/spawnpoint/gateway
-	display_name = "Gateway"
-	msg = "has completed translation from offsite gateway"
-
-/datum/spawnpoint/gateway/New()
+/datum/spawnpoint/vagrantspawn
+	display_name = "vagrantspawn"
+	restrict_role = list("Vagrant")
+	always_visible = 1
+/datum/spawnpoint/vagrantspawn/New()
 	..()
-	turfs = GLOB.latejoin_gateway
-
-/datum/spawnpoint/cryo
-	display_name = "Cryogenic Storage"
-	msg = "has completed cryogenic revival"
-	disallow_role = list("Robot")
-
-/datum/spawnpoint/cryo/New()
-	..()
-	turfs = GLOB.latejoin_cryo
-
-/datum/spawnpoint/cryo/after_join(mob/living/carbon/human/victim)
-	if(!istype(victim))
-		return
-	var/area/A = get_area(victim)
-	for(var/obj/machinery/cryopod/C in A)
-		if(!C.occupant)
-			C.set_occupant(victim, 1)
-			victim.Sleeping(rand(1,3))
-			to_chat(victim,SPAN_NOTICE("You are slowly waking up from the cryostasis aboard [GLOB.using_map.full_name]. It might take a few seconds."))
-			return
-
-/datum/spawnpoint/cyborg
-	display_name = "Cyborg Storage"
-	msg = "has been activated from storage"
-	restrict_role = list("Robot")
-
-/datum/spawnpoint/cyborg/New()
-	..()
-	turfs = GLOB.latejoin_cyborg
-*/
-/datum/spawnpoint/default
-	display_name = DEFAULT_SPAWNPOINT_ID
-	msg = "has arrived on the station"
-	always_visible = TRUE
+	for(var/area/A in world)
+		if(istype(A, /area/unowned/metrotunnels))
+			turfs += A

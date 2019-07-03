@@ -278,7 +278,6 @@
 						vote_on_poll(pollid, optionid, 1)
 
 /mob/new_player/proc/AttemptLateSpawn(var/datum/role/role, var/spawning_at)
-
 	if(src != usr)
 		return 0
 	if(GAME_STATE != RUNLEVEL_GAME)
@@ -287,7 +286,6 @@
 	if(!config.enter_allowed)
 		to_chat(usr, "<span class='notice'>There is an administrative lock on entering the game!</span>")
 		return 0
-
 	if(!role || !role.is_available(client))
 		alert("[role.title] is not available. Please try another.")
 		return 0

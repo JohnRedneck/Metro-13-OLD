@@ -425,7 +425,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		to_chat(usr, "<font color='red'>There is no active key like that in the game or the person is not currently a ghost.</font>")
 		return
 
-	var/mob/living/carbon/human/new_character = new(pick(GLOB.debugspawn))//The mob being spawned.
+	var/mob/living/carbon/human/new_character = new(pick(/datum/spawnpoint/vagrantspawn/*GLOB.vagrantspawn*/))//The mob being spawned.
 	/*
 	var/datum/computer_file/report/crew_record/record_found			//Referenced to later to either randomize or not randomize the character.
 	if(G_found.mind && !G_found.mind.active)

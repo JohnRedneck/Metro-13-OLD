@@ -5,8 +5,8 @@
 
 /world
 	mob = /mob/new_player
-	turf = /turf/space
-	area = /area/space
+	turf = /turf/simulated/floor/exoplanet/volcanic
+	area = /area/none
 	view = "15x15"
 	cache_lifespan = 7
 	hub = "Exadv1.spacestation13"

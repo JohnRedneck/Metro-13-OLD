@@ -17,7 +17,7 @@
 	var/list/alt_titles                   // List of alternate titles, if any and any potential alt. outfits as assoc values.
 	var/req_admin_notify                  // If this is set to 1, a text is printed to the player when roles are assigned, telling him that he should let admins know that he has to disconnect.
 	var/minimal_player_age = 0            // If you have use_age_restriction_for_roles config option enabled and the database set up, this option will add a requirement for players to be at least minimal_player_age days old. (meaning they first signed in at least that many days before.)
-	var/faction = null                    // Does this position have a faction tag?
+	var/faction = "Neutrals"              // Does this position have a faction tag?
 	var/lead_position = 0                 // Is this position a leader?
 	var/minimum_character_age = 0
 	var/ideal_character_age = 30
@@ -385,11 +385,15 @@
  *  which case a fallback will be selected.
  */
 /datum/role/proc/get_spawnpoint(var/client/C)
-
 	if(!C)
 		CRASH("Null client passed to get_spawnpoint_for() proc!")
 
 	var/mob/H = C.mob
+	to_chat(H, "<span class='warning'>title:([title]), faction:([faction]), faction_flag:([faction_flag])</span>")
+	for(var/spawntype in GLOB.using_map.allowed_spawns)
+		to_chat(H, "<span class='warning'>spawntype:([spawntype])</span>")
+	
+	
 	var/spawnpoint = C.prefs.spawnpoint
 	var/datum/spawnpoint/spawnpos
 
@@ -397,14 +401,15 @@
 		spawnpoint = GLOB.using_map.default_spawn
 
 	if(spawnpoint)
+		to_chat(H, "<span class='warning'>spawnpoint:([spawnpoint])</span>")
 		if(!(spawnpoint in GLOB.using_map.allowed_spawns))
 			if(H)
 				to_chat(H, "<span class='warning'>Your chosen spawnpoint ([C.prefs.spawnpoint]) is unavailable for the current map. Spawning you at one of the enabled spawn points instead. To resolve this error head to your character's setup and choose a different spawn point.</span>")
 			spawnpos = null
-		else
+		else	
 			spawnpos = spawntypes()[spawnpoint]
 
-	if(spawnpos && !spawnpos.check_role_spawning(title))
+	if(spawnpos && !spawnpos.check_role_spawning(title, faction))
 		if(H)
 			to_chat(H, "<span class='warning'>Your chosen spawnpoint ([spawnpos.display_name]) is unavailable for your chosen role ([title]). Spawning you at another spawn point instead.</span>")
 		spawnpos = null
@@ -413,7 +418,7 @@
 		// Step through all spawnpoints and pick first appropriate for role
 		for(var/spawntype in GLOB.using_map.allowed_spawns)
 			var/datum/spawnpoint/candidate = spawntypes()[spawntype]
-			if(candidate.check_role_spawning(title))
+			if(candidate.check_role_spawning(title, faction))
 				spawnpos = candidate
 				break
 

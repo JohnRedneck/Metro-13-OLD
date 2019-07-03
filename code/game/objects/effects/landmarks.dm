@@ -14,61 +14,24 @@
 
 	//TODO clean up this mess
 	switch(name)			//some of these are probably obsolete
-		if("monkey")
-			GLOB.monkeystart += loc
+		if("reichspawn")
+			GLOB.reichspawn += loc
 			delete_me = 1
 			return
-		if("start")
-			GLOB.newplayer_start += loc
+		if("vdkhspawn")
+			GLOB.vdnkhspawn += loc
 			delete_me = 1
 			return
-		if ("debugspawn")
-			GLOB.debugspawn += loc
+		if("redlinespawn")
+			GLOB.redlinespawn += loc
 			delete_me = 1
 			return
 		/*
-		if("JoinLate")
-			GLOB.latejoin += loc
-			delete_me = 1
-			return
-		if("JoinLateGateway")
-			GLOB.latejoin_gateway += loc
-			delete_me = 1
-			return
-		if("JoinLateCryo")
-			GLOB.latejoin_cryo += loc
-			delete_me = 1
-			return
-		if("JoinLateCyborg")
-			GLOB.latejoin_cyborg += loc
-			delete_me = 1
-			return
-		if("prisonwarp")
-			GLOB.prisonwarp += loc
-			delete_me = 1
-			return
-		if("tdome1")
-			GLOB.tdome1 += loc
-		if("tdome2")
-			GLOB.tdome2 += loc
-		if("tdomeadmin")
-			GLOB.tdomeadmin += loc
-		if("tdomeobserve")
-			GLOB.tdomeobserve += loc
-		if("prisonsecuritywarp")
-			GLOB.prisonsecuritywarp += loc
+		if("vagrantspawn")
+			GLOB.vagrantspawn += loc
 			delete_me = 1
 			return
 		*/
-		if("endgame_exit")
-			endgame_safespawns += loc
-			delete_me = 1
-			return
-		if("bluespacerift")
-			endgame_exits += loc
-			delete_me = 1
-			return
-
 	landmarks_list += src
 	return 1
 
