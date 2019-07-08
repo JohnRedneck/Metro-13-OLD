@@ -7,3 +7,4 @@
 
 # not_a_user - Admin
 Wallawallabingbang - Host
+BennettIsDrunk - Host
