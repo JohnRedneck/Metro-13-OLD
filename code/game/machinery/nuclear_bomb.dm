@@ -465,9 +465,11 @@ var/bomb_set
 /obj/machinery/nuclearbomb/station/Initialize()
 	. = ..()
 	verbs -= /obj/machinery/nuclearbomb/verb/toggle_deployable
+	/*
 	for(var/turf/simulated/floor/T in get_area(src))
 		if(istype(T.flooring, /decl/flooring/reinforced/circuit/red))
 			flash_tiles += T
+	*/
 	update_icon()
 	for(var/obj/machinery/self_destruct/ch in get_area(src))
 		inserters += ch
@@ -558,10 +560,12 @@ var/bomb_set
 		icon_state = "idle"
 
 	if(!last_turf_state || target_icon_state != last_turf_state)
+		/*
 		for(var/thing in flash_tiles)
 			var/turf/simulated/floor/T = thing
 			if(!istype(T.flooring, /decl/flooring/reinforced/circuit/red))
 				flash_tiles -= T
 				continue
 			T.icon_state = target_icon_state
+		*/
 		last_turf_state = target_icon_state

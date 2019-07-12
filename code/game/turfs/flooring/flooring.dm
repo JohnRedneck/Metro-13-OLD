@@ -35,15 +35,26 @@
 /decl/flooring/proc/on_remove()
 	return
 
-/decl/flooring/grass
+/decl/flooring/ground/grass
 	name = "grass"
-	desc = "Do they smoke grass out in space, Bowie? Or do they smoke AstroTurf?"
-	icon = 'icons/turf/flooring/grass.dmi'
+	desc = "haha the weed lmao"
+	icon = 'icons/turf/flooring/ground.dmi'
 	icon_base = "grass"
 	has_base_range = 3
 	damage_temperature = T0C+80
 	flags = TURF_HAS_EDGES | TURF_REMOVE_SHOVEL
 	build_type = /obj/item/stack/tile/grass
+	can_engrave = FALSE
+
+/decl/flooring/ground/sandydirt
+	name = "sandydirt"
+	desc = "Not satisfying or crunchy."
+	icon = 'icons/turf/flooring/ground.dmi'
+	icon_base = "sandydirt"
+	//has_base_range = 3
+	damage_temperature = T0C+80
+	flags = TURF_HAS_EDGES | TURF_REMOVE_SHOVEL
+	build_type = null///obj/item/stack/tile/grass
 	can_engrave = FALSE
 
 /decl/flooring/asteroid
@@ -237,23 +248,6 @@
 	apply_heat_capacity = 325000
 	can_paint = 1
 	footstep_type = FOOTSTEP_PLATING
-
-/decl/flooring/reinforced/circuit
-	name = "processing strata"
-	icon = 'icons/turf/flooring/circuit.dmi'
-	icon_base = "bcircuit"
-	build_type = null
-	flags = TURF_ACID_IMMUNE | TURF_CAN_BREAK | TURF_REMOVE_WRENCH
-	can_paint = 1
-	can_engrave = FALSE
-
-/decl/flooring/reinforced/circuit/green
-	icon_base = "gcircuit"
-
-/decl/flooring/reinforced/circuit/red
-	icon_base = "rcircuit"
-	flags = TURF_ACID_IMMUNE
-	can_paint = 0
 
 /decl/flooring/reinforced/cult
 	name = "engraved floor"

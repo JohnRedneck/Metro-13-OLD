@@ -5,7 +5,7 @@
 
 /world
 	mob = /mob/new_player
-	turf = /turf/simulated/floor/exoplanet/volcanic
+	turf = /turf/simulated/floor/ground/sandydirt
 	area = /area/none
 	view = "15x15"
 	cache_lifespan = 7
