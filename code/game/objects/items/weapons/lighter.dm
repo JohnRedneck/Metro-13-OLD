@@ -129,9 +129,51 @@
 	random_colour = TRUE
 
 /******
- Zippo
+ Bullet Lighter
 ******/
-/obj/item/weapon/flame/lighter/zippo
+/obj/item/weapon/flame/lighter/bulletlighter
+	name = "bullet lighter"
+	desc = "It's a lighter inside a 12.7mm bullet casing."
+	icon_state = "bullet_lighter"
+	item_state = "bullet_lighter"
+
+/obj/item/weapon/flame/lighter/zippo/on_update_icon()
+	var/datum/extension/base_icon_state/bis = get_extension(src, /datum/extension/base_icon_state)
+
+	overlays.Cut()
+	if(lit)
+		icon_state = "[bis.base_icon_state]_open"
+		item_state = "[bis.base_icon_state]_open"
+		overlays += overlay_image(icon, "[bis.base_icon_state]_flame", flags=RESET_COLOR)
+	else
+		icon_state = "[bis.base_icon_state]"
+		item_state = "[bis.base_icon_state]"
+
+/obj/item/weapon/flame/lighter/zippo/light_effects(mob/user)
+	user.visible_message("<span class='rose'>Without even breaking stride, [user] flips open and lights [src] in one smooth movement.</span>")
+	playsound(src.loc, 'sound/items/zippo_open.ogg', 100, 1, -4)
+
+/obj/item/weapon/flame/lighter/zippo/shutoff_effects(mob/user)
+	user.visible_message("<span class='rose'>You hear a quiet click, as [user] shuts off [src] without even looking at what they're doing.</span>")
+	playsound(src.loc, 'sound/items/zippo_close.ogg', 100, 1, -4)
+
+//Legacy icon states for custom items
+/obj/item/weapon/flame/lighter/bulletlighter/custom/Initialize()
+	. = ..()
+	color = null
+
+/obj/item/weapon/flame/lighter/zippo/custom/on_update_icon()
+	var/datum/extension/base_icon_state/bis = get_extension(src, /datum/extension/base_icon_state)
+
+	if(lit)
+		icon_state = "[bis.base_icon_state]_on"
+		item_state = "[bis.base_icon_state]_on"
+	else
+		icon_state = "[bis.base_icon_state]"
+		item_state = "[bis.base_icon_state]"
+
+
+/obj/item/weapon/flame/lighter/bulletlighter
 	name = "zippo lighter"
 	desc = "It's a zippo-styled lighter, using a replacable flint in a fetching steel case. It makes a clicking sound that everyone loves."
 	icon_state = "zippo"
